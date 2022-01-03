@@ -1,0 +1,19 @@
+```{r}
+# since loading the data takes awhile, only do this if necessary
+if(!exists("dat")){
+    dat <- read.dta13("data/AHwave1_v1.dta")
+}
+# birth year = h1gi1y
+# drop "Refused" birth year
+# for birth year and interview year, replace anything before white space, convert to numeric
+# subtract interview year - birth year
+ages <- dat %>% 
+    filter(! str_detect(h1gi1y, "Refused")) %>% 
+    select(iyear, h1gi1y) %>% 
+    mutate(yi = str_replace(iyear, ".*\\s", "") %>% as.numeric(),
+           yb = str_replace(h1gi1y, ".*\\s", "") %>% as.numeric(),
+           age = yi - yb)
+           
+# create a histogram using base graphics
+hist(ages$age, xlab = "age (years)", las = 1)
+```

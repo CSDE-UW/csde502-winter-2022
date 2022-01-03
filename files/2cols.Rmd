@@ -1,0 +1,62 @@
+---
+title: "Untitled"
+author: "Philip M. Hurvitz"
+date: "3/14/2021"
+output: 
+    bookdown::html_document2:
+        number_sections: true
+        self_contained: true
+        code_folding: hide
+        toc: true
+        toc_float:
+            collapsed: true
+            smooth_scroll: false
+---
+
+
+
+```{r setup}
+library(kableExtra)
+suppressPackageStartupMessages(library(tidyverse))
+knitr::opts_chunk$set(echo = TRUE)
+```
+<!--Create two equal columns that float next to each other -->
+<style>
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+
+
+# Two columns
+
+<div class="row">
+<!--first column: table-->
+  <div class="column">
+```{r cars}
+summary(cars) %>% 
+    kable(caption = "foo") %>% 
+    kable_styling(full_width = FALSE,
+                  position = "left")
+```
+
+  </div>
+  <div class="column">
+
+<!--second column: figure-->
+```{r pressure, fig.cap="bar"}
+plot(pressure)
+```
+
+  </div>
+</div>
+

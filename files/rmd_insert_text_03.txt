@@ -1,0 +1,3 @@
+```{r plotcars, fig.cap="Cars: speed and distance"}
+plot(cars)
+```
