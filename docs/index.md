@@ -1,7 +1,7 @@
 --- 
 title: "UW CSDE 502 A Course Notes"
 author: "Phil Hurvitz"
-date: "2022-01-04"
+date: "2022-01-05"
 site: bookdown::bookdown_site
 #description: "These are the course notes for Proseminar Winter 2022 (CSDE 502 A) at the University of Washington."
 
@@ -12,6 +12,13 @@ suppress-bibliography: true
 ---
 
 
+
+:::{.rmdcaution}
+<center>
+**CAUTION**
+Material on these pages will be in major flux until the first class of the quarter!
+</center>
+:::
 
 # Introduction and Welcome! {.unnumbered}
 
@@ -248,6 +255,13 @@ knitr::opts_chunk$set(echo = FALSE)
 year <- Sys.Date() %>% format("%Y")
 syllabus <- paste0("csde502_syllabus_", year, ".pdf")
 ```
+
+:::{.rmdcaution}
+<center>
+**CAUTION**
+Material on these pages will be in major flux until the first class of the quarter!
+</center>
+:::
 
 # Introduction and Welcome! {.unnumbered}
 

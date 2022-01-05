@@ -18,7 +18,7 @@ library(kableExtra)
     * Employee turnover data
 
 ## Getting started on Terminal Server 4 {#gettingstarted}
-First, if you are not on campusmake sure you have the Husky OnNet VPN application running and have connected to the UW network. You should see the f5 icon in your task area:
+First, if you are not on campus, make sure you have the Husky OnNet VPN application running and have connected to the UW network. You should see the f5 icon in your task area:
 
 ![](images/week01/2021-01-07_21_40_25-.png)
 

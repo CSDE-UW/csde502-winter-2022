@@ -25,6 +25,7 @@ figure_nums <- captioner(prefix = "Figure")
     border-style: solid; } 
 </style>
 
+<h2>Topics: Graphics and Tables in R; Captions and cross-references; Census data; Mapping; Human Mortality Database</h2>
 
 
     * [`tidycensus`](https://walker-data.com/tidycensus/): download census data easily
@@ -43,7 +44,6 @@ figure_nums <- captioner(prefix = "Figure")
 
 
 
-<h2>Topics: Graphics and Tables in R; Captions and cross-references; Census data; Mapping; Human Mortality Database</h2>
 
 Because of its extensibility, HTML can be considered a preferred output from R Markdown. However, document formats are often necessary, particularly for term papers, theses/dissertations, and manuscripts for submission to scholarly journals. In this week's lesson, we will focus on the creation of these two output types, including adding bibliographies (which also applies to HTML output), and some basic `ggplot` graphics. 
 
@@ -121,8 +121,17 @@ x <- dev.off()
 `ggplot2` graphics can be saved using `ggsave()`, e.g., for both PDF and PNG outputs. The `dpi` argument is important for bitmap images.
 
 ```{r}
-ggsave(filename = "ah_age_hist_ggplot.pdf", plot = g, device = "pdf", width = 5, height = 5)
-ggsave(filename = "ah_age_hist_ggplot.png", plot = g, device = "png", width = 5, height = 5, units = "in", dpi = 300)
+ggsave(
+    filename = "ah_age_hist_ggplot.pdf",
+    plot = g, device = "pdf",
+    width = 5, height = 5
+)
+ggsave(
+    filename = "ah_age_hist_ggplot.png",
+    plot = g, device = "png", 
+    width = 5, height = 5, 
+    units = "in", dpi = 300
+)
 ```
 
 Graphics can be added using several methods.

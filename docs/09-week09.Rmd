@@ -366,11 +366,12 @@ It took `r csvwrite_time` s to write `r csvsize` bytes as CSV, and `r fstwrite_t
 
 ___It should be noted___ that some file attributes will not be saved in FST format and therefore it should be used with caution if you have a highly attributed data set (e.g., a Stata DTA file with extensive labeling). You will lose those attributes! But for data sets with a simple structure, including factors, the FST format is a good option.
 
-## Getting US Census data with `tigris`, `tidycensus`
+## Load US Census Boundary and Attribute Data as 'tidyverse' and 'sf'-Ready Data Frames: `tigris`, `tidycensus`
 Dealing with US Census data can be overwhelming, particularly if using the raw text-based data. The Census Bureau has an API that allows more streamlined downloads of variables (as data frames) and geographies (as simple format shapes). It is necessary to get an API key, available for free. See [tidycensus](https://walker-data.com/tidycensus/) and  [tidycensus basic usage](https://walker-data.com/tidycensus/articles/basic-usage.html).
 
 `tidycensus` uses [`tigris`](https://www.rdocumentation.org/packages/tigris/versions/1.0), which downloads the geographic data portion of the census files.
 
+### Download data
 A simple example will download the variables representing the count of White, Black/African American, American Indian/Native American, and Asian persons from the American Community Survey (ACS) data for King County in 2019. For this example to run, you need to have your US Census API key installed, e.g., 
 
 <tt>
@@ -416,7 +417,7 @@ ctdat <- get_acs(
 )
 ```
 
-A few values are shown in Table \@ref(tab:census), and a simple map is shown in \@ref(fig:ct), with percent African American residents and tract identifier.
+A few values are shown in Table \@ref(tab:census)
 
 ```{r census}
 # print a few records
@@ -425,6 +426,9 @@ ctdat %>%
     kable(caption = "Selected census tract variables from the 5-year ACS from 2019 for King County, WA") %>%
     kable_styling(full_width = FALSE, position = "left")
 ```
+
+### Mapping census data 
+A `leaflet` simple map is shown in \@ref(fig:ct), with percent African American residents and tract identifier.
 
 ```{r ct, fig.cap="Percent African American in census tracts in King County, 2019 ACS 5-year estimate", warning=FALSE, message=FALSE}
 library(leaflet)
@@ -479,6 +483,7 @@ m <- leaflet(height = "500px") %>%
             direction = "auto"
         )
     ) %>%
+    # legend
     addLegend(
         position = "bottomright", pal = pal2, values = ctdat$pct_black,
         title = "% African American",
@@ -486,6 +491,13 @@ m <- leaflet(height = "500px") %>%
     )
 m %>% addTiles()
 ```
+
+### Creating population pyramids from census data
+See [Estimates of population characteristics](https://walker-data.com/tidycensus/articles/other-datasets.html#estimates-of-population-characteristics-1)
+
+Refer back to 533 Week 2 age structure; Week 7 interpreting age structure
+
+
 
 
 ## Easier regular expressions with `RVerbalExpressions`

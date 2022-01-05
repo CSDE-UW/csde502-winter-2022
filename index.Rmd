@@ -3,7 +3,7 @@ title: "UW CSDE 502 A Course Notes"
 author: "Phil Hurvitz"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-#description: "These are the course notes for Proseminar Winter 2022 (CSDE 502 A) at the University of Washington."
+description: "These are the course notes for Proseminar Winter 2022 (CSDE 502 A) at the University of Washington."
 
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike

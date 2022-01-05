@@ -106,13 +106,13 @@ Topics: Functions and sampling
     statement(s)
 }</code></pre>
 <p>For example, to square a vector of numerical values:</p>
-<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb291"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_square</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
     <span class="va">x</span><span class="op">^</span><span class="fl">2</span>
 <span class="op">}</span></code></pre></div>
 <p>the function name is <code>f_square</code>.</p>
 <p>Some functions are not named, and are referred to as “anonymous” functions. For example, functions can be used within the <code>apply</code> family of functions. Here is an oprationalized example.</p>
-<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb292"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create a list of three vectors of random numbers of different random lengths</span>
 
 <span class="co"># set.seed() makes the random process reproducible.</span>
@@ -129,7 +129,7 @@ Topics: Functions and sampling
 <span class="va">v3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">v.len</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>
 
 <span class="co"># create the list</span>
-<span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gsubfn/man/list.html">list</a></span><span class="op">(</span><span class="va">v1</span>, <span class="va">v2</span>, <span class="va">v3</span><span class="op">)</span>
+<span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">v1</span>, <span class="va">v2</span>, <span class="va">v3</span><span class="op">)</span>
 
 <span class="co"># get the first value from each vector in the list</span>
 <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">L</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">}</span><span class="op">)</span></code></pre></div>
@@ -153,7 +153,7 @@ Topics: Functions and sampling
 <p>Most functions require arguments. Arguments are used to instantiate variables within the function’s environment that can be used later in the body of the function. Each argument is named, and the name is used within the function as a local variable within the function’s environment.</p>
 <p>Following our example from above, <code>f_square</code> takes an argument named “x” that is a numeric vector.</p>
 <p>Here, let’s modify the function to demonstrate that within the environment of the function, <code>x</code> is a variable:</p>
-<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb295"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_square_2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"input:"</span><span class="op">)</span>
     <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
@@ -168,19 +168,19 @@ Topics: Functions and sampling
 <pre><code>## [1] 1 4 9</code></pre>
 <p>We can try running the function using different (or no) arguments:</p>
 <p>Here, using a vector of a single NA numeric</p>
-<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb300"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
 <p>… or a vector that contains a numeric NA:</p>
-<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb302"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1]  1  4 NA</code></pre>
 <p>… or a null:</p>
-<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb304"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square</span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></code></pre></div>
 <pre><code>## numeric(0)</code></pre>
 <p>… or a vector containing a null:</p>
-<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb306"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 1 4</code></pre>
 <p>… or with no argument at all:</p>
@@ -189,12 +189,12 @@ Topics: Functions and sampling
 <pre><code>## Error in f_square() : argument "x" is missing, with no default</code></pre>
 <p></p>
 <p>Some functions do not require arguments, e.g., to get the current date or time:</p>
-<div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb310"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "2022-01-02"</code></pre>
-<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
+<pre><code>## [1] "2022-01-05"</code></pre>
+<div class="sourceCode" id="cb312"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "2022-01-02 21:13:59 PST"</code></pre>
+<pre><code>## [1] "2022-01-05 15:42:33 PST"</code></pre>
 <p>… and if we try to use an argument we get an error:</p>
 <pre><code>Sys.Date(1)</code></pre>
 <p><font color="red"></font></p>
@@ -205,7 +205,7 @@ Topics: Functions and sampling
 <span class="header-section-number">4.2.1.2.1</span> Default values for arguments<a class="anchor" aria-label="anchor" href="#default-values-for-arguments"><i class="fas fa-link"></i></a>
 </h5>
 <p>If you want an argument to have a default value, it is specified in the listed arguments in the form <code>argument = value</code>. Following our previous <code>f_square_2()</code> function, we can modify to print the input based on the logical argument <code>verbose</code>:</p>
-<div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_square_3</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">verbose</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">{</span>
     <span class="co"># only run the next lines if verbose is true</span>
     <span class="kw">if</span><span class="op">(</span><span class="va">verbose</span><span class="op">)</span><span class="op">{</span>
@@ -216,11 +216,11 @@ Topics: Functions and sampling
     <span class="va">x</span><span class="op">^</span><span class="fl">2</span>
 <span class="op">}</span></code></pre></div>
 <p>Here we run with the default <code>verbose</code> option (<code>FALSE</code>):</p>
-<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square_3</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 1 4 9</code></pre>
 <p>… and with <code>verbose = TRUE</code>:</p>
-<div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb319"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square_3</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>## input:</code></pre>
 <pre><code>## [1] 1 2 3</code></pre>
@@ -230,7 +230,7 @@ Topics: Functions and sampling
 <p>The cut points for accelerometry were identified at 0, 2690, 6167, and 9642 counts per minute, from Sasaki et al. (2011).</p>
 <p>__Sasaki JE, John D, Freedson PS. Validation and comparison of ActiGraph activity monitors. J Sci Med Sport. 2011;14(5):411-416. <a href="doi:10.1016/j.jsams.2011.04.003__" class="uri">doi:10.1016/j.jsams.2011.04.003__</a></p>
 <p>The variable <code>vm3</code> is the vector magnitude measured with the accelerometer for each minute. Data: <a href="files/accelerometry.csv">accelerometry.csv</a>.</p>
-<div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb324"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">acc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"files/accelerometry.csv"</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">acc</span><span class="op">)</span></code></pre></div>
@@ -242,21 +242,21 @@ Topics: Functions and sampling
 ## 5 2018-09-13 02:55:00-07   0
 ## 6 2018-09-13 02:54:00-07   0</code></pre>
 <p>The following function codes intensity by the aforementioned cut points by default and using default labels:</p>
-<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb326"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_acc_intensity</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, 
                             <span class="va">cuts</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">2690</span>, <span class="fl">6167</span>, <span class="fl">9642</span>, <span class="cn">Inf</span><span class="op">)</span>,
                             <span class="va">labels</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sedentary/low"</span>, <span class="st">"moderate"</span>, <span class="st">"vigorous"</span>, <span class="st">"very vigorous"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">acc</span><span class="op">$</span><span class="va">vm3</span>, breaks <span class="op">=</span> <span class="va">cuts</span>, labels <span class="op">=</span> <span class="va">labels</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>… and when run with the defaults to tabulate the minutes spent in different PA levels</p>
-<div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">acc</span><span class="op">$</span><span class="va">intens_default</span> <span class="op">&lt;-</span> <span class="fu">f_acc_intensity</span><span class="op">(</span><span class="va">acc</span><span class="op">$</span><span class="va">vm3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">acc</span><span class="op">$</span><span class="va">intens_default</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ## sedentary/low      moderate      vigorous very vigorous 
 ##          1435             4             1             0</code></pre>
 <p>But we could run this with different thresholds and levels, where SPLA = “sedentary/low physical activity” and MVPA = “moderate-to-very vigorous physical activity):</p>
-<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb329"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">acc</span><span class="op">$</span><span class="va">intens_2lev</span> <span class="op">&lt;-</span> <span class="fu">f_acc_intensity</span><span class="op">(</span>x <span class="op">=</span> <span class="va">acc</span><span class="op">$</span><span class="va">vm3</span>,
                                 cuts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">2690</span>, <span class="cn">Inf</span><span class="op">)</span>,
                                 labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"SLPA"</span>, <span class="st">"MVVPA"</span><span class="op">)</span><span class="op">)</span>
@@ -286,18 +286,18 @@ Topics: Functions and sampling
 </h4>
 <p>The return value is either the last evaluated expression in the function or an object specified using the <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> function.</p>
 <p>In our original <code>f_square()</code> function, the return value is <code>x^2</code> since no other <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> value was specified, e.g., for a vector of one element:</p>
-<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb332"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_square</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
     <span class="va">x</span><span class="op">^</span><span class="fl">2</span>
 <span class="op">}</span>
 <span class="fu">f_square</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 9</code></pre>
 <p>or a vector with multiple elements:</p>
-<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb334"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 1 4 9</code></pre>
 <p>An simple example of explicitly specifying return values is shown in this numerical comparison function:</p>
-<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_compare</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">{</span>
     <span class="co"># either missing?</span>
     <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nargs.html">nargs</a></span><span class="op">(</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">2</span><span class="op">)</span>
@@ -318,7 +318,7 @@ Topics: Functions and sampling
     <span class="op">}</span>
 <span class="op">}</span></code></pre></div>
 <p>If you want to handle an expected error, you can print an informative message and use <code>return(invisible())</code>, which returns nothing at all (whereas <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> results in a <code>NULL</code>) e.g., here without <code><a href="https://rdrr.io/r/base/invisible.html">invisible()</a></code>:</p>
-<div class="sourceCode" id="cb250"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb337"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_readfile</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">fname</span><span class="op">)</span><span class="op">{</span>
     <span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="va">fname</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
         <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">fname</span>, <span class="st">"does not exist!"</span><span class="op">)</span><span class="op">)</span>
@@ -332,7 +332,7 @@ Topics: Functions and sampling
 <pre><code>## Warning in f_readfile("foobar.txt"): foobar.txt does not exist!</code></pre>
 <pre><code>## NULL</code></pre>
 <p>… and with <code><a href="https://rdrr.io/r/base/invisible.html">invisible()</a></code>:</p>
-<div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb340"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_readfile</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">fname</span><span class="op">)</span><span class="op">{</span>
     <span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="va">fname</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
         <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">fname</span>, <span class="st">"does not exist!"</span><span class="op">)</span><span class="op">)</span>
@@ -350,7 +350,7 @@ Topics: Functions and sampling
 <span class="header-section-number">4.2.1.5</span> Function environments<a class="anchor" aria-label="anchor" href="#function-environments"><i class="fas fa-link"></i></a>
 </h4>
 <p>As mentioned before, functions instantiate environments that exist only while the function is being evaluated. This means that functions can include named variables that have the same name as a variable in a different environment. For example here is a function that only lists what objects are in the local and global environments:</p>
-<div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb342"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># declare a few variables</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="st">"hello"</span>
@@ -389,7 +389,7 @@ Topics: Functions and sampling
 ## [1] "----------"</code></pre>
 <pre><code>## [1] 3</code></pre>
 <p>Once the function completes, all objects in its local environment are purged. If you are running a complicated function that creates intermediate values that you want to examine for troubleshooting, this kind of thing can be done, to assign a variable with a specific value to a different environment created specifically for examining the intermediate products of the function:</p>
-<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb345"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create an environment for holding intermediate objects created in the function run</span>
 <span class="va">foo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html">new.env</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">g</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
@@ -408,7 +408,7 @@ Topics: Functions and sampling
     <span class="co"># ...</span>
 <span class="op">}</span></code></pre></div>
 <p>When the function runs, the objects <code>bar</code> and <code>foobar</code> are placed in the <code>foo</code> environment. We can examine those:</p>
-<div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># run the function</span>
 <span class="fu">g</span><span class="op">(</span><span class="op">)</span>
 
@@ -416,7 +416,7 @@ Topics: Functions and sampling
 <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span>envir <span class="op">=</span> <span class="va">foo</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "bar"    "foobar"</code></pre>
 <p>And we can view their values:</p>
-<div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb348"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">foo</span><span class="op">$</span><span class="va">bar</span><span class="op">)</span></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
@@ -425,7 +425,7 @@ Topics: Functions and sampling
 ## 4          4.6         3.1          1.5         0.2  setosa
 ## 5          5.0         3.6          1.4         0.2  setosa
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb350"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">foo</span><span class="op">$</span><span class="va">foobar</span><span class="op">)</span></code></pre></div>
 <pre><code>##   speed dist
 ## 1     4    2
@@ -448,7 +448,7 @@ Topics: Functions and sampling
 <span class="header-section-number">4.3.1</span> Sampling with replacement<a class="anchor" aria-label="anchor" href="#sampling-with-replacement"><i class="fas fa-link"></i></a>
 </h3>
 <p>Sampling with replacement is similar to rolling a die. Each roll of the die has a 1/6 probability of coming up with each value. For example:</p>
-<div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb352"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create a vector to represent the faces of a die</span>
 <span class="va">d</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>
 
@@ -460,7 +460,7 @@ Topics: Functions and sampling
 <pre><code>## s
 ##     1     2     3     4     5     6 
 ## 16391 16931 16557 16728 16609 16784</code></pre>
-<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># proportions</span>
 <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="va">tbs</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## s
@@ -490,7 +490,7 @@ Topics: Functions and sampling
 }</code></pre>
 <p>A few simple examples follow.</p>
 <p>Print each letter in the first 5 letters of the alphabet. In this example, the iterated element is a letter. The built in vector <code>letters</code> is used:</p>
-<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb357"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">letters</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
@@ -500,7 +500,7 @@ Topics: Functions and sampling
 ## [1] "d"
 ## [1] "e"</code></pre>
 <p>A similar approach, but using a numerical index:</p>
-<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">states_5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">state.name</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">states_5</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
     <span class="va">s</span> <span class="op">&lt;-</span> <span class="va">states_5</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>
@@ -512,7 +512,7 @@ Topics: Functions and sampling
 ## [1] "Arkansas"
 ## [1] "California"</code></pre>
 <p>The bootstrap will use 5,000 samples of size 100 from our hypothetical population to estimate the proportion of females.</p>
-<div class="sourceCode" id="cb274"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create the population</span>
 <span class="co"># 1 indicates female and 0 indicates male</span>
 <span class="va">pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5e4</span> <span class="op">*</span> <span class="fl">3</span> <span class="op">/</span> <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5e4</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">/</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
@@ -533,11 +533,11 @@ Topics: Functions and sampling
 <span class="co"># mean and standard deviation of the bootstrap</span>
 <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="cn">F</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.600582</code></pre>
-<div class="sourceCode" id="cb276"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="cn">F</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.04883276</code></pre>
 <p>Using the bootstrap results, we can estimate the 95% confidence interval around the mean using the <code><a href="https://rdrr.io/pkg/Rmisc/man/CI.html">Rmisc::CI()</a></code> function, and make a density plot showing the mean and the confidence interval.</p>
-<div class="sourceCode" id="cb278"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># 95% CI</span>
 <span class="va">ci_95</span> <span class="op">&lt;-</span> <span class="fu">Rmisc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Rmisc/man/CI.html">CI</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">F</span>, ci <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span>
 
@@ -1092,7 +1092,7 @@ Topics: Functions and sampling
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-01-02.</p>
+    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-01-05.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
