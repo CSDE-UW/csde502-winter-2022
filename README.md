@@ -1,5 +1,3 @@
 Welcome! 
 
-These are the course notes for Research Methods in Demography, a course cross-listed as SOC/CS&SS 533 A at the University of Washington.
-
-These notes are a work in progress.
+These are the course notes for Proseminar CSDE 502 A, Winter 2022 at the University of Washington.
