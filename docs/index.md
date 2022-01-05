@@ -1,7 +1,7 @@
 --- 
 title: "UW CSDE 502 A Course Notes"
 author: "Phil Hurvitz"
-date: "2022-01-02"
+date: "2022-01-04"
 site: bookdown::bookdown_site
 #description: "These are the course notes for Proseminar Winter 2022 (CSDE 502 A) at the University of Washington."
 
@@ -135,11 +135,14 @@ A link to the SafeCampus program is below:
 :::
 
 ## Course calendar {.unnumbered}
-### Week 1 {.unnumbered}
+<h3> Week 1</h3>
 * **Topics**
+    * Course introduction
+    * Getting started with CSDE terminal server 4
+    * [Introduction to R/RStudio/RMarkdown](#intrormd)
     * R data types
     * R data structures
-    * R native pipes (`magrittr` and `tidyverse`)
+    * R pipes (`magrittr`. `tidyverse`, and native pipes)
     * Data manipulation in the `tidyverse`
     * Employee turnover data
         * [Babushkin data](https://github.com/teuschb/hr_data/blob/master/datasets/turnover_babushkin.csv)
@@ -147,59 +150,67 @@ A link to the SafeCampus program is below:
         * [Ben's attrition rate code](https://github.com/hanowell/uwsoc533a/blob/main/gists/employee-turnover-gist.R)
 * **Assignment**: 
 
-### Week 2 {.unnumbered}
+<h3> Week 2</h3>
 * **Topics**
-    * Code blocks in R Markdown
-    * Graphs in R Markdown
-    * Tables in R Markdown
-    * Equations in R Markdown
-    * HTML output from R Markdown
+    * Rmarkdown
+        * Code blocks in R Markdown
+        * Graphs in R Markdown
+        * Tables in R Markdown
+        * Equations in R Markdown
+        * HTML output from R Markdown
     * [Keyring: securely store secrets](https://cran.r-project.org/web/packages/keyring/)
     * Data:
         * [Human Mortality Database](https://www.mortality.org/)
         * [Human Fertility Database](https://www.humanfertility.org/cgi-bin/main.php)
         * [HMDHFDplus: Read Human Mortality Database and Human Fertility Database Data from the Web](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
-    [Ben's code for reading HMD and HFD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R)
+    * [Ben's code for reading HMD and HFD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R)
 * **Assignment**: 
 
-### Week 3 {.unnumbered}
+<h3>Week 3</h3>
 * **Topics**: 
-    * [`tidycensus`](https://walker-data.com/tidycensus/): download census data easily
-    * [`idbr: R Interface to the US Census Bureau International Data Base API`](https://cran.r-project.org/web/packages/idbr/index.html)
-    * [`sf: Simple Features for R`](https://cran.r-project.org/web/packages/sf/): GIS in R!
-    * [`leaflet: Create Interactive Web Maps with the JavaScript 'Leaflet' Library`](https://cran.r-project.org/web/packages/leaflet/)
-    * [`mapview: Interactive Viewing of Spatial Data in R`](https://cran.r-project.org/web/packages/mapview/)
-    * Life Tables with [`demogR`](https://cran.r-project.org/web/packages/demogR/index.html), [`demography`](https://cran.r-project.org/web/packages/demography/) ([`demography`](https://rpubs.com/Timexpo/487053))
+    * [`tidycensus`](https://walker-data.com/tidycensus/): Load US Census Boundary and Attribute Data as 'tidyverse' and 'sf'-Ready Data Frames
+    * [`idbr`](https://cran.r-project.org/web/packages/idbr/index.html): R Interface to the US Census Bureau International Data Base API
+    * [`sf: Simple Features for R`](https://cran.r-project.org/web/packages/sf/): Simple Features (GIS) for R
+    * [`leaflet`](https://cran.r-project.org/web/packages/leaflet/): Create Interactive Web Maps with the JavaScript 'Leaflet' Library
+    * [`mapview`](https://cran.r-project.org/web/packages/mapview/): Interactive Viewing of Spatial Data in R
+    * [`demogR`](https://cran.r-project.org/web/packages/demogR/index.html): Analysis of Age-Structured Demographic Models
+    * [`demography`](https://cran.r-project.org/web/packages/demography/): : Forecasting Mortality, Fertility, Migration and Population Data
+    * Pretty printouts of life tables with `flextable` and `DT`
+        * [An R intro to the demography package](https://rpubs.com/Timexpo/487053))
     * Data:
         * Accessing Muman Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
-        * Pretty printouts of life tables with `flextable` and `DT`
 * **Assignment**: 
 
-### Week 4 {.unnumbered}
+<h3>Week 4</h3>
+* **Topics**: 
+    * R functions
+    * Sampling in R
+    * Revisiting [Ben's code for reading HMD and HFD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R)
+
+* **Assignment**: 
+
+<h3>Week 5</h3>
+* **Topics**: 
+    * Git: file versioning and code repository
+* **Assignment**: 
+
+<h3>Week 6</h3>
 * **Topics**: 
 * **Assignment**: 
 
-### Week 5 {.unnumbered}
+<h3>Week 7</h3>
 * **Topics**: 
 * **Assignment**: 
 
-### Week 6 {.unnumbered}
+<h3>Week 8</h3>
 * **Topics**: 
 * **Assignment**: 
 
-### Week 7 {.unnumbered}
+<h3>Week 9</h3>
 * **Topics**: 
 * **Assignment**: 
 
-### Week 8 {.unnumbered}
-* **Topics**: 
-* **Assignment**: 
-
-### Week 9 {.unnumbered}
-* **Topics**: 
-* **Assignment**: 
-
-### Week 10 {.unnumbered}
+<h3>Week 10</h3>
 * **Topics**: 
 * **Assignment**: 
 
@@ -360,11 +371,14 @@ A link to the SafeCampus program is below:
 :::
 
 ## Course calendar {.unnumbered}
-### Week 1 {.unnumbered}
+<h3> Week 1</h3>
 * **Topics**
+    * Course introduction
+    * Getting started with CSDE terminal server 4
+    * [Introduction to R/RStudio/RMarkdown](#intrormd)
     * R data types
     * R data structures
-    * R native pipes (`magrittr` and `tidyverse`)
+    * R pipes (`magrittr`. `tidyverse`, and native pipes)
     * Data manipulation in the `tidyverse`
     * Employee turnover data
         * [Babushkin data](https://github.com/teuschb/hr_data/blob/master/datasets/turnover_babushkin.csv)
@@ -372,59 +386,67 @@ A link to the SafeCampus program is below:
         * [Ben's attrition rate code](https://github.com/hanowell/uwsoc533a/blob/main/gists/employee-turnover-gist.R)
 * **Assignment**: 
 
-### Week 2 {.unnumbered}
+<h3> Week 2</h3>
 * **Topics**
-    * Code blocks in R Markdown
-    * Graphs in R Markdown
-    * Tables in R Markdown
-    * Equations in R Markdown
-    * HTML output from R Markdown
+    * Rmarkdown
+        * Code blocks in R Markdown
+        * Graphs in R Markdown
+        * Tables in R Markdown
+        * Equations in R Markdown
+        * HTML output from R Markdown
     * [Keyring: securely store secrets](https://cran.r-project.org/web/packages/keyring/)
     * Data:
         * [Human Mortality Database](https://www.mortality.org/)
         * [Human Fertility Database](https://www.humanfertility.org/cgi-bin/main.php)
         * [HMDHFDplus: Read Human Mortality Database and Human Fertility Database Data from the Web](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
-    [Ben's code for reading HMD and HFD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R)
+    * [Ben's code for reading HMD and HFD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R)
 * **Assignment**: 
 
-### Week 3 {.unnumbered}
+<h3>Week 3</h3>
 * **Topics**: 
-    * [`tidycensus`](https://walker-data.com/tidycensus/): download census data easily
-    * [`idbr: R Interface to the US Census Bureau International Data Base API`](https://cran.r-project.org/web/packages/idbr/index.html)
-    * [`sf: Simple Features for R`](https://cran.r-project.org/web/packages/sf/): GIS in R!
-    * [`leaflet: Create Interactive Web Maps with the JavaScript 'Leaflet' Library`](https://cran.r-project.org/web/packages/leaflet/)
-    * [`mapview: Interactive Viewing of Spatial Data in R`](https://cran.r-project.org/web/packages/mapview/)
-    * Life Tables with [`demogR`](https://cran.r-project.org/web/packages/demogR/index.html), [`demography`](https://cran.r-project.org/web/packages/demography/) ([`demography`](https://rpubs.com/Timexpo/487053))
+    * [`tidycensus`](https://walker-data.com/tidycensus/): Load US Census Boundary and Attribute Data as 'tidyverse' and 'sf'-Ready Data Frames
+    * [`idbr`](https://cran.r-project.org/web/packages/idbr/index.html): R Interface to the US Census Bureau International Data Base API
+    * [`sf: Simple Features for R`](https://cran.r-project.org/web/packages/sf/): Simple Features (GIS) for R
+    * [`leaflet`](https://cran.r-project.org/web/packages/leaflet/): Create Interactive Web Maps with the JavaScript 'Leaflet' Library
+    * [`mapview`](https://cran.r-project.org/web/packages/mapview/): Interactive Viewing of Spatial Data in R
+    * [`demogR`](https://cran.r-project.org/web/packages/demogR/index.html): Analysis of Age-Structured Demographic Models
+    * [`demography`](https://cran.r-project.org/web/packages/demography/): : Forecasting Mortality, Fertility, Migration and Population Data
+    * Pretty printouts of life tables with `flextable` and `DT`
+        * [An R intro to the demography package](https://rpubs.com/Timexpo/487053))
     * Data:
         * Accessing Muman Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
-        * Pretty printouts of life tables with `flextable` and `DT`
 * **Assignment**: 
 
-### Week 4 {.unnumbered}
+<h3>Week 4</h3>
+* **Topics**: 
+    * R functions
+    * Sampling in R
+    * Revisiting [Ben's code for reading HMD and HFD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R)
+
+* **Assignment**: 
+
+<h3>Week 5</h3>
+* **Topics**: 
+    * Git: file versioning and code repository
+* **Assignment**: 
+
+<h3>Week 6</h3>
 * **Topics**: 
 * **Assignment**: 
 
-### Week 5 {.unnumbered}
+<h3>Week 7</h3>
 * **Topics**: 
 * **Assignment**: 
 
-### Week 6 {.unnumbered}
+<h3>Week 8</h3>
 * **Topics**: 
 * **Assignment**: 
 
-### Week 7 {.unnumbered}
+<h3>Week 9</h3>
 * **Topics**: 
 * **Assignment**: 
 
-### Week 8 {.unnumbered}
-* **Topics**: 
-* **Assignment**: 
-
-### Week 9 {.unnumbered}
-* **Topics**: 
-* **Assignment**: 
-
-### Week 10 {.unnumbered}
+<h3>Week 10</h3>
 * **Topics**: 
 * **Assignment**: 
 

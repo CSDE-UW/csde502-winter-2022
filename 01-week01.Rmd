@@ -1,15 +1,24 @@
 # Week 1 {#week1}
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE, error=FALSE}
+library(tidyverse)
+library(magrittr)
 library(knitr)
 library(kableExtra)
 ```
 
-<h2>Topics: Getting started; Introduction to R/RStudio/RMarkdown; file systems</h2>
+<h2>Topics:</h2>
+* [Getting started on terminal server 4](#gettingstarted)
+* [Introduction to R/RStudio/RMarkdown](#intrormd)
+* [R data types](#rdatatypes)
+* [R data structures](#rdatastructures)
+* [File systems](#filesystems)
+* [Data sets:](#datasets001)
+    * Employee turnover data
 
-## Getting started on Terminal Server 4
-First, make sure you have the Husky OnNet VPN application running and have connected to the UW network. You should see the f5 icon in your task area:
+## Getting started on Terminal Server 4 {#gettingstarted}
+First, if you are not on campus, make sure you have the Husky OnNet VPN application running and have connected to the UW network. You should see the f5 icon in your task area:
 
 ![](images/week01/2021-01-07_21_40_25-.png)
 
@@ -55,7 +64,7 @@ Navigate into `H:` and create a new folder named `csde502_winter_2021`. Note the
 
 ![](images/week01/2021-01-07_22_32_29-new_folder.png)
 
-## Introduction to R Markdown in RStudio
+## Introduction to R Markdown in RStudio {#intrormd}
 ### Create a project
 Now we will use RStudio to create the first R Markdown source file and render it to HTML.
 
@@ -151,7 +160,309 @@ The new HTML file has a number of enhancements, including a table of contents at
 
 Including the source code for the document is especially useful for readers of your documents because it lets them see exactly what you did. An entire research chain can be documented in this way, from reading in raw data, performing data cleaning and analysis, and generating results.
 
-## File systems
+## R data types {#rdatatypes}
+There are six fundamental data types in R:
+
+1. logical
+1. numeric
+1. integer
+1. complex
+1. character
+1. raw
+
+The most atomic object in R will exist having one of those data types, described below. An atomic object of the data type can have a value, `NA` which represents an observation with no data (e.g., a missing measurement), or `NULL` which isn't really a value at all, but can still have the data type class.
+
+You will encounter other data types, such as `Date` or `POSIXct` if you are working with dates or time stamps. These other data types are extensions of the fundamental data types.
+
+To determine what data type an object is, use `is(obj)`, `str(obj)`, or `class(obj)`. 
+
+```{r}
+print(is("a"))
+
+print(str(TRUE))
+
+print(class(123.45))
+
+print(class(as.integer(1000)))
+
+n <- as.numeric(999999999999999999999)
+
+print(class(n))
+```
+
+### Logical
+Use `logical` values for characteristics that are either `TRUE` or `FALSE`. Note that if `logical` elements can also have an `NA` value if the observation is missing. In the following examples, 
+
+```{r}
+# evaluate as logical, test whether 1 is greater than two
+a <- 1 > 2
+```
+
+```{r}
+# create two numerical values, one being NA, representing ages
+age_john <- 39
+age_jane <- NA
+
+# logical NA from Jane's undefined age
+(jo <- age_john > 50)
+(ja <- age_jane > 50)
+```
+
+Logical values are often expressed in binary format as 0 = `FALSE` and ` = `TRUE`. in R these values are interconvertible. Other software (e.g., Excel, MS Access) may convert logical values to numbers that you do not expect.
+
+```{r}
+(t <- as.logical(1))
+(f <- as.logical(0))
+```
+
+### Numeric
+`Numeric` values are numbers with range about 2e-308 to 2e+308, depending on the computer you are using. You can see the possible range by entering `.Machine` at the R console. These can also include decimals. For more information, see [Double-precision floating-point format](https://en.wikipedia.org/wiki/Double-precision_floating-point_format)
+
+
+### Integer
+`Integer` values are numerical, but can only take on whole, rather than fractional values, and have a truncated range compared to `numeric`. For example, see below, if we try to create an integer that is out of range. The object we created is an integer, but because it is out of range, is value is set to `NA`.
+
+```{r}
+i <- as.integer(999999999999999999999)
+
+print(class(i))
+```
+
+### Complex
+The `complex` type is used in mathematics and you are unlikely to use it in applied social science research unless you get into some heavy statistics. See [Complex number](https://en.wikipedia.org/wiki/Complex_number) for a full treatment.
+
+### Character
+`Character` data include the full set of keys on your keyboard that print out a character, typically [A-Z], [a-z], [0-9], punctuation, etc. The full set of ASCII characters is supported, e.g. the `accent aigu` in CafÃ©:
+
+```{r}
+print(class("CafÃ©"))
+```
+
+Also numbers can function as characters. Be careful in converting between numerical and character versions. For example, see these ZIP codes:
+
+```{r error=TRUE}
+# this is a character
+my_zip <- "98115"
+
+# it is not numeric.
+my_zip + 2
+```
+
+```{r}
+# we can convert it to numeric, although it would be silly to do with ZIP codes, which are nominal values
+as.numeric(my_zip) + 2
+
+# Boston has ZIP codes starting with zeros
+boston_zip <- "02134"
+as.numeric(boston_zip)
+```
+
+### Raw
+`Raw` values are used to store raw bytes in hexadecimal format. You are unlikely to use it in applied social science research. For example, the hexadecimal value for the character `z` is `7a`:
+
+```{r}
+print(charToRaw("z"))
+
+class(charToRaw("z"))
+```
+
+
+## R data structures {#rdatastructures}
+
+![](images/week02/data_structures.png)
+
+There are 5 basic data structures in R, as shown in the graphic: 
+
+1. vector
+1. matrix
+1. array
+1. list
+1. data frame
+
+In addition, the `factor` data type is very important
+
+### Vector
+A vector is an ordered set of elements of one or more elements of the same data type and are created using the `c()` constructor function. For example, a single value is a vector:
+
+```{r}
+# create a vector of length 1
+a <- 1
+is(a)
+```
+
+
+If you try creating a vector with mixed data types, you may get unexpected results; mixing character elements with other type elements will result in character representations, e.g., 
+
+```{r}
+c(1, "a", TRUE, charToRaw("z"))
+```
+
+Results will depend on the data type you are mixing, for example because logical values can be expressed numerically, the `TRUE` and `FALSE` values are converted to `1` and `0`, respectively.
+
+```{r}
+(c(1:3, TRUE, FALSE))
+```
+
+But if a character is added, all elements are converted to characters.
+
+```{r}
+c(1:3, TRUE, FALSE, "awesome!")
+```
+
+Order is important, i.e., 
+
+`1, 2, 3` is not the same as `1, 3, 2`
+
+R will maintain the order of elements in vectors unless a process is initiated that changes the order of those elements:
+
+```{r}
+# a vector 
+(v <- c(1, 3, 2))
+
+(sort(v))
+```
+
+You can get some information about vectors, such as length and data type:
+
+```{r}
+# create a random normal 
+set.seed(5)
+normvec1000 <- rnorm(n = 1000)
+
+length(normvec1000)
+class(normvec1000)
+class(normvec1000 > 1)
+```
+
+Elements of vectors are specified with their index number (1 .. n):
+
+```{r}
+v <- seq(from = 0, to = 10, by = 2)
+v[4]
+```
+
+### Matrix
+A matrix is like a vector, in that it an contain only one data type, but it is two-dimensional, having rows and columns. A simple example:
+
+```{r}
+# make a vector 1 to 100
+(v <- 1:100)
+
+# load to a matrix
+(m1 <- matrix(v, ncol = 10, byrow = TRUE))
+
+# different r, c ordering
+(m2 <- matrix(v, ncol = 10, byrow = FALSE))
+```
+
+If you try to force a vector into a matrix whose row $\times$ col length does not match the length of the vector, the elements will be recycled, which may not be what you want. At least R will give you a warning.
+
+```{r}
+(m3 <- matrix(letters, ncol = 10, nrow = 10))
+```
+
+### Array
+An array is similar to matrix, but it can have more than one dimension. These can be useful for analyzing time series data or other multidimensional data. We will not be using array data in this course, but a simple example of creating and viewing the contents of an array:
+
+```{r}
+# a vector 1 to 27
+v <- 1:27
+
+# create an array, 3 x 3 x 3
+(a <- array(v, dim = c(3, 3, 3)))
+
+# array index is r, c, m (row, column, matrix), e.g., row 1 column 2 matrix 3:
+(a[1,2,3])
+```
+
+### List
+R lists are ordered collections of objects that do not need to be of the same data type. Those objects can be single-value vectors, multiple-value vectors, matrices, data frames, other lists, etc. Because of this, lists are a very flexible data type. But because they can have as little or as much structure as you want, can become difficult to manage and analyze.
+
+Here is an example of a list comprised of single value vectors of different data type. Compare this with the attempt to make a vector comprised of elements of different data type:
+
+```{r}
+(l <- list("a", 1, TRUE))
+```
+
+Let's modify that list a bit:
+
+```{r}
+(l <- list("a", 
+           1:20, 
+           as.logical(c(0,1,1,0))))
+```
+
+The top-level indexing for a list is denoted using two sets of square brackets. For example, the first element of our list can be accessed by `l[[1]]`. For example, the mean of element 2 is obtained by `mean(l[[2]])`: ``r mean(l[[2]])``.
+
+To perform operations on all elements of a list, use `lapply()`:
+
+```{r}
+# show the data types
+(lapply(X = l, FUN = class))
+
+# mean, maybe?
+(lapply(X = l, FUN = function(x) {mean(x)}))
+```
+### Factor
+Factors are similar to vectors, in that they are one-dimensional ordered sets. However, factors also use informational labels. For example, you may have a variable with household income as a text value:
+
+* "<$10,000"
+* "$10,000-$549,999"
+* "$50,000-$99,999"
+* "$100,000-$200,000"
+* ">$200,000"
+
+As a vector:
+
+```{r}
+(income <- c("<$10,000"
+, "$10,000-$49,999"
+, "$50,000-$99,999"
+, "$100,000-$200,000"
+, ">$200,000"))
+```
+
+Because these are characters, they do not sort in proper numeric order:
+
+```{r}
+sort(income)
+```
+
+If these are treated as a factor, the levels can be set for proper ordering:
+
+```{r}
+# create a factor from income and set the levels
+(income_factor <- factor(x = income, levels = income))
+
+# sort again
+(sort(income_factor))
+```
+
+As a factor, the data can also be used in statistical models and the magnitude of the variable will also be correctly ordered.
+
+### Data frame
+Other than vectors, data frames are probably the most used data type in R. You can think of data frames as matrices that allow columns with different data type. For example, you might have a data set that represents subject IDs as characters, sex or gender as text, height, weight, and age as numerical values, income as a factor, and smoking status as logical. Because a matrix requires only one data type, it would not be possible to store all of these as a matrix. An example:
+
+```{r}
+# income levels 
+inc <- c("<$10,000"
+, "$10,000-$49,999"
+, "$50,000-$99,999"
+, "$100,000-$200,000"
+, ">$200,000")
+
+BMI <-  data.frame(
+   sid = c("A1001", "A1002", "B1001"),
+   gender = c("Male", "Male","Female"), 
+   height_cm = c(152, 171.5, 165), 
+   weight_kg = c(81, 93, 78),
+   age_y = c(42, 38, 26),
+   income = factor(c("$50,000-$99,999", "$100,000-$200,000", "<$10,000"), levels = inc)
+)
+print(BMI)
+```
+
+## File systems {#filesystems}
 Although a full treatment of effective uses of file systems is beyond the scope of this course, a few basic rules are worth covering:
 
 1. Never use spaces in folder or file names. 
@@ -176,6 +487,11 @@ Although a full treatment of effective uses of file systems is beyond the scope 
     Optimally when you look at your file names, you will be able to know something about the content of the file. We spend a lot of time doing analysis and creating output. Spending an extra minute thinking about good file names is time well spent.
 
 
+
+## Data sets {#datasets001}
+### Employee turnover data
+
+<hr>
 <h4>Source code for this document</h4>
 [01-week01.Rmd](01-week01.Rmd)
 
