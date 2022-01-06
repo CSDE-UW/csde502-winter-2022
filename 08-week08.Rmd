@@ -265,7 +265,7 @@ t0 <- Sys.time()
 ans_sweep <- mydat %>%
     # drop the aid column
     select(-aid) %>% 
-    # run the wweep
+    # run the sweep
     sweep(x = ., MARGIN = 2, STATS = correct, FUN = "==") %>% 
     # convert to data frame
     data.frame()
@@ -341,7 +341,7 @@ dat %<>%
                    h1kq1b == 3 ~ 2,
                    h1kq1b == 2 ~ 3,
                    h1kq1b == 1 ~ 4,
-                   # anythng that is not in the above list gets its original value
+                   # anything that is not in the above list gets its original value
                    TRUE ~ as.numeric(h1kq1b))
                )
 ```

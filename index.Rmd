@@ -23,13 +23,16 @@ knitr::opts_chunk$set(echo = FALSE)
 
 year <- Sys.Date() %>% format("%Y")
 syllabus <- paste0("csde502_syllabus_", year, ".pdf")
+syllabusdocx <- paste0("csde502_syllabus_", year, ".docx")
 ```
 
 :::{.rmdcaution}
+
 <center>
 **CAUTION**
 Material on these pages will be in major flux until the first class of the quarter!
 </center>
+
 :::
 
 # Introduction and Welcome! {.unnumbered}
@@ -45,7 +48,7 @@ Links to the course listing page and official course syllabus are below:
 
 * Course description: [CSDE 502 Proseminar](https://csde.washington.edu/training/demographic-certificate/courses/csde-502/a)
 * Entry in the UW course catalog: [Ctr for Stdies in Demography and Ecology](https://www.washington.edu/students/crscat/csde.html)
-* The course syllabus is available as a PDF: [`r syllabus`](`r syllabus`)
+* The course syllabus is available as a PDF: [`r syllabus`](`r syllabus`) or DOCX: [`r syllabusdocx`](`r syllabusdocx`)
 :::
 
 **Scope:** CSDE 502 is tightly paired with [SOC/CSSS/CSDE 533 A (Research Methods in Demography)](https://hanowell.github.io/uwsoc533a/index.html) ("CSDE 533"). Expect to see cross-references in these notes to the notes for CSDE 533 and vice versa. Techniques introduced in this course will be applied in CSDE 533. Some analytic topics introduced in CSDE 533 will be covered in more depth, with explanation of the data and processing in these notes.
@@ -193,11 +196,10 @@ A link to the SafeCampus program is below:
     * [`leaflet`](https://cran.r-project.org/web/packages/leaflet/): Create Interactive Web Maps with the JavaScript 'Leaflet' Library
     * [`mapview`](https://cran.r-project.org/web/packages/mapview/): Interactive Viewing of Spatial Data in R
     * [`demogR`](https://cran.r-project.org/web/packages/demogR/index.html): Analysis of Age-Structured Demographic Models
-    * [`demography`](https://cran.r-project.org/web/packages/demography/): : Forecasting Mortality, Fertility, Migration and Population Data
+    * [`demography`](https://cran.r-project.org/web/packages/demography/): Forecasting Mortality, Fertility, Migration and Population Data; [An R intro to the demography package](https://rpubs.com/Timexpo/487053))
     * Pretty printouts of life tables with `flextable` and `DT`
-        * [An R intro to the demography package](https://rpubs.com/Timexpo/487053))
     * Data:
-        * Accessing Muman Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
+        * Accessing HMuman Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
 * **Assignment**: 
 
 <h3>Week 4</h3>

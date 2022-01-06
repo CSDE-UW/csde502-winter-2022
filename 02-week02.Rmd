@@ -1,22 +1,21 @@
 # Week 2 {#week2}
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-library(tidyverse)
-library(magrittr)
-library(knitr)
-library(kableExtra)
-library(readstata13)
+pacman::p_load(tidyverse, magrittr, knitr, kableExtra, readstata13, stargazer, pander, captioner)
+
+# captions
+figure_nums <- captioner(prefix = "figure")
+table_nums <- captioner(prefix = "table")
 ```
 
-
-
-
-    * Code blocks in R Markdown
-    * Graphs in R Markdown
-    * Tables in R Markdown
-    * Equations in R Markdown
-    * HTML output from R Markdown
-    * [Keyring: securely store secrets](https://cran.r-project.org/web/packages/keyring/)
+<h2>Topics:</h2>
+* [Code blocks in R](#rmdcodeblocks)
+* [Graphs in R Markdown](#rmdgraphicss)
+* [Tables in R Markdow](#rmdtables)
+* [Equations in R Markdown](#rmdequations)
+* [Captions and cross-references in R Markdown](#rmdcaptions)
+* [Keyring: securely store secrets](#keyring)
+* [Data sets:](#datasets002)
     * Data:
         * [Human Mortality Database](https://www.mortality.org/)
         * [Human Fertility Database](https://www.humanfertility.org/cgi-bin/main.php)
@@ -40,663 +39,455 @@ The other main topic for today is ["tidyverse"](https://www.tidyverse.org/), whi
 
 For the exercise in class, download [week02.R](r_code/week02.R), which we will use to run the code listed in this R Markdown result.
 
+## R Markdown 
 
-## R data types
-There are six fundamental data types in R:
+### Code blocks {#rmdcodeblocks}
 
-1. logical
-1. numeric
-1. integer
-1. complex
-1. character
-1. raw
+### Graphics in R Markdown {#rmdgraphics}
+Data-driven graphics in Rmd files are typically created as base R graphics or with the `ggplot2` package. This tutorial is not intended to provide anywhere near a comprehensive treatment of creating graphics from data, but will provide instruction on some options for creating and including data-driven graphics as well as inserting graphics from image files.
 
-The most atomic object in R will exist having one of those data types, described below. An atomic object of the data type can have a value, `NA` which represents an observation with no data (e.g., a missing measurement), or `NULL` which isn't really a value at all, but can still have the data type class.
+See [Tips and tricks for working with images and figures in R Markdown documents](http://zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/) for a good explanation.
 
-You will encounter other data types, such as `Date` or `POSIXct` if you are working with dates or time stamps. These other data types are extensions of the fundamental data types.
-
-To determine what data type an object is, use `is(obj)`, `str(obj)`, or `class(obj)`. 
-
-```{r}
-print(is("a"))
-
-print(str(TRUE))
-
-print(class(123.45))
-
-print(class(as.integer(1000)))
-
-n <- as.numeric(999999999999999999999)
-
-print(class(n))
-```
-
-### Logical
-Use `logical` values for characteristics that are either `TRUE` or `FALSE`. Note that if `logical` elements can also have an `NA` value if the observation is missing. In the following examples, 
-
-```{r}
-# evaluate as logical, test whether 1 is greater than two
-a <- 1 > 2
-```
-
-```{r}
-# create two numerical values, one being NA, representing ages
-age_john <- 39
-age_jane <- NA
-
-# logical NA from Jane's undefined age
-(jo <- age_john > 50)
-(ja <- age_jane > 50)
-```
-
-Logical values are often expressed in binary format as 0 = `FALSE` and ` = `TRUE`. in R these values are interconvertible. Other software (e.g., Excel, MS Access) may convert logical values to numbers that you do not expect.
-
-```{r}
-(t <- as.logical(1))
-(f <- as.logical(0))
-```
-
-### Numeric
-`Numeric` values are numbers with range about 2e-308 to 2e+308, depending on the computer you are using. You can see the possible range by entering `.Machine` at the R console. These can also include decimals. For more information, see [Double-precision floating-point format](https://en.wikipedia.org/wiki/Double-precision_floating-point_format)
-
-
-### Integer
-`Integer` values are numerical, but can only take on whole, rather than fractional values, and have a truncated range compared to `numeric`. For example, see below, if we try to create an integer that is out of range. The object we created is an integer, but because it is out of range, is value is set to `NA`.
-
-```{r}
-i <- as.integer(999999999999999999999)
-
-print(class(i))
-```
-
-### Complex
-The `complex` type is used in mathematics and you are unlikely to use it in applied social science research unless you get into some heavy statistics. See [Complex number](https://en.wikipedia.org/wiki/Complex_number) for a full treatment.
-
-### Character
-`Character` data include the full set of keys on your keyboard that print out a character, typically [A-Z], [a-z], [0-9], punctuation, etc. The full set of ASCII characters is supported, e.g. the `accent aigu` in CafÃ©:
-
-```{r}
-print(class("CafÃ©"))
-```
-
-Also numbers can function as characters. Be careful in converting between numerical and character versions. For example, see these ZIP codes:
-
-```{r error=TRUE}
-# this is a character
-my_zip <- "98115"
-
-# it is not numeric.
-my_zip + 2
-```
-
-```{r}
-# we can convert it to numeric, although it would be silly to do with ZIP codes, which are nominal values
-as.numeric(my_zip) + 2
-
-# Boston has ZIP codes starting with zeros
-boston_zip <- "02134"
-as.numeric(boston_zip)
-```
-
-### Raw
-`Raw` values are used to store raw bytes in hexadecimal format. You are unlikely to use it in applied social science research. For example, the hexadecimal value for the character `z` is `7a`:
-
-```{r}
-print(charToRaw("z"))
-
-class(charToRaw("z"))
-```
-
-
-## R data structures
-
-![](images/week02/data_structures.png)
-
-There are 5 basic data structures in R, as shown in the graphic: 
-
-1. vector
-1. matrix
-1. array
-1. list
-1. data frame
-
-In addition, the `factor` data type is very important
-
-### Vector
-A vector is an ordered set of elements of one or more elements of the same data type and are created using the `c()` constructor function. For example, a single value is a vector:
-
-```{r}
-# create a vector of length 1
-a <- 1
-is(a)
-```
-
-
-If you try creating a vector with mixed data types, you may get unexpected results; mixing character elements with other type elements will result in character representations, e.g., 
-
-```{r}
-c(1, "a", TRUE, charToRaw("z"))
-```
-
-Results will depend on the data type you are mixing, for example because logical values can be expressed numerically, the `TRUE` and `FALSE` values are converted to `1` and `0`, respectively.
-
-```{r}
-(c(1:3, TRUE, FALSE))
-```
-
-But if a character is added, all elements are converted to characters.
-
-```{r}
-c(1:3, TRUE, FALSE, "awesome!")
-```
-
-Order is important, i.e., 
-
-`1, 2, 3` is not the same as `1, 3, 2`
-
-R will maintain the order of elements in vectors unless a process is initiated that changes the order of those elements:
-
-```{r}
-# a vector 
-(v <- c(1, 3, 2))
-
-(sort(v))
-```
-
-You can get some information about vectors, such as length and data type:
-
-```{r}
-# create a random normal 
-set.seed(5)
-normvec1000 <- rnorm(n = 1000)
-
-length(normvec1000)
-class(normvec1000)
-class(normvec1000 > 1)
-```
-
-Elements of vectors are specified with their index number (1 .. n):
-
-```{r}
-v <- seq(from = 0, to = 10, by = 2)
-v[4]
-```
-
-### Matrix
-A matrix is like a vector, in that it an contain only one data type, but it is two-dimensional, having rows and columns. A simple example:
-
-```{r}
-# make a vector 1 to 100
-(v <- 1:100)
-
-# load to a matrix
-(m1 <- matrix(v, ncol = 10, byrow = TRUE))
-
-# different r, c ordering
-(m2 <- matrix(v, ncol = 10, byrow = FALSE))
-```
-
-If you try to force a vector into a matrix whose row $\times$ col length does not match the length of the vector, the elements will be recycled, which may not be what you want. At least R will give you a warning.
-
-```{r}
-(m3 <- matrix(letters, ncol = 10, nrow = 10))
-```
-
-### Array
-An array is similar to matrix, but it can have more than one dimension. These can be useful for analyzing time series data or other multidimensional data. We will not be using array data in this course, but a simple example of creating and viewing the contents of an array:
-
-```{r}
-# a vector 1 to 27
-v <- 1:27
-
-# create an array, 3 x 3 x 3
-(a <- array(v, dim = c(3, 3, 3)))
-
-# array index is r, c, m (row, column, matrix), e.g., row 1 column 2 matrix 3:
-(a[1,2,3])
-```
-
-### List
-R lists are ordered collections of objects that do not need to be of the same data type. Those objects can be single-value vectors, multiple-value vectors, matrices, data frames, other lists, etc. Because of this, lists are a very flexible data type. But because they can have as little or as much structure as you want, can become difficult to manage and analyze.
-
-Here is an example of a list comprised of single value vectors of different data type. Compare this with the attempt to make a vector comprised of elements of different data type:
-
-```{r}
-(l <- list("a", 1, TRUE))
-```
-
-Let's modify that list a bit:
-
-```{r}
-(l <- list("a", 
-           1:20, 
-           as.logical(c(0,1,1,0))))
-```
-
-The top-level indexing for a list is denoted using two sets of square brackets. For example, the first element of our list can be accessed by `l[[1]]`. For example, the mean of element 2 is obtained by `mean(l[[2]])`: ``r mean(l[[2]])``.
-
-To perform operations on all elements of a list, use `lapply()`:
-
-```{r}
-# show the data types
-(lapply(X = l, FUN = class))
-
-# mean, maybe?
-(lapply(X = l, FUN = function(x) {mean(x)}))
-```
-### Factor
-Factors are similar to vectors, in that they are one-dimensional ordered sets. However, factors also use informational labels. For example, you may have a variable with household income as a text value:
-
-* "<$10,000"
-* "$10,000-$549,999"
-* "$50,000-$99,999"
-* "$100,000-$200,000"
-* ">$200,000"
-
-As a vector:
-
-```{r}
-(income <- c("<$10,000"
-, "$10,000-$49,999"
-, "$50,000-$99,999"
-, "$100,000-$200,000"
-, ">$200,000"))
-```
-
-Because these are characters, they do not sort in proper numeric order:
-
-```{r}
-sort(income)
-```
-
-If these are treated as a factor, the levels can be set for proper ordering:
-
-```{r}
-# create a factor from income and set the levels
-(income_factor <- factor(x = income, levels = income))
-
-# sort again
-(sort(income_factor))
-```
-
-As a factor, the data can also be used in statistical models and the magnitude of the variable will also be correctly ordered.
-
-### Data frame
-Other than vectors, data frames are probably the most used data type in R. You can think of data frames as matrices that allow columns with different data type. For example, you might have a data set that represents subject IDs as characters, sex or gender as text, height, weight, and age as numerical values, income as a factor, and smoking status as logical. Because a matrix requires only one data type, it would not be possible to store all of these as a matrix. An example:
-
-```{r}
-# income levels 
-inc <- c("<$10,000"
-, "$10,000-$49,999"
-, "$50,000-$99,999"
-, "$100,000-$200,000"
-, ">$200,000")
-
-BMI <-  data.frame(
-   sid = c("A1001", "A1002", "B1001"),
-   gender = c("Male", "Male","Female"), 
-   height_cm = c(152, 171.5, 165), 
-   weight_kg = c(81, 93, 78),
-   age_y = c(42, 38, 26),
-   income = factor(c("$50,000-$99,999", "$100,000-$200,000", "<$10,000"), levels = inc)
-)
-print(BMI)
-```
-
-## Data manipulation in the `tidyverse`
-This section will introduce some of the main workhorse functions in tidy data handling. 
-
-Installing tidyverse is straightforward but it may take some time to download and install all of the packages. Use
-
-```
-install.packages("tidyverse")
-```
-
-For today's lesson we will be using one of the Add Health data sets, [AHwave1_v1.dta](data/AHwave1_v1.dta). 
-
-```{r warning=FALSE}
-# read the dta file
-dat <- readstata13::read.dta13("http://staff.washington.edu/phurvitz/csde502_winter_2021/data/AHwave1_v1.dta")
-```
-
-The data set includes variable labels, which make handling the data easier. Here we print the column names and their labels. Wrapping this in a `DT::data_table` presents a nice interface for showing only a few variables at a time and that allows sorting and searching.
-
-```{r}
-x <- data.frame(colname = names(dat), label = attributes(dat)$var.labels)
-DT::datatable(data = x, caption = "Column names and labels in AHwave1_v1.dta.")
-```
-
-
-### magrittr{#magrittr}
-![](images/week02/unepipe.jpeg)
-
-The R package [`magrittr`](https://cran.r-project.org/web/packages/magrittr/index.html) allows the use of "pipes". In UNIX, pipes were used to take the output of one program and to feed as input to another program. For example, the UNIX command `cat` prints the contents of a text file. This would print the contents of the file `00README.txt`:
-
-```cat 00README.txt```
-
-but with large files, the entire contents would scroll by too fast to read. Using a "pipe", denoted with the vertical bar character `|` allowed using the `more` command to print one screen at a time by tapping the `Enter` key for each screen full of text:
-
-```cat 00README.txt | more```
-
-As shown in these two screen captures:
-
-![](images/week02/cat_more.png)
-
-![](images/week02/cat_more2.png)
-
-The two main pipe operators we will use in `magrittr` are `%>%` and '%<>%'.
-
-`%>%` is the pipe operator, which functions as a UNIX pipe, that is, to take something on the left hand side of the operator and feed it to the right hand side. 
-
-`%<>%` is the assignment pipe operator, which takes something on the left hand side of the operator, feeds it to the right hand side, and replaces the object on the left-hand side.
-
-For a simple example of the pipe, to list only the first 6 lines of a data frame in base R, we use `head()`, e.g.,
-
-```{r}
-head(iris)
-```
-
-using a tidy version of this:
-
-```{r}
-iris %>% head()
-```
-
-In the R base version, we first read `head`, so we know we will be printing the first 6 elements of something, but we don't know what that "something" is. We have to read ahead to know we are reading the first 6 records of `iris`. In the tidy version, we start by knowing we are doing something to the data set, after which we know we are printing the first 6 records.
-
-In base R functions, the process is evaluated from the inside out. For example, to get the mean sepal length of the _setosa_ species in iris, we would do this:
-
-```{r}
-mean(iris[iris$Species == 'setosa', "Sepal.Length"])
-```
-
-From the inside out, we read that we are making a subset of `iris` where Species = "setosa", we are selecting the column "Sepal.Length", and taking the mean. However, it requires reading from the inside out. For a large set of nested functions, we would have ` y <- f(g(h((i(x)))))`, which would require first creating the innermost function (`i()`) and then working outward.
-
-In a tidy approach this would be more like y <- x %>% i() %>% h() %>% g() %>% f()` because the first function applied to the data set `x` is `i()`. Revisiting the mean sepal length of _setosa_ irises, example, under a tidy approach we would do this:
-
-```{r}
-iris %>% filter(Species == 'setosa') %>% summarise(mean(Sepal.Length))
-```
-
-Which, read from left to right, translates to "using the iris data frame, make a subset of records where species is _setosa_, and summarize those records to get the mean value of sepal length." The tidy version is intended to be easier to write, read, and understand. The command uses the `filter()` function, which will be described below.
-
-### Data subsetting (dplyr)
-`dplyr` is the tidyverse R package used most frequently for data manipulation. Selection of records (i.e., subsetting) is done using logical tests to determine what is in the selected set. First we will look at logical tests and then we will cover subsetting rows and columns from data frames.
-
-##### Logical tests
-If elements meet a logical test, they will end up in the selected set. If data frame records have values in variables that meet logical criteria, the records will be selected. 
-
-Some logical tests are shown below.
-
-###### `==`: equals
-
-```{r}
-# numeric tests
-(1 == 2)
-```
-
-```{r}
-(1 == 3 - 2)
-```
-
-```{r}
-# character test (actually a factor)
-(dat$imonth %>% head() %>% str_c(collapse = ", "))
-((dat$imonth == "(6) June") %>% head())
-```
-
-```{r}
-# character test for multiple patterns
-(dat$imonth %in% c("(6) June", "(7) July") %>% head())
-```
-
-
-###### `>`, `>=`, `<`, `<=`: numeric comparisons
-
-```{r}
-1 < 2
-```
-
-```{r}
-1 > 2
-```
-
-```{r}
-1 <= -10:10
-```
-
-```{r}
-1 >= -10:10
-```
-
-###### `!=`: not equals
-
-```{r}
-1 != 2
-```
-
-```{r}
-# those of the first 6 days that are not 14
-(dat$iday %>% head())
-((dat$iday != 14) %>% head())
-```
-
-###### `!`: invert, or "not"
-Sometimes it is more convenient to negate a single condition rather than enumerating all possible matching conditions.
-
-```{r}
-dat$imonth %>% head(20)
-((!dat$imonth %in% c("(6) June", "(7) July")) %>% head(20))
-```
-
-#### Subset rows (`filter()`)
-The `filter()` function creates a subset of records based on a logical test. Logical tests can be combined as "and" statements using the `&` operator and "or" statements using the `|` operator. Here we will perform a few filters on a subset of the data.
-
-```{r}
-# first 20 records, fist 10 columns
-dat_sub <- dat[1:20, 1:10]
-kable(dat_sub, format = "html") %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left")
-```
-
-Records from one month:
-
-```{r}
-# from May
-(dat_sub %>% filter(imonth == "(5) May"))
-```
-
-Records from one month from females:
-
-```{r}
-(dat_sub %>% filter(imonth == "(5) May" & bio_sex == "(2) Female"))
-```
-
-Records from one month and from females or where the day of month was before the 15th, which will probably include some males:
-
-```{r}
-(dat_sub %>% filter(imonth == "(5) May" & (bio_sex == "(2) Female") | iday < 15))
-
-```
-
-Although these examples are silly and trivial, they show how `filter()` is used to create a selected set of data
-
-#### Subset columns (`select()`)
-A subset of columns can be extracted from data frames using the `select()` function, most simply using  named list of columns to keep.
-
-```{r}
-# select 3 columns
-(dat_sub_sel <- dat_sub %>%   
-    select("aid", "imonth", "iday"))
-```
-
-```{r}
-# select all but two named columns
-(dat_sub_sel <- dat_sub %>%   
-    select(-"imonth", -"iday"))
-```
-
-```{r}
-# select columns by position and whose name matches a pattern, in this case the regular expression "^i" meaning "starts with lowercase i"
-(dat_sub_sel <- dat_sub %>%   
-    select(1, matches("^i")))
-```
-
-`select()` can also be used to rename columns:
-
-```{r}
-#select one column, rename two columns
-(dat_sub_sel %>% 
-   select(aid, Month = imonth, Day = iday))
-```
-
-Or column renaming can be done with `rename()`, which maintains all input data and only changes the named columns:
-
-```{r}
-(dat_sub_sel %>% 
-   rename(Month = imonth, Day = iday))
-```
-
-#### Subset rows and columns: `filter()` and `select()`
-We can combine `filter()` and `select()` with a pipe to create a new data frame with a subset of rows and columns:
-
-```{r}
-# records with day of mongh > 15 and the first 3 named columns
-(x <- dat_sub %>% 
-    filter(iday > 15) %>%
-    select(aid, imonth, iday)
-   )
-```
-
-#### Create or calculate columns: `mutate()`
-`mutate()` will create new named columns or re-calculate existing columns. Here we will make a column that stratifies birth month, with the cut at June. 
-
-Although the birth month column (`h1gi1m`) is a factor, it is unordered, so we need to make it ordered before using the factor label in a numeric comparison. Fortunately, the factor labels were handled in correct order:
-
-```{r}
-# is this ordered?
-is.ordered(dat$h1gi1m)
-```
-
-```{r}
-# what are the levels?
-(levels(dat$h1gi1m))
-```
-
-Assign order, create a new column, and print nicely:
-
-```{r}
-# make birth month ordered
-dat$h1gi1m <- factor(dat$h1gi1m, ordered = TRUE)
-
-# now is it ordered?
-is.ordered(dat$h1gi1m)
-```
-
-```{r}
-# perform the mutate() using the string representation of the factor for comparison
-dat %>% 
-    filter(iday > 15) %>%
-    select(aid, imonth, iday, birth_month = h1gi1m) %>% 
-    mutate(birth_1st_half = (birth_month < "(7) July")) %>% 
-    head(20) %>% 
-    kable() %>% 
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left")
-```
-
-A silly example but showing that `mutate()` can change values of existing columns:
-
-```{r}
-(X <- dat_sub %>% 
-     mutate(iday = -1000 + iday))
-```
-
-... so do be careful!
-
-Other functions can be used with mutate include (but are by no means limited to!) 
-
-* `if_else()`: create a column by assigning values based on logical criteria
-* `case_when()`: similar to `if_else()` but for multiple input values
-* `recode()`: change particular values
-
-When we recoded the birth month, the output was a `logical` data type. If we wanted to create a 
-`character` or `factor`, we could use `if_else()`. Here we are creating a new data frame based on several operations on `dat`.
-
-```{r}
-dat_1 <- dat %>% 
-    filter(iday > 15) %>%
-    head(20) %>%
-    select(aid, imonth, iday, birth_month = h1gi1m) %>% 
-    mutate(birth_year_half = ifelse(test = birth_month < "(7) July", yes = "first", no = "last"))
-
-# make that a factor
-dat_1$birth_year_half <- factor(dat_1$birth_year_half, levels = c("first", "last"))
-    
-# print
-kable(dat_1) %>% 
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left")
-```
-
-If one of your variables contains multiple values and you want to create classes, use `case_when()`. Here is a verbose example stratifying months into quarters. Also we are using the `magrittr` assignment pipe to update the input based on the statement, i.e., `dat_1` will change based on the commands we use. __Be careful using the assignment pipe because it will change your data frame.__
-
-`case_when()` will recode in order or the way the command is written, so for months and quarters, it is not necessary to specify both ends of the quarter. Also any cases that are not explicitly handled can be addressed with the `TRUE ~ ...` argument; in this case, any records that had birth months that were not before September get assigned to quarter 4.
-
-```{r}
-dat_1 %<>% 
-    mutate(quarter = case_when(
-        birth_month < "(3) March" ~ 1,
-        birth_month < "(6) June" ~ 2,
-        birth_month < "(9) September" ~ 3,
-        TRUE ~ 4))
-
-# print
-kable(dat_1) %>% 
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left")
-```
-
-`recode()` is used to change the `birth_year_half` column:
-
-```{r}
-(dat_1 %<>% 
-     mutate(birth_year_half_split = recode(birth_year_half,
-                   "first" = "early",
-                   "last" = "late")))
-```
-
-#### Summarizing/aggregating data
-We will spend more time later in the course on data summaries, but an introduction with `dplyr` is worthwhile introducing at this stage. The two main functions are `summarise()` and `group_by()`.
-
-A simple summary will tabulate the count of respondents and the mean age. The filter `! str_detect(h1gi1y, "Refused")` drops records from respondents who refused to give their birth year.
-
-```{r}
-dat %>% 
-    filter(! str_detect(h1gi1y, "Refused")) %>% 
-    mutate(yeari = str_replace_all(iyear, ".* ", "") %>% as.integer(),
-           yearb = str_replace_all(h1gi1y, ".* ", "") %>% as.integer()) %>% 
-    summarise(n = n(),
-              mean_age = mean(yeari - yearb))
-```
-
-Here we will summarize age by sex using the `group_by()` function, and also piping to `prop_table()` to get the percentage:
-
-```{r}
-dat %>% 
-    filter(! str_detect(h1gi1y, "Refused")) %>% 
-    mutate(yeari = str_replace_all(iyear, ".* ", "") %>% as.integer(),
-           yearb = str_replace_all(h1gi1y, ".* ", "") %>% as.integer()) %>% 
-    group_by(bio_sex) %>% 
-    summarise(mean_age = mean(yeari - yearb),
-              sd_age = sd(yeari - yearb),
-              n = n(),
-              .groups = "drop_last") %>% 
-    mutate(pct = prop.table(n) * 100)
-```
-
-#### purrr: efficient iterating over elements in vectors and lists
-More attention will be paid to `purrr` in the lesson on [functions](#week2).
-
-<h4>Source code for this document</h4>
-[02-week02.Rmd](01-week02.Rmd)
+#### Base R graphics
+To include base R graphics, simply place the code to generate the graphic in an R code block, e.g., using the Add Health data from last week ([AHWave1_v1.dta](data/AHWave1_v1.dta)):
 
 ```{r, comment='', echo=FALSE}
-cat(readLines("02-week02.Rmd"), sep = '\n')
+cat(readLines("files/rmd_insert_text_01.txt"), sep = '\n')
 ```
+
+... which will render the graph:
+
+```{r, echo=FALSE, warning=FALSE}
+# since loading the data takes awhile, only do this if necessary
+if(!exists("dat")){
+    dat <- read.dta13("data/AHwave1_v1.dta")
+}
+# birth year = h1gi1y
+# drop "Refused" birth year
+# for birth year and interview year, replace anything before white space, convert to numeric
+# subtract interview year - birth year
+ages <- dat %>% 
+    filter(! str_detect(h1gi1y, "Refused")) %>% 
+    select(iyear, h1gi1y) %>% 
+    mutate(yi = str_replace(iyear, ".*\\s", "") %>% as.numeric(),
+           yb = str_replace(h1gi1y, ".*\\s", "") %>% as.numeric(),
+           age = yi - yb)
+hist(ages$age, xlab = "age (years)", las = 1)
+```
+
+#### `ggplot2` graphics
+The `ggplot2` package creates compelling graphics that use a common syntax. The main difference between base R graphics and `ggplot2` graphics is that simply issuing the `plot()` or related command (e.g., `hist()`, `barplot()`) adds the graphic to the output, whereas with `ggplot()` it is necessary to issue a command that prints the graphic.
+
+Following the previous example:
+
+```{r}
+# how many unique bins? 
+bins <- length(unique(ages$age))
+
+# create the graphic
+g <- ggplot(data = ages, mapping = aes(x = age)) +
+    geom_histogram(bins = bins)
+
+# print the graphic
+print(g)
+```
+
+
+#### Embedding graphics files
+Journals frequently require graphics files to be submitted separately from the manuscript. In this case, the graphic can be created and saved as a file and then inserted in the Rmd using code, but also accessed as a a stand-alone file. Let's take the previous example, but add correlation coefficients and other embellishments, create a graphics file and add the graphics into the Rmd.
+
+The base graphics file is created using the `pdf()` function, although `png()` also works if that is the desired output format. PDF is a vector format, so it generally renders better over different zoom levels.
+
+```{r, message=FALSE}
+pdf(file = "ah_age_hist.pdf", width = 5, height = 5)
+hist(ages$age, xlab = "age (years)", las = 1)
+x <- dev.off()
+```
+
+Here we create a PNG format file:
+
+```{r, message=FALSE}
+png(file = "ah_age_hist.png", width = 5, height = 5, units = "in", res = 300)
+hist(ages$age, xlab = "age (years)", las = 1)
+x <- dev.off()
+```
+
+`ggplot2` graphics can be saved using `ggsave()`, e.g., for both PDF and PNG outputs. The `dpi` argument is important for bitmap images.
+
+```{r}
+ggsave(
+    filename = "ah_age_hist_ggplot.pdf",
+    plot = g, device = "pdf",
+    width = 5, height = 5
+)
+ggsave(
+    filename = "ah_age_hist_ggplot.png",
+    plot = g, device = "png", 
+    width = 5, height = 5, 
+    units = "in", dpi = 300
+)
+```
+
+Graphics can be added using several methods.
+
+##### `knitr`
+The `knitr::include_graphics()` function can be used to insert image files, with the caution that inserted PDF files may produce unwanted results. The syntax is:
+
+```{r, comment='', echo=FALSE}
+cat(readLines("files/rmd_insert_text_02.txt"), sep = '\n')
+```
+
+and the code chunk can include `out.width`, `out.height` and other options.
+\  
+Here we insert a PDF with no code chunk options, which presents the image with a scroll bar, rather than the full image:
+
+```{r}
+include_graphics("ah_age_hist.pdf")
+```
+
+Here we specify in the code chunk options `out.height = "360px", out.width='360px', fig.align='left'`, 
+
+```{r, out.height = "360px", out.width='360px', fig.align='left'}
+include_graphics("ah_age_hist.pdf")
+
+```
+
+\  
+
+... and with code chunk options `out.height = "400px", out.width='100%', fig.align='left'`
+
+```{r, out.height = "400px", out.width='100%', fig.align='left'}
+include_graphics("ah_age_hist.pdf")
+```
+
+\  
+
+It seems that embedding PDF files is not optimal.
+
+Here we insert a PNG: with no code chunk options:
+
+```{r}
+include_graphics("ah_age_hist_ggplot.png")
+```
+
+and with code chunk option `out.width = "50%"`
+
+```{r, out.width = "50%"}
+include_graphics("ah_age_hist_ggplot.png")
+```
+
+So embedding bitmapped images appears to work better than embedding PDF files. 
+
+##### Markdown: `![caption](filename)`
+
+The native Markdown syntax:
+
+```
+![](filename)
+```
+
+includes a graphics file with an optional caption, e.g., here, a PDF with no caption, 
+
+`![](ah_age_hist.pdf)`
+
+![](ah_age_hist.pdf)
+
+\  
+
+The structure `![]()` indicates this is an inserted graphic; a caption can be specified by including text within the square brackets, e.g., displays the caption below the inserted image (but with no caption number!). 
+
+```![Add Health respondent age histogram](ah_age_hist_ggplot.pdf)```
+
+![Add Health respondent age histogram](ah_age_hist_ggplot.pdf)
+
+... although it seems that inserting a PDF does odd things with image scrolling, while a PNG inserts the complete image without scroll bars.
+
+```![Add Health respondent age histogram](ah_age_hist_ggplot.png)```:
+
+![Add Health respondent age histogram](ah_age_hist_ggplot.png)
+
+##### HTML `<img>` tag
+If the file is to be rendered as HTML, _and_ the image is a bitmap, rather than vector PDF graphics, the `<img>` tag can be used. Different utilities can be used to convert PDF to bitmapped formats, e.g., [ImageMagick](https://imagemagick.org/index.php) and [GraphicsMagick](http://www.graphicsmagick.org/).
+
+```<img src="ah_age_hist_ggplot.png">```
+
+<img src="ah_age_hist_ggplot.png">
+
+Including a percentage of page width:
+
+```<img src="ah_age_hist_ggplot.png" width="30%">```
+
+<img src="ah_age_hist_ggplot.png" width="30%">
+
+
+### Tables in R Markdown {#rmdtables}
+
+We will look at three methods of including tables in R Markdown documents, using the packages `knitr` (with `kableExtra`), `pander`, and `stargazer`.
+
+For the example table, we will use the frequency table of health $\times$ White and African American from Assignment 2:
+
+```{r, warning=FALSE, message=FALSE, error=FALSE}
+dat <- readstata13::read.dta13("http://staff.washington.edu/phurvitz/csde502_winter_2021/data/AHwave1_v1.dta")
+
+
+# ordered factor; use fct_rev to establish the correct ordering where better health ranks higher
+dat %<>% 
+    mutate(h1gh1 = fct_rev(as.ordered(h1gh1)))
+
+# stratify health; first we need to catch the "don't know" and "refused" as NAs
+dat %<>%  
+    mutate(health = 
+    case_when(
+        h1gh1 <= "(6) Refused" ~ as.character(NA),
+        h1gh1 >  "(3) Good" ~ "high",
+        h1gh1 <= "(3) Good" ~ "low"
+    ))
+
+# tabulate by White
+tabhealth_white <- dat %>% 
+    group_by(health, white = h1gi6a) %>% 
+    summarise(n = n(), .groups = "drop_last") %>% 
+    mutate("%" = round(n / sum(n) * 100, 2))
+
+# tabulate by African American
+tabhealth_afram <- dat %>% 
+    group_by(health, afram = h1gi6b) %>% 
+    summarise(n = n(), .groups = "drop_last") %>% 
+    mutate("%" = round(n / sum(n) * 100, 2))
+
+# column-bind and remove the second "health" column
+sum_health_white_afram <- cbind(tabhealth_white, tabhealth_afram) %>% 
+    select(-5)
+```
+
+#### `kntir` (`kable()`) and `kableExtra`
+The simple table using `kable()` is not too nice to read.
+
+```{r}
+kable(sum_health_white_afram)
+```
+
+So we add some `kabelExtra` options, :
+
+```{r}
+kable(sum_health_white_afram,
+      col.names = c("health", "race", "n", "%", "race", "n", "%")) %>% 
+        kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left") 
+```
+
+However, because some column names are duplicated, it is necessary to add some column grouping:
+
+```{r}
+kable(sum_health_white_afram,
+      col.names = c("health", "race", "n", "%", "race", "n", "%")) %>% 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left") %>% 
+    add_header_above(c(" " = 1, "White" = 3, "African American" = 3))
+```
+
+We could also add some row groupings:
+
+```{r}
+
+sum_health_white_afram %>% 
+    select(-1) %>% 
+    kable(col.names = c("race", "n", "%", "race", "n", "%"), align=c(rep('r',times=6))) %>% 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left") %>% 
+    add_header_above(c("White" = 3, "African American" = 3)) %>% 
+    pack_rows("health high", 1, 4) %>% 
+    pack_rows("health low", 5, 8) %>% 
+    pack_rows("health N/A", 9, 12)
+```
+
+#### `stargazer`
+The [`stargazer`](https://cran.r-project.org/web/packages/stargazer/vignettes/stargazer.pdf) package is especially good for PDF outputs, but is fairly limited for HTML output.
+
+```{r results='asis'}
+stargazer(sum_health_white_afram, 
+          type = "html", 
+          summary = FALSE,
+          rownames = FALSE)
+```
+
+#### `pander`
+`pander` can be used to create output HTML tables as well, although also with fewer options than `knitr` with `kableExtra`.
+
+```{r}
+pander(sum_health_white_afram)
+```
+
+### Captions to support tables, figures, and equations {#rmdcaptions}
+There are several ways to support captions in R Markdown. The two main requirements for good captions: (1) automatic sequential numbering, and (2) ability to cross-reference.
+
+Here are some options for adding captions:
+
+#### Figures
+
+##### R Markdown code chunk `fig.cap`
+Code chunks can include `fig_cap` as an option, as shown below. However, in standard Rmd $\rightarrow$ HTML there does not appear to be a method for cross-referencing. The code chunk would look like
+
+```{r, comment='', echo=FALSE}
+cat(readLines("files/rmd_insert_text_03.txt"), sep = '\n')
+```
+
+
+```{r plotcars, fig.cap="Cars: speed and distance", echo=FALSE}
+plot(cars)
+```
+
+##### `bookdown` with `html_document2` output type
+
+Using the `bookdown` package with `html_document2` output type, it is possible to cross-reference using the chunk name. For example, download and run this code [fig_cap_bookdown.Rmd](files/fig_cap_bookdown.Rmd)
+
+Which renders a file:
+
+![](images/week03/fig_ref.png)
+
+There seems to be no difference in the HTML output using
+
+```
+output: 
+    bookdown::html_document2:
+```
+
+versus 
+
+```
+output: 
+    html_document:
+````
+
+so the former is suggested as one way to include captions that support cross-referencing.
+
+#### Tables: `kable()` "caption"
+Tables created with `kable()` can include the `caption` option. For example:
+
+```{r}
+kable(x = sum_health_white_afram, caption = "Self-reported health by race")
+```
+
+But there appears to be no direct way of cross-referencing within standard Rmd $\rightarrow$ HTML.
+
+##### `bookdown` with `html_document2` output type
+
+Similarly for figures, the `bookdown` package with `html_document2` output type, it is possible to cross-reference using the chunk name. For example, download and run this code [table_cap_bookdown.Rmd](files/table_cap_bookdown.Rmd)
+
+Which renders a file:
+
+![](images/week03/tab_ref.png)
+
+#### Equations {# rmdequations}
+Equations should be numbered in manuscripts. Using `bookdown` makes this quite easy. The equations themselves require $\LaTeX$ syntax. There are numerous web sites with examples and tutorials for creating mathematical expressions with $\LaTeX$ In this example, we include Einstein's famous equation:
+
+<pre>
+\begin{equation}
+  E=mc^2
+  (\#eq:emc)
+\end{equation}
+</pre>
+
+and the sum of squares:
+
+<pre>
+\begin{equation}
+  \sum_{i=1}^n i^2 = \frac{n(n+1)(2n+1)}{6}
+  (\#eq:sumn)
+\end{equation}
+</pre>
+
+The label for the equation is set with `(\#eq:emc)` and can be referenced using `\@ref(eq:emc)`. Operationalized, we see:
+
+Einstein's equation, energy equals mass times the square of the speed of light is shown in \@ref(eq:emc).
+
+\begin{equation}
+  E=mc^2
+  (\#eq:emc)
+\end{equation}
+
+To make a sum of squares of _n_ first integers, see \@ref(eq:sumn).
+
+\begin{equation}
+  \sum_{i=1}^n i^2 = \frac{n(n+1)(2n+1)}{6}
+  (\#eq:sumn)
+\end{equation}
+
+
+### `captioner` for any captioning and cross-referencing figures and tables
+The `captioner` package provides a flexible, albeit cumbersome, framework for captioning both tables and figures. 
+
+The R code to do this:
+
+```
+library(captioner)
+table_nums <- captioner(prefix = "Table")
+figure_nums <- captioner(prefix = "Figure")
+```
+
+The `table_nums()` and `figure_nums()` functions are used to create captions and cross-references, and are not tied to any specific figure or table, as is the case with `kable` table captions and R code chunk `fig.cap`.
+
+A caption is created, e.g., for a figure:
+
+`` `r
+figure_nums(name = "figname", caption = "My Caption")` ``
+
+and referenced, e.g., 
+
+`` `r
+figure_nums(name = "figname", display = "cite")` ``
+
+It does not matter whether the reference precedes or comes after the caption itself.
+
+Another benefit to using `captioner` is that the output can be formatted using markdown syntax. For example, to format the caption in italics, use underscores:
+
+`` _`r
+figure_nums(name = "figname", caption = "My Caption")`_ ``
+
+Although this method requires a bit more coding, it allows great flexibility. A complete example:
+
+As shown in `r figure_nums(name = "ageplot", display = "cite")`, the distribution of age has a slight negative skew.
+
+```{r, fig.width=3, fig.height=3}
+# how many unique bins? 
+bins <- length(unique(ages$age))
+
+# create the graphic
+g <- ggplot(data = ages, mapping = aes(x = age)) +
+    geom_histogram(bins = bins)
+
+# print the graphic
+print(g)
+```
+
+_`r figure_nums(name = "ageplot", caption = "Add Health age histogram")`_
+
+Similarly, we can present the same data as a frequency table, as shown in `r table_nums(name = "agetab", display = "cite")`.
+
+_`r table_nums(name = "agetab", caption = "Add Health age frequency table")`_
+
+```{r}
+ages %>% 
+    group_by(age) %>% 
+    summarise(n = n()) %>% 
+    mutate(cumsum = cumsum(n),
+        "%" = round(n / sum(n) * 100, 1),
+        "cum %" = round(cumsum(n / sum(n) * 100), 1)) %>% 
+    kable() %>% 
+    kable_styling(bootstrap_options = 
+        c("striped", "hover", "condensed", "responsive"), 
+        full_width = F, 
+        position = "left") 
+```
+
+
+## Keyring: securely store secrets
+
+[Keyring](https://cran.r-project.org/web/packages/keyring/)
+
+
+* [Data sets:](#datasets002)
+    * Data:
+        * [Human Mortality Database](https://www.mortality.org/)
+        * [Human Fertility Database](https://www.humanfertility.org/cgi-bin/main.php)
+        * [HMDHFDplus: Read Human Mortality Database and Human Fertility Database Data from the Web](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
+    [Ben's code for reading HMD and HFD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R)
+
+

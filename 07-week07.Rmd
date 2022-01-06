@@ -33,7 +33,7 @@ write.csv(x = AHwave1_v1_haven, file = file.path(mytempdir, "AHwave1_v1_haven.cs
 saveRDS(object = AHwave1_v1_haven, file = file.path(mytempdir, "AHwave1_v1_haven.RDS"))
 ```
 
-Then we will read them back in and investigate their structure. Here we are using a temporary folder, specified using the `tmpdir()` function. Each time an R session is started, a unique temporary folder is used. For this session the tempdir is `r mytempdir`. First, read the CSV format:
+Then we will read them back in and investigate their structure. Here we are using a temporary folder, specified using the `tmpdir()` function. Each time an R session is started, a unique temporary folder is used. For this session the temporary dir is `r mytempdir`. First, read the CSV format:
 
 ```{r}
 AHwave1_v1_haven_csv <- read.csv(file = file.path(mytempdir, "AHwave1_v1_haven.csv"))
@@ -369,7 +369,7 @@ First, this code will load the full Add Health data set, which includes addition
 ```{r}
 # download and unzip the larger data set
 myUrl <- "http://staff.washington.edu/phurvitz/csde502_winter_2021/data/21600-0001-Data.dta.zip"
-# zipfile in $temp
+# zip file in $temp
 zipfile <- file.path(mytempdir, basename(myUrl))
 # dta file in $temp
 dtafile <- tools::file_path_sans_ext(zipfile)
@@ -415,7 +415,7 @@ attributes(ahcomplete$h1gh60)$labels
 First, we need to select the variables representing feet and inches, then filter out invalid heights (> 90) and weights (> 900) identified above, and finally calculate height in m, weight in kg, and BMI ($\frac{weight\_{kg}}{{height\_m}^2}$). For future use we will also select self-reported health and interviewer observed race as factors.
 
 ```{r}
-# make the data frmae
+# make the data frame
 htwt <- ahcomplete %>% 
     # select columns
     select(feet = h1gh59a,
