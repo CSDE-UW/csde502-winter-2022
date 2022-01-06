@@ -1,7 +1,7 @@
 --- 
 title: "UW CSDE 502 A Course Notes"
 author: "Phil Hurvitz"
-date: "2022-01-05"
+date: "2022-01-06"
 site: bookdown::bookdown_site
 description: "These are the course notes for Proseminar Winter 2022 (CSDE 502 A) at the University of Washington."
 
@@ -30,6 +30,7 @@ Material on these pages will be in major flux until the first class of the quart
 ## About this course {.unnumbered}
 
 :::{.rmdnote}
+
 **Course listing and syllabus**
 
 Links to the course listing page and official course syllabus are below:
@@ -37,9 +38,15 @@ Links to the course listing page and official course syllabus are below:
 * Course description: [CSDE 502 Proseminar](https://csde.washington.edu/training/demographic-certificate/courses/csde-502/a)
 * Entry in the UW course catalog: [Ctr for Stdies in Demography and Ecology](https://www.washington.edu/students/crscat/csde.html)
 * The course syllabus is available as a PDF: [csde502_syllabus_2022.pdf](csde502_syllabus_2022.pdf) or DOCX: [csde502_syllabus_2022.docx](csde502_syllabus_2022.docx)
+
 :::
 
-**Scope:** CSDE 502 is tightly paired with [SOC/CSSS/CSDE 533 A (Research Methods in Demography)](https://hanowell.github.io/uwsoc533a/index.html) ("CSDE 533"). Expect to see cross-references in these notes to the notes for CSDE 533 and vice versa. Techniques introduced in this course will be applied in CSDE 533. Some analytic topics introduced in CSDE 533 will be covered in more depth, with explanation of the data and processing in these notes.
+This is a required course for students wishing to obtain a [Demographic Methods Graduate Certificate from CSDE] (https://csde.washington.edu/training/demographic-certificate/). However, it is open to all interested students.
+
+**Scope:** This course is meant to fill a perceived curriculum gap between methods courses that emphasize study design and statistics courses that teach statistical analysis. It focuses on applied methods for data preparation and will introduce the following topics: data management and documentation, data cleaning and variable creation, summarizing variables, working with demographic data, and reproducibility. In short, this course teaches introductory “data wrangling” focused primarily on demographic analysis applications. 
+
+
+CSDE 502 is tightly paired with [SOC/CSSS/CSDE 533 A (Research Methods in Demography)](https://hanowell.github.io/uwsoc533a/index.html) ("CSDE 533"). Expect to see cross-references in these notes to the notes for CSDE 533 and vice versa. Techniques introduced in this course will be applied in CSDE 533. Some analytic topics introduced in CSDE 533 will be covered in more depth, with explanation of the data and processing in these notes.
 
 **Objectives:** Upon completion, you will be familiar with a range of data processing approaches for quantitative demographic analysis. These skills will support your understanding and use of concepts and tools of demography introduced in CSDE 533.
 
@@ -49,18 +56,22 @@ Office hours: by appointment; see [my calendar](http://staff.washington.edu/phur
 
 ## Course logistics {.unnumbered}
 
-Class meetings {.unnumbered}
 
 :::{.rmdnote}
-**Course location:** Class meetings will happen initially over Zoom. The Zoom link for this course is [https://washington.zoom.us/j/97609440755](https://washington.zoom.us/j/976094407559). It is not known whether in-person class meetings will be held during Winter 2022.
 
-**Course days and times:** Friday 10:30-12:20<br>
+### Course location {.unnumbered}
+
+Class meetings will happen initially over Zoom. The Zoom link for this course is [https://washington.zoom.us/j/97609440755](https://washington.zoom.us/j/976094407559). It is not known whether in-person class meetings will be held during Winter 2022.
+
+### Course days and times {.unnumbered}
+Friday 10:30-12:20<br>
 Please come to class promptly at the scheduled time. There will be a 10-minute break about halfway through each class session.
 
-**Canvas site:** The course has a Canvas site [https://canvas.uw.edu/courses/1515226](https://canvas.uw.edu/courses/1515226), which will be used for collection of assignments and distribution of graded assignments. The site may also be used for distribution of data sets used in the course.
+### Canvas site:** The course has a Canvas site [https://canvas.uw.edu/courses/1515226](https://canvas.uw.edu/courses/1515226), which will be used for collection of assignments and distribution of graded assignments. The site may also be used for distribution of data sets used in the course.
+
 :::
 
-**Class format**
+### Class format {.unnumbered}
 
 Default class-time agenda:
 
@@ -69,7 +80,7 @@ Default class-time agenda:
 1. A hands-on instructional session (~75 minutes)
 1. Overview/clarification of assignment (~10 minutes)
 
-### Computing {.unnumbered}
+## Computing {.unnumbered}
 We will do our assignments in R. Use an Internet-connected computer provisioned with the latest versions of [R](https://www.r-project.org/) [-@R-base], [RStudio Desktop](https://www.rstudio.com/products/rstudio/), and the latest versions of following R packages:
 
 * [knitr](https://yihui.org/knitr/) [-@R-knitr]
@@ -99,7 +110,7 @@ In addition to the RDP client, in order to access any of CSDE's computing resour
 * [RStudio Education Beginners course](https://education.rstudio.com/learn/beginner/)
 :::
 
-### Assignments and grading {.unnumbered}
+## Assignments and grading {.unnumbered}
 Each week there will be an assignment made available at 12:00 on the day of class meetings. The assignments are designed to allow students to practice the skills introduced in class sessions. Assignments are due at 09:00 AM on Friday of the week following when the assignment was distributed; answer keys will be posted at this time. Because the answer keys are posted at the due date/time, late work will not be reviewed.
 
 Assignments will be reviewed thoroughly and returned with relevant mark-up, corrections, suggestions, etc. and returned via the course Canvas site.
@@ -276,6 +287,7 @@ Material on these pages will be in major flux until the first class of the quart
 ## About this course {.unnumbered}
 
 :::{.rmdnote}
+
 **Course listing and syllabus**
 
 Links to the course listing page and official course syllabus are below:
@@ -283,9 +295,15 @@ Links to the course listing page and official course syllabus are below:
 * Course description: [CSDE 502 Proseminar](https://csde.washington.edu/training/demographic-certificate/courses/csde-502/a)
 * Entry in the UW course catalog: [Ctr for Stdies in Demography and Ecology](https://www.washington.edu/students/crscat/csde.html)
 * The course syllabus is available as a PDF: [`r syllabus`](`r syllabus`) or DOCX: [`r syllabusdocx`](`r syllabusdocx`)
+
 :::
 
-**Scope:** CSDE 502 is tightly paired with [SOC/CSSS/CSDE 533 A (Research Methods in Demography)](https://hanowell.github.io/uwsoc533a/index.html) ("CSDE 533"). Expect to see cross-references in these notes to the notes for CSDE 533 and vice versa. Techniques introduced in this course will be applied in CSDE 533. Some analytic topics introduced in CSDE 533 will be covered in more depth, with explanation of the data and processing in these notes.
+This is a required course for students wishing to obtain a [Demographic Methods Graduate Certificate from CSDE] (https://csde.washington.edu/training/demographic-certificate/). However, it is open to all interested students.
+
+**Scope:** This course is meant to fill a perceived curriculum gap between methods courses that emphasize study design and statistics courses that teach statistical analysis. It focuses on applied methods for data preparation and will introduce the following topics: data management and documentation, data cleaning and variable creation, summarizing variables, working with demographic data, and reproducibility. In short, this course teaches introductory â€œdata wranglingâ€ focused primarily on demographic analysis applications. 
+
+
+CSDE 502 is tightly paired with [SOC/CSSS/CSDE 533 A (Research Methods in Demography)](https://hanowell.github.io/uwsoc533a/index.html) ("CSDE 533"). Expect to see cross-references in these notes to the notes for CSDE 533 and vice versa. Techniques introduced in this course will be applied in CSDE 533. Some analytic topics introduced in CSDE 533 will be covered in more depth, with explanation of the data and processing in these notes.
 
 **Objectives:** Upon completion, you will be familiar with a range of data processing approaches for quantitative demographic analysis. These skills will support your understanding and use of concepts and tools of demography introduced in CSDE 533.
 
@@ -295,18 +313,22 @@ Office hours: by appointment; see [my calendar](http://staff.washington.edu/phur
 
 ## Course logistics {.unnumbered}
 
-Class meetings {.unnumbered}
 
 :::{.rmdnote}
-**Course location:** Class meetings will happen initially over Zoom. The Zoom link for this course is [https://washington.zoom.us/j/97609440755](https://washington.zoom.us/j/976094407559). It is not known whether in-person class meetings will be held during Winter 2022.
 
-**Course days and times:** Friday 10:30-12:20<br>
+### Course location {.unnumbered}
+
+Class meetings will happen initially over Zoom. The Zoom link for this course is [https://washington.zoom.us/j/97609440755](https://washington.zoom.us/j/976094407559). It is not known whether in-person class meetings will be held during Winter 2022.
+
+### Course days and times {.unnumbered}
+Friday 10:30-12:20<br>
 Please come to class promptly at the scheduled time. There will be a 10-minute break about halfway through each class session.
 
-**Canvas site:** The course has a Canvas site [https://canvas.uw.edu/courses/1515226](https://canvas.uw.edu/courses/1515226), which will be used for collection of assignments and distribution of graded assignments. The site may also be used for distribution of data sets used in the course.
+### Canvas site:** The course has a Canvas site [https://canvas.uw.edu/courses/1515226](https://canvas.uw.edu/courses/1515226), which will be used for collection of assignments and distribution of graded assignments. The site may also be used for distribution of data sets used in the course.
+
 :::
 
-**Class format**
+### Class format {.unnumbered}
 
 Default class-time agenda:
 
@@ -315,7 +337,7 @@ Default class-time agenda:
 1. A hands-on instructional session (~75 minutes)
 1. Overview/clarification of assignment (~10 minutes)
 
-### Computing {.unnumbered}
+## Computing {.unnumbered}
 We will do our assignments in R. Use an Internet-connected computer provisioned with the latest versions of [R](https://www.r-project.org/) [-@R-base], [RStudio Desktop](https://www.rstudio.com/products/rstudio/), and the latest versions of following R packages:
 
 * [knitr](https://yihui.org/knitr/) [-@R-knitr]
@@ -345,7 +367,7 @@ In addition to the RDP client, in order to access any of CSDE's computing resour
 * [RStudio Education Beginners course](https://education.rstudio.com/learn/beginner/)
 :::
 
-### Assignments and grading {.unnumbered}
+## Assignments and grading {.unnumbered}
 Each week there will be an assignment made available at 12:00 on the day of class meetings. The assignments are designed to allow students to practice the skills introduced in class sessions. Assignments are due at 09:00 AM on Friday of the week following when the assignment was distributed; answer keys will be posted at this time. Because the answer keys are posted at the due date/time, late work will not be reviewed.
 
 Assignments will be reviewed thoroughly and returned with relevant mark-up, corrections, suggestions, etc. and returned via the course Canvas site.

@@ -90,7 +90,9 @@ Material on these pages will be in major flux until the first class of the quart
 </li>
 </ul>
 </div>
-<p><strong>Scope:</strong> CSDE 502 is tightly paired with <a href="https://hanowell.github.io/uwsoc533a/index.html">SOC/CSSS/CSDE 533 A (Research Methods in Demography)</a> (“CSDE 533”). Expect to see cross-references in these notes to the notes for CSDE 533 and vice versa. Techniques introduced in this course will be applied in CSDE 533. Some analytic topics introduced in CSDE 533 will be covered in more depth, with explanation of the data and processing in these notes.</p>
+<p>This is a required course for students wishing to obtain a [Demographic Methods Graduate Certificate from CSDE] (<a href="https://csde.washington.edu/training/demographic-certificate/" class="uri">https://csde.washington.edu/training/demographic-certificate/</a>). However, it is open to all interested students.</p>
+<p><strong>Scope:</strong> This course is meant to fill a perceived curriculum gap between methods courses that emphasize study design and statistics courses that teach statistical analysis. It focuses on applied methods for data preparation and will introduce the following topics: data management and documentation, data cleaning and variable creation, summarizing variables, working with demographic data, and reproducibility. In short, this course teaches introductory “data wrangling” focused primarily on demographic analysis applications.</p>
+<p>CSDE 502 is tightly paired with <a href="https://hanowell.github.io/uwsoc533a/index.html">SOC/CSSS/CSDE 533 A (Research Methods in Demography)</a> (“CSDE 533”). Expect to see cross-references in these notes to the notes for CSDE 533 and vice versa. Techniques introduced in this course will be applied in CSDE 533. Some analytic topics introduced in CSDE 533 will be covered in more depth, with explanation of the data and processing in these notes.</p>
 <p><strong>Objectives:</strong> Upon completion, you will be familiar with a range of data processing approaches for quantitative demographic analysis. These skills will support your understanding and use of concepts and tools of demography introduced in CSDE 533.</p>
 <p><strong>Instructor:</strong> <a href="gis.washington.edu/phurvitz">Phil Hurvitz</a>, <a href="mailto:phurvitz@uw.edu" class="email">phurvitz@uw.edu</a><br>
 Office hours: by appointment; see <a href="http://staff.washington.edu/phurvitz/calendar">my calendar</a> and suggest times to meet.</p>
@@ -98,14 +100,27 @@ Office hours: by appointment; see <a href="http://staff.washington.edu/phurvitz/
 <div id="course-logistics" class="section level2 unnumbered">
 <h2>Course logistics<a class="anchor" aria-label="anchor" href="#course-logistics"><i class="fas fa-link"></i></a>
 </h2>
-<p>Class meetings {.unnumbered}</p>
 <div class="rmdnote">
-<p><strong>Course location:</strong> Class meetings will happen initially over Zoom. The Zoom link for this course is <a href="https://washington.zoom.us/j/976094407559">https://washington.zoom.us/j/97609440755</a>. It is not known whether in-person class meetings will be held during Winter 2022.</p>
-<p><strong>Course days and times:</strong> Friday 10:30-12:20<br>
-Please come to class promptly at the scheduled time. There will be a 10-minute break about halfway through each class session.</p>
-<p><strong>Canvas site:</strong> The course has a Canvas site <a href="https://canvas.uw.edu/courses/1515226">https://canvas.uw.edu/courses/1515226</a>, which will be used for collection of assignments and distribution of graded assignments. The site may also be used for distribution of data sets used in the course.</p>
+<div id="course-location" class="section level3 unnumbered">
+<h3>Course location<a class="anchor" aria-label="anchor" href="#course-location"><i class="fas fa-link"></i></a>
+</h3>
+<p>Class meetings will happen initially over Zoom. The Zoom link for this course is <a href="https://washington.zoom.us/j/976094407559">https://washington.zoom.us/j/97609440755</a>. It is not known whether in-person class meetings will be held during Winter 2022.</p>
 </div>
-<p><strong>Class format</strong></p>
+<div id="course-days-and-times" class="section level3 unnumbered">
+<h3>Course days and times<a class="anchor" aria-label="anchor" href="#course-days-and-times"><i class="fas fa-link"></i></a>
+</h3>
+<p>Friday 10:30-12:20<br>
+Please come to class promptly at the scheduled time. There will be a 10-minute break about halfway through each class session.</p>
+</div>
+<div id="canvas-site-the-course-has-a-canvas-site-httpscanvas.uw.educourses1515226-which-will-be-used-for-collection-of-assignments-and-distribution-of-graded-assignments.-the-site-may-also-be-used-for-distribution-of-data-sets-used-in-the-course." class="section level3" number="0.0.1">
+<h3>
+<span class="header-section-number">0.0.1</span> Canvas site:** The course has a Canvas site <a href="https://canvas.uw.edu/courses/1515226">https://canvas.uw.edu/courses/1515226</a>, which will be used for collection of assignments and distribution of graded assignments. The site may also be used for distribution of data sets used in the course.<a class="anchor" aria-label="anchor" href="#canvas-site-the-course-has-a-canvas-site-httpscanvas.uw.educourses1515226-which-will-be-used-for-collection-of-assignments-and-distribution-of-graded-assignments.-the-site-may-also-be-used-for-distribution-of-data-sets-used-in-the-course."><i class="fas fa-link"></i></a>
+</h3>
+</div>
+</div>
+<div id="class-format" class="section level3 unnumbered">
+<h3>Class format<a class="anchor" aria-label="anchor" href="#class-format"><i class="fas fa-link"></i></a>
+</h3>
 <p>Default class-time agenda:</p>
 <ol style="list-style-type: decimal">
 <li>Address outstanding issues from previous sessions or assignments (~10 minutes)</li>
@@ -113,9 +128,11 @@ Please come to class promptly at the scheduled time. There will be a 10-minute b
 <li>A hands-on instructional session (~75 minutes)</li>
 <li>Overview/clarification of assignment (~10 minutes)</li>
 </ol>
-<div id="computing" class="section level3 unnumbered">
-<h3>Computing<a class="anchor" aria-label="anchor" href="#computing"><i class="fas fa-link"></i></a>
-</h3>
+</div>
+</div>
+<div id="computing" class="section level2 unnumbered">
+<h2>Computing<a class="anchor" aria-label="anchor" href="#computing"><i class="fas fa-link"></i></a>
+</h2>
 <p>We will do our assignments in R. Use an Internet-connected computer provisioned with the latest versions of <a href="https://www.r-project.org/">R</a>,<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;em&gt;R: A Language and Environment for Statistical Computing&lt;/em&gt; (Vienna, Austria: R Foundation for Statistical Computing, 2021), &lt;a href="https://www.R-project.org/" role="doc-biblioref"&gt;https://www.R-project.org/&lt;/a&gt;.&lt;/p&gt;'><sup>1</sup></a></span> <a href="https://www.rstudio.com/products/rstudio/">RStudio Desktop</a>, and the latest versions of following R packages:</p>
 <ul>
 <li>
@@ -147,13 +164,12 @@ Please come to class promptly at the scheduled time. There will be a 10-minute b
 </ul>
 </div>
 </div>
-<div id="assignments-and-grading" class="section level3 unnumbered">
-<h3>Assignments and grading<a class="anchor" aria-label="anchor" href="#assignments-and-grading"><i class="fas fa-link"></i></a>
-</h3>
+<div id="assignments-and-grading" class="section level2 unnumbered">
+<h2>Assignments and grading<a class="anchor" aria-label="anchor" href="#assignments-and-grading"><i class="fas fa-link"></i></a>
+</h2>
 <p>Each week there will be an assignment made available at 12:00 on the day of class meetings. The assignments are designed to allow students to practice the skills introduced in class sessions. Assignments are due at 09:00 AM on Friday of the week following when the assignment was distributed; answer keys will be posted at this time. Because the answer keys are posted at the due date/time, late work will not be reviewed.</p>
 <p>Assignments will be reviewed thoroughly and returned with relevant mark-up, corrections, suggestions, etc. and returned via the course Canvas site.</p>
 <p>This course is graded credit/no credit. Students should complete as much of each of the assignments as they can within a reasonable amount of time.</p>
-</div>
 </div>
 <div id="course-policies" class="section level2 unnumbered">
 <h2>Course policies<a class="anchor" aria-label="anchor" href="#course-policies"><i class="fas fa-link"></i></a>
@@ -421,6 +437,7 @@ Material on these pages will be in major flux until the first class of the quart
 ## About this course {.unnumbered}
 
 :::{.rmdnote}
+
 **Course listing and syllabus**
 
 Links to the course listing page and official course syllabus are below:
@@ -428,9 +445,15 @@ Links to the course listing page and official course syllabus are below:
 * Course description: [CSDE 502 Proseminar](https://csde.washington.edu/training/demographic-certificate/courses/csde-502/a)
 * Entry in the UW course catalog: [Ctr for Stdies in Demography and Ecology](https://www.washington.edu/students/crscat/csde.html)
 * The course syllabus is available as a PDF: [`r syllabus`](`r syllabus`) or DOCX: [`r syllabusdocx`](`r syllabusdocx`)
+
 :::
 
-**Scope:** CSDE 502 is tightly paired with [SOC/CSSS/CSDE 533 A (Research Methods in Demography)](https://hanowell.github.io/uwsoc533a/index.html) ("CSDE 533"). Expect to see cross-references in these notes to the notes for CSDE 533 and vice versa. Techniques introduced in this course will be applied in CSDE 533. Some analytic topics introduced in CSDE 533 will be covered in more depth, with explanation of the data and processing in these notes.
+This is a required course for students wishing to obtain a [Demographic Methods Graduate Certificate from CSDE] (https://csde.washington.edu/training/demographic-certificate/). However, it is open to all interested students.
+
+**Scope:** This course is meant to fill a perceived curriculum gap between methods courses that emphasize study design and statistics courses that teach statistical analysis. It focuses on applied methods for data preparation and will introduce the following topics: data management and documentation, data cleaning and variable creation, summarizing variables, working with demographic data, and reproducibility. In short, this course teaches introductory â€œdata wranglingâ€ focused primarily on demographic analysis applications. 
+
+
+CSDE 502 is tightly paired with [SOC/CSSS/CSDE 533 A (Research Methods in Demography)](https://hanowell.github.io/uwsoc533a/index.html) ("CSDE 533"). Expect to see cross-references in these notes to the notes for CSDE 533 and vice versa. Techniques introduced in this course will be applied in CSDE 533. Some analytic topics introduced in CSDE 533 will be covered in more depth, with explanation of the data and processing in these notes.
 
 **Objectives:** Upon completion, you will be familiar with a range of data processing approaches for quantitative demographic analysis. These skills will support your understanding and use of concepts and tools of demography introduced in CSDE 533.
 
@@ -440,18 +463,22 @@ Office hours: by appointment; see [my calendar](http://staff.washington.edu/phur
 
 ## Course logistics {.unnumbered}
 
-Class meetings {.unnumbered}
 
 :::{.rmdnote}
-**Course location:** Class meetings will happen initially over Zoom. The Zoom link for this course is [https://washington.zoom.us/j/97609440755](https://washington.zoom.us/j/976094407559). It is not known whether in-person class meetings will be held during Winter 2022.
 
-**Course days and times:** Friday 10:30-12:20&lt;br&gt;
+### Course location {.unnumbered}
+
+Class meetings will happen initially over Zoom. The Zoom link for this course is [https://washington.zoom.us/j/97609440755](https://washington.zoom.us/j/976094407559). It is not known whether in-person class meetings will be held during Winter 2022.
+
+### Course days and times {.unnumbered}
+Friday 10:30-12:20&lt;br&gt;
 Please come to class promptly at the scheduled time. There will be a 10-minute break about halfway through each class session.
 
-**Canvas site:** The course has a Canvas site [https://canvas.uw.edu/courses/1515226](https://canvas.uw.edu/courses/1515226), which will be used for collection of assignments and distribution of graded assignments. The site may also be used for distribution of data sets used in the course.
+### Canvas site:** The course has a Canvas site [https://canvas.uw.edu/courses/1515226](https://canvas.uw.edu/courses/1515226), which will be used for collection of assignments and distribution of graded assignments. The site may also be used for distribution of data sets used in the course.
+
 :::
 
-**Class format**
+### Class format {.unnumbered}
 
 Default class-time agenda:
 
@@ -460,7 +487,7 @@ Default class-time agenda:
 1. A hands-on instructional session (~75 minutes)
 1. Overview/clarification of assignment (~10 minutes)
 
-### Computing {.unnumbered}
+## Computing {.unnumbered}
 We will do our assignments in R. Use an Internet-connected computer provisioned with the latest versions of [R](https://www.r-project.org/) [-@R-base], [RStudio Desktop](https://www.rstudio.com/products/rstudio/), and the latest versions of following R packages:
 
 * [knitr](https://yihui.org/knitr/) [-@R-knitr]
@@ -490,7 +517,7 @@ In addition to the RDP client, in order to access any of CSDE's computing resour
 * [RStudio Education Beginners course](https://education.rstudio.com/learn/beginner/)
 :::
 
-### Assignments and grading {.unnumbered}
+## Assignments and grading {.unnumbered}
 Each week there will be an assignment made available at 12:00 on the day of class meetings. The assignments are designed to allow students to practice the skills introduced in class sessions. Assignments are due at 09:00 AM on Friday of the week following when the assignment was distributed; answer keys will be posted at this time. Because the answer keys are posted at the due date/time, late work will not be reviewed.
 
 Assignments will be reviewed thoroughly and returned with relevant mark-up, corrections, suggestions, etc. and returned via the course Canvas site.
@@ -637,10 +664,14 @@ cat(readLines("index.Rmd"), sep = "\n")
 <li><a class="nav-link" href="#about-this-course">About this course</a></li>
 <li>
 <a class="nav-link" href="#course-logistics">Course logistics</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#computing">Computing</a></li>
-<li><a class="nav-link" href="#assignments-and-grading">Assignments and grading</a></li>
+<li><a class="nav-link" href="#course-location">Course location</a></li>
+<li><a class="nav-link" href="#course-days-and-times">Course days and times</a></li>
+<li><a class="nav-link" href="#canvas-site-the-course-has-a-canvas-site-httpscanvas.uw.educourses1515226-which-will-be-used-for-collection-of-assignments-and-distribution-of-graded-assignments.-the-site-may-also-be-used-for-distribution-of-data-sets-used-in-the-course."><span class="header-section-number">0.0.1</span> Canvas site:** The course has a Canvas site https://canvas.uw.edu/courses/1515226, which will be used for collection of assignments and distribution of graded assignments. The site may also be used for distribution of data sets used in the course.</a></li>
+<li><a class="nav-link" href="#class-format">Class format</a></li>
 </ul>
 </li>
+<li><a class="nav-link" href="#computing">Computing</a></li>
+<li><a class="nav-link" href="#assignments-and-grading">Assignments and grading</a></li>
 <li><a class="nav-link" href="#course-policies">Course policies</a></li>
 <li>
 <a class="nav-link" href="#course-calendar">Course calendar</a><ul class="nav navbar-nav">
@@ -694,7 +725,7 @@ Week 10
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-01-05.</p>
+    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-01-06.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

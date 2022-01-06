@@ -359,7 +359,7 @@ y$obsrace %>% attributes()
 The same caveats apply to saving the data frame to files.
 
 ## Tabulation
-We have seen a few examples of tabulation in previous exercises (Sections \@ref(summarizingaggregating-data), \@ref(tables-in-r-markdown), \@ref(default-values-for-arguments)). This section will give a more complete treatment using the Add Health data as an example.
+We have seen a few examples of tabulation in previous exercises (Sections \@ref(summarizingaggregating-data), \@ref(rmdtables), \@ref(default-values-for-arguments)). This section will give a more complete treatment using the Add Health data as an example.
 
 ### Raw counts
 The most basic tabulations simply give the count of observations in different strata. Those strata can be based on numeric ratio or interval data, using functions such as `cut()` or `BAMMtools::getJenksBreaks()`, nominal data (such as the Add Health interviewer's observation of respondents' single race), or ordinal data (such as the self-reported health status). We will use examples of each type of data.
