@@ -13,6 +13,11 @@ suppress-bibliography: true
 
 
 
+
+# Introduction and Welcome! {.unnumbered}
+
+This is the main course notes for CSDE 502 for Winter 2022. It will contain or link to all lecture notes, code examples, exercises, and assignments. We will review these course notes during lecture. Assignment answer keys will be provided on the Canvas site, accessible only to currently enrolled CSDE 502 students.
+
 :::{.rmdcaution}
 
 <center>
@@ -21,10 +26,6 @@ Material on these pages will be in major flux until the first class of the quart
 </center>
 
 :::
-
-# Introduction and Welcome! {.unnumbered}
-
-This is the main course notes for CSDE 502 for Winter 2022. It will contain or link to all lecture notes, code examples, exercises, and assignments. We will review these course notes during lecture. Assignment answer keys will be provided on the Canvas site, accessible only to currently enrolled CSDE 502 students.
 
 ## About this course {.unnumbered}
 
@@ -258,6 +259,11 @@ syllabus <- paste0("csde502_syllabus_", year, ".pdf")
 syllabusdocx <- paste0("csde502_syllabus_", year, ".docx")
 ```
 
+
+# Introduction and Welcome! {.unnumbered}
+
+This is the main course notes for CSDE 502 for Winter 2022. It will contain or link to all lecture notes, code examples, exercises, and assignments. We will review these course notes during lecture. Assignment answer keys will be provided on the Canvas site, accessible only to currently enrolled CSDE 502 students.
+
 :::{.rmdcaution}
 
 <center>
@@ -266,10 +272,6 @@ Material on these pages will be in major flux until the first class of the quart
 </center>
 
 :::
-
-# Introduction and Welcome! {.unnumbered}
-
-This is the main course notes for CSDE 502 for Winter 2022. It will contain or link to all lecture notes, code examples, exercises, and assignments. We will review these course notes during lecture. Assignment answer keys will be provided on the Canvas site, accessible only to currently enrolled CSDE 502 students.
 
 ## About this course {.unnumbered}
 

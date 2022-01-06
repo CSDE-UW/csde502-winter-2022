@@ -6,11 +6,14 @@ library(tidyverse)
 library(magrittr)
 library(knitr)
 library(kableExtra)
+
+# this course's URL
+myurl <- "https://csde-uw.github.io/csde502-winter-2022"
 ```
 
 <h2>Topics:</h2>
 * [Getting started on terminal server 4](#gettingstarted)
-* [Introduction to R/RStudio/RMarkdown](#intrormd)
+* [Introduction to R/RStudio/R Markdown](#intrormd)
 * [R data types](#rdatatypes)
 * [R data structures](#rdatastructures)
 * [File systems](#filesystems)
@@ -60,17 +63,43 @@ __Be very careful with your files on the U Drive!__ If you delete files, there i
 
 ![](images/week01/2021-01-07_23_01_10-Delete_Folder.png)
 
-Navigate into `H:` and create a new folder named `csde502_winter_2021`. Note the use of lowercase letters and underscores rather than spaces. This will be discussed in the section on file systems later in this lesson.
+Navigate into `H:` and create a new folder named `csde502_winter_2022`. Note the use of lowercase letters and underscores rather than spaces. This will be discussed in the section on file systems later in this lesson.
 
 ![](images/week01/2021-01-07_22_32_29-new_folder.png)
 
 ## Introduction to R Markdown in RStudio {#intrormd}
+
 ### Create a project
 Now we will use RStudio to create the first R Markdown source file and render it to HTML.
 
 Start RStudio by either dbl-clicking the desktop shortcut or navigating to the alphabetical R section of the Start menu:
 
 ![](images/week01/2021-01-07_23_05_49-Window.png)
+
+:::{.rmdnote}
+A brief aside: install `tidyverse`
+One of the R packages we will use frequently is [`tidyverse`](https://www.tidyverse.org/packages/), which is itself a collection of several other packages, each with a specific domain: 
+
+* `ggplot2` (graphics)
+* `dplyr` (data manipulation)
+* `tidyr` (reformatting data for efficient processing)
+* `readr` (reading rectangular R x C data)
+* `purrr` (functional programming, e.g., to replace `for()` loops)
+* `tibble` (enhanced data frames)
+* `stringr` (string, i.e., text manipulation)
+* `forcats` (handling factor, i.e., categorical variables)
+
+We will touch on some of these during this course, but there will not be a full review or treatment of the `tidyverse`.
+
+To get started, because it usually takes some time to install, open a second RStudio session and at the console, to install `tidyverse`, the other packages for CSDE 533, and for this lesson, enter
+
+```
+install.packages("pacman")
+pacman::p_load(tidyverse, R Markdown, knitr, kableExtra, readstata13))
+```
+
+Now continue on with the lesson....
+:::
 
 Create a new project (`File > New Project...`).
 
@@ -107,9 +136,9 @@ Click `OK` and then name the file `week_01.Rmd`.
 
 #### Render the Rmd file as HTML
 
-At the console prompt, enter `rmarkdown::render("W` and tap the `TAB` key. This should bring up a list of files that have the character "w" in the file name. Click `week_01.Rmd`.
+At the console prompt, enter `R Markdown::render("W` and tap the `TAB` key. This should bring up a list of files that have the character "w" in the file name. Click `week_01.Rmd`.
 
-The syntax here means "run the `render()` function from the `rmarkdown` package on the file `week_01.Rmd`"
+The syntax here means "run the `render()` function from the `R Markdown` package on the file `week_01.Rmd`"
 
 ![](images/week01/2021-01-07_23_15_32-csde502_winter_2021-RStudiorappbroker.csde.washington.edu.png)
 
@@ -152,9 +181,9 @@ Change line 3 to include your name and e-mail address.
 ![](images/week01/2021-01-08_00_35_18-Window.png)
 
 #### Render and view the enhanced output
-Repeat the rendering process (`rmarkdown::render("Week_01.Rmd")`) 
+Repeat the rendering process (`R Markdown::render("Week_01.Rmd")`) 
 
-The new HTML file has a number of enhancements, including a table of contents at the upper left, a table that is easier to read, a Leaflet map, captions and cross-references for the figures and table, an image derived from a PNG file referenced by a URL, the code used to generate various parts of the document that are produced by R code, and the complete source code for the document. A dowbnloadable version of the rendered file: [week_01.html](files/week_01.html).
+The new HTML file has a number of enhancements, including a table of contents at the upper left, a table that is easier to read, a Leaflet map, captions and cross-references for the figures and table, an image derived from a PNG file referenced by a URL, the code used to generate various parts of the document that are produced by R code, and the complete source code for the document. A downloadable version of the rendered file: [week_01.html](files/week_01.html).
 
 ![](images/week01/2021-01-08_00_19_27-Week01.png)
 
@@ -232,10 +261,10 @@ print(class(i))
 The `complex` type is used in mathematics and you are unlikely to use it in applied social science research unless you get into some heavy statistics. See [Complex number](https://en.wikipedia.org/wiki/Complex_number) for a full treatment.
 
 ### Character
-`Character` data include the full set of keys on your keyboard that print out a character, typically [A-Z], [a-z], [0-9], punctuation, etc. The full set of ASCII characters is supported, e.g. the `accent aigu` in CafÃ©:
+`Character` data include the full set of keys on your keyboard that print out a character, typically [A-Z], [a-z], [0-9], punctuation, etc. The full set of ASCII characters is supported, e.g. the `accent aigu` in Café:
 
 ```{r}
-print(class("CafÃ©"))
+print(class("Café"))
 ```
 
 Also numbers can function as characters. Be careful in converting between numerical and character versions. For example, see these ZIP codes:
@@ -468,7 +497,7 @@ Although a full treatment of effective uses of file systems is beyond the scope 
 1. Never use spaces in folder or file names. 
     Ninety-nine and 44/100ths percent of the time, most modern software will have no problems handling file names with spaces. But that 0.56% of the time when software chokes, you may wonder why your processes are failing. If your directly and file names do not have spaces, then you can at least rule that out!
 1. Use lowercase letters in directory and file names.
-    In the olden days (DOS), there was not case sensitivity in file names. UNIX has has always used case sensitive file names. So 
+    In the olden days (MS-DOS), there was not case sensitivity in file names. UNIX has has always used case sensitive file names. So 
     `MyGloriousPhDDissertation.tex` and `mygloriousphddissertation.tex` could actually be different files. Macs, being based on a UNIX kernel, also employ case sensitivity in file names. But Windows? No. Consider the following: there cannot be both `foo.txt` and `FOO.txt` in the same directory. 
     ![](images/week01/2021-01-08_01_13_50-CommandPrompt.png)
     
@@ -486,6 +515,361 @@ Although a full treatment of effective uses of file systems is beyond the scope 
 1. Agonize over file names. 
     Optimally when you look at your file names, you will be able to know something about the content of the file. We spend a lot of time doing analysis and creating output. Spending an extra minute thinking about good file names is time well spent.
 
+
+## Data manipulation in the `tidyverse`
+This section will introduce some of the main workhorse functions in tidy data handling. 
+
+Installing tidyverse is straightforward but it may take some time to download and install all of the packages. If you have not done so yet, use
+
+```
+install.packages("tidyverse")
+```
+
+For today's lesson we will be using one of the Add Health public use data sets, [AHwave1_v1.dta](data/AHwave1_v1.dta). 
+
+```{r warning=FALSE}
+# install package?
+install.packages("pacman", repos = "https://ftp.osuosl.org/pub/cran/")
+pacman::p_load(readstata13)
+
+# read the dta file
+dat <- readstata13::read.dta13(file.path(myurl, "data/AHwave1_v1.dta"))
+```
+
+The data set includes variable labels, which make handling the data easier. Here we print the column names and their labels. Wrapping this in a `DT::data_table` presents a nice interface for showing only a few variables at a time and that allows sorting and searching.
+
+```{r}
+x <- data.frame(colname = names(dat), label = attributes(dat)$var.labels)
+DT::datatable(data = x, caption = "Column names and labels in AHwave1_v1.dta.")
+```
+
+
+### magrittr{#magrittr}
+![](images/week02/unepipe.jpeg)
+
+The R package [`magrittr`](https://cran.r-project.org/web/packages/magrittr/index.html) allows the use of "pipes". In UNIX, pipes were used to take the output of one program and to feed as input to another program. For example, the UNIX command `cat` prints the contents of a text file. This would print the contents of the file `00README.txt`:
+
+```cat 00README.txt```
+
+but with large files, the entire contents would scroll by too fast to read. Using a "pipe", denoted with the vertical bar character `|` allowed using the `more` command to print one screen at a time by tapping the `Enter` key for each screen full of text:
+
+```cat 00README.txt | more```
+
+As shown in these two screen captures:
+
+![](images/week02/cat_more.png)
+
+![](images/week02/cat_more2.png)
+
+The two main pipe operators we will use in `magrittr` are `%>%` and '%<>%'.
+
+`%>%` is the pipe operator, which functions as a UNIX pipe, that is, to take something on the left hand side of the operator and feed it to the right hand side. 
+
+`%<>%` is the assignment pipe operator, which takes something on the left hand side of the operator, feeds it to the right hand side, and replaces the object on the left-hand side.
+
+For a simple example of the pipe, to list only the first 6 lines of a data frame in base R, we use `head()`, e.g.,
+
+```{r}
+head(iris)
+```
+
+using a tidy version of this:
+
+```{r}
+iris %>% head()
+```
+
+In the R base version, we first read `head`, so we know we will be printing the first 6 elements of something, but we don't know what that "something" is. We have to read ahead to know we are reading the first 6 records of `iris`. In the tidy version, we start by knowing we are doing something to the data set, after which we know we are printing the first 6 records.
+
+In base R functions, the process is evaluated from the inside out. For example, to get the mean sepal length of the _setosa_ species in iris, we would do this:
+
+```{r}
+mean(iris[iris$Species == 'setosa', "Sepal.Length"])
+```
+
+From the inside out, we read that we are making a subset of `iris` where Species = "setosa", we are selecting the column "Sepal.Length", and taking the mean. However, it requires reading from the inside out. For a large set of nested functions, we would have ` y <- f(g(h((i(x)))))`, which would require first creating the innermost function (`i()`) and then working outward.
+
+In a tidy approach this would be more like y <- x %>% i() %>% h() %>% g() %>% f()` because the first function applied to the data set `x` is `i()`. Revisiting the mean sepal length of _setosa_ irises, example, under a tidy approach we would do this:
+
+```{r}
+iris %>% filter(Species == 'setosa') %>% summarise(mean(Sepal.Length))
+```
+
+Which, read from left to right, translates to "using the iris data frame, make a subset of records where species is _setosa_, and summarize those records to get the mean value of sepal length." The tidy version is intended to be easier to write, read, and understand. The command uses the `filter()` function, which will be described below.
+
+### Data subsetting (dplyr)
+`dplyr` is the tidyverse R package used most frequently for data manipulation. Selection of records (i.e., subsetting) is done using logical tests to determine what is in the selected set. First we will look at logical tests and then we will cover subsetting rows and columns from data frames.
+
+##### Logical tests
+If elements meet a logical test, they will end up in the selected set. If data frame records have values in variables that meet logical criteria, the records will be selected. 
+
+Some logical tests are shown below.
+
+###### `==`: equals
+
+```{r}
+# numeric tests
+(1 == 2)
+```
+
+```{r}
+(1 == 3 - 2)
+```
+
+```{r}
+# character test (actually a factor)
+(dat$imonth %>% head() %>% str_c(collapse = ", "))
+((dat$imonth == "(6) June") %>% head())
+```
+
+```{r}
+# character test for multiple patterns
+(dat$imonth %in% c("(6) June", "(7) July") %>% head())
+```
+
+
+###### `>`, `>=`, `<`, `<=`: numeric comparisons
+
+```{r}
+1 < 2
+```
+
+```{r}
+1 > 2
+```
+
+```{r}
+1 <= -10:10
+```
+
+```{r}
+1 >= -10:10
+```
+
+###### `!=`: not equals
+
+```{r}
+1 != 2
+```
+
+```{r}
+# those of the first 6 days that are not 14
+(dat$iday %>% head())
+((dat$iday != 14) %>% head())
+```
+
+###### `!`: invert, or "not"
+Sometimes it is more convenient to negate a single condition rather than enumerating all possible matching conditions.
+
+```{r}
+dat$imonth %>% head(20)
+((!dat$imonth %in% c("(6) June", "(7) July")) %>% head(20))
+```
+
+#### Subset rows (`filter()`)
+The `filter()` function creates a subset of records based on a logical test. Logical tests can be combined as "and" statements using the `&` operator and "or" statements using the `|` operator. Here we will perform a few filters on a subset of the data.
+
+```{r}
+# first 20 records, fist 10 columns
+dat_sub <- dat[1:20, 1:10]
+kable(dat_sub, format = "html") %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left")
+```
+
+Records from one month:
+
+```{r}
+# from May
+(dat_sub %>% filter(imonth == "(5) May"))
+```
+
+Records from one month from females:
+
+```{r}
+(dat_sub %>% filter(imonth == "(5) May" & bio_sex == "(2) Female"))
+```
+
+Records from one month and from females or where the day of month was before the 15th, which will probably include some males:
+
+```{r}
+(dat_sub %>% filter(imonth == "(5) May" & (bio_sex == "(2) Female") | iday < 15))
+
+```
+
+Although these examples are silly and trivial, they show how `filter()` is used to create a selected set of data
+
+#### Subset columns (`select()`)
+A subset of columns can be extracted from data frames using the `select()` function, most simply using  named list of columns to keep.
+
+```{r}
+# select 3 columns
+(dat_sub_sel <- dat_sub %>%   
+    select("aid", "imonth", "iday"))
+```
+
+```{r}
+# select all but two named columns
+(dat_sub_sel <- dat_sub %>%   
+    select(-"imonth", -"iday"))
+```
+
+```{r}
+# select columns by position and whose name matches a pattern, in this case the regular expression "^i" meaning "starts with lowercase i"
+(dat_sub_sel <- dat_sub %>%   
+    select(1, matches("^i")))
+```
+
+`select()` can also be used to rename columns:
+
+```{r}
+#select one column, rename two columns
+(dat_sub_sel %>% 
+   select(aid, Month = imonth, Day = iday))
+```
+
+Or column renaming can be done with `rename()`, which maintains all input data and only changes the named columns:
+
+```{r}
+(dat_sub_sel %>% 
+   rename(Month = imonth, Day = iday))
+```
+
+#### Subset rows and columns: `filter()` and `select()`
+We can combine `filter()` and `select()` with a pipe to create a new data frame with a subset of rows and columns:
+
+```{r}
+# records with day of month > 15 and the first 3 named columns
+(x <- dat_sub %>% 
+    filter(iday > 15) %>%
+    select(aid, imonth, iday)
+   )
+```
+
+#### Create or calculate columns: `mutate()`
+`mutate()` will create new named columns or re-calculate existing columns. Here we will make a column that stratifies birth month, with the cut at June. 
+
+Although the birth month column (`h1gi1m`) is a factor, it is unordered, so we need to make it ordered before using the factor label in a numeric comparison. Fortunately, the factor labels were handled in correct order:
+
+```{r}
+# is this ordered?
+is.ordered(dat$h1gi1m)
+```
+
+```{r}
+# what are the levels?
+(levels(dat$h1gi1m))
+```
+
+Assign order, create a new column, and print nicely:
+
+```{r}
+# make birth month ordered
+dat$h1gi1m <- factor(dat$h1gi1m, ordered = TRUE)
+
+# now is it ordered?
+is.ordered(dat$h1gi1m)
+```
+
+```{r}
+# perform the mutate() using the string representation of the factor for comparison
+dat %>% 
+    filter(iday > 15) %>%
+    select(aid, imonth, iday, birth_month = h1gi1m) %>% 
+    mutate(birth_1st_half = (birth_month < "(7) July")) %>% 
+    head(20) %>% 
+    kable() %>% 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left")
+```
+
+A silly example but showing that `mutate()` can change values of existing columns:
+
+```{r}
+(X <- dat_sub %>% 
+     mutate(iday = -1000 + iday))
+```
+
+... so do be careful!
+
+Other functions can be used with mutate include (but are by no means limited to!) 
+
+* `if_else()`: create a column by assigning values based on logical criteria
+* `case_when()`: similar to `if_else()` but for multiple input values
+* `recode()`: change particular values
+
+When we recoded the birth month, the output was a `logical` data type. If we wanted to create a 
+`character` or `factor`, we could use `if_else()`. Here we are creating a new data frame based on several operations on `dat`.
+
+```{r}
+dat_1 <- dat %>% 
+    filter(iday > 15) %>%
+    head(20) %>%
+    select(aid, imonth, iday, birth_month = h1gi1m) %>% 
+    mutate(birth_year_half = ifelse(test = birth_month < "(7) July", yes = "first", no = "last"))
+
+# make that a factor
+dat_1$birth_year_half <- factor(dat_1$birth_year_half, levels = c("first", "last"))
+    
+# print
+kable(dat_1) %>% 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left")
+```
+
+If one of your variables contains multiple values and you want to create classes, use `case_when()`. Here is a verbose example stratifying months into quarters. Also we are using the `magrittr` assignment pipe to update the input based on the statement, i.e., `dat_1` will change based on the commands we use. __Be careful using the assignment pipe because it will change your data frame.__
+
+`case_when()` will recode in order or the way the command is written, so for months and quarters, it is not necessary to specify both ends of the quarter. Also any cases that are not explicitly handled can be addressed with the `TRUE ~ ...` argument; in this case, any records that had birth months that were not before September get assigned to quarter 4.
+
+```{r}
+dat_1 %<>% 
+    mutate(quarter = case_when(
+        birth_month < "(3) March" ~ 1,
+        birth_month < "(6) June" ~ 2,
+        birth_month < "(9) September" ~ 3,
+        TRUE ~ 4))
+
+# print
+kable(dat_1) %>% 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left")
+```
+
+`recode()` is used to change the `birth_year_half` column:
+
+```{r}
+(dat_1 %<>% 
+     mutate(birth_year_half_split = recode(birth_year_half,
+                   "first" = "early",
+                   "last" = "late")))
+```
+
+#### Summarizing/aggregating data
+We will spend more time later in the course on data summaries, but an introduction with `dplyr` is worthwhile introducing at this stage. The two main functions are `summarise()` and `group_by()`.
+
+A simple summary will tabulate the count of respondents and the mean age. The filter `! str_detect(h1gi1y, "Refused")` drops records from respondents who refused to give their birth year.
+
+```{r}
+dat %>% 
+    filter(! str_detect(h1gi1y, "Refused")) %>% 
+    mutate(yeari = str_replace_all(iyear, ".* ", "") %>% as.integer(),
+           yearb = str_replace_all(h1gi1y, ".* ", "") %>% as.integer()) %>% 
+    summarise(n = n(),
+              mean_age = mean(yeari - yearb))
+```
+
+Here we will summarize age by sex using the `group_by()` function, and also piping to `prop_table()` to get the percentage:
+
+```{r}
+dat %>% 
+    filter(! str_detect(h1gi1y, "Refused")) %>% 
+    mutate(yeari = str_replace_all(iyear, ".* ", "") %>% as.integer(),
+           yearb = str_replace_all(h1gi1y, ".* ", "") %>% as.integer()) %>% 
+    group_by(bio_sex) %>% 
+    summarise(mean_age = mean(yeari - yearb),
+              sd_age = sd(yeari - yearb),
+              n = n(),
+              .groups = "drop_last") %>% 
+    mutate(pct = prop.table(n) * 100)
+```
+
+#### purrr: efficient iterating over elements in vectors and lists
+More attention will be paid to `purrr` in the lesson on [functions](#week2).
 
 
 ## Data sets {#datasets001}

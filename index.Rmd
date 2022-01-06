@@ -26,6 +26,11 @@ syllabus <- paste0("csde502_syllabus_", year, ".pdf")
 syllabusdocx <- paste0("csde502_syllabus_", year, ".docx")
 ```
 
+
+# Introduction and Welcome! {.unnumbered}
+
+This is the main course notes for CSDE 502 for Winter 2022. It will contain or link to all lecture notes, code examples, exercises, and assignments. We will review these course notes during lecture. Assignment answer keys will be provided on the Canvas site, accessible only to currently enrolled CSDE 502 students.
+
 :::{.rmdcaution}
 
 <center>
@@ -35,13 +40,10 @@ Material on these pages will be in major flux until the first class of the quart
 
 :::
 
-# Introduction and Welcome! {.unnumbered}
-
-This is the main course notes for CSDE 502 for Winter 2022. It will contain or link to all lecture notes, code examples, exercises, and assignments. We will review these course notes during lecture. Assignment answer keys will be provided on the Canvas site, accessible only to currently enrolled CSDE 502 students.
-
 ## About this course {.unnumbered}
 
 :::{.rmdnote}
+
 **Course listing and syllabus**
 
 Links to the course listing page and official course syllabus are below:
@@ -49,6 +51,7 @@ Links to the course listing page and official course syllabus are below:
 * Course description: [CSDE 502 Proseminar](https://csde.washington.edu/training/demographic-certificate/courses/csde-502/a)
 * Entry in the UW course catalog: [Ctr for Stdies in Demography and Ecology](https://www.washington.edu/students/crscat/csde.html)
 * The course syllabus is available as a PDF: [`r syllabus`](`r syllabus`) or DOCX: [`r syllabusdocx`](`r syllabusdocx`)
+
 :::
 
 **Scope:** CSDE 502 is tightly paired with [SOC/CSSS/CSDE 533 A (Research Methods in Demography)](https://hanowell.github.io/uwsoc533a/index.html) ("CSDE 533"). Expect to see cross-references in these notes to the notes for CSDE 533 and vice versa. Techniques introduced in this course will be applied in CSDE 533. Some analytic topics introduced in CSDE 533 will be covered in more depth, with explanation of the data and processing in these notes.
@@ -60,8 +63,6 @@ Office hours: by appointment; see [my calendar](http://staff.washington.edu/phur
 
 
 ## Course logistics {.unnumbered}
-
-Class meetings {.unnumbered}
 
 :::{.rmdnote}
 **Course location:** Class meetings will happen initially over Zoom. The Zoom link for this course is [https://washington.zoom.us/j/97609440755](https://washington.zoom.us/j/976094407559). It is not known whether in-person class meetings will be held during Winter 2022.

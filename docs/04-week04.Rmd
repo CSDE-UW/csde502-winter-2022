@@ -372,7 +372,7 @@ When the function runs, the objects `bar` and `foobar` are placed in the `foo` e
 # run the function
 g()
 
-# what is in envornment "foo"?
+# what is in environment "foo"?
 ls(envir = foo)
 ```
 

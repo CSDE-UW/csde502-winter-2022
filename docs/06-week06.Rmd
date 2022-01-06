@@ -39,7 +39,7 @@ One of the benefits of the Stata file formats, as compared to e.g., CSV or Excel
 `AHwave1_v1.dta` is a Stata version 13 file. Here we will look at the two import options.
 
 #### `haven::read_dta()`
-`haven::read_dta()` will read the data in as a data frame. Note for the code examples to run without modification, the assumption is that the data have been downloaded and unzipped in a subfolder named `data` within the current working directory. You can find out what the current working directory is by entering `getwd()` at the R prompt.
+`haven::read_dta()` will read the data in as a data frame. Note for the code examples to run without modification, the assumption is that the data have been downloaded and unzipped in a sub-folder named `data` within the current working directory. You can find out what the current working directory is by entering `getwd()` at the R prompt.
 
 ```{r}
 # read the data
@@ -191,7 +191,7 @@ dim(AHwave1_v1_haven)
 dim(data_21600_0001)
 ```
 
-In fact, `AHwave1_v1.dta` seems to be a subset of `21600-0001-Data.dta`. We can show this by lowercasing the column names and then using a `select()` for the same named columns
+In fact, `AHwave1_v1.dta` seems to be a subset of `21600-0001-Data.dta`. We can show this by lower-casing the column names and then using a `select()` for the same named columns
 
 ```{r}
 # lowercase the column names
@@ -271,7 +271,7 @@ Start by installing a version of `pdfgrep`. These are three implementations, one
 A zipped file containing all of the metadata files for the In Home Questionnaire is available as [Wave1_InHome_Codebooks.pdf.zip](data/metadata/Wave1_InHome_Codebooks/Wave1_InHome_Codebooks.pdf.zip). Download the file and unzip it in an appropriate location.
 
 #### A few use examples
-_[Note: the images below may be hard to read; clicking them will open them in full-size; click with the middle mouose button to open in a new tab.]_
+_[Note: the images below may be hard to read; clicking them will open them in full-size; click with the middle mouse button to open in a new tab.]_
 
 Here we will search through the entire set of PDF files for the regular expression `black`. First, let's list the PDF files using
 
