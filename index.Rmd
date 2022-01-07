@@ -169,7 +169,7 @@ A link to the SafeCampus program is below:
 :::
 
 ## Course calendar {.unnumbered}
-<h3> Week 1</h3>
+### Week 1
 * **Topics**
     * Course introduction
     * Getting started with CSDE terminal server 4
@@ -184,7 +184,7 @@ A link to the SafeCampus program is below:
         * [Ben's attrition rate code](https://github.com/hanowell/uwsoc533a/blob/main/gists/employee-turnover-gist.R)
 * **Assignment**: 
 
-<h3> Week 2</h3>
+### Week 2
 * **Topics**
     * Rmarkdown
         * Code blocks in R Markdown
@@ -196,11 +196,10 @@ A link to the SafeCampus program is below:
     * Data:
         * [Human Mortality Database](https://www.mortality.org/)
         * [Human Fertility Database](https://www.humanfertility.org/cgi-bin/main.php)
-        * [HMDHFDplus: Read Human Mortality Database and Human Fertility Database Data from the Web](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
-    * [Ben's code for reading HMD and HFD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R)
+
 * **Assignment**: 
 
-<h3>Week 3</h3>
+### Week 3
 * **Topics**: 
     * [`tidycensus`](https://walker-data.com/tidycensus/): Load US Census Boundary and Attribute Data as 'tidyverse' and 'sf'-Ready Data Frames
     * [`idbr`](https://cran.r-project.org/web/packages/idbr/index.html): R Interface to the US Census Bureau International Data Base API
@@ -210,11 +209,12 @@ A link to the SafeCampus program is below:
     * [`demogR`](https://cran.r-project.org/web/packages/demogR/index.html): Analysis of Age-Structured Demographic Models
     * [`demography`](https://cran.r-project.org/web/packages/demography/): Forecasting Mortality, Fertility, Migration and Population Data; [An R intro to the demography package](https://rpubs.com/Timexpo/487053))
     * Pretty printouts of life tables with `flextable` and `DT`
+    
     * Data:
         * Accessing HMuman Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
 * **Assignment**: 
 
-<h3>Week 4</h3>
+### Week 4
 * **Topics**: 
     * R functions
     * Sampling in R
@@ -222,28 +222,28 @@ A link to the SafeCampus program is below:
 
 * **Assignment**: 
 
-<h3>Week 5</h3>
+### Week 5
 * **Topics**: 
     * Git: file versioning and code repository
 * **Assignment**: 
 
-<h3>Week 6</h3>
+### Week 6
 * **Topics**: 
 * **Assignment**: 
 
-<h3>Week 7</h3>
+### Week 7
 * **Topics**: 
 * **Assignment**: 
 
-<h3>Week 8</h3>
+### Week 8
 * **Topics**: 
 * **Assignment**: 
 
-<h3>Week 9</h3>
+### Week 9
 * **Topics**: 
 * **Assignment**: 
 
-<h3>Week 10</h3>
+### Week 10
 * **Topics**: 
 * **Assignment**: 
 

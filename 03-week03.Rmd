@@ -27,6 +27,31 @@ figure_nums <- captioner(prefix = "Figure")
 
 <h2>Topics: Graphics and Tables in R; Captions and cross-references; Census data; Mapping; Human Mortality Database</h2>
 
+[`tidycensus`](#tidycensus): Load US Census Boundary and Attribute Data as ‘tidyverse’ and ‘sf’-Ready Data Frames
+[`idbr`](#irbr)idbr: R Interface to the US Census Bureau International Data Base API
+[`sf`](#sf)sf: Simple Features for R: Simple Features (GIS) for R
+[`leaflet`](#leaflet)leaflet: Create Interactive Web Maps with the JavaScript ‘Leaflet’ Library
+[`mapview`](#mapview)mapview: Interactive Viewing of Spatial Data in R
+[`demogR`](#demogR)demogR: Analysis of Age-Structured Demographic Models
+demography: Forecasting Mortality, Fertility, Migration and Population Data; An R intro to the demography package)
+flextable and DT
+Data:
+Accessing HMuman Mortality Database life tables using HMDHFDplus
+
+* [Ben's code for reading HMD and HFD data](#hanowell_hmdhfd)
+
+## Keyring: securely store secrets
+
+[Keyring](https://cran.r-project.org/web/packages/keyring/)
+
+
+# Ben's code for reading HMD and HFD data {#hanowell_hmdhfd}
+[Ben's code for reading HMD and HFD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R)
+
+
+
+
+
 
     * [`tidycensus`](https://walker-data.com/tidycensus/): download census data easily
     * [`idbr: R Interface to the US Census Bureau International Data Base API`](https://cran.r-project.org/web/packages/idbr/index.html)
