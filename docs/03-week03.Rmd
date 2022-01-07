@@ -1,0 +1,211 @@
+# Week 3 {#week3}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(magrittr)
+library(kableExtra)
+library(stargazer)
+library(pander)
+library(psych)
+library(readstata13)
+library(knitr)
+library(pander)
+library(stargazer)
+library(animation)
+library(captioner)
+
+table_nums <- captioner(prefix = "Table")
+figure_nums <- captioner(prefix = "Figure")
+```
+
+<style>
+.border1 {   
+    border-width: 1px;   
+    border-color: black;   
+    border-style: solid; } 
+</style>
+
+<h2>Topics: Graphics and Tables in R; Captions and cross-references; Census data; Mapping; Human Mortality Database</h2>
+
+[`tidycensus`](#tidycensus): Load US Census Boundary and Attribute Data as ‘tidyverse’ and ‘sf’-Ready Data Frames
+[`idbr`](#irbr)idbr: R Interface to the US Census Bureau International Data Base API
+[`sf`](#sf)sf: Simple Features for R: Simple Features (GIS) for R
+[`leaflet`](#leaflet)leaflet: Create Interactive Web Maps with the JavaScript ‘Leaflet’ Library
+[`mapview`](#mapview)mapview: Interactive Viewing of Spatial Data in R
+[`demogR`](#demogR)demogR: Analysis of Age-Structured Demographic Models
+demography: Forecasting Mortality, Fertility, Migration and Population Data; An R intro to the demography package)
+flextable and DT
+Data:
+Accessing HMuman Mortality Database life tables using HMDHFDplus
+
+* [Ben's code for reading HMD and HFD data](#hanowell_hmdhfd)
+
+## Keyring: securely store secrets
+
+[Keyring](https://cran.r-project.org/web/packages/keyring/)
+
+
+## Ben's code for reading HMD and HFD data {#hanowell_hmdhfd}
+[Ben's code for reading HMD and HFD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R)
+
+
+
+
+
+
+    * [`tidycensus`](https://walker-data.com/tidycensus/): download census data easily
+    * [`idbr: R Interface to the US Census Bureau International Data Base API`](https://cran.r-project.org/web/packages/idbr/index.html)
+    * [`sf: Simple Features for R`](https://cran.r-project.org/web/packages/sf/): GIS in R!
+    * [`leaflet: Create Interactive Web Maps with the JavaScript 'Leaflet' Library`](https://cran.r-project.org/web/packages/leaflet/)
+    * [`mapview: Interactive Viewing of Spatial Data in R`](https://cran.r-project.org/web/packages/mapview/)
+    * Life Tables with [`demogR`](https://cran.r-project.org/web/packages/demogR/index.html), [`demography`](https://cran.r-project.org/web/packages/demography/) ([`demography`](https://rpubs.com/Timexpo/487053))
+    * Data:
+        * Accessing Muman Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
+        * Pretty printouts of life tables with `flextable` and `DT`
+
+
+
+
+
+
+
+
+Because of its extensibility, HTML can be considered a preferred output from R Markdown. However, document formats are often necessary, particularly for term papers, theses/dissertations, and manuscripts for submission to scholarly journals. In this week's lesson, we will focus on the creation of these two output types, including adding bibliographies (which also applies to HTML output), and some basic `ggplot` graphics. 
+
+For both PDF and Word output, much of the structure of your Rmd files will be the same as for HTML output. The major difference is how tables are handled, which we will explore in some detail. Static graphics are handled similarly across all output formats, other than HTML output can support dynamic graphics, such as the Leaflet map we saw in the first lesson, and responsive graphics as in [Shiny](https://shiny.rstudio.com/).
+
+
+## Getting US Census data with `tigris`, `tidycensus`
+Dealing with US Census data can be overwhelming, particularly if using the raw text-based data. The Census Bureau has an API that allows more streamlined downloads of variables (as data frames) and geographies (as simple format shapes). It is necessary to get an API key, available for free. See [tidycensus](https://walker-data.com/tidycensus/) and  [tidycensus basic usage](https://walker-data.com/tidycensus/articles/basic-usage.html).
+
+`tidycensus` uses [`tigris`](https://www.rdocumentation.org/packages/tigris/versions/1.0), which downloads the geographic data portion of the census files.
+
+A simple example will download the variables representing the count of White, Black/African American, American Indian/Native American, and Asian persons from the American Community Survey (ACS) data for King County in 2019. For this example to run, you need to have your US Census API key installed, e.g., 
+
+<tt>
+tidycensus::census_api_key("*****************", install = TRUE)<br>
+<font color="red">
+Your API key has been stored in your .Renviron and can be accessed by Sys.getenv("CENSUS_API_KEY").<br>
+To use now, restart R or run `readRenviron("~/.Renviron")`
+</font>
+</tt>
+
+The labels from the census API are:
+
+```
+"Estimate!!Total"                                         
+"Estimate!!Total!!White alone"                            
+"Estimate!!Total!!Black or African American alone"        
+"Estimate!!Total!!American Indian and Alaska Native alone"
+"Estimate!!Total!!Asian alone" 
+```
+
+```{r, warning=FALSE}
+library(tidycensus)
+# the census variables
+census_vars <- c(
+    p_denom_race = "B02001_001",
+    p_n_white = "B02001_002",
+    p_n_afram = "B02001_003",
+    p_n_aian = "B02001_004",
+    p_n_asian = "B02001_005"
+)
+
+# get the data
+ctdat <- get_acs(
+    geography = "tract",
+    variables = census_vars,
+    cache_table = TRUE,
+    year = 2019,
+    output = "wide",
+    state = "WA",
+    county = "King",
+    geometry = TRUE,
+    survey = "acs5"
+)
+```
+
+A few values are shown in Table \@ref(tab:census), and a simple map is shown in \@ref(fig:ct), with percent African American residents and tract identifier.
+
+```{r census}
+# print a few records
+ctdat %>%
+    head() %>%
+    kable(caption = "Selected census tract variables from the 5-year ACS from 2019 for King County, WA") %>%
+    kable_styling(full_width = FALSE, position = "left")
+```
+
+```{r ct, fig.cap="Percent African American in census tracts in King County, 2019 ACS 5-year estimate", warning=FALSE, message=FALSE}
+library(leaflet)
+library(htmltools)
+library(sf)
+
+# define the CRS
+st_crs(ctdat) <- 4326
+
+# proportion Black
+ctdat %<>%
+    mutate(pct_black = (p_n_aframE / p_denom_raceE * 100) %>% round(1))
+
+# a label
+labels <- sprintf("%s<br/>%s%s", ctdat$GEOID, ctdat$pct_black, "%") %>% lapply(htmltools::HTML)
+
+bins <- 0:50
+pal <- colorBin(
+    palette = "Reds",
+    domain = ctdat$pct_black,
+    bins = bins
+)
+
+bins2 <- seq(0, 50, by = 10)
+pal2 <- colorBin(
+    palette = "Reds",
+    domain = ctdat$pct_black,
+    bins = bins2
+)
+
+# the leaflet map
+m <- leaflet(height = "500px") %>%
+    # add polygons from tracts
+    addPolygons(
+        data = ctdat,
+        weight = 1,
+        fillOpacity = 0.8,
+        # fill using the palette
+        fillColor = ~ pal(pct_black),
+        # highlighting
+        highlight = highlightOptions(
+            weight = 5,
+            color = "#666",
+            fillOpacity = 0.7,
+            bringToFront = TRUE
+        ),
+        # popup labels
+        label = labels,
+        labelOptions = labelOptions(
+            style = list("font-weight" = "normal", padding = "3px 8px"),
+            textsize = "15px",
+            direction = "auto"
+        )
+    ) %>%
+    addLegend(
+        position = "bottomright", pal = pal2, values = ctdat$pct_black,
+        title = "% African American",
+        opacity = 1
+    )
+m %>% addTiles()
+```
+
+
+
+
+
+
+
+
+<h4>Source code for this document</h4>
+[03-week03.Rmd](03-week03.Rmd)
+
+```{r, comment='', echo=FALSE}
+cat(readLines("03-week03.Rmd"), sep = '\n')
+```

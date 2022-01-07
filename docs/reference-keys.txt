@@ -1,3 +1,16 @@
+fig:plotcars
+tab:unnamed-chunk-23
+eq:emc
+eq:sumn
+tab:census
+fig:ct
+tab:pat1vector
+tab:d1dataframe
+tab:patmatchonerow
+tab:patmatchdfbad
+tab:patmatchdfgood
+fig:hist
+tab:iris
 week1
 gettingstarted
 intrormd
@@ -62,6 +75,7 @@ equations-rmdequations
 captioner-for-any-captioning-and-cross-referencing-figures-and-tables
 week3
 keyring-securely-store-secrets
+hanowell_hmdhfd
 getting-us-census-data-with-tigris-tidycensus
 week4
 environments

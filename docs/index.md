@@ -19,18 +19,15 @@ suppress-bibliography: true
 This is the main course notes for CSDE 502 for Winter 2022. It will contain or link to all lecture notes, code examples, exercises, and assignments. We will review these course notes during lecture. Assignment answer keys will be provided on the Canvas site, accessible only to currently enrolled CSDE 502 students.
 
 :::{.rmdcaution}
-
 <center>
 **CAUTION**
 Material on these pages will be in major flux until the second week of the quarter!
 </center>
-
 :::
 
 ## About this course {.unnumbered}
 
 :::{.rmdnote}
-
 **Course listing and syllabus**
 
 Links to the course listing page and official course syllabus are below:
@@ -38,7 +35,6 @@ Links to the course listing page and official course syllabus are below:
 * Course description: [CSDE 502 Proseminar](https://csde.washington.edu/training/demographic-certificate/courses/csde-502/a)
 * Entry in the UW course catalog: [Ctr for Stdies in Demography and Ecology](https://www.washington.edu/students/crscat/csde.html)
 * The course syllabus is available as a PDF: [csde502_syllabus_2022.pdf](csde502_syllabus_2022.pdf) or DOCX: [csde502_syllabus_2022.docx](csde502_syllabus_2022.docx)
-
 :::
 
 This is a required course for students wishing to obtain a [Demographic Methods Graduate Certificate from CSDE] (https://csde.washington.edu/training/demographic-certificate/). However, it is open to all interested students.
@@ -58,7 +54,6 @@ Office hours: by appointment; see [my calendar](http://staff.washington.edu/phur
 
 
 :::{.rmdnote}
-
 ### Course location {.unnumbered}
 
 Class meetings will happen initially over Zoom. The Zoom link for this course is [https://washington.zoom.us/j/97609440755](https://washington.zoom.us/j/976094407559). It is not known whether in-person class meetings will be held during Winter 2022.
@@ -70,7 +65,6 @@ Please come to class promptly at the scheduled time. There will be a 10-minute b
 ### Canvas site {.unnumbered}
 
 The course has a Canvas site [https://canvas.uw.edu/courses/1515226](https://canvas.uw.edu/courses/1515226), which will be used for collection of assignments and distribution of graded assignments. The site may also be used for distribution of data sets used in the course.
-
 :::
 
 ### Class format {.unnumbered}
@@ -83,14 +77,7 @@ Default class-time agenda:
 1. Overview/clarification of assignment (~10 minutes)
 
 ## Computing {.unnumbered}
-We will do our assignments in R. Use an Internet-connected computer provisioned with the latest versions of [R](https://www.r-project.org/) [-@R-base], [RStudio Desktop](https://www.rstudio.com/products/rstudio/), and the latest versions of following R packages:
-
-* [knitr](https://yihui.org/knitr/) [-@R-knitr]
-* [kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html) [-@R-kableExtra]
-* [rmarkdown](https://rmarkdown.rstudio.com/lesson-1.html) [-@R-rmarkdown]
-* [tidyverse](https://www.tidyverse.org/) [-@tidyverse]
-
-Other packages will be used, to be installed as necessary during in-class exercises.
+We will do our assignments in R. Use an Internet-connected computer provisioned with the latest versions of [R](https://www.r-project.org/) [-@R-base], [RStudio Desktop](https://www.rstudio.com/products/rstudio/), and the latest versions of a number of R packages.
 
 All computing for this course should optimally be done on CSDE Terminal Servers (TS). Those students that already have TS access (e.g., CSDE trainees) should be able to use their existing TS1, TS2, or TS3 accounts, but are encouraged to use TS4 for this course so that we will all be using the same environment. More recent student CSDE computing accounts for the general UW student population will use TS4 (csde-ts4.csde.washington.edu).
 
@@ -102,22 +89,21 @@ For information about the CSDE Terminal Servers, see [Choosing a Terminal  Serve
 
 In order to make remote connections to TS4, you will need a remote desktop protocol (RDP) client. Windows has a built-in "Remote Desktop" application. The same is available for Macs at the Apple Store. Windows users may also want to use [mRemoteNG](https://mremoteng.org/), which I find to be a bit more full-featured than the built-in Windows application. For example, mRemoteNG can have any window size, whereas the Windows RDP application has fixed size that must be specified at the time of connection. Linux users can use [Remmina](https://sourceforge.net/projects/remmina/).
 
-In addition to the RDP client, in order to access any of CSDE's computing resources, it is necessary to install and enable Husky OnNet, the UW virtual private network (VPN) client. Instructions are available at [Download and use Husky OnNet](https://itconnect.uw.edu/connect/uw-networks/about-husky-onnet/use-husky-onnet/)
+In addition to the RDP client, in order to access any of CSDE's computing resources from off-campus locations, it is necessary to install and enable Husky OnNet, the UW virtual private network (VPN) client. Instructions are available at [Download and use Husky OnNet](https://itconnect.uw.edu/connect/uw-networks/about-husky-onnet/use-husky-onnet/)
 
 :::{.rmdnote}
 **Computing resource links**
 
-* [CSDE 502 Proseminar course notes](http://staff.washington.edu/phurvitz/csde502_winter_2021/week1.html)
 * [CSDE Computing Resources](https://csde.washington.edu/computing/resources/)
 * [RStudio Education Beginners course](https://education.rstudio.com/learn/beginner/)
 :::
 
 ## Assignments and grading {.unnumbered}
-Each week there will be an assignment made available at 12:00 on the day of class meetings. The assignments are designed to allow students to practice the skills introduced in class sessions. Assignments are due at 09:00 AM on Friday of the week following when the assignment was distributed; answer keys will be posted at this time. Because the answer keys are posted at the due date/time, late work will not be reviewed.
+Each week there will be an assignment made available at 12:00 on the day of class meetings. The assignments are designed to allow students to practice the skills introduced in class sessions. Assignments are due at 09:00 AM on Friday of the week following when the assignment was distributed; answer keys will be posted at this time. Because the answer keys are posted at the due date/time, <u>late work will not be reviewed without prior arrangement with the instructor</u>. Assignments are to be submitted using the Canvas site; <u>do not send any assignments to the instructor via e-mail</u>.
 
 Assignments will be reviewed thoroughly and returned with relevant mark-up, corrections, suggestions, etc. and returned via the course Canvas site.
 
-This course is graded credit/no credit. Students should complete as much of each of the assignments as they can within a reasonable amount of time.
+This course is graded credit/no credit. Students should complete as much of each of the assignments as they can within a reasonable amount of time.  In general, courses require two hours of homework for every hour of class, so you should expect to spend at least 4 hours on assignments outside of class time.
 
 ## Course policies {.unnumbered}
 
@@ -158,8 +144,10 @@ A link to the SafeCampus program is below:
 :::
 
 ## Course calendar {.unnumbered}
-<h3>Week 1</h3>
-* **Topics**
+***Week 1***
+
+**Topics**
+
     * Course introduction
     * Getting started with CSDE terminal server 4
     * [Introduction to R/RStudio/RMarkdown](#intrormd)
@@ -171,10 +159,11 @@ A link to the SafeCampus program is below:
         * [Babushkin data](https://github.com/teuschb/hr_data/blob/master/datasets/turnover_babushkin.csv)
         * [Kaggle documentation of Babuskin data](https://www.kaggle.com/davinwijaya/employee-turnover)
         * [Ben's attrition rate code](https://github.com/hanowell/uwsoc533a/blob/main/gists/employee-turnover-gist.R)
-* **Assignment**: 
 
-<h3>Week 2</h3>
-* **Topics**
+***Week 2***
+
+**Topics**
+
     * Rmarkdown
         * Code blocks in R Markdown
         * Graphs in R Markdown
@@ -186,10 +175,10 @@ A link to the SafeCampus program is below:
         * [Human Mortality Database](https://www.mortality.org/)
         * [Human Fertility Database](https://www.humanfertility.org/cgi-bin/main.php)
 
-* **Assignment**: 
+***Week 3***
 
-<h3>Week 3</h3>
-* **Topics**: 
+**Topics**: 
+
     * [`tidycensus`](https://walker-data.com/tidycensus/): Load US Census Boundary and Attribute Data as 'tidyverse' and 'sf'-Ready Data Frames
     * [`idbr`](https://cran.r-project.org/web/packages/idbr/index.html): R Interface to the US Census Bureau International Data Base API
     * [`sf: Simple Features for R`](https://cran.r-project.org/web/packages/sf/): Simple Features (GIS) for R
@@ -201,47 +190,69 @@ A link to the SafeCampus program is below:
     
     * Data:
         * Accessing HMuman Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
-* **Assignment**: 
 
-<h3>Week 4</h3>
-* **Topics**: 
+***Week 4***
+
+**Topics**: 
+
+    * R environments
     * R functions
     * Sampling in R
     * Revisiting [Ben's code for reading HMD and HFD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R)
 
-* **Assignment**: 
+***Week 5***
 
-<h3>Week 5</h3>
-* **Topics**: 
+**Topics**: 
+
     * Git: file versioning and code repository
-* **Assignment**: 
 
-<h3>Week 6</h3>
-* **Topics**: 
-* **Assignment**: 
+***Week 6***
 
-<h3>Week 7</h3>
-* **Topics**: 
-* **Assignment**: 
+**Topics**: 
 
-<h3>Week 8</h3>
-* **Topics**: 
-* **Assignment**: 
+    * Reading labelled data
+    * Metadata on data sets
+    * Ccmpp: Cohort Component Method of Population Projection
+    * Data: 
+        * Add Health public-use data
 
-<h3>Week 9</h3>
-* **Topics**: 
-* **Assignment**: 
+***Week 7***
 
-<h3>Week 10</h3>
-* **Topics**: 
-* **Assignment**: 
+**Topics**: 
+
+    * Creating value labels
+    * Tabulation (summarizing data)
+
+***Week 8***
+
+**Topics**: 
+
+    * Scale scoring variables
+    * Reordering variable values
+
+***Week 9***
+
+**Topics**: 
+
+    * Miscellaneous data processing
+
+***Week 10***
+
+**Topics**: 
+
+    * Miscellaneous data processing, continued
 
 
 ## About this web site {.unnumbered}
 This web site was built in R using Rmarkdown and [bookdown](https://cran.r-project.org/web/packages/bookdown/) with the [bs4_book](https://pkgs.rstudio.com/bookdown/reference/bs4_book.html) template, which uses the [Bootstrap](https://getbootstrap.com/) framework. One of the unfortunate side effects of this format is that all captions are placed _below_ the table or figure! 
 
+Rendered at <tt>2022-01-06 23:59:46</tt>
+
 <h4>Source code for this document</h4>
-Each of the pages in this book will have a section at the bottom including the source code for the page.
+Each of the pages in this book will have a section at the bottom including a link to the source file and the printed source code for the page.
+
+Source code: [index.Rmd](index.Rmd)
+
 
 ````
 --- 
@@ -278,18 +289,15 @@ syllabusdocx <- paste0("csde502_syllabus_", year, ".docx")
 This is the main course notes for CSDE 502 for Winter 2022. It will contain or link to all lecture notes, code examples, exercises, and assignments. We will review these course notes during lecture. Assignment answer keys will be provided on the Canvas site, accessible only to currently enrolled CSDE 502 students.
 
 :::{.rmdcaution}
-
 <center>
 **CAUTION**
 Material on these pages will be in major flux until the second week of the quarter!
 </center>
-
 :::
 
 ## About this course {.unnumbered}
 
 :::{.rmdnote}
-
 **Course listing and syllabus**
 
 Links to the course listing page and official course syllabus are below:
@@ -297,7 +305,6 @@ Links to the course listing page and official course syllabus are below:
 * Course description: [CSDE 502 Proseminar](https://csde.washington.edu/training/demographic-certificate/courses/csde-502/a)
 * Entry in the UW course catalog: [Ctr for Stdies in Demography and Ecology](https://www.washington.edu/students/crscat/csde.html)
 * The course syllabus is available as a PDF: [`r syllabus`](`r syllabus`) or DOCX: [`r syllabusdocx`](`r syllabusdocx`)
-
 :::
 
 This is a required course for students wishing to obtain a [Demographic Methods Graduate Certificate from CSDE] (https://csde.washington.edu/training/demographic-certificate/). However, it is open to all interested students.
@@ -317,7 +324,6 @@ Office hours: by appointment; see [my calendar](http://staff.washington.edu/phur
 
 
 :::{.rmdnote}
-
 ### Course location {.unnumbered}
 
 Class meetings will happen initially over Zoom. The Zoom link for this course is [https://washington.zoom.us/j/97609440755](https://washington.zoom.us/j/976094407559). It is not known whether in-person class meetings will be held during Winter 2022.
@@ -329,7 +335,6 @@ Please come to class promptly at the scheduled time. There will be a 10-minute b
 ### Canvas site {.unnumbered}
 
 The course has a Canvas site [https://canvas.uw.edu/courses/1515226](https://canvas.uw.edu/courses/1515226), which will be used for collection of assignments and distribution of graded assignments. The site may also be used for distribution of data sets used in the course.
-
 :::
 
 ### Class format {.unnumbered}
@@ -342,14 +347,7 @@ Default class-time agenda:
 1. Overview/clarification of assignment (~10 minutes)
 
 ## Computing {.unnumbered}
-We will do our assignments in R. Use an Internet-connected computer provisioned with the latest versions of [R](https://www.r-project.org/) [-@R-base], [RStudio Desktop](https://www.rstudio.com/products/rstudio/), and the latest versions of following R packages:
-
-* [knitr](https://yihui.org/knitr/) [-@R-knitr]
-* [kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html) [-@R-kableExtra]
-* [rmarkdown](https://rmarkdown.rstudio.com/lesson-1.html) [-@R-rmarkdown]
-* [tidyverse](https://www.tidyverse.org/) [-@tidyverse]
-
-Other packages will be used, to be installed as necessary during in-class exercises.
+We will do our assignments in R. Use an Internet-connected computer provisioned with the latest versions of [R](https://www.r-project.org/) [-@R-base], [RStudio Desktop](https://www.rstudio.com/products/rstudio/), and the latest versions of a number of R packages.
 
 All computing for this course should optimally be done on CSDE Terminal Servers (TS). Those students that already have TS access (e.g., CSDE trainees) should be able to use their existing TS1, TS2, or TS3 accounts, but are encouraged to use TS4 for this course so that we will all be using the same environment. More recent student CSDE computing accounts for the general UW student population will use TS4 (csde-ts4.csde.washington.edu).
 
@@ -361,22 +359,21 @@ For information about the CSDE Terminal Servers, see [Choosing a Terminal  Serve
 
 In order to make remote connections to TS4, you will need a remote desktop protocol (RDP) client. Windows has a built-in "Remote Desktop" application. The same is available for Macs at the Apple Store. Windows users may also want to use [mRemoteNG](https://mremoteng.org/), which I find to be a bit more full-featured than the built-in Windows application. For example, mRemoteNG can have any window size, whereas the Windows RDP application has fixed size that must be specified at the time of connection. Linux users can use [Remmina](https://sourceforge.net/projects/remmina/).
 
-In addition to the RDP client, in order to access any of CSDE's computing resources, it is necessary to install and enable Husky OnNet, the UW virtual private network (VPN) client. Instructions are available at [Download and use Husky OnNet](https://itconnect.uw.edu/connect/uw-networks/about-husky-onnet/use-husky-onnet/)
+In addition to the RDP client, in order to access any of CSDE's computing resources from off-campus locations, it is necessary to install and enable Husky OnNet, the UW virtual private network (VPN) client. Instructions are available at [Download and use Husky OnNet](https://itconnect.uw.edu/connect/uw-networks/about-husky-onnet/use-husky-onnet/)
 
 :::{.rmdnote}
 **Computing resource links**
 
-* [CSDE 502 Proseminar course notes](http://staff.washington.edu/phurvitz/csde502_winter_2021/week1.html)
 * [CSDE Computing Resources](https://csde.washington.edu/computing/resources/)
 * [RStudio Education Beginners course](https://education.rstudio.com/learn/beginner/)
 :::
 
 ## Assignments and grading {.unnumbered}
-Each week there will be an assignment made available at 12:00 on the day of class meetings. The assignments are designed to allow students to practice the skills introduced in class sessions. Assignments are due at 09:00 AM on Friday of the week following when the assignment was distributed; answer keys will be posted at this time. Because the answer keys are posted at the due date/time, late work will not be reviewed.
+Each week there will be an assignment made available at 12:00 on the day of class meetings. The assignments are designed to allow students to practice the skills introduced in class sessions. Assignments are due at 09:00 AM on Friday of the week following when the assignment was distributed; answer keys will be posted at this time. Because the answer keys are posted at the due date/time, <u>late work will not be reviewed without prior arrangement with the instructor</u>. Assignments are to be submitted using the Canvas site; <u>do not send any assignments to the instructor via e-mail</u>.
 
 Assignments will be reviewed thoroughly and returned with relevant mark-up, corrections, suggestions, etc. and returned via the course Canvas site.
 
-This course is graded credit/no credit. Students should complete as much of each of the assignments as they can within a reasonable amount of time.
+This course is graded credit/no credit. Students should complete as much of each of the assignments as they can within a reasonable amount of time.  In general, courses require two hours of homework for every hour of class, so you should expect to spend at least 4 hours on assignments outside of class time.
 
 ## Course policies {.unnumbered}
 
@@ -417,8 +414,10 @@ A link to the SafeCampus program is below:
 :::
 
 ## Course calendar {.unnumbered}
-<h3>Week 1</h3>
-* **Topics**
+***Week 1***
+
+**Topics**
+
     * Course introduction
     * Getting started with CSDE terminal server 4
     * [Introduction to R/RStudio/RMarkdown](#intrormd)
@@ -430,10 +429,11 @@ A link to the SafeCampus program is below:
         * [Babushkin data](https://github.com/teuschb/hr_data/blob/master/datasets/turnover_babushkin.csv)
         * [Kaggle documentation of Babuskin data](https://www.kaggle.com/davinwijaya/employee-turnover)
         * [Ben's attrition rate code](https://github.com/hanowell/uwsoc533a/blob/main/gists/employee-turnover-gist.R)
-* **Assignment**: 
 
-<h3>Week 2</h3>
-* **Topics**
+***Week 2***
+
+**Topics**
+
     * Rmarkdown
         * Code blocks in R Markdown
         * Graphs in R Markdown
@@ -445,10 +445,10 @@ A link to the SafeCampus program is below:
         * [Human Mortality Database](https://www.mortality.org/)
         * [Human Fertility Database](https://www.humanfertility.org/cgi-bin/main.php)
 
-* **Assignment**: 
+***Week 3***
 
-<h3>Week 3</h3>
-* **Topics**: 
+**Topics**: 
+
     * [`tidycensus`](https://walker-data.com/tidycensus/): Load US Census Boundary and Attribute Data as 'tidyverse' and 'sf'-Ready Data Frames
     * [`idbr`](https://cran.r-project.org/web/packages/idbr/index.html): R Interface to the US Census Bureau International Data Base API
     * [`sf: Simple Features for R`](https://cran.r-project.org/web/packages/sf/): Simple Features (GIS) for R
@@ -460,47 +460,69 @@ A link to the SafeCampus program is below:
     
     * Data:
         * Accessing HMuman Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
-* **Assignment**: 
 
-<h3>Week 4</h3>
-* **Topics**: 
+***Week 4***
+
+**Topics**: 
+
+    * R environments
     * R functions
     * Sampling in R
     * Revisiting [Ben's code for reading HMD and HFD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R)
 
-* **Assignment**: 
+***Week 5***
 
-<h3>Week 5</h3>
-* **Topics**: 
+**Topics**: 
+
     * Git: file versioning and code repository
-* **Assignment**: 
 
-<h3>Week 6</h3>
-* **Topics**: 
-* **Assignment**: 
+***Week 6***
 
-<h3>Week 7</h3>
-* **Topics**: 
-* **Assignment**: 
+**Topics**: 
 
-<h3>Week 8</h3>
-* **Topics**: 
-* **Assignment**: 
+    * Reading labelled data
+    * Metadata on data sets
+    * Ccmpp: Cohort Component Method of Population Projection
+    * Data: 
+        * Add Health public-use data
 
-<h3>Week 9</h3>
-* **Topics**: 
-* **Assignment**: 
+***Week 7***
 
-<h3>Week 10</h3>
-* **Topics**: 
-* **Assignment**: 
+**Topics**: 
+
+    * Creating value labels
+    * Tabulation (summarizing data)
+
+***Week 8***
+
+**Topics**: 
+
+    * Scale scoring variables
+    * Reordering variable values
+
+***Week 9***
+
+**Topics**: 
+
+    * Miscellaneous data processing
+
+***Week 10***
+
+**Topics**: 
+
+    * Miscellaneous data processing, continued
 
 
 ## About this web site {.unnumbered}
 This web site was built in R using Rmarkdown and [bookdown](https://cran.r-project.org/web/packages/bookdown/) with the [bs4_book](https://pkgs.rstudio.com/bookdown/reference/bs4_book.html) template, which uses the [Bootstrap](https://getbootstrap.com/) framework. One of the unfortunate side effects of this format is that all captions are placed _below_ the table or figure! 
 
+Rendered at <tt>`r Sys.time()`</tt>
+
 <h4>Source code for this document</h4>
-Each of the pages in this book will have a section at the bottom including the source code for the page.
+Each of the pages in this book will have a section at the bottom including a link to the source file and the printed source code for the page.
+
+Source code: [index.Rmd](index.Rmd)
+
 ```{r sourcecode_intro, comment='', echo=FALSE}
 cat(readLines("index.Rmd"), sep = "\n")
 ```

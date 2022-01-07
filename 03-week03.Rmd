@@ -45,7 +45,7 @@ Accessing HMuman Mortality Database life tables using HMDHFDplus
 [Keyring](https://cran.r-project.org/web/packages/keyring/)
 
 
-# Ben's code for reading HMD and HFD data {#hanowell_hmdhfd}
+## Ben's code for reading HMD and HFD data {#hanowell_hmdhfd}
 [Ben's code for reading HMD and HFD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R)
 
 
