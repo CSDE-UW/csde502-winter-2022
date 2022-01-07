@@ -158,7 +158,7 @@ A link to the SafeCampus program is below:
 :::
 
 ## Course calendar {.unnumbered}
-### Week 1 {.unnumbered}
+<h3>Week 1</h3>
 * **Topics**
     * Course introduction
     * Getting started with CSDE terminal server 4
@@ -173,7 +173,7 @@ A link to the SafeCampus program is below:
         * [Ben's attrition rate code](https://github.com/hanowell/uwsoc533a/blob/main/gists/employee-turnover-gist.R)
 * **Assignment**: 
 
-### Week 2 {.unnumbered}
+<h3>Week 2</h3>
 * **Topics**
     * Rmarkdown
         * Code blocks in R Markdown
@@ -188,7 +188,7 @@ A link to the SafeCampus program is below:
 
 * **Assignment**: 
 
-### Week 3 {.unnumbered}
+<h3>Week 3</h3>
 * **Topics**: 
     * [`tidycensus`](https://walker-data.com/tidycensus/): Load US Census Boundary and Attribute Data as 'tidyverse' and 'sf'-Ready Data Frames
     * [`idbr`](https://cran.r-project.org/web/packages/idbr/index.html): R Interface to the US Census Bureau International Data Base API
@@ -203,7 +203,7 @@ A link to the SafeCampus program is below:
         * Accessing HMuman Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
 * **Assignment**: 
 
-### Week 4 {.unnumbered}
+<h3>Week 4</h3>
 * **Topics**: 
     * R functions
     * Sampling in R
@@ -211,28 +211,28 @@ A link to the SafeCampus program is below:
 
 * **Assignment**: 
 
-### Week 5 {.unnumbered}
+<h3>Week 5</h3>
 * **Topics**: 
     * Git: file versioning and code repository
 * **Assignment**: 
 
-### Week 6 {.unnumbered}
+<h3>Week 6</h3>
 * **Topics**: 
 * **Assignment**: 
 
-### Week 7 {.unnumbered}
+<h3>Week 7</h3>
 * **Topics**: 
 * **Assignment**: 
 
-### Week 8 {.unnumbered}
+<h3>Week 8</h3>
 * **Topics**: 
 * **Assignment**: 
 
-### Week 9 {.unnumbered}
+<h3>Week 9</h3>
 * **Topics**: 
 * **Assignment**: 
 
-### Week 10 {.unnumbered}
+<h3>Week 10</h3>
 * **Topics**: 
 * **Assignment**: 
 
@@ -417,7 +417,7 @@ A link to the SafeCampus program is below:
 :::
 
 ## Course calendar {.unnumbered}
-### Week 1 {.unnumbered}
+<h3>Week 1</h3>
 * **Topics**
     * Course introduction
     * Getting started with CSDE terminal server 4
@@ -432,7 +432,7 @@ A link to the SafeCampus program is below:
         * [Ben's attrition rate code](https://github.com/hanowell/uwsoc533a/blob/main/gists/employee-turnover-gist.R)
 * **Assignment**: 
 
-### Week 2 {.unnumbered}
+<h3>Week 2</h3>
 * **Topics**
     * Rmarkdown
         * Code blocks in R Markdown
@@ -447,7 +447,7 @@ A link to the SafeCampus program is below:
 
 * **Assignment**: 
 
-### Week 3 {.unnumbered}
+<h3>Week 3</h3>
 * **Topics**: 
     * [`tidycensus`](https://walker-data.com/tidycensus/): Load US Census Boundary and Attribute Data as 'tidyverse' and 'sf'-Ready Data Frames
     * [`idbr`](https://cran.r-project.org/web/packages/idbr/index.html): R Interface to the US Census Bureau International Data Base API
@@ -462,7 +462,7 @@ A link to the SafeCampus program is below:
         * Accessing HMuman Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
 * **Assignment**: 
 
-### Week 4 {.unnumbered}
+<h3>Week 4</h3>
 * **Topics**: 
     * R functions
     * Sampling in R
@@ -470,28 +470,28 @@ A link to the SafeCampus program is below:
 
 * **Assignment**: 
 
-### Week 5 {.unnumbered}
+<h3>Week 5</h3>
 * **Topics**: 
     * Git: file versioning and code repository
 * **Assignment**: 
 
-### Week 6 {.unnumbered}
+<h3>Week 6</h3>
 * **Topics**: 
 * **Assignment**: 
 
-### Week 7 {.unnumbered}
+<h3>Week 7</h3>
 * **Topics**: 
 * **Assignment**: 
 
-### Week 8 {.unnumbered}
+<h3>Week 8</h3>
 * **Topics**: 
 * **Assignment**: 
 
-### Week 9 {.unnumbered}
+<h3>Week 9</h3>
 * **Topics**: 
 * **Assignment**: 
 
-### Week 10 {.unnumbered}
+<h3>Week 10</h3>
 * **Topics**: 
 * **Assignment**: 
 
