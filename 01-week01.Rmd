@@ -911,8 +911,11 @@ etdata %<>%
 etdata %>% 
     group_by(gender, age_decade) %>% 
     summarize(mean_tenure_months = mean(tenure) %>% round(1),
-              sd_tenure_months = sd(tenure) %>% round(1)) %>% 
-    arrange(gender, mean_tenure_months)
+              sd_tenure_months = sd(tenure) %>% round(1), 
+              .groups = "keep") %>% 
+    arrange(gender, mean_tenure_months) %>% 
+    kable() %>% 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 <hr>
