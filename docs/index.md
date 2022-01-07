@@ -52,7 +52,6 @@ Office hours: by appointment; see [my calendar](http://staff.washington.edu/phur
 
 ## Course logistics {.unnumbered}
 
-
 :::{.rmdnote}
 ### Course location {.unnumbered}
 
@@ -319,7 +318,6 @@ Office hours: by appointment; see [my calendar](http://staff.washington.edu/phur
 
 
 ## Course logistics {.unnumbered}
-
 
 :::{.rmdnote}
 ### Course location {.unnumbered}

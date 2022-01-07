@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 2 Week 2 | UW CSDE 502 A Course Notes</title>
 <meta name="author" content="Phil Hurvitz">
-<meta name="description" content="Rendered at 2022-01-07 01:25:24 Topics:  Code blocks in R Graphs in R Markdown Tables in R Markdow Equations in R Markdown Captions and cross-references in R Markdown Data sets: Data: Human...">
+<meta name="description" content="Rendered at 2022-01-07 02:26:36 Topics:  Code blocks in R Graphs in R Markdown Tables in R Markdow Equations in R Markdown Captions and cross-references in R Markdown Data sets: Data: Human...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 2 Week 2 | UW CSDE 502 A Course Notes">
 <meta property="og:type" content="book">
-<meta property="og:description" content="Rendered at 2022-01-07 01:25:24 Topics:  Code blocks in R Graphs in R Markdown Tables in R Markdow Equations in R Markdown Captions and cross-references in R Markdown Data sets: Data: Human...">
+<meta property="og:description" content="Rendered at 2022-01-07 02:26:36 Topics:  Code blocks in R Graphs in R Markdown Tables in R Markdow Equations in R Markdown Captions and cross-references in R Markdown Data sets: Data: Human...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 2 Week 2 | UW CSDE 502 A Course Notes">
-<meta name="twitter:description" content="Rendered at 2022-01-07 01:25:24 Topics:  Code blocks in R Graphs in R Markdown Tables in R Markdow Equations in R Markdown Captions and cross-references in R Markdown Data sets: Data: Human...">
+<meta name="twitter:description" content="Rendered at 2022-01-07 02:26:36 Topics:  Code blocks in R Graphs in R Markdown Tables in R Markdow Equations in R Markdown Captions and cross-references in R Markdown Data sets: Data: Human...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -69,7 +69,7 @@
 <h1>
 <span class="header-section-number">2</span> Week 2<a class="anchor" aria-label="anchor" href="#week2"><i class="fas fa-link"></i></a>
 </h1>
-<p>Rendered at <tt>2022-01-07 01:25:24</tt></p>
+<p>Rendered at <tt>2022-01-07 02:26:36</tt></p>
 <h2>
 Topics:
 <a class="anchor" aria-label="anchor" href="#week2"><i class="fas fa-link"></i></a>
@@ -146,7 +146,7 @@ hist(ages$age, xlab = "age (years)", las = 1)
 </h4>
 <p>The <code>ggplot2</code> package creates compelling graphics that use a common syntax. The main difference between base R graphics and <code>ggplot2</code> graphics is that simply issuing the <code><a href="https://r-spatial.github.io/sf/reference/plot.html">plot()</a></code> or related command (e.g., <code><a href="https://rdrr.io/r/graphics/hist.html">hist()</a></code>, <code><a href="https://rdrr.io/r/graphics/barplot.html">barplot()</a></code>) adds the graphic to the output, whereas with <code>ggplot()</code> it is necessary to issue a command that prints the graphic.</p>
 <p>Following the previous example:</p>
-<div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># how many unique bins? </span>
 <span class="va">bins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">ages</span><span class="op">$</span><span class="va">age</span><span class="op">)</span><span class="op">)</span>
 
@@ -164,17 +164,17 @@ hist(ages$age, xlab = "age (years)", las = 1)
 </h4>
 <p>Journals frequently require graphics files to be submitted separately from the manuscript. In this case, the graphic can be created and saved as a file and then inserted in the Rmd using code, but also accessed as a a stand-alone file. Let’s take the previous example, but add correlation coefficients and other embellishments, create a graphics file and add the graphics into the Rmd.</p>
 <p>The base graphics file is created using the <code><a href="https://rdrr.io/r/grDevices/pdf.html">pdf()</a></code> function, although <code><a href="https://rdrr.io/r/grDevices/png.html">png()</a></code> also works if that is the desired output format. PDF is a vector format, so it generally renders better over different zoom levels.</p>
-<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html">pdf</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"ah_age_hist.pdf"</span>, width <span class="op">=</span> <span class="fl">5</span>, height <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">ages</span><span class="op">$</span><span class="va">age</span>, xlab <span class="op">=</span> <span class="st">"age (years)"</span>, las <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>Here we create a PNG format file:</p>
-<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/grDevices/png.html">png</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"ah_age_hist.png"</span>, width <span class="op">=</span> <span class="fl">5</span>, height <span class="op">=</span> <span class="fl">5</span>, units <span class="op">=</span> <span class="st">"in"</span>, res <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">ages</span><span class="op">$</span><span class="va">age</span>, xlab <span class="op">=</span> <span class="st">"age (years)"</span>, las <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><code>ggplot2</code> graphics can be saved using <code>ggsave()</code>, e.g., for both PDF and PNG outputs. The <code>dpi</code> argument is important for bitmap images.</p>
-<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggsave</span><span class="op">(</span>
     filename <span class="op">=</span> <span class="st">"ah_age_hist_ggplot.pdf"</span>,
     plot <span class="op">=</span> <span class="va">g</span>, device <span class="op">=</span> <span class="st">"pdf"</span>,
@@ -198,24 +198,24 @@ include_graphics("graphics_filename")
 <p>and the code chunk can include <code>out.width</code>, <code>out.height</code> and other options.
  
 Here we insert a PDF with no code chunk options, which presents the image with a scroll bar, rather than the full image:</p>
-<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">include_graphics</span><span class="op">(</span><span class="st">"ah_age_hist.pdf"</span><span class="op">)</span></code></pre></div>
 <p><embed src="ah_age_hist.pdf"></embed><!-- --></p>
 <p>Here we specify in the code chunk options <code>out.height = "360px", out.width='360px', fig.align='left'</code>,</p>
-<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">include_graphics</span><span class="op">(</span><span class="st">"ah_age_hist.pdf"</span><span class="op">)</span></code></pre></div>
 <embed src="ah_age_hist.pdf" width="360px" height="360px" style="display: block; margin: auto auto auto 0;" type="application/pdf"></embed><p> </p>
 <p>… and with code chunk options <code>out.height = "400px", out.width='100%', fig.align='left'</code></p>
-<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">include_graphics</span><span class="op">(</span><span class="st">"ah_age_hist.pdf"</span><span class="op">)</span></code></pre></div>
 <embed src="ah_age_hist.pdf" width="100%" height="400px" style="display: block; margin: auto auto auto 0;" type="application/pdf"></embed><p> </p>
 <p>It seems that embedding PDF files is not optimal.</p>
 <p>Here we insert a PNG: with no code chunk options:</p>
-<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">include_graphics</span><span class="op">(</span><span class="st">"ah_age_hist_ggplot.png"</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="ah_age_hist_ggplot.png" width="750"></div>
 <p>and with code chunk option <code>out.width = "50%"</code></p>
-<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">include_graphics</span><span class="op">(</span><span class="st">"ah_age_hist_ggplot.png"</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="ah_age_hist_ggplot.png" width="50%"></div>
 <p>So embedding bitmapped images appears to work better than embedding PDF files.</p>
@@ -260,7 +260,7 @@ Here we insert a PDF with no code chunk options, which presents the image with a
 </h3>
 <p>We will look at three methods of including tables in R Markdown documents, using the packages <code>knitr</code> (with <code>kableExtra</code>), <code>pander</code>, and <code>stargazer</code>.</p>
 <p>For the example table, we will use the frequency table of health <span class="math inline">\(\times\)</span> White and African American from Assignment 2:</p>
-<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">readstata13</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/readstata13/man/read.dta13.html">read.dta13</a></span><span class="op">(</span><span class="st">"http://staff.washington.edu/phurvitz/csde502_winter_2021/data/AHwave1_v1.dta"</span><span class="op">)</span>
 
 
@@ -297,7 +297,7 @@ Here we insert a PDF with no code chunk options, which presents the image with a
 <span class="header-section-number">2.2.3.1</span> <code>kntir</code> (<code>kable()</code>) and <code>kableExtra</code><a class="anchor" aria-label="anchor" href="#kntir-kable-and-kableextra"><i class="fas fa-link"></i></a>
 </h4>
 <p>The simple table using <code>kable()</code> is not too nice to read.</p>
-<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">kable</span><span class="op">(</span><span class="va">sum_health_white_afram</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr>
@@ -627,7 +627,7 @@ NA
 </tbody>
 </table></div>
 <p>So we add some <code>kabelExtra</code> options, :</p>
-<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">kable</span><span class="op">(</span><span class="va">sum_health_white_afram</span>,
       col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"health"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
         <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span> </code></pre></div>
@@ -959,7 +959,7 @@ NA
 </tbody>
 </table></div>
 <p>However, because some column names are duplicated, it is necessary to add some column grouping:</p>
-<div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">kable</span><span class="op">(</span><span class="va">sum_health_white_afram</span>,
       col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"health"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
     <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
@@ -1308,7 +1308,7 @@ NA
 </tbody>
 </table></div>
 <p>We could also add some row groupings:</p>
-<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sum_health_white_afram</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
     <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
     <span class="fu">kable</span><span class="op">(</span>col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span><span class="op">)</span>, align<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">'r'</span>,times<span class="op">=</span><span class="fl">6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
@@ -1640,7 +1640,7 @@ n
 <span class="header-section-number">2.2.3.2</span> <code>stargazer</code><a class="anchor" aria-label="anchor" href="#stargazer"><i class="fas fa-link"></i></a>
 </h4>
 <p>The <a href="https://cran.r-project.org/web/packages/stargazer/vignettes/stargazer.pdf"><code>stargazer</code></a> package is especially good for PDF outputs, but is fairly limited for HTML output.</p>
-<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">stargazer</span><span class="op">(</span><span class="va">sum_health_white_afram</span>, 
           type <span class="op">=</span> <span class="st">"html"</span>, 
           summary <span class="op">=</span> <span class="cn">FALSE</span>,
@@ -1960,7 +1960,7 @@ low
 <span class="header-section-number">2.2.3.3</span> <code>pander</code><a class="anchor" aria-label="anchor" href="#pander"><i class="fas fa-link"></i></a>
 </h4>
 <p><code>pander</code> can be used to create output HTML tables as well, although also with fewer options than <code>knitr</code> with <code>kableExtra</code>.</p>
-<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">pander</span><span class="op">(</span><span class="va">sum_health_white_afram</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <colgroup>
@@ -2140,7 +2140,7 @@ Figure 2.1: Cars: speed and distance
 <span class="header-section-number">2.2.4.2</span> Tables: <code>kable()</code> “caption”<a class="anchor" aria-label="anchor" href="#tables-kable-caption"><i class="fas fa-link"></i></a>
 </h4>
 <p>Tables created with <code>kable()</code> can include the <code>caption</code> option. For example:</p>
-<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">kable</span><span class="op">(</span>x <span class="op">=</span> <span class="va">sum_health_white_afram</span>, caption <span class="op">=</span> <span class="st">"Self-reported health by race"</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <caption>
@@ -2532,7 +2532,7 @@ figure_nums &lt;- captioner(prefix = "Figure")</a></code></pre>
 <p><code>_`r figure_nums(name = "figname", caption = "My Caption")`_</code></p>
 <p>Although this method requires a bit more coding, it allows great flexibility. A complete example:</p>
 <p>As shown in figure 1, the distribution of age has a slight negative skew.</p>
-<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># how many unique bins? </span>
 <span class="va">bins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">ages</span><span class="op">$</span><span class="va">age</span><span class="op">)</span><span class="op">)</span>
 
@@ -2546,7 +2546,7 @@ figure_nums &lt;- captioner(prefix = "Figure")</a></code></pre>
 <p><em>figure 1: Add Health age histogram</em></p>
 <p>Similarly, we can present the same data as a frequency table, as shown in table 1.</p>
 <p><em>table 1: Add Health age frequency table</em></p>
-<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ages</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
     <span class="fu">group_by</span><span class="op">(</span><span class="va">age</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 

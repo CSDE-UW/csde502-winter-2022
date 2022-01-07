@@ -905,14 +905,23 @@ etdata <- read.csv("https://raw.githubusercontent.com/teuschb/hr_data/master/dat
 Just to get a bit of `tidyverse` in at the last minute, let's get mean and standard deviation of job tenure by gender and 10-year age class:
 
 ```{r}
+# create 10-year age classes 
 etdata %<>% 
     mutate(age_decade = plyr::round_any(age, 10, f = ceiling)) 
 
+# summarize
 etdata %>% 
+    # group by gender and age class
     group_by(gender, age_decade) %>% 
+    # mean and sd
     summarize(mean_tenure_months = mean(tenure) %>% round(1),
-              sd_tenure_months = sd(tenure) %>% round(1)) %>% 
-    arrange(gender, mean_tenure_months)
+              sd_tenure_months = sd(tenure) %>% round(1), 
+              .groups = "keep") %>% 
+    # order the output by age and gender
+    arrange(gender, mean_tenure_months) %>% 
+    # print it nicely
+    kable() %>% 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 <hr>
