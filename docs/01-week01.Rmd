@@ -1,6 +1,5 @@
 # Week 1 {#week1}
 
-
 ```{r, echo=FALSE, message=FALSE, error=FALSE}
 library(tidyverse)
 library(magrittr)
@@ -10,6 +9,8 @@ library(kableExtra)
 # this course's URL
 myurl <- "https://csde-uw.github.io/csde502-winter-2022"
 ```
+
+Rendered at <tt>`r Sys.time()`</tt>
 
 <h2>Topics:</h2>
 * [Getting started on terminal server 4](#gettingstarted)
@@ -178,7 +179,7 @@ Change line 3 to include your name and e-mail address as shown.
 #### Render and view the enhanced output
 Repeat the rendering process (`R Markdown::render("Week_01.Rmd")`) 
 
-The new HTML file has a number of enhancements, including a table of contents at the upper left, a table that is easier to read, a Leaflet map, captions and cross-references for the figures and table, an image derived from a PNG file referenced by a URL, the code used to generate various parts of the document that are produced by R code, and the complete source code for the document. A downloadable version of the rendered file: [week_01.html](files/week_01.html).
+The new HTML file has a number of enhancements, including a mailto: hyperlink for your name, a table of contents at the upper left, a table that is easier to read, a Leaflet map, captions and cross-references for the figures and table, an image derived from a PNG file referenced by a URL, the code used to generate various parts of the document that are produced by R code, and the complete source code for the document. A downloadable version of the rendered file: [week_01.html](files/week_01.html).
 
 ![](images/week01/2021-01-08_00_19_27-Week01.png)
 
@@ -535,8 +536,8 @@ install.packages("tidyverse")
 
 For today's lesson we will be using one of the Add Health public use data sets, [AHwave1_v1.dta](data/AHwave1_v1.dta). 
 
-```{r warning=FALSE}
-# install package?
+```{r warning=FALSE, message=FALSE}
+# install the readstata13 package?
 install.packages("pacman", repos = "https://ftp.osuosl.org/pub/cran/")
 pacman::p_load(readstata13)
 
@@ -879,9 +880,40 @@ dat %>%
 #### purrr: efficient iterating over elements in vectors and lists
 More attention will be paid to `purrr` in the lesson on [functions](#week2).
 
+The workhorse function in `purrr` is `map()`, which applies a function over a list or atomic vector.
+
+A brief example uses a vector `c(9, 16, 25)` and the `map()` function is used to get the square root of each element. The output is a list
+
+```{r}
+# apply the sqrt() function to each element of a vector of integers
+map(c(9, 16, 25), sqrt)
+```
+
+Other resources for `purrr`: [Learn to purrr](https://www.rebeccabarter.com/blog/2019-08-19_purrr/), [purrr tutorial](https://jennybc.github.io/purrr-tutorial/)
 
 ## Data sets {#datasets001}
-### Employee turnover data
+
+### Edward Babushkin's Employee turnover data
+Some data that will be used in CSDE 533: Edward Babushkin's employee turnover data, explained a bit at [kaggle.com](https://www.kaggle.com/davinwijaya/employee-turnover) and as a [downloadable file](https://github.com/teuschb/hr_data/blob/master/datasets/turnover_babushkin.csv).
+
+Here we will load the data set from a URL:
+
+```{r}
+etdata <- read.csv("https://raw.githubusercontent.com/teuschb/hr_data/master/datasets/turnover_babushkin.csv")
+```
+
+Just to get a bit of `tidyverse` in at the last minute, let's get mean and standard deviation of job tenure by gender and 10-year age class:
+
+```{r}
+etdata %<>% 
+    mutate(age_decade = plyr::round_any(age, 10, f = ceiling)) 
+
+etdata %>% 
+    group_by(gender, age_decade) %>% 
+    summarize(mean_tenure_months = mean(tenure) %>% round(1),
+              sd_tenure_months = sd(tenure) %>% round(1)) %>% 
+    arrange(gender, mean_tenure_months)
+```
 
 <hr>
 <h4>Source code for this document</h4>

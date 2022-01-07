@@ -10,6 +10,8 @@ library(haven)
 library(pdftools)
 ```
 
+Rendered at <tt>`r Sys.time()`</tt>
+
 <h2>Topic: Add Health data: exploring variables and data documentation</h2>
 
 ## The Add Health study data
@@ -380,7 +382,7 @@ x %>% filter(!is.na(page_num))
 ## Conclusion
 We will use these data sets and metadata for the next several lessons. The methods presented in today's lesson should increase efficiency and reduce busy-work.
 
-## Source code
+<h4>Source code for this document</h4>
 [06-week06.Rmd](06-week06.Rmd)
 
 ```{r comment=''}

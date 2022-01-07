@@ -13,6 +13,8 @@ library(ggplot2)
 urlhome <- ""
 ```
 
+Rendered at <tt>`r Sys.time()`</tt>
+
 <h2>Topic:Odds and ends</h2>
 This week's lesson will cover a additional R odds and ends.
 
@@ -188,8 +190,9 @@ For examples of syntax for both APA-like and AMA-like references and bibliograph
 * APA: [HTML](files/bibliography.html); [Rmd](files/bibliography.Rmd)
 * AMA: [HTML](files/bibliography_ama.html); [Rmd](files/bibliography_ama.Rmd)
 
-## Source code
+<h4>Source code for this document</h4>
 [10-week10.Rmd](10-week10.Rmd)
+
 ```{r comment=''}
 cat(readLines(con = "10-week10.Rmd"), sep = "\n")
 ```

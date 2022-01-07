@@ -161,105 +161,103 @@ A link to the SafeCampus program is below:
 
 **Topics**
 
-    * Course introduction
-    * Getting started with CSDE terminal server 4
-    * [Introduction to R/RStudio/RMarkdown](#intrormd)
-    * R data types
-    * R data structures
-    * R pipes (`magrittr`. `tidyverse`, and native pipes)
-    * Data manipulation in the `tidyverse`
-    * Employee turnover data
-        * [Babushkin data](https://github.com/teuschb/hr_data/blob/master/datasets/turnover_babushkin.csv)
-        * [Kaggle documentation of Babuskin data](https://www.kaggle.com/davinwijaya/employee-turnover)
-        * [Ben's attrition rate code](https://github.com/hanowell/uwsoc533a/blob/main/gists/employee-turnover-gist.R)
+* Course introduction
+* Getting started with CSDE terminal server 4
+* [Introduction to R/RStudio/RMarkdown](#intrormd)
+* R data types
+* R data structures
+* R pipes (`magrittr`. `tidyverse`, and native pipes)
+* Data manipulation in the `tidyverse`
+* Employee turnover data
+    * [Babushkin data](https://github.com/teuschb/hr_data/blob/master/datasets/turnover_babushkin.csv)
+    * [Kaggle documentation of Babuskin data](https://www.kaggle.com/davinwijaya/employee-turnover)
+    * [Ben's attrition rate code](https://github.com/hanowell/uwsoc533a/blob/main/gists/employee-turnover-gist.R)
 
 ***Week 2***
 
 **Topics**
 
-    * Rmarkdown
-        * Code blocks in R Markdown
-        * Graphs in R Markdown
-        * Tables in R Markdown
-        * Equations in R Markdown
-        * HTML output from R Markdown
-    * [Keyring: securely store secrets](https://cran.r-project.org/web/packages/keyring/)
-    * Data:
-        * [Human Mortality Database](https://www.mortality.org/)
-        * [Human Fertility Database](https://www.humanfertility.org/cgi-bin/main.php)
+* Rmarkdown
+    * Code blocks in R Markdown
+    * Graphs in R Markdown
+    * Tables in R Markdown
+    * Equations in R Markdown
+    * HTML output from R Markdown
+* [Keyring: securely store secrets](https://cran.r-project.org/web/packages/keyring/)
+* Data:
+    * [Human Mortality Database](https://www.mortality.org/)
+    * [Human Fertility Database](https://www.humanfertility.org/cgi-bin/main.php)
 
 ***Week 3***
 
 **Topics**: 
 
-    * [`tidycensus`](https://walker-data.com/tidycensus/): Load US Census Boundary and Attribute Data as 'tidyverse' and 'sf'-Ready Data Frames
-    * [`idbr`](https://cran.r-project.org/web/packages/idbr/index.html): R Interface to the US Census Bureau International Data Base API
-    * [`sf: Simple Features for R`](https://cran.r-project.org/web/packages/sf/): Simple Features (GIS) for R
-    * [`leaflet`](https://cran.r-project.org/web/packages/leaflet/): Create Interactive Web Maps with the JavaScript 'Leaflet' Library
-    * [`mapview`](https://cran.r-project.org/web/packages/mapview/): Interactive Viewing of Spatial Data in R
-    * [`demogR`](https://cran.r-project.org/web/packages/demogR/index.html): Analysis of Age-Structured Demographic Models
-    * [`demography`](https://cran.r-project.org/web/packages/demography/): Forecasting Mortality, Fertility, Migration and Population Data; [An R intro to the demography package](https://rpubs.com/Timexpo/487053))
-    * Pretty printouts of life tables with `flextable` and `DT`
-    
-    * Data:
-        * Accessing HMuman Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
+* [`tidycensus`](https://walker-data.com/tidycensus/): Load US Census Boundary and Attribute Data as 'tidyverse' and 'sf'-Ready Data Frames
+* [`idbr`](https://cran.r-project.org/web/packages/idbr/index.html): R Interface to the US Census Bureau International Data Base API
+* [`sf: Simple Features for R`](https://cran.r-project.org/web/packages/sf/): Simple Features (GIS) for R
+* [`leaflet`](https://cran.r-project.org/web/packages/leaflet/): Create Interactive Web Maps with the JavaScript 'Leaflet' Library
+* [`mapview`](https://cran.r-project.org/web/packages/mapview/): Interactive Viewing of Spatial Data in R
+* [`demogR`](https://cran.r-project.org/web/packages/demogR/index.html): Analysis of Age-Structured Demographic Models
+* [`demography`](https://cran.r-project.org/web/packages/demography/): Forecasting Mortality, Fertility, Migration and Population Data; [An R intro to the demography package](https://rpubs.com/Timexpo/487053))
+* Pretty printouts of life tables with `flextable` and `DT`
+
+* Data:
+    * Accessing HMuman Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
 
 ***Week 4***
 
 **Topics**: 
 
-    * R environments
-    * R functions
-    * Sampling in R
-    * Revisiting [Ben's code for reading HMD and HFD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R)
+* R environments
+* R functions
+* Sampling in R
+* Revisiting [Ben's code for reading HMD and HFD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R)
 
 ***Week 5***
 
 **Topics**: 
 
-    * Git: file versioning and code repository
+* Git: file versioning and code repository
 
 ***Week 6***
 
 **Topics**: 
 
-    * Reading labelled data
-    * Metadata on data sets
-    * Ccmpp: Cohort Component Method of Population Projection
-    * Data: 
-        * Add Health public-use data
+* Reading labelled data
+* Metadata on data sets
+* Ccmpp: Cohort Component Method of Population Projection
+* Data: 
+    * Add Health public-use data
 
 ***Week 7***
 
 **Topics**: 
 
-    * Creating value labels
-    * Tabulation (summarizing data)
+* Creating value labels
+* Tabulation (summarizing data)
 
 ***Week 8***
 
 **Topics**: 
 
-    * Scale scoring variables
-    * Reordering variable values
+* Scale scoring variables
+* Reordering variable values
 
 ***Week 9***
 
 **Topics**: 
 
-    * Miscellaneous data processing
+* Miscellaneous data processing
 
 ***Week 10***
 
 **Topics**: 
 
-    * Miscellaneous data processing, continued
+* Miscellaneous data processing, continued
 
 
 ## About this web site {.unnumbered}
 This web site was built in R using Rmarkdown and [bookdown](https://cran.r-project.org/web/packages/bookdown/) with the [bs4_book](https://pkgs.rstudio.com/bookdown/reference/bs4_book.html) template, which uses the [Bootstrap](https://getbootstrap.com/) framework. One of the unfortunate side effects of this format is that all captions are placed _below_ the table or figure! 
-
-Rendered at <tt>`r Sys.time()`</tt>
 
 <h4>Source code for this document</h4>
 Each of the pages in this book will have a section at the bottom including a link to the source file and the printed source code for the page.

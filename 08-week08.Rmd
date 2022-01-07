@@ -11,6 +11,8 @@ library(curl)
 library(ggplot2)
 ```
 
+Rendered at <tt>`r Sys.time()`</tt>
+
 <h2>Topic: Add Health data: variable creation and scale scoring</h2>
 This week's lesson will provide more background on variable creation and scale scoring. The scale scoring exercise will be used to create a single variable that represents how well respondents did overall on a subset of questions.
 
@@ -388,7 +390,7 @@ cbind(orig1, mod1, orig2, mod2) %>%
 
 Now that the values are reordered, they can be used in multiple-column scale scoring as demonstrated above.
 
-## Source code
+<h4>Source code for this document</h4>
 [08-week08.Rmd](08-week08.Rmd)
 
 ```{r comment=''}

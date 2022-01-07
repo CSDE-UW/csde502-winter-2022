@@ -13,6 +13,8 @@ library(ggplot2)
 urlhome <- ""
 ```
 
+Rendered at <tt>`r Sys.time()`</tt>
+
 <h2>Topic: Miscellaneous data processing </h2>
 This week's lesson will cover a set of miscellaneous data processing topics.
 
@@ -629,8 +631,9 @@ sessionInfo()
 ## Comment out Rmd/HTML code
 To comment out entire parts of your Rmd so they do not appear in your rendered HTML, use HTML comments, which are specified with the delimiters `<!--` and `-->`.
 
-## Source code
+<h4>Source code for this document</h4>
 [09-week09.Rmd](09-week09.Rmd)
+
 ```{r comment=''}
 cat(readLines(con = "09-week09.Rmd"), sep = "\n")
 ```

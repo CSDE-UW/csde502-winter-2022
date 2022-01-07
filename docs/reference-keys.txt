@@ -49,7 +49,7 @@ create-or-calculate-columns-mutate
 summarizingaggregating-data
 purrr-efficient-iterating-over-elements-in-vectors-and-lists
 datasets001
-employee-turnover-data
+edward-babushkins-employee-turnover-data
 week2
 code-to-run-for-the-in-class-exercise
 r-markdown
@@ -105,7 +105,6 @@ ignoring-specific-files
 exploring-file-change-history
 restoring-a-previous-version
 conclusion
-source-code
 week6
 the-add-health-study-data
 documentation
@@ -119,7 +118,6 @@ pdfgrep
 a-few-use-examples
 pdftoolspdf_text
 conclusion-1
-source-code-1
 week7
 creating-value-labels
 creating-factor-variables
@@ -128,14 +126,12 @@ tabulation
 raw-counts
 proportionspercentages
 stratified-tabulation
-source-code-2
 week8
 scale-scoring
 selecting-specific-columns
 comparing-participant-answers-to-correct-answers
 scoring-across-columns
 reordering-values
-source-code-3
 week9
 substituting-text
 paste-paste0
@@ -160,7 +156,6 @@ running-system-commands
 code-styling
 session-information
 comment-out-rmdhtml-code
-source-code-4
 week10
 r-markdown-to-microsoft-word
 r-markdown-output
@@ -168,4 +163,3 @@ r-markdown-rendering-to-specific-formats
 testing-output_type
 advantages-and-disadvantages-of-pdf
 bibliography-in-r-markdown
-source-code-5
