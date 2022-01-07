@@ -35,7 +35,7 @@ This is the main course notes for CSDE 502 for Winter 2022. It will contain or l
 
 <center>
 **CAUTION**
-Material on these pages will be in major flux until the first class of the quarter!
+Material on these pages will be in major flux until the second week of the quarter!
 </center>
 
 :::
@@ -80,7 +80,9 @@ Class meetings will happen initially over Zoom. The Zoom link for this course is
 Friday 10:30-12:20<br>
 Please come to class promptly at the scheduled time. There will be a 10-minute break about halfway through each class session.
 
-### Canvas site:** The course has a Canvas site [https://canvas.uw.edu/courses/1515226](https://canvas.uw.edu/courses/1515226), which will be used for collection of assignments and distribution of graded assignments. The site may also be used for distribution of data sets used in the course.
+### Canvas site {.unnumbered}
+
+The course has a Canvas site [https://canvas.uw.edu/courses/1515226](https://canvas.uw.edu/courses/1515226), which will be used for collection of assignments and distribution of graded assignments. The site may also be used for distribution of data sets used in the course.
 
 :::
 
@@ -169,7 +171,7 @@ A link to the SafeCampus program is below:
 :::
 
 ## Course calendar {.unnumbered}
-### Week 1
+### Week 1 {.unnumbered}
 * **Topics**
     * Course introduction
     * Getting started with CSDE terminal server 4
@@ -184,7 +186,7 @@ A link to the SafeCampus program is below:
         * [Ben's attrition rate code](https://github.com/hanowell/uwsoc533a/blob/main/gists/employee-turnover-gist.R)
 * **Assignment**: 
 
-### Week 2
+### Week 2 {.unnumbered}
 * **Topics**
     * Rmarkdown
         * Code blocks in R Markdown
@@ -199,7 +201,7 @@ A link to the SafeCampus program is below:
 
 * **Assignment**: 
 
-### Week 3
+### Week 3 {.unnumbered}
 * **Topics**: 
     * [`tidycensus`](https://walker-data.com/tidycensus/): Load US Census Boundary and Attribute Data as 'tidyverse' and 'sf'-Ready Data Frames
     * [`idbr`](https://cran.r-project.org/web/packages/idbr/index.html): R Interface to the US Census Bureau International Data Base API
@@ -214,7 +216,7 @@ A link to the SafeCampus program is below:
         * Accessing HMuman Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
 * **Assignment**: 
 
-### Week 4
+### Week 4 {.unnumbered}
 * **Topics**: 
     * R functions
     * Sampling in R
@@ -222,33 +224,33 @@ A link to the SafeCampus program is below:
 
 * **Assignment**: 
 
-### Week 5
+### Week 5 {.unnumbered}
 * **Topics**: 
     * Git: file versioning and code repository
 * **Assignment**: 
 
-### Week 6
+### Week 6 {.unnumbered}
 * **Topics**: 
 * **Assignment**: 
 
-### Week 7
+### Week 7 {.unnumbered}
 * **Topics**: 
 * **Assignment**: 
 
-### Week 8
+### Week 8 {.unnumbered}
 * **Topics**: 
 * **Assignment**: 
 
-### Week 9
+### Week 9 {.unnumbered}
 * **Topics**: 
 * **Assignment**: 
 
-### Week 10
+### Week 10 {.unnumbered}
 * **Topics**: 
 * **Assignment**: 
 
 
-## About this web site
+## About this web site {.unnumbered}
 This web site was built in R using Rmarkdown and [bookdown](https://cran.r-project.org/web/packages/bookdown/) with the [bs4_book](https://pkgs.rstudio.com/bookdown/reference/bs4_book.html) template, which uses the [Bootstrap](https://getbootstrap.com/) framework. One of the unfortunate side effects of this format is that all captions are placed _below_ the table or figure! 
 
 <h4>Source code for this document</h4>

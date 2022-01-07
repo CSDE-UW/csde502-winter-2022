@@ -1,15 +1,3 @@
-canvas-site-the-course-has-a-canvas-site-httpscanvas.uw.educourses1515226-which-will-be-used-for-collection-of-assignments-and-distribution-of-graded-assignments.-the-site-may-also-be-used-for-distribution-of-data-sets-used-in-the-course.
-week-1
-week-2
-week-3
-week-4
-week-5
-week-6
-week-7
-week-8
-week-9
-week-10
-about-this-web-site
 week1
 gettingstarted
 intrormd
