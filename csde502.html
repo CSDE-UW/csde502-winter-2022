@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>UW CSDE 502 A Course Notes</title>
+
+    <meta name="author" content="Phil Hurvitz" />
+  
+   <meta name="description" content="These are the course notes for Proseminar Winter 2022 (CSDE 502 A) at the University of Washington." />
+   <meta name="generator" content="placeholder" />
+  <meta property="og:title" content="UW CSDE 502 A Course Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="These are the course notes for Proseminar Winter 2022 (CSDE 502 A) at the University of Washington." />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="UW CSDE 502 A Course Notes" />
+  
+  <meta name="twitter:description" content="These are the course notes for Proseminar Winter 2022 (CSDE 502 A) at the University of Washington." />
+  
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
+    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
+    <script src="libs/bs3compat-0.3.1/transition.js"></script>
+    <script src="libs/bs3compat-0.3.1/tabs.js"></script>
+    <script src="libs/bs3compat-0.3.1/bs3compat.js"></script>
+    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
+    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
+    <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+    <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding-0.20/datatables.js"></script>
+    <link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+    <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet-1.3.1/leaflet.js"></script>
+    <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+    <script src="libs/proj4-2.6.2/proj4.min.js"></script>
+    <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+    <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
+
+  <!-- CSS -->
+  
+</head>
+
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<!--bookdown:title:start-->
+<!--bookdown:title:end-->
+
+<!--bookdown:toc:start-->
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">UW CSDE 502 A Course Notes</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+      </form>
+
+      <nav aria-label="Table of contents">
+        <h2>Table of contents</h2>
+        <div id="book-toc"></div>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
+<!--bookdown:toc:end-->
+<!--bookdown:body:start-->
+<div id="introduction-and-welcome" class="section level1 unnumbered">
+<h1 class="unnumbered">Introduction and Welcome!</h1>
+<p>Placeholder</p>
+<div id="about-this-course" class="section level2 unnumbered">
+<h2 class="unnumbered">About this course</h2>
+</div>
+<div id="course-logistics" class="section level2 unnumbered">
+<h2 class="unnumbered">Course logistics</h2>
+<div id="course-location" class="section level3 unnumbered">
+<h3 class="unnumbered">Course location</h3>
+</div>
+<div id="course-days-and-times" class="section level3 unnumbered">
+<h3 class="unnumbered">Course days and times</h3>
+</div>
+<div id="canvas-site" class="section level3 unnumbered">
+<h3 class="unnumbered">Canvas site</h3>
+</div>
+<div id="class-format" class="section level3 unnumbered">
+<h3 class="unnumbered">Class format</h3>
+</div>
+</div>
+<div id="computing" class="section level2 unnumbered">
+<h2 class="unnumbered">Computing</h2>
+</div>
+<div id="assignments-and-grading" class="section level2 unnumbered">
+<h2 class="unnumbered">Assignments and grading</h2>
+</div>
+<div id="course-policies" class="section level2 unnumbered">
+<h2 class="unnumbered">Course policies</h2>
+</div>
+<div id="course-calendar" class="section level2 unnumbered">
+<h2 class="unnumbered">Course calendar</h2>
+</div>
+<div id="about-this-web-site" class="section level2 unnumbered">
+<h2 class="unnumbered">About this web site</h2>
+<!--chapter:end:index.Rmd-->
+</div>
+</div>
+<div id="week1" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Week 1</h1>
+<p>Placeholder</p>
+<div id="gettingstarted" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Getting started on Terminal Server 4</h2>
+</div>
+<div id="intrormd" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Introduction to R Markdown in RStudio</h2>
+<div id="create-a-project" class="section level3" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Create a project</h3>
+</div>
+<div id="create-an-r-markdown-file-from-built-in-rstudio-functionality" class="section level3" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> Create an R Markdown file from built-in RStudio functionality</h3>
+<div id="render-the-rmd-file-as-html" class="section level4" number="1.2.2.1">
+<h4><span class="header-section-number">1.2.2.1</span> Render the Rmd file as HTML</h4>
+</div>
+</div>
+<div id="create-an-r-markdown-file-with-some-enhancements" class="section level3" number="1.2.3">
+<h3><span class="header-section-number">1.2.3</span> Create an R Markdown file with some enhancements</h3>
+<div id="render-and-view-the-enhanced-output" class="section level4" number="1.2.3.1">
+<h4><span class="header-section-number">1.2.3.1</span> Render and view the enhanced output</h4>
+</div>
+</div>
+</div>
+<div id="rdatatypes" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> R data types</h2>
+<div id="logical" class="section level3" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> Logical</h3>
+</div>
+<div id="numeric" class="section level3" number="1.3.2">
+<h3><span class="header-section-number">1.3.2</span> Numeric</h3>
+</div>
+<div id="integer" class="section level3" number="1.3.3">
+<h3><span class="header-section-number">1.3.3</span> Integer</h3>
+</div>
+<div id="complex" class="section level3" number="1.3.4">
+<h3><span class="header-section-number">1.3.4</span> Complex</h3>
+</div>
+<div id="character" class="section level3" number="1.3.5">
+<h3><span class="header-section-number">1.3.5</span> Character</h3>
+</div>
+<div id="raw" class="section level3" number="1.3.6">
+<h3><span class="header-section-number">1.3.6</span> Raw</h3>
+</div>
+</div>
+<div id="rdatastructures" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> R data structures</h2>
+<div id="vector" class="section level3" number="1.4.1">
+<h3><span class="header-section-number">1.4.1</span> Vector</h3>
+</div>
+<div id="matrix" class="section level3" number="1.4.2">
+<h3><span class="header-section-number">1.4.2</span> Matrix</h3>
+</div>
+<div id="array" class="section level3" number="1.4.3">
+<h3><span class="header-section-number">1.4.3</span> Array</h3>
+</div>
+<div id="list" class="section level3" number="1.4.4">
+<h3><span class="header-section-number">1.4.4</span> List</h3>
+</div>
+<div id="factor" class="section level3" number="1.4.5">
+<h3><span class="header-section-number">1.4.5</span> Factor</h3>
+</div>
+<div id="data-frame" class="section level3" number="1.4.6">
+<h3><span class="header-section-number">1.4.6</span> Data frame</h3>
+</div>
+</div>
+<div id="filesystems" class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> File systems</h2>
+</div>
+<div id="tidyverse" class="section level2" number="1.6">
+<h2><span class="header-section-number">1.6</span> Data manipulation in the <code>tidyverse</code></h2>
+<div id="magrittr" class="section level3" number="1.6.1">
+<h3><span class="header-section-number">1.6.1</span> magrittr</h3>
+</div>
+<div id="data-subsetting-dplyr" class="section level3" number="1.6.2">
+<h3><span class="header-section-number">1.6.2</span> Data subsetting (dplyr)</h3>
+<div id="logical-tests" class="section level5" number="1.6.2.0.1">
+<h5><span class="header-section-number">1.6.2.0.1</span> Logical tests</h5>
+<div id="equals" class="section level6" number="1.6.2.0.1.1">
+<h6><span class="header-section-number">1.6.2.0.1.1</span> <code>==</code>: equals</h6>
+</div>
+<div id="numeric-comparisons" class="section level6" number="1.6.2.0.1.2">
+<h6><span class="header-section-number">1.6.2.0.1.2</span> <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>: numeric comparisons</h6>
+</div>
+<div id="not-equals" class="section level6" number="1.6.2.0.1.3">
+<h6><span class="header-section-number">1.6.2.0.1.3</span> <code>!=</code>: not equals</h6>
+</div>
+<div id="invert-or-not" class="section level6" number="1.6.2.0.1.4">
+<h6><span class="header-section-number">1.6.2.0.1.4</span> <code>!</code>: invert, or “not”</h6>
+</div>
+</div>
+<div id="subset-rows-filter" class="section level4" number="1.6.2.1">
+<h4><span class="header-section-number">1.6.2.1</span> Subset rows (<code>filter()</code>)</h4>
+</div>
+<div id="subset-columns-select" class="section level4" number="1.6.2.2">
+<h4><span class="header-section-number">1.6.2.2</span> Subset columns (<code>select()</code>)</h4>
+</div>
+<div id="subset-rows-and-columns-filter-and-select" class="section level4" number="1.6.2.3">
+<h4><span class="header-section-number">1.6.2.3</span> Subset rows and columns: <code>filter()</code> and <code>select()</code></h4>
+</div>
+<div id="create-or-calculate-columns-mutate" class="section level4" number="1.6.2.4">
+<h4><span class="header-section-number">1.6.2.4</span> Create or calculate columns: <code>mutate()</code></h4>
+</div>
+<div id="summarizingaggregating-data" class="section level4" number="1.6.2.5">
+<h4><span class="header-section-number">1.6.2.5</span> Summarizing/aggregating data</h4>
+</div>
+<div id="purrr-efficient-iterating-over-elements-in-vectors-and-lists" class="section level4" number="1.6.2.6">
+<h4><span class="header-section-number">1.6.2.6</span> purrr: efficient iterating over elements in vectors and lists</h4>
+</div>
+</div>
+</div>
+<div id="datasets001" class="section level2" number="1.7">
+<h2><span class="header-section-number">1.7</span> Data sets</h2>
+<div id="edward-babushkins-employee-turnover-data" class="section level3" number="1.7.1">
+<h3><span class="header-section-number">1.7.1</span> Edward Babushkin’s Employee turnover data</h3>
+<!--chapter:end:01-week01.Rmd-->
+</div>
+</div>
+</div>
+<div id="week2" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Week 2</h1>
+<p>Placeholder</p>
+<div id="code-to-run-for-the-in-class-exercise" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Code to run for the in-class exercise</h2>
+</div>
+<div id="r-markdown" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> R Markdown</h2>
+<div id="rmdcodeblocks" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Code blocks</h3>
+</div>
+<div id="rmdgraphics" class="section level3" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Graphics in R Markdown</h3>
+<div id="base-r-graphics" class="section level4" number="2.2.2.1">
+<h4><span class="header-section-number">2.2.2.1</span> Base R graphics</h4>
+</div>
+<div id="ggplot2-graphics" class="section level4" number="2.2.2.2">
+<h4><span class="header-section-number">2.2.2.2</span> <code>ggplot2</code> graphics</h4>
+</div>
+<div id="embedding-graphics-files" class="section level4" number="2.2.2.3">
+<h4><span class="header-section-number">2.2.2.3</span> Embedding graphics files</h4>
+<div id="knitr" class="section level5" number="2.2.2.3.1">
+<h5><span class="header-section-number">2.2.2.3.1</span> <code>knitr</code></h5>
+</div>
+<div id="markdown-captionfilename" class="section level5" number="2.2.2.3.2">
+<h5><span class="header-section-number">2.2.2.3.2</span> Markdown: <code>![caption](filename)</code></h5>
+</div>
+<div id="html-img-tag" class="section level5" number="2.2.2.3.3">
+<h5><span class="header-section-number">2.2.2.3.3</span> HTML <code>&lt;img&gt;</code> tag</h5>
+</div>
+</div>
+</div>
+<div id="rmdtables" class="section level3" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Tables in R Markdown</h3>
+<div id="kntir-kable-and-kableextra" class="section level4" number="2.2.3.1">
+<h4><span class="header-section-number">2.2.3.1</span> <code>kntir</code> (<code>kable()</code>) and <code>kableExtra</code></h4>
+</div>
+<div id="stargazer" class="section level4" number="2.2.3.2">
+<h4><span class="header-section-number">2.2.3.2</span> <code>stargazer</code></h4>
+</div>
+<div id="pander" class="section level4" number="2.2.3.3">
+<h4><span class="header-section-number">2.2.3.3</span> <code>pander</code></h4>
+</div>
+</div>
+<div id="rmdcaptions" class="section level3" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> Captions to support tables, figures, and equations</h3>
+<div id="figures" class="section level4" number="2.2.4.1">
+<h4><span class="header-section-number">2.2.4.1</span> Figures</h4>
+<div id="r-markdown-code-chunk-fig.cap" class="section level5" number="2.2.4.1.1">
+<h5><span class="header-section-number">2.2.4.1.1</span> R Markdown code chunk <code>fig.cap</code></h5>
+</div>
+<div id="bookdown-with-html_document2-output-type" class="section level5" number="2.2.4.1.2">
+<h5><span class="header-section-number">2.2.4.1.2</span> <code>bookdown</code> with <code>html_document2</code> output type</h5>
+</div>
+</div>
+<div id="tables-kable-caption" class="section level4" number="2.2.4.2">
+<h4><span class="header-section-number">2.2.4.2</span> Tables: <code>kable()</code> “caption”</h4>
+<div id="bookdown-with-html_document2-output-type-1" class="section level5" number="2.2.4.2.1">
+<h5><span class="header-section-number">2.2.4.2.1</span> <code>bookdown</code> with <code>html_document2</code> output type</h5>
+</div>
+</div>
+<div id="equations-rmdequations" class="section level4" number="2.2.4.3">
+<h4><span class="header-section-number">2.2.4.3</span> Equations {# rmdequations}</h4>
+</div>
+</div>
+<div id="captioner-for-any-captioning-and-cross-referencing-figures-and-tables" class="section level3" number="2.2.5">
+<h3><span class="header-section-number">2.2.5</span> <code>captioner</code> for any captioning and cross-referencing figures and tables</h3>
+<!--chapter:end:02-week02.Rmd-->
+</div>
+</div>
+</div>
+<div id="week3" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Week 3</h1>
+<p>Placeholder</p>
+<div id="keyring-securely-store-secrets" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Keyring: securely store secrets</h2>
+</div>
+<div id="hanowell_hmdhfd" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Ben’s code for reading HMD and HFD data</h2>
+</div>
+<div id="getting-us-census-data-with-tigris-tidycensus" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Getting US Census data with <code>tigris</code>, <code>tidycensus</code></h2>
+<!--chapter:end:03-week03.Rmd-->
+</div>
+</div>
+<div id="week4" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Week 4</h1>
+<p>Placeholder</p>
+<div id="environments" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Environments</h2>
+</div>
+<div id="functions" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Functions</h2>
+<div id="function-components" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Function Components</h3>
+<div id="name" class="section level4" number="4.2.1.1">
+<h4><span class="header-section-number">4.2.1.1</span> Name</h4>
+</div>
+<div id="arguments" class="section level4" number="4.2.1.2">
+<h4><span class="header-section-number">4.2.1.2</span> Arguments</h4>
+<div id="default-values-for-arguments" class="section level5" number="4.2.1.2.1">
+<h5><span class="header-section-number">4.2.1.2.1</span> Default values for arguments</h5>
+</div>
+<div id="the-...-argument" class="section level5" number="4.2.1.2.2">
+<h5><span class="header-section-number">4.2.1.2.2</span> The <code>...</code> argument</h5>
+</div>
+</div>
+<div id="body" class="section level4" number="4.2.1.3">
+<h4><span class="header-section-number">4.2.1.3</span> Body</h4>
+</div>
+<div id="return-value" class="section level4" number="4.2.1.4">
+<h4><span class="header-section-number">4.2.1.4</span> Return value</h4>
+</div>
+<div id="function-environments" class="section level4" number="4.2.1.5">
+<h4><span class="header-section-number">4.2.1.5</span> Function environments</h4>
+</div>
+</div>
+</div>
+<div id="sampling" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Sampling</h2>
+<div id="sampling-with-replacement" class="section level3" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Sampling with replacement</h3>
+</div>
+<div id="sampling-without-replacement" class="section level3" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Sampling without replacement</h3>
+</div>
+<div id="bootstrapping" class="section level3" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Bootstrapping</h3>
+<!--chapter:end:04-week04.Rmd-->
+</div>
+</div>
+</div>
+<div id="week5" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Week 5</h1>
+<p>Placeholder</p>
+<div id="why-use-version-control" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Why use version control?</h2>
+</div>
+<div id="why-use-git" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Why use Git?</h2>
+</div>
+<div id="limitations-of-version-control-systems" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Limitations of version control systems</h2>
+</div>
+<div id="a-brief-git-tutorial" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> A brief Git tutorial</h2>
+<div id="setting-up-git-in-rstudio" class="section level3" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Setting up Git in RStudio</h3>
+</div>
+<div id="creating-a-repository" class="section level3" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Creating a repository</h3>
+</div>
+<div id="tracking-changes" class="section level3" number="5.4.3">
+<h3><span class="header-section-number">5.4.3</span> Tracking changes</h3>
+</div>
+<div id="git-bash-shell" class="section level3" number="5.4.4">
+<h3><span class="header-section-number">5.4.4</span> Git bash shell</h3>
+</div>
+<div id="ignoring-specific-files" class="section level3" number="5.4.5">
+<h3><span class="header-section-number">5.4.5</span> Ignoring specific files</h3>
+</div>
+<div id="exploring-file-change-history" class="section level3" number="5.4.6">
+<h3><span class="header-section-number">5.4.6</span> Exploring file change history</h3>
+</div>
+<div id="restoring-a-previous-version" class="section level3" number="5.4.7">
+<h3><span class="header-section-number">5.4.7</span> Restoring a previous version</h3>
+</div>
+</div>
+<div id="conclusion" class="section level2" number="5.5">
+<h2><span class="header-section-number">5.5</span> Conclusion</h2>
+<!--chapter:end:05-week05.Rmd-->
+</div>
+</div>
+<div id="week6" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Week 6</h1>
+<p>Placeholder</p>
+<div id="the-add-health-study-data" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> The Add Health study data</h2>
+</div>
+<div id="documentation" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Documentation</h2>
+</div>
+<div id="data-sets" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Data sets</h2>
+<div id="ahwave1_v1.dta" class="section level3" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> <code>AHwave1_v1.dta</code></h3>
+<div id="havenread_dta" class="section level4" number="6.3.1.1">
+<h4><span class="header-section-number">6.3.1.1</span> <code>haven::read_dta()</code></h4>
+</div>
+<div id="readstata13read.dta13" class="section level4" number="6.3.1.2">
+<h4><span class="header-section-number">6.3.1.2</span> <code>readstata13::read.dta13()</code></h4>
+</div>
+</div>
+<div id="data.dta" class="section level3" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> <code>21600-0001-Data.dta</code></h3>
+</div>
+</div>
+<div id="searching-through-documentation" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Searching through documentation</h2>
+<div id="pdfgrep" class="section level3" number="6.4.1">
+<h3><span class="header-section-number">6.4.1</span> <code>pdfgrep</code></h3>
+<div id="a-few-use-examples" class="section level4" number="6.4.1.1">
+<h4><span class="header-section-number">6.4.1.1</span> A few use examples</h4>
+</div>
+</div>
+<div id="pdftoolspdf_text" class="section level3" number="6.4.2">
+<h3><span class="header-section-number">6.4.2</span> <code>pdftools::pdf_text()</code></h3>
+</div>
+</div>
+<div id="conclusion-1" class="section level2" number="6.5">
+<h2><span class="header-section-number">6.5</span> Conclusion</h2>
+<!--chapter:end:06-week06.Rmd-->
+</div>
+</div>
+<div id="week7" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Week 7</h1>
+<p>Placeholder</p>
+<div id="creating-value-labels" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Creating value labels</h2>
+<div id="creating-factor-variables" class="section level3" number="7.1.1">
+<h3><span class="header-section-number">7.1.1</span> Creating factor variables</h3>
+</div>
+<div id="creating-attributes" class="section level3" number="7.1.2">
+<h3><span class="header-section-number">7.1.2</span> Creating attributes</h3>
+</div>
+</div>
+<div id="tabulation" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Tabulation</h2>
+<div id="raw-counts" class="section level3" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> Raw counts</h3>
+</div>
+<div id="proportionspercentages" class="section level3" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Proportions/percentages</h3>
+</div>
+<div id="stratified-tabulation" class="section level3" number="7.2.3">
+<h3><span class="header-section-number">7.2.3</span> Stratified tabulation</h3>
+<!--chapter:end:07-week07.Rmd-->
+</div>
+</div>
+</div>
+<div id="week8" class="section level1" number="8">
+<h1><span class="header-section-number">8</span> Week 8</h1>
+<p>Placeholder</p>
+<div id="scale-scoring" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Scale scoring</h2>
+<div id="selecting-specific-columns" class="section level3" number="8.1.1">
+<h3><span class="header-section-number">8.1.1</span> Selecting specific columns</h3>
+</div>
+<div id="comparing-participant-answers-to-correct-answers" class="section level3" number="8.1.2">
+<h3><span class="header-section-number">8.1.2</span> Comparing participant answers to correct answers</h3>
+</div>
+<div id="scoring-across-columns" class="section level3" number="8.1.3">
+<h3><span class="header-section-number">8.1.3</span> Scoring across columns</h3>
+</div>
+</div>
+<div id="reordering-values" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Reordering values</h2>
+<!--chapter:end:08-week08.Rmd-->
+</div>
+</div>
+<div id="week9" class="section level1" number="9">
+<h1><span class="header-section-number">9</span> Week 9</h1>
+<p>Placeholder</p>
+<div id="substituting-text" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> Substituting text</h2>
+<div id="paste-paste0" class="section level3" number="9.1.1">
+<h3><span class="header-section-number">9.1.1</span> <code>paste()</code>, <code>paste0()</code></h3>
+</div>
+<div id="sprintf" class="section level3" number="9.1.2">
+<h3><span class="header-section-number">9.1.2</span> <code>sprintf()</code></h3>
+<div id="formatting-numerical-values" class="section level4" number="9.1.2.1">
+<h4><span class="header-section-number">9.1.2.1</span> Formatting numerical values</h4>
+</div>
+<div id="string-substitutions" class="section level4" number="9.1.2.2">
+<h4><span class="header-section-number">9.1.2.2</span> String substitutions</h4>
+</div>
+</div>
+<div id="str_replace-str_replace_all" class="section level3" number="9.1.3">
+<h3><span class="header-section-number">9.1.3</span> <code>str_replace()</code>, <code>str_replace_all()</code></h3>
+</div>
+</div>
+<div id="showing-progress" class="section level2" number="9.2">
+<h2><span class="header-section-number">9.2</span> Showing progress</h2>
+</div>
+<div id="turning-text-into-code-evalparsetext-some-string" class="section level2" number="9.3">
+<h2><span class="header-section-number">9.3</span> Turning text into code: <code>eval(parse(text = "some string"))</code></h2>
+</div>
+<div id="sql-in-r-with-rsqlite-and-sqldf" class="section level2" number="9.4">
+<h2><span class="header-section-number">9.4</span> SQL in R with <code>RSQLite</code> and <code>sqldf</code></h2>
+</div>
+<div id="downloading-files-from-password-protected-web-sites" class="section level2" number="9.5">
+<h2><span class="header-section-number">9.5</span> Downloading files from password-protected web sites</h2>
+</div>
+<div id="dates-and-time-stamps-posixct-and-lubridate" class="section level2" number="9.6">
+<h2><span class="header-section-number">9.6</span> Dates and time stamps: <code>POSIXct</code> and <code>lubridate</code></h2>
+</div>
+<div id="timing-with-sys.time-and-difftime" class="section level2" number="9.7">
+<h2><span class="header-section-number">9.7</span> Timing with <code>Sys.time()</code> and <code>difftime()</code></h2>
+</div>
+<div id="faster-files-with-fst" class="section level2" number="9.8">
+<h2><span class="header-section-number">9.8</span> Faster files with <code>fst()</code></h2>
+</div>
+<div id="load-us-census-boundary-and-attribute-data-as-tidyverse-and-sf-ready-data-frames-tigris-tidycensus" class="section level2" number="9.9">
+<h2><span class="header-section-number">9.9</span> Load US Census Boundary and Attribute Data as ‘tidyverse’ and ‘sf’-Ready Data Frames: <code>tigris</code>, <code>tidycensus</code></h2>
+<div id="download-data" class="section level3" number="9.9.1">
+<h3><span class="header-section-number">9.9.1</span> Download data</h3>
+</div>
+<div id="mapping-census-data" class="section level3" number="9.9.2">
+<h3><span class="header-section-number">9.9.2</span> Mapping census data</h3>
+</div>
+<div id="creating-population-pyramids-from-census-data" class="section level3" number="9.9.3">
+<h3><span class="header-section-number">9.9.3</span> Creating population pyramids from census data</h3>
+</div>
+</div>
+<div id="easier-regular-expressions-with-rverbalexpressions" class="section level2" number="9.10">
+<h2><span class="header-section-number">9.10</span> Easier regular expressions with <code>RVerbalExpressions</code></h2>
+</div>
+<div id="quick-copy-from-excel-windows-only" class="section level2" number="9.11">
+<h2><span class="header-section-number">9.11</span> Quick copy from Excel (Windows only)</h2>
+</div>
+<div id="running-system-commands" class="section level2" number="9.12">
+<h2><span class="header-section-number">9.12</span> Running system commands</h2>
+</div>
+<div id="code-styling" class="section level2" number="9.13">
+<h2><span class="header-section-number">9.13</span> Code styling</h2>
+</div>
+<div id="session-information" class="section level2" number="9.14">
+<h2><span class="header-section-number">9.14</span> Session information</h2>
+</div>
+<div id="comment-out-rmdhtml-code" class="section level2" number="9.15">
+<h2><span class="header-section-number">9.15</span> Comment out Rmd/HTML code</h2>
+<!--chapter:end:09-week09.Rmd-->
+</div>
+</div>
+<div id="week10" class="section level1" number="10">
+<h1><span class="header-section-number">10</span> Week 10</h1>
+<p>Placeholder</p>
+<div id="r-markdown-to-microsoft-word" class="section level2" number="10.1">
+<h2><span class="header-section-number">10.1</span> R Markdown to Microsoft Word</h2>
+</div>
+<div id="r-markdown-output" class="section level2" number="10.2">
+<h2><span class="header-section-number">10.2</span> R Markdown output</h2>
+<div id="r-markdown-rendering-to-specific-formats" class="section level3" number="10.2.1">
+<h3><span class="header-section-number">10.2.1</span> R Markdown rendering to specific formats</h3>
+</div>
+<div id="testing-output_type" class="section level3" number="10.2.2">
+<h3><span class="header-section-number">10.2.2</span> Testing <code>output_type()</code></h3>
+</div>
+</div>
+<div id="advantages-and-disadvantages-of-pdf" class="section level2" number="10.3">
+<h2><span class="header-section-number">10.3</span> Advantages and disadvantages of PDF</h2>
+</div>
+<div id="bibliography-in-r-markdown" class="section level2" number="10.4">
+<h2><span class="header-section-number">10.4</span> Bibliography in R Markdown</h2>
+<!--chapter:end:10-week10.Rmd-->
+</div>
+</div>
+<!--bookdown:body:end-->
+  </main>
+
+  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page">
+      <h2>On this page</h2>
+      <div id="book-on-this-page"></div>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5">
+  <div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-01-07.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+
+
+</body>
+
+</html>
