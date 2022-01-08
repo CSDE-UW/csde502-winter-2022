@@ -1,0 +1,7 @@
+---
+title: "Files to support assignments"
+output: html_document
+---
+
+## Assignment 1 files {#a1_files}
+[file_naming.Rmd](files/file_naming.Rmd)
