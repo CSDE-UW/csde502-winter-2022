@@ -17,7 +17,7 @@ output:
     pdf_document:
         number_sections: true
         toc: true
-        fig_cap: yes
+        fig_capion: yes
         keep_tex: yes
 urlcolor: blue        
 ---

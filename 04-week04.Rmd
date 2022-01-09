@@ -8,8 +8,6 @@ library(kableExtra)
 library(readstata13)
 ```
 
-Rendered at <tt>`r Sys.time()`</tt>
-
 <h2>Topics: Functions and sampling</h2>
 This week's topics are functions and sampling, the latter including a cursory treatment of loops and bootstrapping.
 
@@ -493,6 +491,9 @@ abline(v = ci_95, col=c(2,1,2))
 ```
 
 If we already had an enumeration of the population, this method would be unnecessary. However, most survey-derived data are generated from samples. If the sample is representative of the underlying population,  the sample can be considered an acceptable proxy.
+
+<hr>
+Rendered at <tt>`r Sys.time()`</tt>
 
 <h4>Source code for this document</h4>
 [04-week04.Rmd](04-week04.Rmd)

@@ -8,8 +8,6 @@ library(kableExtra)
 library(readstata13)
 ```
 
-Rendered at <tt>`r Sys.time()`</tt>
-
 <h2>Topic: Git</h2>
 This week's topic is a brief introduction to [Git](https://git-scm.com/), the free and open source version control system for text-based files. Much of the material in this lesson is derived from the [Software Carpentry Git tutorial](https://swcarpentry.github.io/git-novice/).
 
@@ -350,6 +348,7 @@ If you open that file, you will see the restored text.
 This was a brief introduction to the main functionality of Git with RStudio and github. If you expect to perform even a modest amount of coding, you could benefit from Git as a way to keep track of your work, collaborate with others, and avoid programming disasters due to inadvertent deletion of overwriting of files.
 
 <hr>
+Rendered at <tt>`r Sys.time()`</tt>
 
 <h4>Source code for this document</h4>
 [05-week05.Rmd](05-week05.Rmd)

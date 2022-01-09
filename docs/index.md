@@ -1,7 +1,7 @@
 --- 
 title: "UW CSDE 502 A Course Notes"
 author: "Phil Hurvitz"
-date: "2022-01-07"
+date: '2022-01-08 17:59'
 site: bookdown::bookdown_site
 description: "These are the course notes for Proseminar Winter 2022 (CSDE 502 A) at the University of Washington."
 
@@ -34,7 +34,7 @@ Links to the course listing page and official course syllabus are below:
 
 * Course description: [CSDE 502 Proseminar](https://csde.washington.edu/training/demographic-certificate/courses/csde-502/a)
 * Entry in the UW course catalog: [Ctr for Stdies in Demography and Ecology](https://www.washington.edu/students/crscat/csde.html)
-* The course syllabus is available as a PDF: [csde502_syllabus_2022.pdf](csde502_syllabus_2022.pdf) or DOCX: [csde502_syllabus_2022.docx](csde502_syllabus_2022.docx)
+* The course syllabus is available as a PDF: [files/csde502_syllabus_2022.pdf](files/csde502_syllabus_2022.pdf) or DOCX: [files/csde502_syllabus_2022.docx](files/csde502_syllabus_2022.docx)
 :::
 
 This is a required course for students wishing to obtain a [Demographic Methods Graduate Certificate from CSDE] (https://csde.washington.edu/training/demographic-certificate/). However, it is open to all interested students.
@@ -186,9 +186,8 @@ A link to the SafeCampus program is below:
 * [`demogR`](https://cran.r-project.org/web/packages/demogR/index.html): Analysis of Age-Structured Demographic Models
 * [`demography`](https://cran.r-project.org/web/packages/demography/): Forecasting Mortality, Fertility, Migration and Population Data; [An R intro to the demography package](https://rpubs.com/Timexpo/487053))
 * Pretty printouts of life tables with `flextable` and `DT`
-
 * Data:
-    * Accessing HMuman Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
+    * Accessing Human Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
 
 ***Week 4***
 
@@ -248,6 +247,8 @@ This web site was built in R using Rmarkdown and [bookdown](https://cran.r-proje
 <h4>Source code for this document</h4>
 Each of the pages in this book will have a section at the bottom including a link to the source file and the printed source code for the page.
 
+Rendered: 2022-01-08 17:59:26
+
 Source code: [index.Rmd](index.Rmd)
 
 
@@ -255,7 +256,7 @@ Source code: [index.Rmd](index.Rmd)
 --- 
 title: "UW CSDE 502 A Course Notes"
 author: "Phil Hurvitz"
-date: "`r Sys.Date()`"
+date: '`r format(Sys.time(), "%Y-%m-%d %H:%M")`'
 site: bookdown::bookdown_site
 description: "These are the course notes for Proseminar Winter 2022 (CSDE 502 A) at the University of Washington."
 
@@ -276,8 +277,8 @@ library(tibble)
 knitr::opts_chunk$set(echo = FALSE)
 
 year <- Sys.Date() %>% format("%Y")
-syllabus <- paste0("csde502_syllabus_", year, ".pdf")
-syllabusdocx <- paste0("csde502_syllabus_", year, ".docx")
+syllabus <- paste0("files/csde502_syllabus_", year, ".pdf")
+syllabusdocx <- paste0("files/csde502_syllabus_", year, ".docx")
 ```
 
 
@@ -453,9 +454,8 @@ A link to the SafeCampus program is below:
 * [`demogR`](https://cran.r-project.org/web/packages/demogR/index.html): Analysis of Age-Structured Demographic Models
 * [`demography`](https://cran.r-project.org/web/packages/demography/): Forecasting Mortality, Fertility, Migration and Population Data; [An R intro to the demography package](https://rpubs.com/Timexpo/487053))
 * Pretty printouts of life tables with `flextable` and `DT`
-
 * Data:
-    * Accessing HMuman Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
+    * Accessing Human Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
 
 ***Week 4***
 
@@ -514,6 +514,8 @@ This web site was built in R using Rmarkdown and [bookdown](https://cran.r-proje
 
 <h4>Source code for this document</h4>
 Each of the pages in this book will have a section at the bottom including a link to the source file and the printed source code for the page.
+
+Rendered: `r Sys.time()`
 
 Source code: [index.Rmd](index.Rmd)
 

@@ -8,8 +8,6 @@ figure_nums <- captioner(prefix = "figure")
 table_nums <- captioner(prefix = "table")
 ```
 
-Rendered at <tt>`r Sys.time()`</tt>
-
 <h2>Topics:</h2>
 * [Code blocks in R](#rmdcodeblocks)
 * [Graphs in R Markdown](#rmdgraphicss)
@@ -470,7 +468,7 @@ ages %>%
 ```
 
 <h4>Source code for this document</h4>
-Each of the pages in this book will have a section at the bottom including a link to the source file and the printed source code for the page.
+Rendered at <tt>`r Sys.time()`</tt>
 
 Source code: [02-week02.Rmd](02-week02.Rmd)
 

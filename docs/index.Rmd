@@ -199,9 +199,8 @@ A link to the SafeCampus program is below:
 * [`demogR`](https://cran.r-project.org/web/packages/demogR/index.html): Analysis of Age-Structured Demographic Models
 * [`demography`](https://cran.r-project.org/web/packages/demography/): Forecasting Mortality, Fertility, Migration and Population Data; [An R intro to the demography package](https://rpubs.com/Timexpo/487053))
 * Pretty printouts of life tables with `flextable` and `DT`
-
 * Data:
-    * Accessing HMuman Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
+    * Accessing Human Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
 
 ***Week 4***
 
@@ -260,6 +259,8 @@ This web site was built in R using Rmarkdown and [bookdown](https://cran.r-proje
 
 <h4>Source code for this document</h4>
 Each of the pages in this book will have a section at the bottom including a link to the source file and the printed source code for the page.
+
+Rendered: `r Sys.time()`
 
 Source code: [index.Rmd](index.Rmd)
 

@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 1 Week 1 | UW CSDE 502 A Course Notes</title>
 <meta name="author" content="Phil Hurvitz">
-<meta name="description" content="Rendered at 2022-01-07 02:26:26 Topics:  Getting started on terminal server 4 Introduction to R/RStudio/R Markdown R data types R data structures File systems Data manipulation in the tidyverse...">
+<meta name="description" content="Topics:  Getting started on terminal server 4 Introduction to R/RStudio/R Markdown R data types R data structures File systems Data manipulation in the tidyverse Data sets: Employee turnover data...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 1 Week 1 | UW CSDE 502 A Course Notes">
 <meta property="og:type" content="book">
-<meta property="og:description" content="Rendered at 2022-01-07 02:26:26 Topics:  Getting started on terminal server 4 Introduction to R/RStudio/R Markdown R data types R data structures File systems Data manipulation in the tidyverse...">
+<meta property="og:description" content="Topics:  Getting started on terminal server 4 Introduction to R/RStudio/R Markdown R data types R data structures File systems Data manipulation in the tidyverse Data sets: Employee turnover data...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 1 Week 1 | UW CSDE 502 A Course Notes">
-<meta name="twitter:description" content="Rendered at 2022-01-07 02:26:26 Topics:  Getting started on terminal server 4 Introduction to R/RStudio/R Markdown R data types R data structures File systems Data manipulation in the tidyverse...">
+<meta name="twitter:description" content="Topics:  Getting started on terminal server 4 Introduction to R/RStudio/R Markdown R data types R data structures File systems Data manipulation in the tidyverse Data sets: Employee turnover data...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -58,6 +58,7 @@
 <li><a class="" href="week8.html"><span class="header-section-number">8</span> Week 8</a></li>
 <li><a class="" href="week9.html"><span class="header-section-number">9</span> Week 9</a></li>
 <li><a class="" href="week10.html"><span class="header-section-number">10</span> Week 10</a></li>
+<li><a class="" href="assignment_files.html"><span class="header-section-number">11</span> Assignment support files</a></li>
 </ul>
 
         <div class="book-extra">
@@ -69,7 +70,6 @@
 <h1>
 <span class="header-section-number">1</span> Week 1<a class="anchor" aria-label="anchor" href="#week1"><i class="fas fa-link"></i></a>
 </h1>
-<p>Rendered at <tt>2022-01-07 02:26:26</tt></p>
 <h2>
 Topics:
 <a class="anchor" aria-label="anchor" href="#week1"><i class="fas fa-link"></i></a>
@@ -671,19 +671,21 @@ Optimally when you look at your file names, you will be able to know something a
 <pre><code>install.packages("tidyverse")</code></pre>
 <p>For today’s lesson we will be using one of the Add Health public use data sets, <a href="data/AHwave1_v1.dta">AHwave1_v1.dta</a>.</p>
 <div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install the readstata13 package?</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"pacman"</span>, repos <span class="op">=</span> <span class="st">"https://ftp.osuosl.org/pub/cran/"</span><span class="op">)</span></code></pre></div>
-<pre><code>## package 'pacman' successfully unpacked and MD5 sums checked
-## 
-## The downloaded binary packages are in
-##  C:\Temp\15\RtmpcR5Tmd\downloaded_packages</code></pre>
-<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">readstata13</span><span class="op">)</span>
+<code class="sourceCode R"><span class="co"># load pacman if necessary</span>
+<span class="va">package.check</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="st">"pacman"</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va">x</span>, character.only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+        <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="va">x</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+        <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">x</span>, character.only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+    <span class="op">}</span>
+<span class="op">}</span><span class="op">)</span>
+
+<span class="co"># load readstata13 if necessary</span>
+<span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">readstata13</span><span class="op">)</span>
 
 <span class="co"># read the dta file</span>
 <span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">readstata13</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/readstata13/man/read.dta13.html">read.dta13</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myurl</span>, <span class="st">"data/AHwave1_v1.dta"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>The data set includes variable labels, which make handling the data easier. Here we print the column names and their labels. Wrapping this in a <code>DT::data_table</code> presents a nice interface for showing only a few variables at a time and that allows sorting and searching.</p>
-<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>colname <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">$</span><span class="va">var.labels</span><span class="op">)</span>
 <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">x</span>, caption <span class="op">=</span> <span class="st">"Column names and labels in AHwave1_v1.dta."</span><span class="op">)</span></code></pre></div>
 <div id="htmlwidget-a43fb2b03822b32eaf61" style="width:100%;height:auto;" class="datatables html-widget"></div>
@@ -703,7 +705,7 @@ Optimally when you look at your file names, you will be able to know something a
 <p><code>%&gt;%</code> is the pipe operator, which functions as a UNIX pipe, that is, to take something on the left hand side of the operator and feed it to the right hand side.</p>
 <p><code>%&lt;&gt;%</code> is the assignment pipe operator, which takes something on the left hand side of the operator, feeds it to the right hand side, and replaces the object on the left-hand side.</p>
 <p>For a simple example of the pipe, to list only the first 6 lines of a data frame in base R, we use <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code>, e.g.,</p>
-<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
@@ -713,7 +715,7 @@ Optimally when you look at your file names, you will be able to know something a
 ## 5          5.0         3.6          1.4         0.2  setosa
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
 <p>using a tidy version of this:</p>
-<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">iris</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
@@ -724,12 +726,12 @@ Optimally when you look at your file names, you will be able to know something a
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
 <p>In the R base version, we first read <code>head</code>, so we know we will be printing the first 6 elements of something, but we don’t know what that “something” is. We have to read ahead to know we are reading the first 6 records of <code>iris</code>. In the tidy version, we start by knowing we are doing something to the data set, after which we know we are printing the first 6 records.</p>
 <p>In base R functions, the process is evaluated from the inside out. For example, to get the mean sepal length of the <em>setosa</em> species in iris, we would do this:</p>
-<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span><span class="va">iris</span><span class="op">$</span><span class="va">Species</span> <span class="op">==</span> <span class="st">'setosa'</span>, <span class="st">"Sepal.Length"</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 5.006</code></pre>
 <p>From the inside out, we read that we are making a subset of <code>iris</code> where Species = “setosa,” we are selecting the column “Sepal.Length,” and taking the mean. However, it requires reading from the inside out. For a large set of nested functions, we would have <code>y &lt;- f(g(h((i(x)))))</code>, which would require first creating the innermost function (<code>i()</code>) and then working outward.</p>
 <p>In a tidy approach this would be more like y &lt;- x %&gt;% i() %&gt;% h() %&gt;% g() %&gt;% f()<code>because the first function applied to the data set</code>x<code>is</code>i()`. Revisiting the mean sepal length of <em>setosa</em> irises, example, under a tidy approach we would do this:</p>
-<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">iris</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">'setosa'</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Sepal.Length</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>##   mean(Sepal.Length)
 ## 1              5.006</code></pre>
@@ -750,21 +752,21 @@ Optimally when you look at your file names, you will be able to know something a
 <h6>
 <span class="header-section-number">1.6.2.0.1.1</span> <code>==</code>: equals<a class="anchor" aria-label="anchor" href="#equals"><i class="fas fa-link"></i></a>
 </h6>
-<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># numeric tests</span>
 <span class="op">(</span><span class="fl">1</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="fl">1</span> <span class="op">==</span> <span class="fl">3</span> <span class="op">-</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># character test (actually a factor)</span>
 <span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">imonth</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu">str_c</span><span class="op">(</span>collapse <span class="op">=</span> <span class="st">", "</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "(6) June, (5) May, (6) June, (7) July, (7) July, (6) June"</code></pre>
-<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">imonth</span> <span class="op">==</span> <span class="st">"(6) June"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1]  TRUE FALSE  TRUE FALSE FALSE  TRUE</code></pre>
-<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># character test for multiple patterns</span>
 <span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">imonth</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"(6) June"</span>, <span class="st">"(7) July"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE</code></pre>
@@ -773,17 +775,17 @@ Optimally when you look at your file names, you will be able to know something a
 <h6>
 <span class="header-section-number">1.6.2.0.1.2</span> <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>: numeric comparisons<a class="anchor" aria-label="anchor" href="#numeric-comparisons"><i class="fas fa-link"></i></a>
 </h6>
-<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span> <span class="op">&lt;</span> <span class="fl">2</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span> <span class="op">&gt;</span> <span class="fl">2</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span> <span class="op">&lt;=</span> <span class="op">-</span><span class="fl">10</span><span class="op">:</span><span class="fl">10</span></code></pre></div>
 <pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
 ## [13]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
-<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span> <span class="op">&gt;=</span> <span class="op">-</span><span class="fl">10</span><span class="op">:</span><span class="fl">10</span></code></pre></div>
 <pre><code>##  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
 ## [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
@@ -792,14 +794,14 @@ Optimally when you look at your file names, you will be able to know something a
 <h6>
 <span class="header-section-number">1.6.2.0.1.3</span> <code>!=</code>: not equals<a class="anchor" aria-label="anchor" href="#not-equals"><i class="fas fa-link"></i></a>
 </h6>
-<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span> <span class="op">!=</span> <span class="fl">2</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># those of the first 6 days that are not 14</span>
 <span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">iday</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 23  5 27 14 14 12</code></pre>
-<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">iday</span> <span class="op">!=</span> <span class="fl">14</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1]  TRUE  TRUE  TRUE FALSE FALSE  TRUE</code></pre>
 </div>
@@ -808,14 +810,14 @@ Optimally when you look at your file names, you will be able to know something a
 <span class="header-section-number">1.6.2.0.1.4</span> <code>!</code>: invert, or “not”<a class="anchor" aria-label="anchor" href="#invert-or-not"><i class="fas fa-link"></i></a>
 </h6>
 <p>Sometimes it is more convenient to negate a single condition rather than enumerating all possible matching conditions.</p>
-<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span><span class="op">$</span><span class="va">imonth</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span></code></pre></div>
 <pre><code>##  [1] (6) June      (5) May       (6) June      (7) July      (7) July     
 ##  [6] (6) June      (5) May       (6) June      (6) June      (8) August   
 ## [11] (9) September (5) May       (6) June      (7) July      (5) May      
 ## [16] (5) May       (7) July      (5) May       (8) August    (7) July     
 ## 10 Levels: (1) January (4) April (5) May (6) June (7) July ... (12) December</code></pre>
-<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="op">(</span><span class="op">!</span><span class="va">dat</span><span class="op">$</span><span class="va">imonth</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"(6) June"</span>, <span class="st">"(7) July"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>##  [1] FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE  TRUE
 ## [13] FALSE FALSE  TRUE  TRUE FALSE  TRUE  TRUE FALSE</code></pre>
@@ -826,7 +828,7 @@ Optimally when you look at your file names, you will be able to know something a
 <span class="header-section-number">1.6.2.1</span> Subset rows (<code>filter()</code>)<a class="anchor" aria-label="anchor" href="#subset-rows-filter"><i class="fas fa-link"></i></a>
 </h4>
 <p>The <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> function creates a subset of records based on a logical test. Logical tests can be combined as “and” statements using the <code>&amp;</code> operator and “or” statements using the <code>|</code> operator. Here we will perform a few filters on a subset of the data.</p>
-<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># first 20 records, fist 10 columns</span>
 <span class="va">dat_sub</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
 <span class="fu">kable</span><span class="op">(</span><span class="va">dat_sub</span>, format <span class="op">=</span> <span class="st">"html"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></code></pre></div>
@@ -1667,7 +1669,7 @@ h1gi5b
 </tbody>
 </table></div>
 <p>Records from one month:</p>
-<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># from May</span>
 <span class="op">(</span><span class="va">dat_sub</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">imonth</span> <span class="op">==</span> <span class="st">"(5) May"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>##        aid  imonth iday     iyear    bio_sex        h1gi1m    h1gi1y  h1gi4
@@ -1685,7 +1687,7 @@ h1gi5b
 ## 5 (7) Legitimate skip (not Hispanic) (7) Legitimate skip (not Hispanic)
 ## 6 (7) Legitimate skip (not Hispanic) (7) Legitimate skip (not Hispanic)</code></pre>
 <p>Records from one month from females:</p>
-<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">dat_sub</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">imonth</span> <span class="op">==</span> <span class="st">"(5) May"</span> <span class="op">&amp;</span> <span class="va">bio_sex</span> <span class="op">==</span> <span class="st">"(2) Female"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>##        aid  imonth iday     iyear    bio_sex        h1gi1m    h1gi1y  h1gi4
 ## 1 57101310 (5) May    5 (95) 1995 (2) Female (11) November (76) 1976 (0) No
@@ -1696,7 +1698,7 @@ h1gi5b
 ## 2 (7) Legitimate skip (not Hispanic) (7) Legitimate skip (not Hispanic)
 ## 3 (7) Legitimate skip (not Hispanic) (7) Legitimate skip (not Hispanic)</code></pre>
 <p>Records from one month and from females or where the day of month was before the 15th, which will probably include some males:</p>
-<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">dat_sub</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">imonth</span> <span class="op">==</span> <span class="st">"(5) May"</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">bio_sex</span> <span class="op">==</span> <span class="st">"(2) Female"</span><span class="op">)</span> <span class="op">|</span> <span class="va">iday</span> <span class="op">&lt;</span> <span class="fl">15</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>##         aid        imonth iday     iyear    bio_sex        h1gi1m    h1gi1y
 ## 1  57101310       (5) May    5 (95) 1995 (2) Female (11) November (76) 1976
@@ -1727,7 +1729,7 @@ h1gi5b
 <span class="header-section-number">1.6.2.2</span> Subset columns (<code>select()</code>)<a class="anchor" aria-label="anchor" href="#subset-columns-select"><i class="fas fa-link"></i></a>
 </h4>
 <p>A subset of columns can be extracted from data frames using the <code>select()</code> function, most simply using named list of columns to keep.</p>
-<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># select 3 columns</span>
 <span class="op">(</span><span class="va">dat_sub_sel</span> <span class="op">&lt;-</span> <span class="va">dat_sub</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>   
     <span class="fu">select</span><span class="op">(</span><span class="st">"aid"</span>, <span class="st">"imonth"</span>, <span class="st">"iday"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -1752,7 +1754,7 @@ h1gi5b
 ## 18 57120005       (5) May   25
 ## 19 57120046    (8) August   20
 ## 20 57120371      (7) July   20</code></pre>
-<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># select all but two named columns</span>
 <span class="op">(</span><span class="va">dat_sub_sel</span> <span class="op">&lt;-</span> <span class="va">dat_sub</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>   
     <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="st">"imonth"</span>, <span class="op">-</span><span class="st">"iday"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -1798,7 +1800,7 @@ h1gi5b
 ## 18 (7) Legitimate skip (not Hispanic) (7) Legitimate skip (not Hispanic)
 ## 19                         (1) Marked                     (0) Not marked
 ## 20 (7) Legitimate skip (not Hispanic) (7) Legitimate skip (not Hispanic)</code></pre>
-<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># select columns by position and whose name matches a pattern, in this case the regular expression "^i" meaning "starts with lowercase i"</span>
 <span class="op">(</span><span class="va">dat_sub_sel</span> <span class="op">&lt;-</span> <span class="va">dat_sub</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>   
     <span class="fu">select</span><span class="op">(</span><span class="fl">1</span>, <span class="fu">matches</span><span class="op">(</span><span class="st">"^i"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -1824,7 +1826,7 @@ h1gi5b
 ## 19 57120046    (8) August   20 (95) 1995
 ## 20 57120371      (7) July   20 (95) 1995</code></pre>
 <p><code>select()</code> can also be used to rename columns:</p>
-<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#select one column, rename two columns</span>
 <span class="op">(</span><span class="va">dat_sub_sel</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
    <span class="fu">select</span><span class="op">(</span><span class="va">aid</span>, Month <span class="op">=</span> <span class="va">imonth</span>, Day <span class="op">=</span> <span class="va">iday</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -1850,7 +1852,7 @@ h1gi5b
 ## 19 57120046    (8) August  20
 ## 20 57120371      (7) July  20</code></pre>
 <p>Or column renaming can be done with <code>rename()</code>, which maintains all input data and only changes the named columns:</p>
-<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">dat_sub_sel</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
    <span class="fu">rename</span><span class="op">(</span>Month <span class="op">=</span> <span class="va">imonth</span>, Day <span class="op">=</span> <span class="va">iday</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>##         aid         Month Day     iyear
@@ -1880,7 +1882,7 @@ h1gi5b
 <span class="header-section-number">1.6.2.3</span> Subset rows and columns: <code>filter()</code> and <code>select()</code><a class="anchor" aria-label="anchor" href="#subset-rows-and-columns-filter-and-select"><i class="fas fa-link"></i></a>
 </h4>
 <p>We can combine <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> and <code>select()</code> with a pipe to create a new data frame with a subset of rows and columns:</p>
-<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># records with day of month &gt; 15 and the first 3 named columns</span>
 <span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">dat_sub</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">iday</span> <span class="op">&gt;</span> <span class="fl">15</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
@@ -1905,11 +1907,11 @@ h1gi5b
 </h4>
 <p><code>mutate()</code> will create new named columns or re-calculate existing columns. Here we will make a column that stratifies birth month, with the cut at June.</p>
 <p>Although the birth month column (<code>h1gi1m</code>) is a factor, it is unordered, so we need to make it ordered before using the factor label in a numeric comparison. Fortunately, the factor labels were handled in correct order:</p>
-<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># is this ordered?</span>
 <span class="fu"><a href="https://rdrr.io/r/base/factor.html">is.ordered</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">h1gi1m</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># what are the levels?</span>
 <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">h1gi1m</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>##  [1] "(1) January"   "(2) February"  "(3) March"     "(4) April"    
@@ -1917,14 +1919,14 @@ h1gi5b
 ##  [9] "(9) September" "(10) October"  "(11) November" "(12) December"
 ## [13] "(96) Refused"</code></pre>
 <p>Assign order, create a new column, and print nicely:</p>
-<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># make birth month ordered</span>
 <span class="va">dat</span><span class="op">$</span><span class="va">h1gi1m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">h1gi1m</span>, ordered <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="co"># now is it ordered?</span>
 <span class="fu"><a href="https://rdrr.io/r/base/factor.html">is.ordered</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">h1gi1m</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># perform the mutate() using the string representation of the factor for comparison</span>
 <span class="va">dat</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">iday</span> <span class="op">&gt;</span> <span class="fl">15</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
@@ -2335,7 +2337,7 @@ FALSE
 </tbody>
 </table></div>
 <p>A silly example but showing that <code>mutate()</code> can change values of existing columns:</p>
-<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">X</span> <span class="op">&lt;-</span> <span class="va">dat_sub</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
      <span class="fu">mutate</span><span class="op">(</span>iday <span class="op">=</span> <span class="op">-</span><span class="fl">1000</span> <span class="op">+</span> <span class="va">iday</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>##         aid        imonth iday     iyear    bio_sex        h1gi1m    h1gi1y
@@ -2413,7 +2415,7 @@ FALSE
 </ul>
 <p>When we recoded the birth month, the output was a <code>logical</code> data type. If we wanted to create a
 <code>character</code> or <code>factor</code>, we could use <code>if_else()</code>. Here we are creating a new data frame based on several operations on <code>dat</code>.</p>
-<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat_1</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">iday</span> <span class="op">&gt;</span> <span class="fl">15</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
     <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
@@ -2829,7 +2831,7 @@ last
 </table></div>
 <p>If one of your variables contains multiple values and you want to create classes, use <code>case_when()</code>. Here is a verbose example stratifying months into quarters. Also we are using the <code>magrittr</code> assignment pipe to update the input based on the statement, i.e., <code>dat_1</code> will change based on the commands we use. <strong>Be careful using the assignment pipe because it will change your data frame.</strong></p>
 <p><code>case_when()</code> will recode in order or the way the command is written, so for months and quarters, it is not necessary to specify both ends of the quarter. Also any cases that are not explicitly handled can be addressed with the <code>TRUE ~ ...</code> argument; in this case, any records that had birth months that were not before September get assigned to quarter 4.</p>
-<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat_1</span> <span class="op">%&lt;&gt;%</span> 
     <span class="fu">mutate</span><span class="op">(</span>quarter <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span>
         <span class="va">birth_month</span> <span class="op">&lt;</span> <span class="st">"(3) March"</span> <span class="op">~</span> <span class="fl">1</span>,
@@ -3305,7 +3307,7 @@ last
 </tbody>
 </table></div>
 <p><code>recode()</code> is used to change the <code>birth_year_half</code> column:</p>
-<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">dat_1</span> <span class="op">%&lt;&gt;%</span> 
      <span class="fu">mutate</span><span class="op">(</span>birth_year_half_split <span class="op">=</span> <span class="fu">recode</span><span class="op">(</span><span class="va">birth_year_half</span>,
                    <span class="st">"first"</span> <span class="op">=</span> <span class="st">"early"</span>,
@@ -3359,7 +3361,7 @@ last
 </h4>
 <p>We will spend more time later in the course on data summaries, but an introduction with <code>dplyr</code> is worthwhile introducing at this stage. The two main functions are <code><a href="https://r-spatial.github.io/sf/reference/tidyverse.html">summarise()</a></code> and <code>group_by()</code>.</p>
 <p>A simple summary will tabulate the count of respondents and the mean age. The filter <code>! str_detect(h1gi1y, "Refused")</code> drops records from respondents who refused to give their birth year.</p>
-<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span> <span class="fu">str_detect</span><span class="op">(</span><span class="va">h1gi1y</span>, <span class="st">"Refused"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
     <span class="fu">mutate</span><span class="op">(</span>yeari <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">iyear</span>, <span class="st">".* "</span>, <span class="st">""</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span>,
@@ -3369,7 +3371,7 @@ last
 <pre><code>##      n mean_age
 ## 1 6501 16.03676</code></pre>
 <p>Here we will summarize age by sex using the <code>group_by()</code> function, and also piping to <code>prop_table()</code> to get the percentage:</p>
-<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span> <span class="fu">str_detect</span><span class="op">(</span><span class="va">h1gi1y</span>, <span class="st">"Refused"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
     <span class="fu">mutate</span><span class="op">(</span>yeari <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">iyear</span>, <span class="st">".* "</span>, <span class="st">""</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span>,
@@ -3393,7 +3395,7 @@ last
 <p>More attention will be paid to <code>purrr</code> in the lesson on <a href="week2.html#week2">functions</a>.</p>
 <p>The workhorse function in <code>purrr</code> is <code>map()</code>, which applies a function over a list or atomic vector.</p>
 <p>A brief example uses a vector <code>c(9, 16, 25)</code> and the <code>map()</code> function is used to get the square root of each element. The output is a list</p>
-<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># apply the sqrt() function to each element of a vector of integers</span>
 <span class="fu">map</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">9</span>, <span class="fl">16</span>, <span class="fl">25</span><span class="op">)</span>, <span class="va">sqrt</span><span class="op">)</span></code></pre></div>
 <pre><code>## [[1]]
@@ -3418,10 +3420,10 @@ last
 </h3>
 <p>Some data that will be used in CSDE 533: Edward Babushkin’s employee turnover data, explained a bit at <a href="https://www.kaggle.com/davinwijaya/employee-turnover">kaggle.com</a> and as a <a href="https://github.com/teuschb/hr_data/blob/master/datasets/turnover_babushkin.csv">downloadable file</a>.</p>
 <p>Here we will load the data set from a URL:</p>
-<div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">etdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/teuschb/hr_data/master/datasets/turnover_babushkin.csv"</span><span class="op">)</span></code></pre></div>
 <p>Just to get a bit of <code>tidyverse</code> in at the last minute, let’s get mean and standard deviation of job tenure by gender and 10-year age class:</p>
-<div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create 10-year age classes </span>
 <span class="va">etdata</span> <span class="op">%&lt;&gt;%</span> 
     <span class="fu">mutate</span><span class="op">(</span>age_decade <span class="op">=</span> <span class="fu">plyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/plyr/man/round_any.html">round_any</a></span><span class="op">(</span><span class="va">age</span>, <span class="fl">10</span>, f <span class="op">=</span> <span class="va">ceiling</span><span class="op">)</span><span class="op">)</span> 
@@ -3598,6 +3600,7 @@ m
 </tbody>
 </table></div>
 <hr>
+<p>Rendered at <tt>2022-01-08 17:59:33</tt></p>
 <h4>
 Source code for this document
 <a class="anchor" aria-label="anchor" href="#edward-babushkins-employee-turnover-data"><i class="fas fa-link"></i></a>
@@ -3614,8 +3617,6 @@ library(kableExtra)
 # this course's URL
 myurl &lt;- "https://csde-uw.github.io/csde502-winter-2022"
 ```
-
-Rendered at &lt;tt&gt;`r Sys.time()`&lt;/tt&gt;
 
 &lt;h2&gt;Topics:&lt;/h2&gt;
 * [Getting started on terminal server 4](#gettingstarted)
@@ -4142,8 +4143,15 @@ install.packages("tidyverse")
 For today's lesson we will be using one of the Add Health public use data sets, [AHwave1_v1.dta](data/AHwave1_v1.dta). 
 
 ```{r warning=FALSE, message=FALSE}
-# install the readstata13 package?
-install.packages("pacman", repos = "https://ftp.osuosl.org/pub/cran/")
+# load pacman if necessary
+package.check &lt;- lapply("pacman", FUN = function(x) {
+    if (!require(x, character.only = TRUE)) {
+        install.packages(x, dependencies = TRUE)
+        library(x, character.only = TRUE)
+    }
+})
+
+# load readstata13 if necessary
 pacman::p_load(readstata13)
 
 # read the dta file
@@ -4530,6 +4538,8 @@ etdata %&gt;%
 ```
 
 &lt;hr&gt;
+Rendered at &lt;tt&gt;`r Sys.time()`&lt;/tt&gt;
+
 &lt;h4&gt;Source code for this document&lt;/h4&gt;
 [01-week01.Rmd](01-week01.Rmd)
 
@@ -4605,7 +4615,7 @@ Topics:
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-01-07.</p>
+    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-01-08 17:59.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

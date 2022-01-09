@@ -12,8 +12,6 @@ library(curl)
 library(ggplot2)
 ```
 
-Rendered at <tt>`r Sys.time()`</tt>
-
 <h2>Topic: Add Health data: variable creation and tabulation</h2>
 This week's lesson will provide more background on variable creation and tabulation of variables.
 
@@ -578,6 +576,8 @@ ggplot(data = bmi_race, mapping = aes(x = obsrace, y = `%`, fill = bmiclass)) +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 
+<hr>
+Rendered at <tt>`r Sys.time()`</tt>
 
 <h4>Source code for this document</h4>
 [07-week07.Rmd](07-week07.Rmd)

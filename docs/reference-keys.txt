@@ -163,3 +163,5 @@ r-markdown-rendering-to-specific-formats
 testing-output_type
 advantages-and-disadvantages-of-pdf
 bibliography-in-r-markdown
+assignment_files
+assignment-1
