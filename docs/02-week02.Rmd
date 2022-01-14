@@ -6,7 +6,7 @@ For this class session, we will be building up an R Markdown document using vari
 Download the file [week02.Rmd](files/week02/week02.Rmd) and use that as the base. Change the second line in the YAML header so it uses your name and your web site. See [UW Students Web Server](https://students.washington.edu/) if you do not have a web site.
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-pacman::p_load(tidyverse, magrittr, knitr, kableExtra, readstata13, stargazer, pander, captioner, keyring, HMDHFDplus)
+pacman::p_load(tidyverse, magrittr, knitr, kableExtra, readstata13, stargazer, pander, captioner, keyring, HMDHFDplus, flextable)
 
 # captions
 figure_nums <- captioner(prefix = "Figure")
@@ -91,7 +91,7 @@ Data-driven graphics in Rmd files are typically created as base R graphics or wi
 See [Tips and tricks for working with images and figures in R Markdown documents](http://zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/) for a good explanation.
 
 #### Base R graphics
-To include base R graphics, simply place the code to generate the graphic in an R code block, e.g., using the Add Health data from last week ([AHWave1_v1.dta](data/AHWave1_v1.dta)):
+To include base R graphics, simply place the code to generate the graphic in an R code block, e.g., using the Add Health data from last week ([AHWave1_v1.dta](data/AHwave1_v1.dta)):
 
 ```{r, comment='', echo=FALSE}
 cat(readLines("files/week02/rmd_insert_text_01.txt"), sep = "\n")
@@ -102,7 +102,7 @@ cat(readLines("files/week02/rmd_insert_text_01.txt"), sep = "\n")
 ```{r, echo=FALSE, warning=FALSE}
 # since loading the data takes awhile, only load the data if necessary -- won't load if it was done already
 if (!exists("dat")) {
-    dat <- read.dta13("data/AHwave1_v1.dta")
+    dat <- read.dta13("https://csde-uw.github.io/csde502-winter-2022/data/AHwave1_v1.dta")
 }
 # birth year = h1gi1y
 # drop "Refused" birth year
@@ -282,9 +282,9 @@ Including a percentage of page width:
 ### Tables in R Markdown {#rmdtables}
 We will look at three methods of including tables in R Markdown documents, using the packages `knitr` (with `kableExtra`), `pander`, and `stargazer`.
 
-For the example table, we will use the frequency table of health $\times$ White and African American from Assignment 2:
+For the example table, we will use the frequency table of health $\times$ White and African American from the Add Health data:
 
-```{r, warning=FALSE, message=FALSE, error=FALSE}
+```{r}
 dat <- readstata13::read.dta13("http://staff.washington.edu/phurvitz/csde502_winter_2021/data/AHwave1_v1.dta")
 
 
@@ -327,7 +327,7 @@ The simple table using `kable()` is not too nice to read.
 kable(sum_health_white_afram)
 ```
 
-So we add some `kabelExtra` options, :
+So we add some `kableExtra` options, :
 
 ```{r}
 kable(sum_health_white_afram,
@@ -349,7 +349,6 @@ kable(sum_health_white_afram,
 We could also add some row groupings:
 
 ```{r}
-
 sum_health_white_afram %>%
     select(-1) %>%
     kable(col.names = c("race", "n", "%", "race", "n", "%"), align = c(rep("r", times = 6))) %>%
@@ -384,7 +383,7 @@ etdata %>%
     # group by gender and age class
     group_by(gender, age_decade) %>%
     # mean and sd
-    summarize(
+    dplyr::summarize(
         mean_tenure_months = mean(tenure) %>% round(1),
         sd_tenure_months = sd(tenure) %>% round(1),
         .groups = "keep"
@@ -413,6 +412,72 @@ stargazer(sum_health_white_afram,
 ```{r}
 pander(sum_health_white_afram)
 ```
+
+#### `DT::datatable`
+`DT::datatable` presents tables in an interactive format, allowing filtering by free text, sorting by columns, and displaying fewer or more records. Here, the table is loaded sorted in descending order of mean anxiety per industry. The `DT::datatable` can be sorted interactively based on any of the columns.
+
+```{r}
+etdata %>% 
+    group_by(industry) %>% 
+    dplyr::summarize(n = n(),
+                     mean_anxiety = mean(anxiety) %>% round(1)) %>% 
+    arrange(desc(mean_anxiety)) %>% 
+DT::datatable()
+```
+
+#### `flextable`
+[`flextable`](https://ardata-fr.github.io/flextable-book/index.html) is a full-featured package for fine control over table display. You can merge cells, add header rows, add footer rows, change any format and specify how data should be displayed in cells. Tables content can also contain mixed type of content, text and images.
+
+The example shows a fairly simple output:
+
+```{r}
+ft <- flextable(airquality[sample.int(10), ])
+ft <- add_header_row(ft,
+    colwidths = c(4, 2),
+    values = c("Air quality", "Time")
+)
+ft <- theme_vanilla(ft)
+ft <- add_footer_lines(ft, "Daily air quality measurements in New York, May to September 1973.")
+ft <- color(ft, part = "footer", color = "#666666")
+ft <- set_caption(ft, caption = "New York Air Quality Measurements")
+ft
+```
+
+A more advanced application (see [Looping over columns with compose](https://ardata-fr.github.io/flextable-book/programming.html#looping-over-columns-with-compose):
+
+```{r}
+diamond_dat <- nest(diamonds, data = -all_of(c("cut", "color"))) %>% 
+  mutate(
+    gg = 
+      lapply(
+        X = data, 
+        FUN = function(subdat) {
+          ggplot(subdat, aes(x = x)) + 
+            geom_density(color = "white") + theme_minimal() +
+            scale_x_continuous(limits = c(0, 11)) +
+            scale_y_continuous(limits = c(0, 1)) +
+            labs(x = "", y = "") + theme_void()
+        }
+      )
+  ) %>% 
+  select(-data) %>% 
+  pivot_wider(
+    id_cols = cut, 
+    names_from = color, 
+    values_from = gg)
+
+diamond_dat %>% 
+  flextable() %>% 
+  mk_par(
+    value = as_paragraph(
+      gg_chunk(., width = 1, height = 1, unit = "cm")), 
+    j = ~ . - cut,
+    use_dot = TRUE) %>% 
+  theme_tron() %>% 
+  align(align = "center", part = "all") %>% 
+  autofit()
+```
+
 
 ### Captions to support tables, figures, and equations {#rmdcaptions}
 There are several ways to support captions in R Markdown. The two main requirements for good captions: (1) automatic sequential numbering, and (2) ability to cross-reference.

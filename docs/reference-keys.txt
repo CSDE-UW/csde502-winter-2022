@@ -1,6 +1,7 @@
 fig:unnamed-chunk-10
-fig:plotcars
 tab:unnamed-chunk-30
+fig:plotcars
+tab:unnamed-chunk-33
 eq:emc
 eq:sumn
 tab:census
@@ -68,6 +69,8 @@ rmdtables
 kntir-kable-and-kableextra
 stargazer
 pander
+dtdatatable
+flextable
 rmdcaptions
 figures
 r-markdown-code-chunk-fig.cap

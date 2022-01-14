@@ -14,7 +14,7 @@ output:
 
 ```{r setup, include=FALSE}
 # load several packages
-pacman::p_load(tidyverse, magrittr, knitr, kableExtra, readstata13, stargazer, pander, captioner, keyring, HMDHFDplus)
+pacman::p_load(tidyverse, magrittr, knitr, kableExtra, readstata13, stargazer, pander, captioner, keyring, HMDHFDplus, flextable)
 
 
 table_nums <- captioner(prefix = "Table")
