@@ -9,6 +9,6 @@ Rendered at <tt>`r Sys.time()`</tt>
 <h4>Source code for this document</h4>
 [11-assignment-files.Rmd-week10.Rmd](11-assignment-files.Rmd)
 
-```{r comment=''}
+```{r comment='', warning=FALSE}
 cat(readLines(con = "11-assignment-files.Rmd"), sep = "\n")
 ```

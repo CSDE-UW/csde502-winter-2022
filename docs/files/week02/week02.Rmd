@@ -1,0 +1,24 @@
+---
+title: "R Markdown"
+author: "[Phil Hurvitz](http://gis.washington.edu/phurvitz)"
+date: "`r Sys.Date()`"
+output:
+  bookdown::html_document2:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+    toc_depth: 6
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+# load several packages
+pacman::p_load(tidyverse, magrittr, knitr, kableExtra, readstata13, stargazer, pander, captioner, keyring, HMDHFDplus)
+
+
+table_nums <- captioner(prefix = "Table")
+figure_nums <- captioner(prefix = "Figure")
+```
+
+# Hello World

@@ -1,0 +1,21 @@
+```{r, eval=TRUE}`r ''`
+etdata <- read.csv("https://raw.githubusercontent.com/teuschb/hr_data/master/datasets/turnover_babushkin.csv")
+
+# create 10-year age classes 
+etdata %<>% 
+    mutate(age_decade = plyr::round_any(age, 10, f = ceiling)) 
+
+# summarize
+etdata %>% 
+    # group by gender and age class
+    group_by(gender, age_decade) %>% 
+    # mean and sd
+    summarize(mean_tenure_months = mean(tenure) %>% round(1),
+              sd_tenure_months = sd(tenure) %>% round(1), 
+              .groups = "keep") %>% 
+    # order the output by age and gender
+    arrange(gender, mean_tenure_months) %>% 
+    # print it nicely
+    kable() %>% 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```

@@ -1,23 +1,29 @@
 # Week 2 {#week2}
+This session covers the basics of creating R Markdown documents. We will also cover the [Keyring](https://cran.r-project.org/web/packages/keyring/index.html) package for securely storing passwords and other secrets that one would not want to hard-code into R documents. Finally, we will introduce the Human Mortality and Human Fertility databases that will be used in CSDE 533.
+
+For this class session, we will be building up an R Markdown document using various code chunks copied and pasted from this page.
+
+Download the file [week02.Rmd](files/week02/week02.Rmd) and use that as the base. Change the second line in the YAML header so it uses your name and your web site. See [UW Students Web Server](https://students.washington.edu/) if you do not have a web site.
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-pacman::p_load(tidyverse, magrittr, knitr, kableExtra, readstata13, stargazer, pander, captioner)
+pacman::p_load(tidyverse, magrittr, knitr, kableExtra, readstata13, stargazer, pander, captioner, keyring, HMDHFDplus)
 
 # captions
-figure_nums <- captioner(prefix = "figure")
-table_nums <- captioner(prefix = "table")
+figure_nums <- captioner(prefix = "Figure")
+table_nums <- captioner(prefix = "Table")
 ```
 
 <h2>Topics:</h2>
-* [Code blocks in R](#rmdcodeblocks)
-* [Graphs in R Markdown](#rmdgraphicss)
+* [Code chunks in R](#rmdcodeblocks)
+* [Graphs in R Markdown](#rmdgraphics)
 * [Tables in R Markdow](#rmdtables)
 * [Equations in R Markdown](#rmdequations)
 * [Captions and cross-references in R Markdown](#rmdcaptions)
+* [Keyring for storing passwords and other secrets](#keyring)
 * [Data sets:](#datasets002)
     * Data:
-        * [Human Mortality Database](https://www.mortality.org/)
-        * [Human Fertility Database](https://www.humanfertility.org/cgi-bin/main.php)
+        * Human Mortality Database
+        * Human Fertility Database
 
 
 ## Code to run for the in-class exercise
@@ -31,7 +37,53 @@ For the exercise in class, download [week02.R](r_code/week02.R), which we will u
 
 ## R Markdown 
 
-### Code blocks {#rmdcodeblocks}
+### Code chunks {#rmdcodeblocks}
+Code chunks are blocks of text that include R code. As the R Markdown file is rendered, the code is run. The code can run R routines to perform any number of tasks, including analytics, printing tables, and generating graphics. Anything you would do in a regular R file can be placed in the code chunks. Code chunks can print outputs (tables, figures), but they do not necessarily always do; for example, your code could generate a summary of a raw data set, export to a CSV file, and zip the CSV file. You could then "manually" print a hyperlink in your output.
+
+In RStudio, a code chunk can be added to an R Markdown source file with the keystroke combination CTRL-ALT-i
+
+
+#### Code chunk structure
+
+Code chunks are designated by delimiting the code with the characters ` ```{r}` to open the block and ` ``` ` to close the block.
+
+There are a number of additional options that can be included in the `{r}` opening delimiter, see [Chunk options and package options](https://yihui.org/knitr/options/). Many options are set by default and require being set explicitly to select any option other than the default.
+
+For example, the code chunk can be not run with the `eval=FALSE` option. Or if the code chunk generates a graphic, the `fig.cap` option can be used to print a caption.
+
+For example, the following code chunk creates a single element vector `a` with the value of `2`.
+
+````
+```{r, eval=TRUE}`r ''`
+a <- 1 + 1
+```
+````
+
+### Inline code
+```{r, echo=FALSE}
+# read this for later
+etdata <- read.csv("https://raw.githubusercontent.com/teuschb/hr_data/master/datasets/turnover_babushkin.csv")
+```
+
+Inline code is designated using this type of syntax `` ``r ''`r R_CODE` ``, where `R_CODE` represents a statement to be evaluated and printed inline. 
+
+For example, to get the mean age from the Babushkin data, the `R_CODE` would read
+
+```md
+mean(etdata$age) %>% round(1)
+```
+
+That is, in the document one would write:
+
+```{md}
+The mean age of the subjects in the Babushkin data was `r mean(etdata$age) %>% round(1)` years.
+```
+
+which renders to 
+
+```
+The mean age of the subjects in the Babushkin data was `r mean(etdata$age) %>% round(1)` years.
+```
 
 ### Graphics in R Markdown {#rmdgraphics}
 Data-driven graphics in Rmd files are typically created as base R graphics or with the `ggplot2` package. This tutorial is not intended to provide anywhere near a comprehensive treatment of creating graphics from data, but will provide instruction on some options for creating and including data-driven graphics as well as inserting graphics from image files.
@@ -42,26 +94,28 @@ See [Tips and tricks for working with images and figures in R Markdown documents
 To include base R graphics, simply place the code to generate the graphic in an R code block, e.g., using the Add Health data from last week ([AHWave1_v1.dta](data/AHWave1_v1.dta)):
 
 ```{r, comment='', echo=FALSE}
-cat(readLines("files/rmd_insert_text_01.txt"), sep = '\n')
+cat(readLines("files/week02/rmd_insert_text_01.txt"), sep = "\n")
 ```
 
 ... which will render the graph:
 
 ```{r, echo=FALSE, warning=FALSE}
-# since loading the data takes awhile, only do this if necessary
-if(!exists("dat")){
+# since loading the data takes awhile, only load the data if necessary -- won't load if it was done already
+if (!exists("dat")) {
     dat <- read.dta13("data/AHwave1_v1.dta")
 }
 # birth year = h1gi1y
 # drop "Refused" birth year
 # for birth year and interview year, replace anything before white space, convert to numeric
 # subtract interview year - birth year
-ages <- dat %>% 
-    filter(! str_detect(h1gi1y, "Refused")) %>% 
-    select(iyear, h1gi1y) %>% 
-    mutate(yi = str_replace(iyear, ".*\\s", "") %>% as.numeric(),
-           yb = str_replace(h1gi1y, ".*\\s", "") %>% as.numeric(),
-           age = yi - yb)
+ages <- dat %>%
+    filter(!str_detect(h1gi1y, "Refused")) %>%
+    select(iyear, h1gi1y) %>%
+    mutate(
+        yi = str_replace(iyear, ".*\\s", "") %>% as.numeric(),
+        yb = str_replace(h1gi1y, ".*\\s", "") %>% as.numeric(),
+        age = yi - yb
+    )
 hist(ages$age, xlab = "age (years)", las = 1)
 ```
 
@@ -70,8 +124,12 @@ The `ggplot2` package creates compelling graphics that use a common syntax. The 
 
 Following the previous example:
 
-```{r}
-# how many unique bins? 
+```{r, comment='', echo=FALSE}
+cat(readLines("files/week02/geom_histogram.txt"), sep = "\n")
+```
+
+```{r, echo=FALSE}
+# how many unique bins?
 bins <- length(unique(ages$age))
 
 # create the graphic
@@ -82,6 +140,17 @@ g <- ggplot(data = ages, mapping = aes(x = age)) +
 print(g)
 ```
 
+The following code generates a box plot from the Babushkin employee turnover data. Because the code chunk includes `fig.cap = "Box plot of Babushkin data, self control by profession"`, a caption is automatically placed below the figure.
+
+```{r, comment='', echo=FALSE}
+cat(readLines("files/week02/babushkin_boxplot.txt"), sep = "\n")
+```
+
+```{r, fig.cap = "Box plot of Babushkin data, self control by profession", echo=FALSE}
+ggplot(data = etdata, aes(x = reorder(profession, selfcontrol), y = selfcontrol)) +
+    geom_boxplot() +
+    coord_flip()
+```
 
 #### Embedding graphics files
 Journals frequently require graphics files to be submitted separately from the manuscript. In this case, the graphic can be created and saved as a file and then inserted in the Rmd using code, but also accessed as a a stand-alone file. Let's take the previous example, but add correlation coefficients and other embellishments, create a graphics file and add the graphics into the Rmd.
@@ -102,7 +171,7 @@ hist(ages$age, xlab = "age (years)", las = 1)
 x <- dev.off()
 ```
 
-`ggplot2` graphics can be saved using `ggsave()`, e.g., for both PDF and PNG outputs. The `dpi` argument is important for bitmap images.
+`ggplot2` graphics can be saved using `ggsave()`, e.g., for both PDF and PNG outputs. The `dpi` argument is important for bitmap images because it sets the dots per inch, which controls the size of the graphics file.
 
 ```{r}
 ggsave(
@@ -112,8 +181,8 @@ ggsave(
 )
 ggsave(
     filename = "ah_age_hist_ggplot.png",
-    plot = g, device = "png", 
-    width = 5, height = 5, 
+    plot = g, device = "png",
+    width = 5, height = 5,
     units = "in", dpi = 300
 )
 ```
@@ -124,10 +193,10 @@ Graphics can be added using several methods.
 The `knitr::include_graphics()` function can be used to insert image files, with the caution that inserted PDF files may produce unwanted results. The syntax is:
 
 ```{r, comment='', echo=FALSE}
-cat(readLines("files/rmd_insert_text_02.txt"), sep = '\n')
+cat(readLines("files/week02/rmd_insert_text_02.txt"), sep = "\n")
 ```
 
-and the code chunk can include `out.width`, `out.height` and other options.
+and the code chunk can include `out.width`, `out.height` and other options after the `r` in the first line of the chunk,
 \  
 Here we insert a PDF with no code chunk options, which presents the image with a scroll bar, rather than the full image:
 
@@ -211,7 +280,6 @@ Including a percentage of page width:
 
 
 ### Tables in R Markdown {#rmdtables}
-
 We will look at three methods of including tables in R Markdown documents, using the packages `knitr` (with `kableExtra`), `pander`, and `stargazer`.
 
 For the example table, we will use the frequency table of health $\times$ White and African American from Assignment 2:
@@ -221,32 +289,34 @@ dat <- readstata13::read.dta13("http://staff.washington.edu/phurvitz/csde502_win
 
 
 # ordered factor; use fct_rev to establish the correct ordering where better health ranks higher
-dat %<>% 
+dat %<>%
     mutate(h1gh1 = fct_rev(as.ordered(h1gh1)))
 
 # stratify health; first we need to catch the "don't know" and "refused" as NAs
-dat %<>%  
-    mutate(health = 
-    case_when(
-        h1gh1 <= "(6) Refused" ~ as.character(NA),
-        h1gh1 >  "(3) Good" ~ "high",
-        h1gh1 <= "(3) Good" ~ "low"
-    ))
+dat %<>%
+    mutate(
+        health =
+            case_when(
+                h1gh1 <= "(6) Refused" ~ as.character(NA),
+                h1gh1 > "(3) Good" ~ "high",
+                h1gh1 <= "(3) Good" ~ "low"
+            )
+    )
 
 # tabulate by White
-tabhealth_white <- dat %>% 
-    group_by(health, white = h1gi6a) %>% 
-    summarise(n = n(), .groups = "drop_last") %>% 
+tabhealth_white <- dat %>%
+    group_by(health, white = h1gi6a) %>%
+    summarise(n = n(), .groups = "drop_last") %>%
     mutate("%" = round(n / sum(n) * 100, 2))
 
 # tabulate by African American
-tabhealth_afram <- dat %>% 
-    group_by(health, afram = h1gi6b) %>% 
-    summarise(n = n(), .groups = "drop_last") %>% 
+tabhealth_afram <- dat %>%
+    group_by(health, afram = h1gi6b) %>%
+    summarise(n = n(), .groups = "drop_last") %>%
     mutate("%" = round(n / sum(n) * 100, 2))
 
 # column-bind and remove the second "health" column
-sum_health_white_afram <- cbind(tabhealth_white, tabhealth_afram) %>% 
+sum_health_white_afram <- cbind(tabhealth_white, tabhealth_afram) %>%
     select(-5)
 ```
 
@@ -261,16 +331,18 @@ So we add some `kabelExtra` options, :
 
 ```{r}
 kable(sum_health_white_afram,
-      col.names = c("health", "race", "n", "%", "race", "n", "%")) %>% 
-        kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left") 
+    col.names = c("health", "race", "n", "%", "race", "n", "%")
+) %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left")
 ```
 
 However, because some column names are duplicated, it is necessary to add some column grouping:
 
 ```{r}
 kable(sum_health_white_afram,
-      col.names = c("health", "race", "n", "%", "race", "n", "%")) %>% 
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left") %>% 
+    col.names = c("health", "race", "n", "%", "race", "n", "%")
+) %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left") %>%
     add_header_above(c(" " = 1, "White" = 3, "African American" = 3))
 ```
 
@@ -278,24 +350,61 @@ We could also add some row groupings:
 
 ```{r}
 
-sum_health_white_afram %>% 
-    select(-1) %>% 
-    kable(col.names = c("race", "n", "%", "race", "n", "%"), align=c(rep('r',times=6))) %>% 
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left") %>% 
-    add_header_above(c("White" = 3, "African American" = 3)) %>% 
-    pack_rows("health high", 1, 4) %>% 
-    pack_rows("health low", 5, 8) %>% 
+sum_health_white_afram %>%
+    select(-1) %>%
+    kable(col.names = c("race", "n", "%", "race", "n", "%"), align = c(rep("r", times = 6))) %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left") %>%
+    add_header_above(c("White" = 3, "African American" = 3)) %>%
+    pack_rows("health high", 1, 4) %>%
+    pack_rows("health low", 5, 8) %>%
     pack_rows("health N/A", 9, 12)
+```
+
+Another simple example using the Babushkin data; the following code: 
+
+```{r, comment='', echo=FALSE}
+cat(readLines("files/week02/etdata_kable.txt"), sep = "\n")
+```
+
+... generates the following table 
+<!-- (`r table_nums(name = "babushkin", display = "cite")`) -->
+:
+
+<!-- _`r table_nums(name = "babushkin", caption = "Babushkin data, tenure by gender and age")`_ -->
+
+```{r, echo=FALSE}
+etdata <- read.csv("https://raw.githubusercontent.com/teuschb/hr_data/master/datasets/turnover_babushkin.csv")
+
+# create 10-year age classes
+etdata %<>%
+    mutate(age_decade = plyr::round_any(age, 10, f = ceiling))
+
+# summarize
+etdata %>%
+    # group by gender and age class
+    group_by(gender, age_decade) %>%
+    # mean and sd
+    summarize(
+        mean_tenure_months = mean(tenure) %>% round(1),
+        sd_tenure_months = sd(tenure) %>% round(1),
+        .groups = "keep"
+    ) %>%
+    # order the output by age and gender
+    arrange(gender, mean_tenure_months) %>%
+    # print it nicely
+    kable() %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 #### `stargazer`
 The [`stargazer`](https://cran.r-project.org/web/packages/stargazer/vignettes/stargazer.pdf) package is especially good for PDF outputs, but is fairly limited for HTML output.
 
 ```{r results='asis'}
-stargazer(sum_health_white_afram, 
-          type = "html", 
-          summary = FALSE,
-          rownames = FALSE)
+stargazer(sum_health_white_afram,
+    type = "html",
+    summary = FALSE,
+    rownames = FALSE
+)
 ```
 
 #### `pander`
@@ -316,7 +425,7 @@ Here are some options for adding captions:
 Code chunks can include `fig_cap` as an option, as shown below. However, in standard Rmd $\rightarrow$ HTML there does not appear to be a method for cross-referencing. The code chunk would look like
 
 ```{r, comment='', echo=FALSE}
-cat(readLines("files/rmd_insert_text_03.txt"), sep = '\n')
+cat(readLines("files/week02/rmd_insert_text_03.txt"), sep = "\n")
 ```
 
 
@@ -365,7 +474,7 @@ Which renders a file:
 
 ![](images/week03/tab_ref.png)
 
-#### Equations {# rmdequations}
+#### Equations {#rmdequations}
 Equations should be numbered in manuscripts. Using `bookdown` makes this quite easy. The equations themselves require $\LaTeX$ syntax. There are numerous web sites with examples and tutorials for creating mathematical expressions with $\LaTeX$ In this example, we include Einstein's famous equation:
 
 <pre>
@@ -436,7 +545,7 @@ Although this method requires a bit more coding, it allows great flexibility. A 
 As shown in `r figure_nums(name = "ageplot", display = "cite")`, the distribution of age has a slight negative skew.
 
 ```{r, fig.width=3, fig.height=3}
-# how many unique bins? 
+# how many unique bins?
 bins <- length(unique(ages$age))
 
 # create the graphic
@@ -454,18 +563,177 @@ Similarly, we can present the same data as a frequency table, as shown in `r tab
 _`r table_nums(name = "agetab", caption = "Add Health age frequency table")`_
 
 ```{r}
-ages %>% 
-    group_by(age) %>% 
-    summarise(n = n()) %>% 
-    mutate(cumsum = cumsum(n),
+ages %>%
+    group_by(age) %>%
+    summarise(n = n()) %>%
+    mutate(
+        cumsum = cumsum(n),
         "%" = round(n / sum(n) * 100, 1),
-        "cum %" = round(cumsum(n / sum(n) * 100), 1)) %>% 
-    kable() %>% 
-    kable_styling(bootstrap_options = 
-        c("striped", "hover", "condensed", "responsive"), 
-        full_width = F, 
-        position = "left") 
+        "cum %" = round(cumsum(n / sum(n) * 100), 1)
+    ) %>%
+    kable() %>%
+    kable_styling(
+        bootstrap_options =
+            c("striped", "hover", "condensed", "responsive"),
+        full_width = F,
+        position = "left"
+    )
 ```
+
+
+## Data sets: {#datasets002}
+In preparation for some later work, go to the following web sites and create a user profile. This will require that you establish a username and password for both sites if you have not done so already. Make a note of your username and password for these sites! You will need them later. If you are not using a password manager, you should! Highly recommended: [KeePass Password Safe](https://keepass.info/). You can store the password database on DropBox or OneDrive and you will always have access to your passwords.
+
+* [Human Mortality Database](https://www.mortality.org/)
+* [Human Fertility Database](https://www.humanfertility.org/cgi-bin/main.php)
+
+## Keyring {#keyring}
+The [Keyring](https://cran.r-project.org/web/packages/keyring/index.html) package is used for accessing credentials that you would not want to store in your R code. We will use the passwords for the Human Mortality and Human Fertility databases (covered below) as the example for how to use this package.
+
+The keyring is stored as part of your user profile on the computer. Therefore if you are using multiple computers (e.g., your own computer as well as the CSDE terminal server), you will need to repeat the steps of setting keys. The keys are stored at the operating system level, so once set, they do not need to be reset, and any R session will have access to the keys. Also once you log on to the computer, the keyring is unlocked automatically.
+
+The main functions you are likely to use are `key_set()` to interactively store keys, `key_list()` to list the service and username for the different keys you have created, and `key_get()` to retrieve a key. If you want to delete a key, that is done with `key_delete()`.
+
+The following code will set the keys for my user. You will want to copy this code to your R Markdown document and change the username. When you run the code, if you have not already entered keys for these two sites, you will be prompted, as shown in r figure_nums(name = "keyring1", display = "cite")`.
+
+```{r}
+# get the keys
+myKeys <- key_list()
+
+# Set your password for Human Mortality Database (HMD)
+# does a key exist? if not, create one
+if (key_list(service = "human-mortality-database") %>% nrow() == 0) {
+    keyring::key_set(
+        service = "human-mortality-database",
+        username = "phurvitz@uw.edu"
+    )
+    # Enter your HMD password in the prompt
+}
+
+# Set your password for Human Fertility Database (HFD)
+if (key_list(service = "human-fertility-database") %>% nrow() == 0) {
+    keyring::key_set(
+        service = "human-fertility-database",
+        username = "phurvitz@uw.edu"
+    )
+    # Enter your HFD password in the prompt
+}
+```
+
+![](images/week02/keyring01.png)
+
+_`r figure_nums(name = "keyring1", caption = "The keyring password storage dialogue")`_
+
+Once the keys are stored, the service and username can be shown with `key_list()`:
+
+```{r}
+key_list()
+```
+
+Within your code, rather than storing any passwords, you can access the password, for example, to get 1 year x 1 year death rates for Israel:
+
+```{r}
+ISR_mx <- HMDHFDplus::readHMDweb(
+    # data for Israel
+    CNTRY = "ISR",
+    # mortality 1 year age by 1 year interval
+    item = "Mx_1x1",
+    # get my username
+    username = keyring::key_list("human-mortality-database") %>% pull(username),
+    password = keyring::key_get(
+        service = "human-mortality-database",
+        username = keyring::key_list("human-mortality-database")$username
+    )
+)
+```
+
+Or to get the total number of live births from Japan:
+
+```{r}
+JPN_livebirths <- HMDHFDplus::readHFDweb(
+    # data for Japan
+    CNTRY = "JPN",
+    # live births
+    item = "totbirthsRR",
+    # get my username
+    username = keyring::key_list("human-mortality-database") %>% pull(username),
+    password = keyring::key_get(
+        service = "human-mortality-database",
+        username = keyring::key_list("human-mortality-database")$username
+    )
+)
+```
+
+The benefit to this method is that the password is read on the fly during the data download process and is not stored in code. Also if you were to save your R session, the password would not be stored as an object.
+
+Download Ben's example for how to access the Human Mortality data using [HMDHFplus]()
+[HMDHFDplus-gist.R](https://raw.githubusercontent.com/hanowell/uwsoc533a/main/gists/HMDHFDplus-gist.R). Here is an annotated version:
+
+```{md}
+# load required packages
+library(HMDHFDplus)
+library(keyring)
+library(tidyverse)
+
+# note to see country codes, 
+# https://www.mortality.org/cgi-bin/hmd/DataAvailability.php
+
+# Running for a single country with item left NULL lists available series
+# for that country and ask for user entry of desired item
+# HMDHFDplus::readHMDweb(
+#   CNTRY = "USA",
+#   username = keyring::key_list("human-mortality-database")$username,
+#   password = keyring::key_get(
+#     service = "human-mortality-database",
+#     username = keyring::key_list("human-mortality-database")$username
+#   )
+# )
+
+# Function to download a specified HMD data set item for a single county
+# the country code is referenced as "CNTRY"
+# the "item" is the base name of the link with ".txt" removed. For example,
+# https://www.mortality.org/hmd/ISR/STATS/Mx_1x1.txt
+#                                         Mx_1x1       <<- this is the item for 1 year x 1 year death rates
+read_hmd_country <- function(CNTRY, item) {
+  HMDHFDplus::readHMDweb(
+    # the country from the function call
+    CNTRY = CNTRY,
+    # the item to download
+    item = item,
+    # the username from this key's record
+    username = keyring::key_list("human-mortality-database")$username,
+    # the password for this key's record
+    password = keyring::key_get(
+      service = "human-mortality-database",
+      username = keyring::key_list("human-mortality-database")$username
+    )
+  )
+}
+
+# Help function to list the available countries
+# this generates a vector of all country abbreviations
+countries <- HMDHFDplus::getHMDcountries()
+
+# Download a data set iteratively for all countries using purrr::map()
+# In this case, age-specific mortality in 1-year periods x 1-year age groups
+# for all 1-year periods available
+# output is a data frame named "mx_1x1"
+mx_1x1 <- countries %>%
+    # Returns a list of data.frames, adding a column for country code to each
+    # the map() function performs a run of Ben's read_hmd_country() function for each listed country
+    purrr::map(function(country) {
+        # the item to read is 1 x 1 death rates
+        read_hmd_country(country, "Mx_1x1") %>%
+            # this adds the column "country" storing the country ISO code
+            dplyr::mutate(country = country)
+    }) %>%
+    # Combines the data.frames into a single data.frame
+    dplyr::bind_rows() %>% 
+    # Phil added this to make it a tibble
+    tibble()
+```
+
+<hr>
 
 <h4>Source code for this document</h4>
 Rendered at <tt>`r Sys.time()`</tt>
@@ -475,5 +743,3 @@ Source code: [02-week02.Rmd](02-week02.Rmd)
 ```{r sourcecode_week2, comment='', echo=FALSE}
 cat(readLines("02-week02.Rmd"), sep = "\n")
 ```
-
-

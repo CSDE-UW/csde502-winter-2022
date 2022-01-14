@@ -1,0 +1,11 @@
+```{r}
+# how many unique bins? 
+bins <- length(unique(ages$age))
+
+# create the graphic
+g <- ggplot(data = ages, mapping = aes(x = age)) +
+    geom_histogram(bins = bins)
+
+# print the graphic
+print(g)
+```

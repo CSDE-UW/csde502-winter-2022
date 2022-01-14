@@ -184,6 +184,8 @@ The new HTML file has a number of enhancements, including a mailto: hyperlink fo
 Including the source code for the document is especially useful for readers of your documents because it lets them see exactly what you did. An entire research chain can be documented in this way, from reading in raw data, performing data cleaning and analysis, and generating results.
 
 ## R data types {#rdatatypes}
+You may want to download the file [week01.Rmd](files/week01/week01.R), which contains many of the examples below.
+
 There are six fundamental data types in R:
 
 1. logical
@@ -898,7 +900,7 @@ Other resources for `purrr`: [Learn to purrr](https://www.rebeccabarter.com/blog
 
 ## Data sets {#datasets001}
 
-### Edward Babushkin's Employee turnover data
+### Edward Babushkin's Employee turnover data {#babushkin1}
 Some data that will be used in CSDE 533: Edward Babushkin's employee turnover data, explained a bit at [kaggle.com](https://www.kaggle.com/davinwijaya/employee-turnover) and as a [downloadable file](https://github.com/teuschb/hr_data/blob/master/datasets/turnover_babushkin.csv).
 
 Here we will load the data set from a URL:

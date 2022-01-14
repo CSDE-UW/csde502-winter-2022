@@ -1,5 +1,6 @@
+fig:unnamed-chunk-10
 fig:plotcars
-tab:unnamed-chunk-23
+tab:unnamed-chunk-30
 eq:emc
 eq:sumn
 tab:census
@@ -49,11 +50,13 @@ create-or-calculate-columns-mutate
 summarizingaggregating-data
 purrr-efficient-iterating-over-elements-in-vectors-and-lists
 datasets001
-edward-babushkins-employee-turnover-data
+babushkin1
 week2
 code-to-run-for-the-in-class-exercise
 r-markdown
 rmdcodeblocks
+code-chunk-structure
+inline-code
 rmdgraphics
 base-r-graphics
 ggplot2-graphics
@@ -71,8 +74,10 @@ r-markdown-code-chunk-fig.cap
 bookdown-with-html_document2-output-type
 tables-kable-caption
 bookdown-with-html_document2-output-type-1
-equations-rmdequations
+rmdequations
 captioner-for-any-captioning-and-cross-referencing-figures-and-tables
+datasets002
+keyring
 week3
 keyring-securely-store-secrets
 hanowell_hmdhfd

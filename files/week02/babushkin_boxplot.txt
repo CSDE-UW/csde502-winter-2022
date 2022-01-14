@@ -1,0 +1,5 @@
+```{r, fig.cap = "Box plot of Babushkin data, self control by profession"}
+ggplot(data = etdata, aes(x = reorder(profession, selfcontrol), y = selfcontrol)) +
+    geom_boxplot() +
+    coord_flip()
+```

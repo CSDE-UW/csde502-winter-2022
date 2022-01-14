@@ -1,7 +1,7 @@
 --- 
 title: "UW CSDE 502 A Course Notes"
 author: "Phil Hurvitz"
-date: '2022-01-08 17:59'
+date: '2022-01-13 19:50'
 site: bookdown::bookdown_site
 description: "These are the course notes for Proseminar Winter 2022 (CSDE 502 A) at the University of Washington."
 
@@ -21,7 +21,7 @@ This is the main course notes for CSDE 502 for Winter 2022. It will contain or l
 :::{.rmdcaution}
 <center>
 **CAUTION**
-Material on these pages will be in major flux until the second week of the quarter!
+Material on these pages will be in major flux until at least the second week of the quarter!
 </center>
 :::
 
@@ -247,7 +247,7 @@ This web site was built in R using Rmarkdown and [bookdown](https://cran.r-proje
 <h4>Source code for this document</h4>
 Each of the pages in this book will have a section at the bottom including a link to the source file and the printed source code for the page.
 
-Rendered: 2022-01-08 17:59:26
+Rendered: 2022-01-13 19:50:01
 
 Source code: [index.Rmd](index.Rmd)
 
@@ -289,7 +289,7 @@ This is the main course notes for CSDE 502 for Winter 2022. It will contain or l
 :::{.rmdcaution}
 <center>
 **CAUTION**
-Material on these pages will be in major flux until the second week of the quarter!
+Material on these pages will be in major flux until at least the second week of the quarter!
 </center>
 :::
 

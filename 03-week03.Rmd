@@ -196,7 +196,6 @@ m <- leaflet(height = "500px") %>%
 m %>% addTiles()
 ```
 
-
 <hr>
 Rendered at <tt>`r Sys.time()`</tt>
 

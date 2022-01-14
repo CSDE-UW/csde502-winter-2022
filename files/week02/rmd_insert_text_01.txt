@@ -1,5 +1,5 @@
 ```{r}
-# since loading the data takes awhile, only do this if necessary
+# since loading the data takes awhile, only load the data if necessary -- won't load if it was done already
 if(!exists("dat")){
     dat <- read.dta13("data/AHwave1_v1.dta")
 }

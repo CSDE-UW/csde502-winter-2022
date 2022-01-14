@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 2 Week 2 | UW CSDE 502 A Course Notes</title>
 <meta name="author" content="Phil Hurvitz">
-<meta name="description" content="Topics:  Code blocks in R Graphs in R Markdown Tables in R Markdow Equations in R Markdown Captions and cross-references in R Markdown Data sets: Data: Human Mortality Database Human Fertility...">
+<meta name="description" content="This session covers the basics of creating R Markdown documents. We will also cover the Keyring package for securely storing passwords and other secrets that one would not want to hard-code into R...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 2 Week 2 | UW CSDE 502 A Course Notes">
 <meta property="og:type" content="book">
-<meta property="og:description" content="Topics:  Code blocks in R Graphs in R Markdown Tables in R Markdow Equations in R Markdown Captions and cross-references in R Markdown Data sets: Data: Human Mortality Database Human Fertility...">
+<meta property="og:description" content="This session covers the basics of creating R Markdown documents. We will also cover the Keyring package for securely storing passwords and other secrets that one would not want to hard-code into R...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 2 Week 2 | UW CSDE 502 A Course Notes">
-<meta name="twitter:description" content="Topics:  Code blocks in R Graphs in R Markdown Tables in R Markdow Equations in R Markdown Captions and cross-references in R Markdown Data sets: Data: Human Mortality Database Human Fertility...">
+<meta name="twitter:description" content="This session covers the basics of creating R Markdown documents. We will also cover the Keyring package for securely storing passwords and other secrets that one would not want to hard-code into R...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -70,23 +70,27 @@
 <h1>
 <span class="header-section-number">2</span> Week 2<a class="anchor" aria-label="anchor" href="#week2"><i class="fas fa-link"></i></a>
 </h1>
+<p>This session covers the basics of creating R Markdown documents. We will also cover the <a href="https://cran.r-project.org/web/packages/keyring/index.html">Keyring</a> package for securely storing passwords and other secrets that one would not want to hard-code into R documents. Finally, we will introduce the Human Mortality and Human Fertility databases that will be used in CSDE 533.</p>
+<p>For this class session, we will be building up an R Markdown document using various code chunks copied and pasted from this page.</p>
+<p>Download the file <a href="files/week02/week02.Rmd">week02.Rmd</a> and use that as the base. Change the second line in the YAML header so it uses your name and your web site. See <a href="https://students.washington.edu/">UW Students Web Server</a> if you do not have a web site.</p>
 <h2>
 Topics:
 <a class="anchor" aria-label="anchor" href="#week2"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
-<li><a href="week2.html#rmdcodeblocks">Code blocks in R</a></li>
-<li><a href="#rmdgraphicss">Graphs in R Markdown</a></li>
+<li><a href="week2.html#rmdcodeblocks">Code chunks in R</a></li>
+<li><a href="week2.html#rmdgraphics">Graphs in R Markdown</a></li>
 <li><a href="week2.html#rmdtables">Tables in R Markdow</a></li>
-<li><a href="#rmdequations">Equations in R Markdown</a></li>
+<li><a href="week2.html#rmdequations">Equations in R Markdown</a></li>
 <li><a href="week2.html#rmdcaptions">Captions and cross-references in R Markdown</a></li>
+<li><a href="week2.html#keyring">Keyring for storing passwords and other secrets</a></li>
 <li>
-<a href="#datasets002">Data sets:</a>
+<a href="week2.html#datasets002">Data sets:</a>
 <ul>
 <li>Data:
 <ul>
-<li><a href="https://www.mortality.org/">Human Mortality Database</a></li>
-<li><a href="https://www.humanfertility.org/cgi-bin/main.php">Human Fertility Database</a></li>
+<li>Human Mortality Database</li>
+<li>Human Fertility Database</li>
 </ul>
 </li>
 </ul>
@@ -104,22 +108,48 @@ Topics:
 </h2>
 <div id="rmdcodeblocks" class="section level3" number="2.2.1">
 <h3>
-<span class="header-section-number">2.2.1</span> Code blocks<a class="anchor" aria-label="anchor" href="#rmdcodeblocks"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.1</span> Code chunks<a class="anchor" aria-label="anchor" href="#rmdcodeblocks"><i class="fas fa-link"></i></a>
 </h3>
+<p>Code chunks are blocks of text that include R code. As the R Markdown file is rendered, the code is run. The code can run R routines to perform any number of tasks, including analytics, printing tables, and generating graphics. Anything you would do in a regular R file can be placed in the code chunks. Code chunks can print outputs (tables, figures), but they do not necessarily always do; for example, your code could generate a summary of a raw data set, export to a CSV file, and zip the CSV file. You could then “manually” print a hyperlink in your output.</p>
+<p>In RStudio, a code chunk can be added to an R Markdown source file with the keystroke combination CTRL-ALT-i</p>
+<div id="code-chunk-structure" class="section level4" number="2.2.1.1">
+<h4>
+<span class="header-section-number">2.2.1.1</span> Code chunk structure<a class="anchor" aria-label="anchor" href="#code-chunk-structure"><i class="fas fa-link"></i></a>
+</h4>
+<p>Code chunks are designated by delimiting the code with the characters <code>```{r}</code> to open the block and <code>```</code> to close the block.</p>
+<p>There are a number of additional options that can be included in the <code>{r}</code> opening delimiter, see <a href="https://yihui.org/knitr/options/">Chunk options and package options</a>. Many options are set by default and require being set explicitly to select any option other than the default.</p>
+<p>For example, the code chunk can be not run with the <code>eval=FALSE</code> option. Or if the code chunk generates a graphic, the <code>fig.cap</code> option can be used to print a caption.</p>
+<p>For example, the following code chunk creates a single element vector <code>a</code> with the value of <code>2</code>.</p>
+<pre><code>```{r, eval=TRUE}
+a &lt;- 1 + 1
+```</code></pre>
 </div>
-<div id="rmdgraphics" class="section level3" number="2.2.2">
+</div>
+<div id="inline-code" class="section level3" number="2.2.2">
 <h3>
-<span class="header-section-number">2.2.2</span> Graphics in R Markdown<a class="anchor" aria-label="anchor" href="#rmdgraphics"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.2</span> Inline code<a class="anchor" aria-label="anchor" href="#inline-code"><i class="fas fa-link"></i></a>
+</h3>
+<p>Inline code is designated using this type of syntax <code>`r R_CODE`</code>, where <code>R_CODE</code> represents a statement to be evaluated and printed inline.</p>
+<p>For example, to get the mean age from the Babushkin data, the <code>R_CODE</code> would read</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb170-1"><a href="week2.html#cb170-1" aria-hidden="true" tabindex="-1"></a>mean(etdata$age) %&gt;% round(1)</span></code></pre></div>
+<p>That is, in the document one would write:</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb171-1"><a href="week2.html#cb171-1" aria-hidden="true" tabindex="-1"></a>The mean age of the subjects in the Babushkin data was <span class="in">`r mean(etdata$age) %&gt;% round(1)`</span> years.</span></code></pre></div>
+<p>which renders to</p>
+<pre><code>The mean age of the subjects in the Babushkin data was 31.1 years.</code></pre>
+</div>
+<div id="rmdgraphics" class="section level3" number="2.2.3">
+<h3>
+<span class="header-section-number">2.2.3</span> Graphics in R Markdown<a class="anchor" aria-label="anchor" href="#rmdgraphics"><i class="fas fa-link"></i></a>
 </h3>
 <p>Data-driven graphics in Rmd files are typically created as base R graphics or with the <code>ggplot2</code> package. This tutorial is not intended to provide anywhere near a comprehensive treatment of creating graphics from data, but will provide instruction on some options for creating and including data-driven graphics as well as inserting graphics from image files.</p>
 <p>See <a href="http://zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/">Tips and tricks for working with images and figures in R Markdown documents</a> for a good explanation.</p>
-<div id="base-r-graphics" class="section level4" number="2.2.2.1">
+<div id="base-r-graphics" class="section level4" number="2.2.3.1">
 <h4>
-<span class="header-section-number">2.2.2.1</span> Base R graphics<a class="anchor" aria-label="anchor" href="#base-r-graphics"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.3.1</span> Base R graphics<a class="anchor" aria-label="anchor" href="#base-r-graphics"><i class="fas fa-link"></i></a>
 </h4>
 <p>To include base R graphics, simply place the code to generate the graphic in an R code block, e.g., using the Add Health data from last week (<a href="data/AHWave1_v1.dta">AHWave1_v1.dta</a>):</p>
 <pre><code>```{r}
-# since loading the data takes awhile, only do this if necessary
+# since loading the data takes awhile, only load the data if necessary -- won't load if it was done already
 if(!exists("dat")){
     dat &lt;- read.dta13("data/AHwave1_v1.dta")
 }
@@ -138,43 +168,56 @@ ages &lt;- dat %&gt;%
 hist(ages$age, xlab = "age (years)", las = 1)
 ```</code></pre>
 <p>… which will render the graph:</p>
-<div class="inline-figure"><img src="02-week02_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
+<div class="inline-figure"><img src="02-week02_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
 </div>
-<div id="ggplot2-graphics" class="section level4" number="2.2.2.2">
+<div id="ggplot2-graphics" class="section level4" number="2.2.3.2">
 <h4>
-<span class="header-section-number">2.2.2.2</span> <code>ggplot2</code> graphics<a class="anchor" aria-label="anchor" href="#ggplot2-graphics"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.3.2</span> <code>ggplot2</code> graphics<a class="anchor" aria-label="anchor" href="#ggplot2-graphics"><i class="fas fa-link"></i></a>
 </h4>
 <p>The <code>ggplot2</code> package creates compelling graphics that use a common syntax. The main difference between base R graphics and <code>ggplot2</code> graphics is that simply issuing the <code><a href="https://r-spatial.github.io/sf/reference/plot.html">plot()</a></code> or related command (e.g., <code><a href="https://rdrr.io/r/graphics/hist.html">hist()</a></code>, <code><a href="https://rdrr.io/r/graphics/barplot.html">barplot()</a></code>) adds the graphic to the output, whereas with <code>ggplot()</code> it is necessary to issue a command that prints the graphic.</p>
 <p>Following the previous example:</p>
-<div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># how many unique bins? </span>
-<span class="va">bins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">ages</span><span class="op">$</span><span class="va">age</span><span class="op">)</span><span class="op">)</span>
+<pre><code>```{r}
+# how many unique bins? 
+bins &lt;- length(unique(ages$age))
 
-<span class="co"># create the graphic</span>
-<span class="va">g</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ages</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="va">bins</span><span class="op">)</span>
+# create the graphic
+g &lt;- ggplot(data = ages, mapping = aes(x = age)) +
+    geom_histogram(bins = bins)
 
-<span class="co"># print the graphic</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-week02_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
+# print the graphic
+print(g)
+```</code></pre>
+<div class="inline-figure"><img src="02-week02_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
+<p>The following code generates a box plot from the Babushkin employee turnover data. Because the code chunk includes <code>fig.cap = "Box plot of Babushkin data, self control by profession"</code>, a caption is automatically placed below the figure.</p>
+<pre><code>```{r, fig.cap = "Box plot of Babushkin data, self control by profession"}
+ggplot(data = etdata, aes(x = reorder(profession, selfcontrol), y = selfcontrol)) +
+    geom_boxplot() +
+    coord_flip()
+```</code></pre>
+<div class="figure">
+<span style="display:block;" id="fig:unnamed-chunk-10"></span>
+<img src="02-week02_files/figure-html/unnamed-chunk-10-1.png" alt="Box plot of Babushkin data, self control by profession" width="672"><p class="caption">
+Figure 2.1: Box plot of Babushkin data, self control by profession
+</p>
 </div>
-<div id="embedding-graphics-files" class="section level4" number="2.2.2.3">
+</div>
+<div id="embedding-graphics-files" class="section level4" number="2.2.3.3">
 <h4>
-<span class="header-section-number">2.2.2.3</span> Embedding graphics files<a class="anchor" aria-label="anchor" href="#embedding-graphics-files"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.3.3</span> Embedding graphics files<a class="anchor" aria-label="anchor" href="#embedding-graphics-files"><i class="fas fa-link"></i></a>
 </h4>
 <p>Journals frequently require graphics files to be submitted separately from the manuscript. In this case, the graphic can be created and saved as a file and then inserted in the Rmd using code, but also accessed as a a stand-alone file. Let’s take the previous example, but add correlation coefficients and other embellishments, create a graphics file and add the graphics into the Rmd.</p>
 <p>The base graphics file is created using the <code><a href="https://rdrr.io/r/grDevices/pdf.html">pdf()</a></code> function, although <code><a href="https://rdrr.io/r/grDevices/png.html">png()</a></code> also works if that is the desired output format. PDF is a vector format, so it generally renders better over different zoom levels.</p>
-<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html">pdf</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"ah_age_hist.pdf"</span>, width <span class="op">=</span> <span class="fl">5</span>, height <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">ages</span><span class="op">$</span><span class="va">age</span>, xlab <span class="op">=</span> <span class="st">"age (years)"</span>, las <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>Here we create a PNG format file:</p>
-<div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/grDevices/png.html">png</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"ah_age_hist.png"</span>, width <span class="op">=</span> <span class="fl">5</span>, height <span class="op">=</span> <span class="fl">5</span>, units <span class="op">=</span> <span class="st">"in"</span>, res <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">ages</span><span class="op">$</span><span class="va">age</span>, xlab <span class="op">=</span> <span class="st">"age (years)"</span>, las <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><code>ggplot2</code> graphics can be saved using <code>ggsave()</code>, e.g., for both PDF and PNG outputs. The <code>dpi</code> argument is important for bitmap images.</p>
-<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
+<p><code>ggplot2</code> graphics can be saved using <code>ggsave()</code>, e.g., for both PDF and PNG outputs. The <code>dpi</code> argument is important for bitmap images because it sets the dots per inch, which controls the size of the graphics file.</p>
+<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggsave</span><span class="op">(</span>
     filename <span class="op">=</span> <span class="st">"ah_age_hist_ggplot.pdf"</span>,
     plot <span class="op">=</span> <span class="va">g</span>, device <span class="op">=</span> <span class="st">"pdf"</span>,
@@ -182,47 +225,47 @@ hist(ages$age, xlab = "age (years)", las = 1)
 <span class="op">)</span>
 <span class="fu">ggsave</span><span class="op">(</span>
     filename <span class="op">=</span> <span class="st">"ah_age_hist_ggplot.png"</span>,
-    plot <span class="op">=</span> <span class="va">g</span>, device <span class="op">=</span> <span class="st">"png"</span>, 
-    width <span class="op">=</span> <span class="fl">5</span>, height <span class="op">=</span> <span class="fl">5</span>, 
+    plot <span class="op">=</span> <span class="va">g</span>, device <span class="op">=</span> <span class="st">"png"</span>,
+    width <span class="op">=</span> <span class="fl">5</span>, height <span class="op">=</span> <span class="fl">5</span>,
     units <span class="op">=</span> <span class="st">"in"</span>, dpi <span class="op">=</span> <span class="fl">300</span>
 <span class="op">)</span></code></pre></div>
 <p>Graphics can be added using several methods.</p>
-<div id="knitr" class="section level5" number="2.2.2.3.1">
+<div id="knitr" class="section level5" number="2.2.3.3.1">
 <h5>
-<span class="header-section-number">2.2.2.3.1</span> <code>knitr</code><a class="anchor" aria-label="anchor" href="#knitr"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.3.3.1</span> <code>knitr</code><a class="anchor" aria-label="anchor" href="#knitr"><i class="fas fa-link"></i></a>
 </h5>
 <p>The <code><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">knitr::include_graphics()</a></code> function can be used to insert image files, with the caution that inserted PDF files may produce unwanted results. The syntax is:</p>
 <pre><code>```{r}
 include_graphics("graphics_filename")
 ```</code></pre>
-<p>and the code chunk can include <code>out.width</code>, <code>out.height</code> and other options.
+<p>and the code chunk can include <code>out.width</code>, <code>out.height</code> and other options after the <code>r</code> in the first line of the chunk,
  
 Here we insert a PDF with no code chunk options, which presents the image with a scroll bar, rather than the full image:</p>
-<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">include_graphics</span><span class="op">(</span><span class="st">"ah_age_hist.pdf"</span><span class="op">)</span></code></pre></div>
 <p><embed src="ah_age_hist.pdf"></embed><!-- --></p>
 <p>Here we specify in the code chunk options <code>out.height = "360px", out.width='360px', fig.align='left'</code>,</p>
-<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">include_graphics</span><span class="op">(</span><span class="st">"ah_age_hist.pdf"</span><span class="op">)</span></code></pre></div>
 <embed src="ah_age_hist.pdf" width="360px" height="360px" style="display: block; margin: auto auto auto 0;" type="application/pdf"></embed><p> </p>
 <p>… and with code chunk options <code>out.height = "400px", out.width='100%', fig.align='left'</code></p>
-<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">include_graphics</span><span class="op">(</span><span class="st">"ah_age_hist.pdf"</span><span class="op">)</span></code></pre></div>
 <embed src="ah_age_hist.pdf" width="100%" height="400px" style="display: block; margin: auto auto auto 0;" type="application/pdf"></embed><p> </p>
 <p>It seems that embedding PDF files is not optimal.</p>
 <p>Here we insert a PNG: with no code chunk options:</p>
-<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">include_graphics</span><span class="op">(</span><span class="st">"ah_age_hist_ggplot.png"</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="ah_age_hist_ggplot.png" width="750"></div>
 <p>and with code chunk option <code>out.width = "50%"</code></p>
-<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">include_graphics</span><span class="op">(</span><span class="st">"ah_age_hist_ggplot.png"</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="ah_age_hist_ggplot.png" width="50%"></div>
 <p>So embedding bitmapped images appears to work better than embedding PDF files.</p>
 </div>
-<div id="markdown-captionfilename" class="section level5" number="2.2.2.3.2">
+<div id="markdown-captionfilename" class="section level5" number="2.2.3.3.2">
 <h5>
-<span class="header-section-number">2.2.2.3.2</span> Markdown: <code>![caption](filename)</code><a class="anchor" aria-label="anchor" href="#markdown-captionfilename"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.3.3.2</span> Markdown: <code>![caption](filename)</code><a class="anchor" aria-label="anchor" href="#markdown-captionfilename"><i class="fas fa-link"></i></a>
 </h5>
 <p>The native Markdown syntax:</p>
 <pre><code>![](filename)</code></pre>
@@ -241,9 +284,9 @@ Here we insert a PDF with no code chunk options, which presents the image with a
 <img src="ah_age_hist_ggplot.png" alt=""><p class="caption">Add Health respondent age histogram</p>
 </div>
 </div>
-<div id="html-img-tag" class="section level5" number="2.2.2.3.3">
+<div id="html-img-tag" class="section level5" number="2.2.3.3.3">
 <h5>
-<span class="header-section-number">2.2.2.3.3</span> HTML <code>&lt;img&gt;</code> tag<a class="anchor" aria-label="anchor" href="#html-img-tag"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.3.3.3</span> HTML <code>&lt;img&gt;</code> tag<a class="anchor" aria-label="anchor" href="#html-img-tag"><i class="fas fa-link"></i></a>
 </h5>
 <p>If the file is to be rendered as HTML, <em>and</em> the image is a bitmap, rather than vector PDF graphics, the <code>&lt;img&gt;</code> tag can be used. Different utilities can be used to convert PDF to bitmapped formats, e.g., <a href="https://imagemagick.org/index.php">ImageMagick</a> and <a href="http://www.graphicsmagick.org/">GraphicsMagick</a>.</p>
 <p><code>&lt;img src="ah_age_hist_ggplot.png"&gt;</code></p>
@@ -254,50 +297,52 @@ Here we insert a PDF with no code chunk options, which presents the image with a
 </div>
 </div>
 </div>
-<div id="rmdtables" class="section level3" number="2.2.3">
+<div id="rmdtables" class="section level3" number="2.2.4">
 <h3>
-<span class="header-section-number">2.2.3</span> Tables in R Markdown<a class="anchor" aria-label="anchor" href="#rmdtables"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.4</span> Tables in R Markdown<a class="anchor" aria-label="anchor" href="#rmdtables"><i class="fas fa-link"></i></a>
 </h3>
 <p>We will look at three methods of including tables in R Markdown documents, using the packages <code>knitr</code> (with <code>kableExtra</code>), <code>pander</code>, and <code>stargazer</code>.</p>
 <p>For the example table, we will use the frequency table of health <span class="math inline">\(\times\)</span> White and African American from Assignment 2:</p>
-<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">readstata13</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/readstata13/man/read.dta13.html">read.dta13</a></span><span class="op">(</span><span class="st">"http://staff.washington.edu/phurvitz/csde502_winter_2021/data/AHwave1_v1.dta"</span><span class="op">)</span>
 
 
 <span class="co"># ordered factor; use fct_rev to establish the correct ordering where better health ranks higher</span>
-<span class="va">dat</span> <span class="op">%&lt;&gt;%</span> 
+<span class="va">dat</span> <span class="op">%&lt;&gt;%</span>
     <span class="fu">mutate</span><span class="op">(</span>h1gh1 <span class="op">=</span> <span class="fu">fct_rev</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.ordered</a></span><span class="op">(</span><span class="va">h1gh1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># stratify health; first we need to catch the "don't know" and "refused" as NAs</span>
-<span class="va">dat</span> <span class="op">%&lt;&gt;%</span>  
-    <span class="fu">mutate</span><span class="op">(</span>health <span class="op">=</span> 
-    <span class="fu">case_when</span><span class="op">(</span>
-        <span class="va">h1gh1</span> <span class="op">&lt;=</span> <span class="st">"(6) Refused"</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>,
-        <span class="va">h1gh1</span> <span class="op">&gt;</span>  <span class="st">"(3) Good"</span> <span class="op">~</span> <span class="st">"high"</span>,
-        <span class="va">h1gh1</span> <span class="op">&lt;=</span> <span class="st">"(3) Good"</span> <span class="op">~</span> <span class="st">"low"</span>
-    <span class="op">)</span><span class="op">)</span>
+<span class="va">dat</span> <span class="op">%&lt;&gt;%</span>
+    <span class="fu">mutate</span><span class="op">(</span>
+        health <span class="op">=</span>
+            <span class="fu">case_when</span><span class="op">(</span>
+                <span class="va">h1gh1</span> <span class="op">&lt;=</span> <span class="st">"(6) Refused"</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>,
+                <span class="va">h1gh1</span> <span class="op">&gt;</span> <span class="st">"(3) Good"</span> <span class="op">~</span> <span class="st">"high"</span>,
+                <span class="va">h1gh1</span> <span class="op">&lt;=</span> <span class="st">"(3) Good"</span> <span class="op">~</span> <span class="st">"low"</span>
+            <span class="op">)</span>
+    <span class="op">)</span>
 
 <span class="co"># tabulate by White</span>
-<span class="va">tabhealth_white</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">group_by</span><span class="op">(</span><span class="va">health</span>, white <span class="op">=</span> <span class="va">h1gi6a</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop_last"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
+<span class="va">tabhealth_white</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+    <span class="fu">group_by</span><span class="op">(</span><span class="va">health</span>, white <span class="op">=</span> <span class="va">h1gi6a</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop_last"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
     <span class="fu">mutate</span><span class="op">(</span><span class="st">"%"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">n</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># tabulate by African American</span>
-<span class="va">tabhealth_afram</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">group_by</span><span class="op">(</span><span class="va">health</span>, afram <span class="op">=</span> <span class="va">h1gi6b</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop_last"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
+<span class="va">tabhealth_afram</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+    <span class="fu">group_by</span><span class="op">(</span><span class="va">health</span>, afram <span class="op">=</span> <span class="va">h1gi6b</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop_last"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
     <span class="fu">mutate</span><span class="op">(</span><span class="st">"%"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">n</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># column-bind and remove the second "health" column</span>
-<span class="va">sum_health_white_afram</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">tabhealth_white</span>, <span class="va">tabhealth_afram</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
+<span class="va">sum_health_white_afram</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">tabhealth_white</span>, <span class="va">tabhealth_afram</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
     <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="fl">5</span><span class="op">)</span></code></pre></div>
-<div id="kntir-kable-and-kableextra" class="section level4" number="2.2.3.1">
+<div id="kntir-kable-and-kableextra" class="section level4" number="2.2.4.1">
 <h4>
-<span class="header-section-number">2.2.3.1</span> <code>kntir</code> (<code>kable()</code>) and <code>kableExtra</code><a class="anchor" aria-label="anchor" href="#kntir-kable-and-kableextra"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.4.1</span> <code>kntir</code> (<code>kable()</code>) and <code>kableExtra</code><a class="anchor" aria-label="anchor" href="#kntir-kable-and-kableextra"><i class="fas fa-link"></i></a>
 </h4>
 <p>The simple table using <code>kable()</code> is not too nice to read.</p>
-<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">kable</span><span class="op">(</span><span class="va">sum_health_white_afram</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr>
@@ -627,10 +672,11 @@ NA
 </tbody>
 </table></div>
 <p>So we add some <code>kabelExtra</code> options, :</p>
-<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">kable</span><span class="op">(</span><span class="va">sum_health_white_afram</span>,
-      col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"health"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-        <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span> </code></pre></div>
+    col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"health"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span><span class="op">)</span>
+<span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+    <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; ">
 <thead><tr>
 <th style="text-align:left;">
@@ -959,10 +1005,11 @@ NA
 </tbody>
 </table></div>
 <p>However, because some column names are duplicated, it is necessary to add some column grouping:</p>
-<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">kable</span><span class="op">(</span><span class="va">sum_health_white_afram</span>,
-      col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"health"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
+    col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"health"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span><span class="op">)</span>
+<span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+    <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
     <span class="fu">add_header_above</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">" "</span> <span class="op">=</span> <span class="fl">1</span>, <span class="st">"White"</span> <span class="op">=</span> <span class="fl">3</span>, <span class="st">"African American"</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; ">
 <thead>
@@ -1308,14 +1355,14 @@ NA
 </tbody>
 </table></div>
 <p>We could also add some row groupings:</p>
-<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sum_health_white_afram</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">kable</span><span class="op">(</span>col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span><span class="op">)</span>, align<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">'r'</span>,times<span class="op">=</span><span class="fl">6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">add_header_above</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"White"</span> <span class="op">=</span> <span class="fl">3</span>, <span class="st">"African American"</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">pack_rows</span><span class="op">(</span><span class="st">"health high"</span>, <span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">pack_rows</span><span class="op">(</span><span class="st">"health low"</span>, <span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
+<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sum_health_white_afram</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+    <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+    <span class="fu">kable</span><span class="op">(</span>col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span><span class="op">)</span>, align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"r"</span>, times <span class="op">=</span> <span class="fl">6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+    <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+    <span class="fu">add_header_above</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"White"</span> <span class="op">=</span> <span class="fl">3</span>, <span class="st">"African American"</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+    <span class="fu">pack_rows</span><span class="op">(</span><span class="st">"health high"</span>, <span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+    <span class="fu">pack_rows</span><span class="op">(</span><span class="st">"health low"</span>, <span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
     <span class="fu">pack_rows</span><span class="op">(</span><span class="st">"health N/A"</span>, <span class="fl">9</span>, <span class="fl">12</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; ">
 <thead>
@@ -1634,17 +1681,202 @@ n
 </tr>
 </tbody>
 </table></div>
+<p>Another simple example using the Babushkin data; the following code:</p>
+<pre><code>```{r, eval=TRUE}`r ''`
+etdata &lt;- read.csv("https://raw.githubusercontent.com/teuschb/hr_data/master/datasets/turnover_babushkin.csv")
+
+# create 10-year age classes 
+etdata %&lt;&gt;% 
+    mutate(age_decade = plyr::round_any(age, 10, f = ceiling)) 
+
+# summarize
+etdata %&gt;% 
+    # group by gender and age class
+    group_by(gender, age_decade) %&gt;% 
+    # mean and sd
+    summarize(mean_tenure_months = mean(tenure) %&gt;% round(1),
+              sd_tenure_months = sd(tenure) %&gt;% round(1), 
+              .groups = "keep") %&gt;% 
+    # order the output by age and gender
+    arrange(gender, mean_tenure_months) %&gt;% 
+    # print it nicely
+    kable() %&gt;% 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```</code></pre>
+<p>… generates the following table
+<!-- (Table  1) -->
+:</p>
+<!-- _Table  1: Babushkin data, tenure by gender and age_ -->
+<div class="inline-table"><table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;">
+gender
+</th>
+<th style="text-align:right;">
+age_decade
+</th>
+<th style="text-align:right;">
+mean_tenure_months
+</th>
+<th style="text-align:right;">
+sd_tenure_months
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+f
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+21.6
+</td>
+<td style="text-align:right;">
+20.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+f
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+22.9
+</td>
+<td style="text-align:right;">
+24.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+f
+</td>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+35.4
+</td>
+<td style="text-align:right;">
+31.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+f
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+37.9
+</td>
+<td style="text-align:right;">
+35.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+f
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+75.0
+</td>
+<td style="text-align:right;">
+49.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+21.1
+</td>
+<td style="text-align:right;">
+5.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+31.2
+</td>
+<td style="text-align:right;">
+29.7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m
+</td>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+33.9
+</td>
+<td style="text-align:right;">
+26.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+41.8
+</td>
+<td style="text-align:right;">
+40.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+121.8
+</td>
+<td style="text-align:right;">
+33.5
+</td>
+</tr>
+</tbody>
+</table></div>
 </div>
-<div id="stargazer" class="section level4" number="2.2.3.2">
+<div id="stargazer" class="section level4" number="2.2.4.2">
 <h4>
-<span class="header-section-number">2.2.3.2</span> <code>stargazer</code><a class="anchor" aria-label="anchor" href="#stargazer"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.4.2</span> <code>stargazer</code><a class="anchor" aria-label="anchor" href="#stargazer"><i class="fas fa-link"></i></a>
 </h4>
 <p>The <a href="https://cran.r-project.org/web/packages/stargazer/vignettes/stargazer.pdf"><code>stargazer</code></a> package is especially good for PDF outputs, but is fairly limited for HTML output.</p>
-<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">stargazer</span><span class="op">(</span><span class="va">sum_health_white_afram</span>, 
-          type <span class="op">=</span> <span class="st">"html"</span>, 
-          summary <span class="op">=</span> <span class="cn">FALSE</span>,
-          rownames <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">stargazer</span><span class="op">(</span><span class="va">sum_health_white_afram</span>,
+    type <span class="op">=</span> <span class="st">"html"</span>,
+    summary <span class="op">=</span> <span class="cn">FALSE</span>,
+    rownames <span class="op">=</span> <span class="cn">FALSE</span>
+<span class="op">)</span></code></pre></div>
 <div class="inline-table"><table style="text-align:center" class="table table-sm">
 <tr>
 <td colspan="7" style="border-bottom: 1px solid black">
@@ -1955,12 +2187,12 @@ low
 </tr>
 </table></div>
 </div>
-<div id="pander" class="section level4" number="2.2.3.3">
+<div id="pander" class="section level4" number="2.2.4.3">
 <h4>
-<span class="header-section-number">2.2.3.3</span> <code>pander</code><a class="anchor" aria-label="anchor" href="#pander"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.4.3</span> <code>pander</code><a class="anchor" aria-label="anchor" href="#pander"><i class="fas fa-link"></i></a>
 </h4>
 <p><code>pander</code> can be used to create output HTML tables as well, although also with fewer options than <code>knitr</code> with <code>kableExtra</code>.</p>
-<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">pander</span><span class="op">(</span><span class="va">sum_health_white_afram</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <colgroup>
@@ -2094,19 +2326,19 @@ low
 </table></div>
 </div>
 </div>
-<div id="rmdcaptions" class="section level3" number="2.2.4">
+<div id="rmdcaptions" class="section level3" number="2.2.5">
 <h3>
-<span class="header-section-number">2.2.4</span> Captions to support tables, figures, and equations<a class="anchor" aria-label="anchor" href="#rmdcaptions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.5</span> Captions to support tables, figures, and equations<a class="anchor" aria-label="anchor" href="#rmdcaptions"><i class="fas fa-link"></i></a>
 </h3>
 <p>There are several ways to support captions in R Markdown. The two main requirements for good captions: (1) automatic sequential numbering, and (2) ability to cross-reference.</p>
 <p>Here are some options for adding captions:</p>
-<div id="figures" class="section level4" number="2.2.4.1">
+<div id="figures" class="section level4" number="2.2.5.1">
 <h4>
-<span class="header-section-number">2.2.4.1</span> Figures<a class="anchor" aria-label="anchor" href="#figures"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.5.1</span> Figures<a class="anchor" aria-label="anchor" href="#figures"><i class="fas fa-link"></i></a>
 </h4>
-<div id="r-markdown-code-chunk-fig.cap" class="section level5" number="2.2.4.1.1">
+<div id="r-markdown-code-chunk-fig.cap" class="section level5" number="2.2.5.1.1">
 <h5>
-<span class="header-section-number">2.2.4.1.1</span> R Markdown code chunk <code>fig.cap</code><a class="anchor" aria-label="anchor" href="#r-markdown-code-chunk-fig.cap"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.5.1.1</span> R Markdown code chunk <code>fig.cap</code><a class="anchor" aria-label="anchor" href="#r-markdown-code-chunk-fig.cap"><i class="fas fa-link"></i></a>
 </h5>
 <p>Code chunks can include <code>fig_cap</code> as an option, as shown below. However, in standard Rmd <span class="math inline">\(\rightarrow\)</span> HTML there does not appear to be a method for cross-referencing. The code chunk would look like</p>
 <pre><code>```{r plotcars, fig.cap="Cars: speed and distance"}
@@ -2115,13 +2347,13 @@ plot(cars)
 <div class="figure">
 <span style="display:block;" id="fig:plotcars"></span>
 <img src="02-week02_files/figure-html/plotcars-1.png" alt="Cars: speed and distance" width="672"><p class="caption">
-Figure 2.1: Cars: speed and distance
+Figure 2.2: Cars: speed and distance
 </p>
 </div>
 </div>
-<div id="bookdown-with-html_document2-output-type" class="section level5" number="2.2.4.1.2">
+<div id="bookdown-with-html_document2-output-type" class="section level5" number="2.2.5.1.2">
 <h5>
-<span class="header-section-number">2.2.4.1.2</span> <code>bookdown</code> with <code>html_document2</code> output type<a class="anchor" aria-label="anchor" href="#bookdown-with-html_document2-output-type"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.5.1.2</span> <code>bookdown</code> with <code>html_document2</code> output type<a class="anchor" aria-label="anchor" href="#bookdown-with-html_document2-output-type"><i class="fas fa-link"></i></a>
 </h5>
 <p>Using the <code>bookdown</code> package with <code>html_document2</code> output type, it is possible to cross-reference using the chunk name. For example, download and run this code <a href="files/fig_cap_bookdown.Rmd">fig_cap_bookdown.Rmd</a></p>
 <p>Which renders a file:</p>
@@ -2135,16 +2367,16 @@ Figure 2.1: Cars: speed and distance
 <p>so the former is suggested as one way to include captions that support cross-referencing.</p>
 </div>
 </div>
-<div id="tables-kable-caption" class="section level4" number="2.2.4.2">
+<div id="tables-kable-caption" class="section level4" number="2.2.5.2">
 <h4>
-<span class="header-section-number">2.2.4.2</span> Tables: <code>kable()</code> “caption”<a class="anchor" aria-label="anchor" href="#tables-kable-caption"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.5.2</span> Tables: <code>kable()</code> “caption”<a class="anchor" aria-label="anchor" href="#tables-kable-caption"><i class="fas fa-link"></i></a>
 </h4>
 <p>Tables created with <code>kable()</code> can include the <code>caption</code> option. For example:</p>
-<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">kable</span><span class="op">(</span>x <span class="op">=</span> <span class="va">sum_health_white_afram</span>, caption <span class="op">=</span> <span class="st">"Self-reported health by race"</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:unnamed-chunk-23">Table 2.1: </span>Self-reported health by race
+<span id="tab:unnamed-chunk-30">Table 2.1: </span>Self-reported health by race
 </caption>
 <thead><tr>
 <th style="text-align:left;">
@@ -2473,18 +2705,18 @@ NA
 </tbody>
 </table></div>
 <p>But there appears to be no direct way of cross-referencing within standard Rmd <span class="math inline">\(\rightarrow\)</span> HTML.</p>
-<div id="bookdown-with-html_document2-output-type-1" class="section level5" number="2.2.4.2.1">
+<div id="bookdown-with-html_document2-output-type-1" class="section level5" number="2.2.5.2.1">
 <h5>
-<span class="header-section-number">2.2.4.2.1</span> <code>bookdown</code> with <code>html_document2</code> output type<a class="anchor" aria-label="anchor" href="#bookdown-with-html_document2-output-type-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.5.2.1</span> <code>bookdown</code> with <code>html_document2</code> output type<a class="anchor" aria-label="anchor" href="#bookdown-with-html_document2-output-type-1"><i class="fas fa-link"></i></a>
 </h5>
 <p>Similarly for figures, the <code>bookdown</code> package with <code>html_document2</code> output type, it is possible to cross-reference using the chunk name. For example, download and run this code <a href="files/table_cap_bookdown.Rmd">table_cap_bookdown.Rmd</a></p>
 <p>Which renders a file:</p>
 <div class="inline-figure"><img src="images/week03/tab_ref.png"></div>
 </div>
 </div>
-<div id="equations-rmdequations" class="section level4" number="2.2.4.3">
+<div id="rmdequations" class="section level4" number="2.2.5.3">
 <h4>
-<span class="header-section-number">2.2.4.3</span> Equations {# rmdequations}<a class="anchor" aria-label="anchor" href="#equations-rmdequations"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.5.3</span> Equations<a class="anchor" aria-label="anchor" href="#rmdequations"><i class="fas fa-link"></i></a>
 </h4>
 <p>Equations should be numbered in manuscripts. Using <code>bookdown</code> makes this quite easy. The equations themselves require <span class="math inline">\(\LaTeX\)</span> syntax. There are numerous web sites with examples and tutorials for creating mathematical expressions with <span class="math inline">\(\LaTeX\)</span> In this example, we include Einstein’s famous equation:</p>
 <pre>
@@ -2513,9 +2745,9 @@ NA
 \end{equation}\]</span></p>
 </div>
 </div>
-<div id="captioner-for-any-captioning-and-cross-referencing-figures-and-tables" class="section level3" number="2.2.5">
+<div id="captioner-for-any-captioning-and-cross-referencing-figures-and-tables" class="section level3" number="2.2.6">
 <h3>
-<span class="header-section-number">2.2.5</span> <code>captioner</code> for any captioning and cross-referencing figures and tables<a class="anchor" aria-label="anchor" href="#captioner-for-any-captioning-and-cross-referencing-figures-and-tables"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.6</span> <code>captioner</code> for any captioning and cross-referencing figures and tables<a class="anchor" aria-label="anchor" href="#captioner-for-any-captioning-and-cross-referencing-figures-and-tables"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <code>captioner</code> package provides a flexible, albeit cumbersome, framework for captioning both tables and figures.</p>
 <p>The R code to do this:</p>
@@ -2531,9 +2763,9 @@ figure_nums &lt;- captioner(prefix = "Figure")</a></code></pre>
 <p>Another benefit to using <code>captioner</code> is that the output can be formatted using markdown syntax. For example, to format the caption in italics, use underscores:</p>
 <p><code>_`r figure_nums(name = "figname", caption = "My Caption")`_</code></p>
 <p>Although this method requires a bit more coding, it allows great flexibility. A complete example:</p>
-<p>As shown in figure 1, the distribution of age has a slight negative skew.</p>
-<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># how many unique bins? </span>
+<p>As shown in Figure 1, the distribution of age has a slight negative skew.</p>
+<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># how many unique bins?</span>
 <span class="va">bins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">ages</span><span class="op">$</span><span class="va">age</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># create the graphic</span>
@@ -2542,22 +2774,26 @@ figure_nums &lt;- captioner(prefix = "Figure")</a></code></pre>
 
 <span class="co"># print the graphic</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-week02_files/figure-html/unnamed-chunk-24-1.png" width="288"></div>
-<p><em>figure 1: Add Health age histogram</em></p>
-<p>Similarly, we can present the same data as a frequency table, as shown in table 1.</p>
-<p><em>table 1: Add Health age frequency table</em></p>
-<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ages</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">group_by</span><span class="op">(</span><span class="va">age</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">mutate</span><span class="op">(</span>cumsum <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>,
+<div class="inline-figure"><img src="02-week02_files/figure-html/unnamed-chunk-31-1.png" width="288"></div>
+<p><em>Figure 1: Add Health age histogram</em></p>
+<p>Similarly, we can present the same data as a frequency table, as shown in Table 2.</p>
+<p><em>Table 2: Add Health age frequency table</em></p>
+<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ages</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+    <span class="fu">group_by</span><span class="op">(</span><span class="va">age</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+    <span class="fu">mutate</span><span class="op">(</span>
+        cumsum <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>,
         <span class="st">"%"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">n</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span>,
-        <span class="st">"cum %"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">n</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> 
-        <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, 
-        full_width <span class="op">=</span> <span class="cn">F</span>, 
-        position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span> </code></pre></div>
+        <span class="st">"cum %"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">n</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
+    <span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+    <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+    <span class="fu">kable_styling</span><span class="op">(</span>
+        bootstrap_options <span class="op">=</span>
+            <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>,
+        full_width <span class="op">=</span> <span class="cn">F</span>,
+        position <span class="op">=</span> <span class="st">"left"</span>
+    <span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; ">
 <thead><tr>
 <th style="text-align:right;">
@@ -2749,32 +2985,181 @@ cum %
 </tr>
 </tbody>
 </table></div>
+</div>
+</div>
+<div id="datasets002" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> Data sets:<a class="anchor" aria-label="anchor" href="#datasets002"><i class="fas fa-link"></i></a>
+</h2>
+<p>In preparation for some later work, go to the following web sites and create a user profile. This will require that you establish a username and password for both sites if you have not done so already. Make a note of your username and password for these sites! You will need them later. If you are not using a password manager, you should! Highly recommended: <a href="https://keepass.info/">KeePass Password Safe</a>. You can store the password database on DropBox or OneDrive and you will always have access to your passwords.</p>
+<ul>
+<li><a href="https://www.mortality.org/">Human Mortality Database</a></li>
+<li><a href="https://www.humanfertility.org/cgi-bin/main.php">Human Fertility Database</a></li>
+</ul>
+</div>
+<div id="keyring" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> Keyring<a class="anchor" aria-label="anchor" href="#keyring"><i class="fas fa-link"></i></a>
+</h2>
+<p>The <a href="https://cran.r-project.org/web/packages/keyring/index.html">Keyring</a> package is used for accessing credentials that you would not want to store in your R code. We will use the passwords for the Human Mortality and Human Fertility databases (covered below) as the example for how to use this package.</p>
+<p>The keyring is stored as part of your user profile on the computer. Therefore if you are using multiple computers (e.g., your own computer as well as the CSDE terminal server), you will need to repeat the steps of setting keys. The keys are stored at the operating system level, so once set, they do not need to be reset, and any R session will have access to the keys. Also once you log on to the computer, the keyring is unlocked automatically.</p>
+<p>The main functions you are likely to use are <code>key_set()</code> to interactively store keys, <code>key_list()</code> to list the service and username for the different keys you have created, and <code>key_get()</code> to retrieve a key. If you want to delete a key, that is done with <code>key_delete()</code>.</p>
+<p>The following code will set the keys for my user. You will want to copy this code to your R Markdown document and change the username. When you run the code, if you have not already entered keys for these two sites, you will be prompted, as shown in r figure_nums(name = “keyring1,” display = “cite”)`.</p>
+<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># get the keys</span>
+<span class="va">myKeys</span> <span class="op">&lt;-</span> <span class="fu">key_list</span><span class="op">(</span><span class="op">)</span>
+
+<span class="co"># Set your password for Human Mortality Database (HMD)</span>
+<span class="co"># does a key exist? if not, create one</span>
+<span class="kw">if</span> <span class="op">(</span><span class="fu">key_list</span><span class="op">(</span>service <span class="op">=</span> <span class="st">"human-mortality-database"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_set</a></span><span class="op">(</span>
+        service <span class="op">=</span> <span class="st">"human-mortality-database"</span>,
+        username <span class="op">=</span> <span class="st">"phurvitz@uw.edu"</span>
+    <span class="op">)</span>
+    <span class="co"># Enter your HMD password in the prompt</span>
+<span class="op">}</span>
+
+<span class="co"># Set your password for Human Fertility Database (HFD)</span>
+<span class="kw">if</span> <span class="op">(</span><span class="fu">key_list</span><span class="op">(</span>service <span class="op">=</span> <span class="st">"human-fertility-database"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_set</a></span><span class="op">(</span>
+        service <span class="op">=</span> <span class="st">"human-fertility-database"</span>,
+        username <span class="op">=</span> <span class="st">"phurvitz@uw.edu"</span>
+    <span class="op">)</span>
+    <span class="co"># Enter your HFD password in the prompt</span>
+<span class="op">}</span></code></pre></div>
+<div class="inline-figure"><img src="images/week02/keyring01.png"></div>
+<p><em>Figure 2: The keyring password storage dialogue</em></p>
+<p>Once the keys are stored, the service and username can be shown with <code>key_list()</code>:</p>
+<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">key_list</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>##                    service        username
+## 1 human-fertility-database phurvitz@uw.edu
+## 2 human-mortality-database phurvitz@uw.edu</code></pre>
+<p>Within your code, rather than storing any passwords, you can access the password, for example, to get 1 year x 1 year death rates for Israel:</p>
+<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ISR_mx</span> <span class="op">&lt;-</span> <span class="fu">HMDHFDplus</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHMDweb.html">readHMDweb</a></span><span class="op">(</span>
+    <span class="co"># data for Israel</span>
+    CNTRY <span class="op">=</span> <span class="st">"ISR"</span>,
+    <span class="co"># mortality 1 year age by 1 year interval</span>
+    item <span class="op">=</span> <span class="st">"Mx_1x1"</span>,
+    <span class="co"># get my username</span>
+    username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu">pull</span><span class="op">(</span><span class="va">username</span><span class="op">)</span>,
+    password <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_get</a></span><span class="op">(</span>
+        service <span class="op">=</span> <span class="st">"human-mortality-database"</span>,
+        username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span><span class="op">$</span><span class="va">username</span>
+    <span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+<p>Or to get the total number of live births from Japan:</p>
+<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">JPN_livebirths</span> <span class="op">&lt;-</span> <span class="fu">HMDHFDplus</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHFDweb.html">readHFDweb</a></span><span class="op">(</span>
+    <span class="co"># data for Japan</span>
+    CNTRY <span class="op">=</span> <span class="st">"JPN"</span>,
+    <span class="co"># live births</span>
+    item <span class="op">=</span> <span class="st">"totbirthsRR"</span>,
+    <span class="co"># get my username</span>
+    username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu">pull</span><span class="op">(</span><span class="va">username</span><span class="op">)</span>,
+    password <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_get</a></span><span class="op">(</span>
+        service <span class="op">=</span> <span class="st">"human-mortality-database"</span>,
+        username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span><span class="op">$</span><span class="va">username</span>
+    <span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+<p>The benefit to this method is that the password is read on the fly during the data download process and is not stored in code. Also if you were to save your R session, the password would not be stored as an object.</p>
+<p>Download Ben’s example for how to access the Human Mortality data using <a href="">HMDHFplus</a>
+<a href="https://raw.githubusercontent.com/hanowell/uwsoc533a/main/gists/HMDHFDplus-gist.R">HMDHFDplus-gist.R</a>. Here is an annotated version:</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb206-1"><a href="week2.html#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># load required packages</span></span>
+<span id="cb206-2"><a href="week2.html#cb206-2" aria-hidden="true" tabindex="-1"></a>library(HMDHFDplus)</span>
+<span id="cb206-3"><a href="week2.html#cb206-3" aria-hidden="true" tabindex="-1"></a>library(keyring)</span>
+<span id="cb206-4"><a href="week2.html#cb206-4" aria-hidden="true" tabindex="-1"></a>library(tidyverse)</span>
+<span id="cb206-5"><a href="week2.html#cb206-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb206-6"><a href="week2.html#cb206-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># note to see country codes, </span></span>
+<span id="cb206-7"><a href="week2.html#cb206-7" aria-hidden="true" tabindex="-1"></a><span class="fu"># https://www.mortality.org/cgi-bin/hmd/DataAvailability.php</span></span>
+<span id="cb206-8"><a href="week2.html#cb206-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb206-9"><a href="week2.html#cb206-9" aria-hidden="true" tabindex="-1"></a><span class="fu"># Running for a single country with item left NULL lists available series</span></span>
+<span id="cb206-10"><a href="week2.html#cb206-10" aria-hidden="true" tabindex="-1"></a><span class="fu"># for that country and ask for user entry of desired item</span></span>
+<span id="cb206-11"><a href="week2.html#cb206-11" aria-hidden="true" tabindex="-1"></a><span class="fu"># HMDHFDplus::readHMDweb(</span></span>
+<span id="cb206-12"><a href="week2.html#cb206-12" aria-hidden="true" tabindex="-1"></a><span class="fu">#   CNTRY = "USA",</span></span>
+<span id="cb206-13"><a href="week2.html#cb206-13" aria-hidden="true" tabindex="-1"></a><span class="fu">#   username = keyring::key_list("human-mortality-database")$username,</span></span>
+<span id="cb206-14"><a href="week2.html#cb206-14" aria-hidden="true" tabindex="-1"></a><span class="fu">#   password = keyring::key_get(</span></span>
+<span id="cb206-15"><a href="week2.html#cb206-15" aria-hidden="true" tabindex="-1"></a><span class="fu">#     service = "human-mortality-database",</span></span>
+<span id="cb206-16"><a href="week2.html#cb206-16" aria-hidden="true" tabindex="-1"></a><span class="fu">#     username = keyring::key_list("human-mortality-database")$username</span></span>
+<span id="cb206-17"><a href="week2.html#cb206-17" aria-hidden="true" tabindex="-1"></a><span class="fu">#   )</span></span>
+<span id="cb206-18"><a href="week2.html#cb206-18" aria-hidden="true" tabindex="-1"></a><span class="fu"># )</span></span>
+<span id="cb206-19"><a href="week2.html#cb206-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb206-20"><a href="week2.html#cb206-20" aria-hidden="true" tabindex="-1"></a><span class="fu"># Function to download a specified HMD data set item for a single county</span></span>
+<span id="cb206-21"><a href="week2.html#cb206-21" aria-hidden="true" tabindex="-1"></a><span class="fu"># the country code is referenced as "CNTRY"</span></span>
+<span id="cb206-22"><a href="week2.html#cb206-22" aria-hidden="true" tabindex="-1"></a><span class="fu"># the "item" is the base name of the link with ".txt" removed. For example,</span></span>
+<span id="cb206-23"><a href="week2.html#cb206-23" aria-hidden="true" tabindex="-1"></a><span class="fu"># https://www.mortality.org/hmd/ISR/STATS/Mx_1x1.txt</span></span>
+<span id="cb206-24"><a href="week2.html#cb206-24" aria-hidden="true" tabindex="-1"></a><span class="fu">#                                         Mx_1x1       &lt;&lt;- this is the item for 1 year x 1 year death rates</span></span>
+<span id="cb206-25"><a href="week2.html#cb206-25" aria-hidden="true" tabindex="-1"></a>read_hmd_country &lt;- function(CNTRY, item) {</span>
+<span id="cb206-26"><a href="week2.html#cb206-26" aria-hidden="true" tabindex="-1"></a>  HMDHFDplus::readHMDweb(</span>
+<span id="cb206-27"><a href="week2.html#cb206-27" aria-hidden="true" tabindex="-1"></a>    # the country from the function call</span>
+<span id="cb206-28"><a href="week2.html#cb206-28" aria-hidden="true" tabindex="-1"></a>    CNTRY = CNTRY,</span>
+<span id="cb206-29"><a href="week2.html#cb206-29" aria-hidden="true" tabindex="-1"></a>    # the item to download</span>
+<span id="cb206-30"><a href="week2.html#cb206-30" aria-hidden="true" tabindex="-1"></a>    item = item,</span>
+<span id="cb206-31"><a href="week2.html#cb206-31" aria-hidden="true" tabindex="-1"></a>    # the username from this key's record</span>
+<span id="cb206-32"><a href="week2.html#cb206-32" aria-hidden="true" tabindex="-1"></a>    username = keyring::key_list("human-mortality-database")$username,</span>
+<span id="cb206-33"><a href="week2.html#cb206-33" aria-hidden="true" tabindex="-1"></a>    # the password for this key's record</span>
+<span id="cb206-34"><a href="week2.html#cb206-34" aria-hidden="true" tabindex="-1"></a>    password = keyring::key_get(</span>
+<span id="cb206-35"><a href="week2.html#cb206-35" aria-hidden="true" tabindex="-1"></a>      service = "human-mortality-database",</span>
+<span id="cb206-36"><a href="week2.html#cb206-36" aria-hidden="true" tabindex="-1"></a>      username = keyring::key_list("human-mortality-database")$username</span>
+<span id="cb206-37"><a href="week2.html#cb206-37" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb206-38"><a href="week2.html#cb206-38" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb206-39"><a href="week2.html#cb206-39" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb206-40"><a href="week2.html#cb206-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb206-41"><a href="week2.html#cb206-41" aria-hidden="true" tabindex="-1"></a><span class="fu"># Help function to list the available countries</span></span>
+<span id="cb206-42"><a href="week2.html#cb206-42" aria-hidden="true" tabindex="-1"></a><span class="fu"># this generates a vector of all country abbreviations</span></span>
+<span id="cb206-43"><a href="week2.html#cb206-43" aria-hidden="true" tabindex="-1"></a>countries &lt;- HMDHFDplus::getHMDcountries()</span>
+<span id="cb206-44"><a href="week2.html#cb206-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb206-45"><a href="week2.html#cb206-45" aria-hidden="true" tabindex="-1"></a><span class="fu"># Download a data set iteratively for all countries using purrr::map()</span></span>
+<span id="cb206-46"><a href="week2.html#cb206-46" aria-hidden="true" tabindex="-1"></a><span class="fu"># In this case, age-specific mortality in 1-year periods x 1-year age groups</span></span>
+<span id="cb206-47"><a href="week2.html#cb206-47" aria-hidden="true" tabindex="-1"></a><span class="fu"># for all 1-year periods available</span></span>
+<span id="cb206-48"><a href="week2.html#cb206-48" aria-hidden="true" tabindex="-1"></a><span class="fu"># output is a data frame named "mx_1x1"</span></span>
+<span id="cb206-49"><a href="week2.html#cb206-49" aria-hidden="true" tabindex="-1"></a>mx_1x1 &lt;- countries %&gt;%</span>
+<span id="cb206-50"><a href="week2.html#cb206-50" aria-hidden="true" tabindex="-1"></a>    # Returns a list of data.frames, adding a column for country code to each</span>
+<span id="cb206-51"><a href="week2.html#cb206-51" aria-hidden="true" tabindex="-1"></a>    # the map() function performs a run of Ben's read_hmd_country() function for each listed country</span>
+<span id="cb206-52"><a href="week2.html#cb206-52" aria-hidden="true" tabindex="-1"></a>    purrr::map(function(country) {</span>
+<span id="cb206-53"><a href="week2.html#cb206-53" aria-hidden="true" tabindex="-1"></a>        # the item to read is 1 x 1 death rates</span>
+<span id="cb206-54"><a href="week2.html#cb206-54" aria-hidden="true" tabindex="-1"></a>        read_hmd_country(country, "Mx_1x1") %&gt;%</span>
+<span id="cb206-55"><a href="week2.html#cb206-55" aria-hidden="true" tabindex="-1"></a>            # this adds the column "country" storing the country ISO code</span>
+<span id="cb206-56"><a href="week2.html#cb206-56" aria-hidden="true" tabindex="-1"></a>            dplyr::mutate(country = country)</span>
+<span id="cb206-57"><a href="week2.html#cb206-57" aria-hidden="true" tabindex="-1"></a>    }) %&gt;%</span>
+<span id="cb206-58"><a href="week2.html#cb206-58" aria-hidden="true" tabindex="-1"></a>    # Combines the data.frames into a single data.frame</span>
+<span id="cb206-59"><a href="week2.html#cb206-59" aria-hidden="true" tabindex="-1"></a>    dplyr::bind_rows() %&gt;% </span>
+<span id="cb206-60"><a href="week2.html#cb206-60" aria-hidden="true" tabindex="-1"></a>    # Phil added this to make it a tibble</span>
+<span id="cb206-61"><a href="week2.html#cb206-61" aria-hidden="true" tabindex="-1"></a>    tibble()</span></code></pre></div>
+<hr>
 <h4>
 Source code for this document
-<a class="anchor" aria-label="anchor" href="#captioner-for-any-captioning-and-cross-referencing-figures-and-tables"><i class="fas fa-link"></i></a>
+<a class="anchor" aria-label="anchor" href="#keyring"><i class="fas fa-link"></i></a>
 </h4>
-<p>Rendered at <tt>2022-01-08 17:59:39</tt></p>
+<p>Rendered at <tt>2022-01-13 19:50:19</tt></p>
 <p>Source code: <a href="02-week02.Rmd">02-week02.Rmd</a></p>
 <pre><code># Week 2 {#week2}
+This session covers the basics of creating R Markdown documents. We will also cover the [Keyring](https://cran.r-project.org/web/packages/keyring/index.html) package for securely storing passwords and other secrets that one would not want to hard-code into R documents. Finally, we will introduce the Human Mortality and Human Fertility databases that will be used in CSDE 533.
+
+For this class session, we will be building up an R Markdown document using various code chunks copied and pasted from this page.
+
+Download the file [week02.Rmd](files/week02/week02.Rmd) and use that as the base. Change the second line in the YAML header so it uses your name and your web site. See [UW Students Web Server](https://students.washington.edu/) if you do not have a web site.
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-pacman::p_load(tidyverse, magrittr, knitr, kableExtra, readstata13, stargazer, pander, captioner)
+pacman::p_load(tidyverse, magrittr, knitr, kableExtra, readstata13, stargazer, pander, captioner, keyring, HMDHFDplus)
 
 # captions
-figure_nums &lt;- captioner(prefix = "figure")
-table_nums &lt;- captioner(prefix = "table")
+figure_nums &lt;- captioner(prefix = "Figure")
+table_nums &lt;- captioner(prefix = "Table")
 ```
 
 &lt;h2&gt;Topics:&lt;/h2&gt;
-* [Code blocks in R](#rmdcodeblocks)
-* [Graphs in R Markdown](#rmdgraphicss)
+* [Code chunks in R](#rmdcodeblocks)
+* [Graphs in R Markdown](#rmdgraphics)
 * [Tables in R Markdow](#rmdtables)
 * [Equations in R Markdown](#rmdequations)
 * [Captions and cross-references in R Markdown](#rmdcaptions)
+* [Keyring for storing passwords and other secrets](#keyring)
 * [Data sets:](#datasets002)
     * Data:
-        * [Human Mortality Database](https://www.mortality.org/)
-        * [Human Fertility Database](https://www.humanfertility.org/cgi-bin/main.php)
+        * Human Mortality Database
+        * Human Fertility Database
 
 
 ## Code to run for the in-class exercise
@@ -2788,7 +3173,53 @@ For the exercise in class, download [week02.R](r_code/week02.R), which we will u
 
 ## R Markdown 
 
-### Code blocks {#rmdcodeblocks}
+### Code chunks {#rmdcodeblocks}
+Code chunks are blocks of text that include R code. As the R Markdown file is rendered, the code is run. The code can run R routines to perform any number of tasks, including analytics, printing tables, and generating graphics. Anything you would do in a regular R file can be placed in the code chunks. Code chunks can print outputs (tables, figures), but they do not necessarily always do; for example, your code could generate a summary of a raw data set, export to a CSV file, and zip the CSV file. You could then "manually" print a hyperlink in your output.
+
+In RStudio, a code chunk can be added to an R Markdown source file with the keystroke combination CTRL-ALT-i
+
+
+#### Code chunk structure
+
+Code chunks are designated by delimiting the code with the characters ` ```{r}` to open the block and ` ``` ` to close the block.
+
+There are a number of additional options that can be included in the `{r}` opening delimiter, see [Chunk options and package options](https://yihui.org/knitr/options/). Many options are set by default and require being set explicitly to select any option other than the default.
+
+For example, the code chunk can be not run with the `eval=FALSE` option. Or if the code chunk generates a graphic, the `fig.cap` option can be used to print a caption.
+
+For example, the following code chunk creates a single element vector `a` with the value of `2`.
+
+````
+```{r, eval=TRUE}`r ''`
+a &lt;- 1 + 1
+```
+````
+
+### Inline code
+```{r, echo=FALSE}
+# read this for later
+etdata &lt;- read.csv("https://raw.githubusercontent.com/teuschb/hr_data/master/datasets/turnover_babushkin.csv")
+```
+
+Inline code is designated using this type of syntax `` ``r ''`r R_CODE` ``, where `R_CODE` represents a statement to be evaluated and printed inline. 
+
+For example, to get the mean age from the Babushkin data, the `R_CODE` would read
+
+```md
+mean(etdata$age) %&gt;% round(1)
+```
+
+That is, in the document one would write:
+
+```{md}
+The mean age of the subjects in the Babushkin data was `r mean(etdata$age) %&gt;% round(1)` years.
+```
+
+which renders to 
+
+```
+The mean age of the subjects in the Babushkin data was `r mean(etdata$age) %&gt;% round(1)` years.
+```
 
 ### Graphics in R Markdown {#rmdgraphics}
 Data-driven graphics in Rmd files are typically created as base R graphics or with the `ggplot2` package. This tutorial is not intended to provide anywhere near a comprehensive treatment of creating graphics from data, but will provide instruction on some options for creating and including data-driven graphics as well as inserting graphics from image files.
@@ -2799,26 +3230,28 @@ See [Tips and tricks for working with images and figures in R Markdown documents
 To include base R graphics, simply place the code to generate the graphic in an R code block, e.g., using the Add Health data from last week ([AHWave1_v1.dta](data/AHWave1_v1.dta)):
 
 ```{r, comment='', echo=FALSE}
-cat(readLines("files/rmd_insert_text_01.txt"), sep = '\n')
+cat(readLines("files/week02/rmd_insert_text_01.txt"), sep = "\n")
 ```
 
 ... which will render the graph:
 
 ```{r, echo=FALSE, warning=FALSE}
-# since loading the data takes awhile, only do this if necessary
-if(!exists("dat")){
+# since loading the data takes awhile, only load the data if necessary -- won't load if it was done already
+if (!exists("dat")) {
     dat &lt;- read.dta13("data/AHwave1_v1.dta")
 }
 # birth year = h1gi1y
 # drop "Refused" birth year
 # for birth year and interview year, replace anything before white space, convert to numeric
 # subtract interview year - birth year
-ages &lt;- dat %&gt;% 
-    filter(! str_detect(h1gi1y, "Refused")) %&gt;% 
-    select(iyear, h1gi1y) %&gt;% 
-    mutate(yi = str_replace(iyear, ".*\\s", "") %&gt;% as.numeric(),
-           yb = str_replace(h1gi1y, ".*\\s", "") %&gt;% as.numeric(),
-           age = yi - yb)
+ages &lt;- dat %&gt;%
+    filter(!str_detect(h1gi1y, "Refused")) %&gt;%
+    select(iyear, h1gi1y) %&gt;%
+    mutate(
+        yi = str_replace(iyear, ".*\\s", "") %&gt;% as.numeric(),
+        yb = str_replace(h1gi1y, ".*\\s", "") %&gt;% as.numeric(),
+        age = yi - yb
+    )
 hist(ages$age, xlab = "age (years)", las = 1)
 ```
 
@@ -2827,8 +3260,12 @@ The `ggplot2` package creates compelling graphics that use a common syntax. The 
 
 Following the previous example:
 
-```{r}
-# how many unique bins? 
+```{r, comment='', echo=FALSE}
+cat(readLines("files/week02/geom_histogram.txt"), sep = "\n")
+```
+
+```{r, echo=FALSE}
+# how many unique bins?
 bins &lt;- length(unique(ages$age))
 
 # create the graphic
@@ -2839,6 +3276,17 @@ g &lt;- ggplot(data = ages, mapping = aes(x = age)) +
 print(g)
 ```
 
+The following code generates a box plot from the Babushkin employee turnover data. Because the code chunk includes `fig.cap = "Box plot of Babushkin data, self control by profession"`, a caption is automatically placed below the figure.
+
+```{r, comment='', echo=FALSE}
+cat(readLines("files/week02/babushkin_boxplot.txt"), sep = "\n")
+```
+
+```{r, fig.cap = "Box plot of Babushkin data, self control by profession", echo=FALSE}
+ggplot(data = etdata, aes(x = reorder(profession, selfcontrol), y = selfcontrol)) +
+    geom_boxplot() +
+    coord_flip()
+```
 
 #### Embedding graphics files
 Journals frequently require graphics files to be submitted separately from the manuscript. In this case, the graphic can be created and saved as a file and then inserted in the Rmd using code, but also accessed as a a stand-alone file. Let's take the previous example, but add correlation coefficients and other embellishments, create a graphics file and add the graphics into the Rmd.
@@ -2859,7 +3307,7 @@ hist(ages$age, xlab = "age (years)", las = 1)
 x &lt;- dev.off()
 ```
 
-`ggplot2` graphics can be saved using `ggsave()`, e.g., for both PDF and PNG outputs. The `dpi` argument is important for bitmap images.
+`ggplot2` graphics can be saved using `ggsave()`, e.g., for both PDF and PNG outputs. The `dpi` argument is important for bitmap images because it sets the dots per inch, which controls the size of the graphics file.
 
 ```{r}
 ggsave(
@@ -2869,8 +3317,8 @@ ggsave(
 )
 ggsave(
     filename = "ah_age_hist_ggplot.png",
-    plot = g, device = "png", 
-    width = 5, height = 5, 
+    plot = g, device = "png",
+    width = 5, height = 5,
     units = "in", dpi = 300
 )
 ```
@@ -2881,10 +3329,10 @@ Graphics can be added using several methods.
 The `knitr::include_graphics()` function can be used to insert image files, with the caution that inserted PDF files may produce unwanted results. The syntax is:
 
 ```{r, comment='', echo=FALSE}
-cat(readLines("files/rmd_insert_text_02.txt"), sep = '\n')
+cat(readLines("files/week02/rmd_insert_text_02.txt"), sep = "\n")
 ```
 
-and the code chunk can include `out.width`, `out.height` and other options.
+and the code chunk can include `out.width`, `out.height` and other options after the `r` in the first line of the chunk,
 \  
 Here we insert a PDF with no code chunk options, which presents the image with a scroll bar, rather than the full image:
 
@@ -2968,7 +3416,6 @@ Including a percentage of page width:
 
 
 ### Tables in R Markdown {#rmdtables}
-
 We will look at three methods of including tables in R Markdown documents, using the packages `knitr` (with `kableExtra`), `pander`, and `stargazer`.
 
 For the example table, we will use the frequency table of health $\times$ White and African American from Assignment 2:
@@ -2978,32 +3425,34 @@ dat &lt;- readstata13::read.dta13("http://staff.washington.edu/phurvitz/csde502_
 
 
 # ordered factor; use fct_rev to establish the correct ordering where better health ranks higher
-dat %&lt;&gt;% 
+dat %&lt;&gt;%
     mutate(h1gh1 = fct_rev(as.ordered(h1gh1)))
 
 # stratify health; first we need to catch the "don't know" and "refused" as NAs
-dat %&lt;&gt;%  
-    mutate(health = 
-    case_when(
-        h1gh1 &lt;= "(6) Refused" ~ as.character(NA),
-        h1gh1 &gt;  "(3) Good" ~ "high",
-        h1gh1 &lt;= "(3) Good" ~ "low"
-    ))
+dat %&lt;&gt;%
+    mutate(
+        health =
+            case_when(
+                h1gh1 &lt;= "(6) Refused" ~ as.character(NA),
+                h1gh1 &gt; "(3) Good" ~ "high",
+                h1gh1 &lt;= "(3) Good" ~ "low"
+            )
+    )
 
 # tabulate by White
-tabhealth_white &lt;- dat %&gt;% 
-    group_by(health, white = h1gi6a) %&gt;% 
-    summarise(n = n(), .groups = "drop_last") %&gt;% 
+tabhealth_white &lt;- dat %&gt;%
+    group_by(health, white = h1gi6a) %&gt;%
+    summarise(n = n(), .groups = "drop_last") %&gt;%
     mutate("%" = round(n / sum(n) * 100, 2))
 
 # tabulate by African American
-tabhealth_afram &lt;- dat %&gt;% 
-    group_by(health, afram = h1gi6b) %&gt;% 
-    summarise(n = n(), .groups = "drop_last") %&gt;% 
+tabhealth_afram &lt;- dat %&gt;%
+    group_by(health, afram = h1gi6b) %&gt;%
+    summarise(n = n(), .groups = "drop_last") %&gt;%
     mutate("%" = round(n / sum(n) * 100, 2))
 
 # column-bind and remove the second "health" column
-sum_health_white_afram &lt;- cbind(tabhealth_white, tabhealth_afram) %&gt;% 
+sum_health_white_afram &lt;- cbind(tabhealth_white, tabhealth_afram) %&gt;%
     select(-5)
 ```
 
@@ -3018,16 +3467,18 @@ So we add some `kabelExtra` options, :
 
 ```{r}
 kable(sum_health_white_afram,
-      col.names = c("health", "race", "n", "%", "race", "n", "%")) %&gt;% 
-        kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left") 
+    col.names = c("health", "race", "n", "%", "race", "n", "%")
+) %&gt;%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left")
 ```
 
 However, because some column names are duplicated, it is necessary to add some column grouping:
 
 ```{r}
 kable(sum_health_white_afram,
-      col.names = c("health", "race", "n", "%", "race", "n", "%")) %&gt;% 
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left") %&gt;% 
+    col.names = c("health", "race", "n", "%", "race", "n", "%")
+) %&gt;%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left") %&gt;%
     add_header_above(c(" " = 1, "White" = 3, "African American" = 3))
 ```
 
@@ -3035,24 +3486,61 @@ We could also add some row groupings:
 
 ```{r}
 
-sum_health_white_afram %&gt;% 
-    select(-1) %&gt;% 
-    kable(col.names = c("race", "n", "%", "race", "n", "%"), align=c(rep('r',times=6))) %&gt;% 
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left") %&gt;% 
-    add_header_above(c("White" = 3, "African American" = 3)) %&gt;% 
-    pack_rows("health high", 1, 4) %&gt;% 
-    pack_rows("health low", 5, 8) %&gt;% 
+sum_health_white_afram %&gt;%
+    select(-1) %&gt;%
+    kable(col.names = c("race", "n", "%", "race", "n", "%"), align = c(rep("r", times = 6))) %&gt;%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left") %&gt;%
+    add_header_above(c("White" = 3, "African American" = 3)) %&gt;%
+    pack_rows("health high", 1, 4) %&gt;%
+    pack_rows("health low", 5, 8) %&gt;%
     pack_rows("health N/A", 9, 12)
+```
+
+Another simple example using the Babushkin data; the following code: 
+
+```{r, comment='', echo=FALSE}
+cat(readLines("files/week02/etdata_kable.txt"), sep = "\n")
+```
+
+... generates the following table 
+&lt;!-- (`r table_nums(name = "babushkin", display = "cite")`) --&gt;
+:
+
+&lt;!-- _`r table_nums(name = "babushkin", caption = "Babushkin data, tenure by gender and age")`_ --&gt;
+
+```{r, echo=FALSE}
+etdata &lt;- read.csv("https://raw.githubusercontent.com/teuschb/hr_data/master/datasets/turnover_babushkin.csv")
+
+# create 10-year age classes
+etdata %&lt;&gt;%
+    mutate(age_decade = plyr::round_any(age, 10, f = ceiling))
+
+# summarize
+etdata %&gt;%
+    # group by gender and age class
+    group_by(gender, age_decade) %&gt;%
+    # mean and sd
+    summarize(
+        mean_tenure_months = mean(tenure) %&gt;% round(1),
+        sd_tenure_months = sd(tenure) %&gt;% round(1),
+        .groups = "keep"
+    ) %&gt;%
+    # order the output by age and gender
+    arrange(gender, mean_tenure_months) %&gt;%
+    # print it nicely
+    kable() %&gt;%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 #### `stargazer`
 The [`stargazer`](https://cran.r-project.org/web/packages/stargazer/vignettes/stargazer.pdf) package is especially good for PDF outputs, but is fairly limited for HTML output.
 
 ```{r results='asis'}
-stargazer(sum_health_white_afram, 
-          type = "html", 
-          summary = FALSE,
-          rownames = FALSE)
+stargazer(sum_health_white_afram,
+    type = "html",
+    summary = FALSE,
+    rownames = FALSE
+)
 ```
 
 #### `pander`
@@ -3073,7 +3561,7 @@ Here are some options for adding captions:
 Code chunks can include `fig_cap` as an option, as shown below. However, in standard Rmd $\rightarrow$ HTML there does not appear to be a method for cross-referencing. The code chunk would look like
 
 ```{r, comment='', echo=FALSE}
-cat(readLines("files/rmd_insert_text_03.txt"), sep = '\n')
+cat(readLines("files/week02/rmd_insert_text_03.txt"), sep = "\n")
 ```
 
 ```{r plotcars, fig.cap="Cars: speed and distance", echo=FALSE}
@@ -3121,7 +3609,7 @@ Which renders a file:
 
 ![](images/week03/tab_ref.png)
 
-#### Equations {# rmdequations}
+#### Equations {#rmdequations}
 Equations should be numbered in manuscripts. Using `bookdown` makes this quite easy. The equations themselves require $\LaTeX$ syntax. There are numerous web sites with examples and tutorials for creating mathematical expressions with $\LaTeX$ In this example, we include Einstein's famous equation:
 
 &lt;pre&gt;
@@ -3192,7 +3680,7 @@ Although this method requires a bit more coding, it allows great flexibility. A 
 As shown in `r figure_nums(name = "ageplot", display = "cite")`, the distribution of age has a slight negative skew.
 
 ```{r, fig.width=3, fig.height=3}
-# how many unique bins? 
+# how many unique bins?
 bins &lt;- length(unique(ages$age))
 
 # create the graphic
@@ -3210,18 +3698,177 @@ Similarly, we can present the same data as a frequency table, as shown in `r tab
 _`r table_nums(name = "agetab", caption = "Add Health age frequency table")`_
 
 ```{r}
-ages %&gt;% 
-    group_by(age) %&gt;% 
-    summarise(n = n()) %&gt;% 
-    mutate(cumsum = cumsum(n),
+ages %&gt;%
+    group_by(age) %&gt;%
+    summarise(n = n()) %&gt;%
+    mutate(
+        cumsum = cumsum(n),
         "%" = round(n / sum(n) * 100, 1),
-        "cum %" = round(cumsum(n / sum(n) * 100), 1)) %&gt;% 
-    kable() %&gt;% 
-    kable_styling(bootstrap_options = 
-        c("striped", "hover", "condensed", "responsive"), 
-        full_width = F, 
-        position = "left") 
+        "cum %" = round(cumsum(n / sum(n) * 100), 1)
+    ) %&gt;%
+    kable() %&gt;%
+    kable_styling(
+        bootstrap_options =
+            c("striped", "hover", "condensed", "responsive"),
+        full_width = F,
+        position = "left"
+    )
 ```
+
+
+## Data sets: {#datasets002}
+In preparation for some later work, go to the following web sites and create a user profile. This will require that you establish a username and password for both sites if you have not done so already. Make a note of your username and password for these sites! You will need them later. If you are not using a password manager, you should! Highly recommended: [KeePass Password Safe](https://keepass.info/). You can store the password database on DropBox or OneDrive and you will always have access to your passwords.
+
+* [Human Mortality Database](https://www.mortality.org/)
+* [Human Fertility Database](https://www.humanfertility.org/cgi-bin/main.php)
+
+## Keyring {#keyring}
+The [Keyring](https://cran.r-project.org/web/packages/keyring/index.html) package is used for accessing credentials that you would not want to store in your R code. We will use the passwords for the Human Mortality and Human Fertility databases (covered below) as the example for how to use this package.
+
+The keyring is stored as part of your user profile on the computer. Therefore if you are using multiple computers (e.g., your own computer as well as the CSDE terminal server), you will need to repeat the steps of setting keys. The keys are stored at the operating system level, so once set, they do not need to be reset, and any R session will have access to the keys. Also once you log on to the computer, the keyring is unlocked automatically.
+
+The main functions you are likely to use are `key_set()` to interactively store keys, `key_list()` to list the service and username for the different keys you have created, and `key_get()` to retrieve a key. If you want to delete a key, that is done with `key_delete()`.
+
+The following code will set the keys for my user. You will want to copy this code to your R Markdown document and change the username. When you run the code, if you have not already entered keys for these two sites, you will be prompted, as shown in r figure_nums(name = "keyring1", display = "cite")`.
+
+```{r}
+# get the keys
+myKeys &lt;- key_list()
+
+# Set your password for Human Mortality Database (HMD)
+# does a key exist? if not, create one
+if (key_list(service = "human-mortality-database") %&gt;% nrow() == 0) {
+    keyring::key_set(
+        service = "human-mortality-database",
+        username = "phurvitz@uw.edu"
+    )
+    # Enter your HMD password in the prompt
+}
+
+# Set your password for Human Fertility Database (HFD)
+if (key_list(service = "human-fertility-database") %&gt;% nrow() == 0) {
+    keyring::key_set(
+        service = "human-fertility-database",
+        username = "phurvitz@uw.edu"
+    )
+    # Enter your HFD password in the prompt
+}
+```
+
+![](images/week02/keyring01.png)
+
+_`r figure_nums(name = "keyring1", caption = "The keyring password storage dialogue")`_
+
+Once the keys are stored, the service and username can be shown with `key_list()`:
+
+```{r}
+key_list()
+```
+
+Within your code, rather than storing any passwords, you can access the password, for example, to get 1 year x 1 year death rates for Israel:
+
+```{r}
+ISR_mx &lt;- HMDHFDplus::readHMDweb(
+    # data for Israel
+    CNTRY = "ISR",
+    # mortality 1 year age by 1 year interval
+    item = "Mx_1x1",
+    # get my username
+    username = keyring::key_list("human-mortality-database") %&gt;% pull(username),
+    password = keyring::key_get(
+        service = "human-mortality-database",
+        username = keyring::key_list("human-mortality-database")$username
+    )
+)
+```
+
+Or to get the total number of live births from Japan:
+
+```{r}
+JPN_livebirths &lt;- HMDHFDplus::readHFDweb(
+    # data for Japan
+    CNTRY = "JPN",
+    # live births
+    item = "totbirthsRR",
+    # get my username
+    username = keyring::key_list("human-mortality-database") %&gt;% pull(username),
+    password = keyring::key_get(
+        service = "human-mortality-database",
+        username = keyring::key_list("human-mortality-database")$username
+    )
+)
+```
+
+The benefit to this method is that the password is read on the fly during the data download process and is not stored in code. Also if you were to save your R session, the password would not be stored as an object.
+
+Download Ben's example for how to access the Human Mortality data using [HMDHFplus]()
+[HMDHFDplus-gist.R](https://raw.githubusercontent.com/hanowell/uwsoc533a/main/gists/HMDHFDplus-gist.R). Here is an annotated version:
+
+```{md}
+# load required packages
+library(HMDHFDplus)
+library(keyring)
+library(tidyverse)
+
+# note to see country codes, 
+# https://www.mortality.org/cgi-bin/hmd/DataAvailability.php
+
+# Running for a single country with item left NULL lists available series
+# for that country and ask for user entry of desired item
+# HMDHFDplus::readHMDweb(
+#   CNTRY = "USA",
+#   username = keyring::key_list("human-mortality-database")$username,
+#   password = keyring::key_get(
+#     service = "human-mortality-database",
+#     username = keyring::key_list("human-mortality-database")$username
+#   )
+# )
+
+# Function to download a specified HMD data set item for a single county
+# the country code is referenced as "CNTRY"
+# the "item" is the base name of the link with ".txt" removed. For example,
+# https://www.mortality.org/hmd/ISR/STATS/Mx_1x1.txt
+#                                         Mx_1x1       &lt;&lt;- this is the item for 1 year x 1 year death rates
+read_hmd_country &lt;- function(CNTRY, item) {
+  HMDHFDplus::readHMDweb(
+    # the country from the function call
+    CNTRY = CNTRY,
+    # the item to download
+    item = item,
+    # the username from this key's record
+    username = keyring::key_list("human-mortality-database")$username,
+    # the password for this key's record
+    password = keyring::key_get(
+      service = "human-mortality-database",
+      username = keyring::key_list("human-mortality-database")$username
+    )
+  )
+}
+
+# Help function to list the available countries
+# this generates a vector of all country abbreviations
+countries &lt;- HMDHFDplus::getHMDcountries()
+
+# Download a data set iteratively for all countries using purrr::map()
+# In this case, age-specific mortality in 1-year periods x 1-year age groups
+# for all 1-year periods available
+# output is a data frame named "mx_1x1"
+mx_1x1 &lt;- countries %&gt;%
+    # Returns a list of data.frames, adding a column for country code to each
+    # the map() function performs a run of Ben's read_hmd_country() function for each listed country
+    purrr::map(function(country) {
+        # the item to read is 1 x 1 death rates
+        read_hmd_country(country, "Mx_1x1") %&gt;%
+            # this adds the column "country" storing the country ISO code
+            dplyr::mutate(country = country)
+    }) %&gt;%
+    # Combines the data.frames into a single data.frame
+    dplyr::bind_rows() %&gt;% 
+    # Phil added this to make it a tibble
+    tibble()
+```
+
+&lt;hr&gt;
 
 &lt;h4&gt;Source code for this document&lt;/h4&gt;
 Rendered at &lt;tt&gt;`r Sys.time()`&lt;/tt&gt;
@@ -3232,7 +3879,6 @@ Source code: [02-week02.Rmd](02-week02.Rmd)
 cat(readLines("02-week02.Rmd"), sep = "\n")
 ```</code></pre>
 
-</div>
 </div>
 </div>
   <div class="chapter-nav">
@@ -3248,13 +3894,16 @@ Topics:
 <li><a class="nav-link" href="#code-to-run-for-the-in-class-exercise"><span class="header-section-number">2.1</span> Code to run for the in-class exercise</a></li>
 <li>
 <a class="nav-link" href="#r-markdown"><span class="header-section-number">2.2</span> R Markdown</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#rmdcodeblocks"><span class="header-section-number">2.2.1</span> Code blocks</a></li>
-<li><a class="nav-link" href="#rmdgraphics"><span class="header-section-number">2.2.2</span> Graphics in R Markdown</a></li>
-<li><a class="nav-link" href="#rmdtables"><span class="header-section-number">2.2.3</span> Tables in R Markdown</a></li>
-<li><a class="nav-link" href="#rmdcaptions"><span class="header-section-number">2.2.4</span> Captions to support tables, figures, and equations</a></li>
-<li><a class="nav-link" href="#captioner-for-any-captioning-and-cross-referencing-figures-and-tables"><span class="header-section-number">2.2.5</span> captioner for any captioning and cross-referencing figures and tables</a></li>
+<li><a class="nav-link" href="#rmdcodeblocks"><span class="header-section-number">2.2.1</span> Code chunks</a></li>
+<li><a class="nav-link" href="#inline-code"><span class="header-section-number">2.2.2</span> Inline code</a></li>
+<li><a class="nav-link" href="#rmdgraphics"><span class="header-section-number">2.2.3</span> Graphics in R Markdown</a></li>
+<li><a class="nav-link" href="#rmdtables"><span class="header-section-number">2.2.4</span> Tables in R Markdown</a></li>
+<li><a class="nav-link" href="#rmdcaptions"><span class="header-section-number">2.2.5</span> Captions to support tables, figures, and equations</a></li>
+<li><a class="nav-link" href="#captioner-for-any-captioning-and-cross-referencing-figures-and-tables"><span class="header-section-number">2.2.6</span> captioner for any captioning and cross-referencing figures and tables</a></li>
 </ul>
 </li>
+<li><a class="nav-link" href="#datasets002"><span class="header-section-number">2.3</span> Data sets:</a></li>
+<li><a class="nav-link" href="#keyring"><span class="header-section-number">2.4</span> Keyring</a></li>
 </ul>
 
       <div class="book-extra">
@@ -3272,7 +3921,7 @@ Topics:
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-01-08 17:59.</p>
+    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-01-13 19:50.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
