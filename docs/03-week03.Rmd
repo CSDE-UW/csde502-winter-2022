@@ -1,21 +1,19 @@
 # Week 3 {#week3}
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-library(tidyverse)
-library(magrittr)
-library(kableExtra)
-library(stargazer)
-library(pander)
-library(psych)
-library(readstata13)
-library(knitr)
-library(pander)
-library(stargazer)
-library(animation)
-library(captioner)
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+pacman::p_load(animation, captioner, kableExtra, knitr, magrittr, pander, pander, psych, readstata13, stargazer, stargazer, tidyverse, tidycensus, tigirs)
 
 table_nums <- captioner(prefix = "Table")
 figure_nums <- captioner(prefix = "Figure")
+
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color,
+      x)
+  } else x
+}
 ```
 
 <style>
@@ -27,52 +25,15 @@ figure_nums <- captioner(prefix = "Figure")
 
 <h2>Topics: Graphics and Tables in R; Captions and cross-references; Census data; Mapping; Human Mortality Database</h2>
 
-[`tidycensus`](#tidycensus): Load US Census Boundary and Attribute Data as ‘tidyverse’ and ‘sf’-Ready Data Frames
-[`idbr`](#irbr): R Interface to the US Census Bureau International Data Base API
-[`sf`](#sf): Simple Features for R: Simple Features (GIS) for R
-[`leaflet`](#leaflet): Create Interactive Web Maps with the JavaScript ‘Leaflet’ Library
-[`mapview`](#mapview): Interactive Viewing of Spatial Data in R
-[`demogR`](#demogR): Analysis of Age-Structured Demographic Models
-[`demography`](#demography): Forecasting Mortality, Fertility, Migration and Population Data; An R intro to the demography package)
-[`flextable`](#flextable) and [`DT`](#DT): Pretty printing of tabular data
-Data:
-Accessing Human Mortality Database life tables using HMDHFDplus
-
-* [Ben's code for reading HMD and HFD data](#hanowell_hmdhfd)
-
-## Keyring: securely store secrets
-
-[Keyring](https://cran.r-project.org/web/packages/keyring/)
-
-
-## Ben's code for reading HMD and HFD data {#hanowell_hmdhfd}
-[Ben's code for reading HMD and HFD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R)
-
-
-
-
-
-
-    * [`tidycensus`](https://walker-data.com/tidycensus/): download census data easily
-    * [`idbr: R Interface to the US Census Bureau International Data Base API`](https://cran.r-project.org/web/packages/idbr/index.html)
-    * [`sf: Simple Features for R`](https://cran.r-project.org/web/packages/sf/): GIS in R!
-    * [`leaflet: Create Interactive Web Maps with the JavaScript 'Leaflet' Library`](https://cran.r-project.org/web/packages/leaflet/)
-    * [`mapview: Interactive Viewing of Spatial Data in R`](https://cran.r-project.org/web/packages/mapview/)
-    * Life Tables with [`demogR`](https://cran.r-project.org/web/packages/demogR/index.html), [`demography`](https://cran.r-project.org/web/packages/demography/) ([`demography`](https://rpubs.com/Timexpo/487053))
-    * Data:
-        * Accessing Muman Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
-        * Pretty printouts of life tables with `flextable` and `DT`
-
-
-
-
-
-
-
-
-Because of its extensibility, HTML can be considered a preferred output from R Markdown. However, document formats are often necessary, particularly for term papers, theses/dissertations, and manuscripts for submission to scholarly journals. In this week's lesson, we will focus on the creation of these two output types, including adding bibliographies (which also applies to HTML output), and some basic `ggplot` graphics. 
-
-For both PDF and Word output, much of the structure of your Rmd files will be the same as for HTML output. The major difference is how tables are handled, which we will explore in some detail. Static graphics are handled similarly across all output formats, other than HTML output can support dynamic graphics, such as the Leaflet map we saw in the first lesson, and responsive graphics as in [Shiny](https://shiny.rstudio.com/).
+* [`tidycensus`](#tidycensus): Load US Census Boundary and Attribute Data as ‘tidyverse’ and ‘sf’-Ready Data Frames
+* [`tigris`](#tidycensus): Load Census TIGER/Line Shapefiles
+* [`idbr`](#irbr): R Interface to the US Census Bureau International Data Base API
+* [`sf`](#sf): Simple Features for R: Simple Features (GIS) for R
+* [`leaflet`](#leaflet): Create Interactive Web Maps with the JavaScript ‘Leaflet’ Library
+* [`mapview`](#mapview): Interactive Viewing of Spatial Data in R
+* [`demogR`](#demogR): Analysis of Age-Structured Demographic Models
+* [`demography`](#demography): Forecasting Mortality, Fertility, Migration and Population Data; An R intro to the demography package)
+* [`flextable`](#flextable) and [`DT`](#DT): Pretty printing of tabular data
 
 
 ## Getting US Census data with `tigris`, `tidycensus`
@@ -80,25 +41,57 @@ Dealing with US Census data can be overwhelming, particularly if using the raw t
 
 `tidycensus` uses [`tigris`](https://www.rdocumentation.org/packages/tigris/versions/1.0), which downloads the geographic data portion of the census files.
 
-A simple example will download the variables representing the count of White, Black/African American, American Indian/Native American, and Asian persons from the American Community Survey (ACS) data for King County in 2019. For this example to run, you need to have your US Census API key installed, e.g., 
+A simple example will download the variables representing the count of White, Black/African American, American Indian/Native American, and Asian persons from the American Community Survey (ACS) data for King County in 2019. 
 
-<tt>
-tidycensus::census_api_key("*****************", install = TRUE)<br>
-<font color="red">
-Your API key has been stored in your .Renviron and can be accessed by Sys.getenv("CENSUS_API_KEY").<br>
+### US Census API key installation
+For this example to run, you need to have your US Census API key installed, e.g., 
+
+<pre>
+tidycensus::census_api_key("*****************", install = TRUE)
+<div style='color: red;'>Your API key has been stored in your .Renviron and can be accessed by Sys.getenv("CENSUS_API_KEY").
 To use now, restart R or run `readRenviron("~/.Renviron")`
-</font>
-</tt>
+</pre>
+</div>
 
-The labels from the census API are:
+The option `install = TRUE` writes a line in your `~/.Renviron` file (`~/` is shorthand for "home directory"; under Windows typically your `C:\users\username\Documents` folder; under MacOS, typically `/home/username`). For example my `.Renviron` file (`r figure_nums(name = "apikey", display = "cite")`) shows the API key.
 
+![](images/week03/2022-01-20 12_34_44-Window.png)
+\    
+_`r figure_nums(name = "apikey", caption = "Census API key stored in ~/.Renviron")`
+
+With the API key installed, you can simply load the `tidycensus` package and download data. When R starts, it reads this file and creates system environment variables for the R session; in this case I'm setting two variables (TIGRIS_CACHE_DIR and CENSUS_API_KEY). You could set other system environment variables to be active in R by adding them to this file.
+
+### Census variables
+`tidycensus` has a helper function for obtaining the lists of variables and their descriptions. This is necessary because the list of variables is quite long and the variable names are codes that are functionally unintelligible.
+
+Census variable lists are obtained using the `load_variables()` function, which is used to specify the year, data set, and whether or not to cache results. Because the variable lists are large, it may make sense to cache the lists.
+
+Here we will list the variables for the 2019 ACS 5-year average data:
+
+```{r}
+v2019 <- load_variables(year = 2019, dataset = "acs5", cache = TRUE)
 ```
-"Estimate!!Total"                                         
-"Estimate!!Total!!White alone"                            
-"Estimate!!Total!!Black or African American alone"        
-"Estimate!!Total!!American Indian and Alaska Native alone"
-"Estimate!!Total!!Asian alone" 
+
+The table, which has `r nrow(v2019)` records, can then be browsed using the function `View(v2019)`. Using the tabular view in this way makes it convenient to search for variable names or concepts using the filters. For example we can search for the term "race" in the `concept` field, as shown in (`r figure_nums(name = "vnamesearch", display = "cite")`).
+
+![](images/week03/2022-01-20 13_44_12-Window.png)
+\    
+_`r figure_nums(name = "vnamesearch", caption = "ACS 5 year variables")`
+
+However, this interface uses only free text searches and will match any record containing the search string, whether or not the search string is the word alone or the whole word. One can use more specific searches using R syntax, for example to list all variables tagged with the concept "RACE", filtering by the explicit string is more specific:
+
+```{r}
+v2019 %>% filter(concept == "RACE") %>% 
+    kable() %>% 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left")
 ```
+
+This shows that the variable for the count of all persons is `B02001_001` and the variables for White alone, Black alone, American Indian/Alaskan Native alone, Asian alone, and some other race alone are `B02001_002`, `B02001_003`, `B02001_004`, `B02001_005`, and `B02001_007`, respectively. One could also use regular expressions to search for desired patterns in the concept.
+
+### Downloading data
+`tidycensus` has two main functions, `get_decennial()` for downloading decennial data and `get_acs()` for downloading American Community Survey (ACS) data. The functions are quite similar in structure.
+
+Here we will define a set of variables using a named vector of variable names.
 
 ```{r, warning=FALSE}
 library(tidycensus)
@@ -110,6 +103,15 @@ census_vars <- c(
     p_n_aian = "B02001_004",
     p_n_asian = "B02001_005"
 )
+```
+
+The "named vector" refers to the elements of the vector having names, for example, the first element below has the name `p_denom_race` and the value "B02001_001". This construction is used so that when the data are downloaded, the resultant data frame will have more readable names.
+ 
+Next, we will download the actual data. Here we will be downloading census tract level data for King County, WA, from the 5 year ACS estimates for the year ending in 2019. We also specify `options(tigris_use_cache=TRUE)` so that any shapefile data downloaded are cached and will not be re-downloaded if not necessary. Note in `r figure_nums(name = "apikey", display = "cite")` I had specified a location where I wanted my tigris cache to be located (`H:/tigris_cache`). Another important option is `output = "wide"`, which generates an output table with one record per census unit and columns representing the variables. A `tidy` output would present a "long" table with repeated records per census unit, one record per variable estimate.
+
+```{r, message=FALSE}
+# cache tigris data
+options(tigris_use_cache=TRUE)
 
 # get the data
 ctdat <- get_acs(
@@ -125,7 +127,14 @@ ctdat <- get_acs(
 )
 ```
 
-A few values are shown in Table \@ref(tab:census), and a simple map is shown in \@ref(fig:ct), with percent African American residents and tract identifier.
+<div style='color: red;'>
+<pre>Getting data from the 2015-2019 5-year ACS
+Using FIPS code '53' for state 'WA'
+Using FIPS code '033' for 'King County'
+</pre>
+</div>
+
+A few values are shown in Table \@ref(tab:census). Because the ACS data include a margin of error (MOE), the estimate is represented with the variable name having the terminal character "E" and the MOE is represented with the variable name having the terminal character "M". The variables are shown with the names we specified earlier. Without the named vector, the downloaded variables would be given the raw variable names, which are generally not helpful. Note also because of the `geometry = TRUE` option, there is a `geometry` column containing geographic data.
 
 ```{r census}
 # print a few records
@@ -134,6 +143,30 @@ ctdat %>%
     kable(caption = "Selected census tract variables from the 5-year ACS from 2019 for King County, WA") %>%
     kable_styling(full_width = FALSE, position = "left")
 ```
+
+An example of data downloaded in "long" format is shown in \@ref(tab:censuslong). Data in this format are more amenable to generating data summaries, but are less useful for mapping because they contain duplicate geometry values, and also because typically other census-unit level data are represented with one record per census unit, which allows for table joins.
+
+```{r censuslong}
+# get the data
+ctdatlong <- get_acs(
+    geography = "tract",
+    variables = census_vars,
+    cache_table = TRUE,
+    year = 2019,
+    output = "tidy",
+    state = "WA",
+    county = "King",
+    geometry = TRUE,
+    survey = "acs5"
+)
+
+ctdatlong %>%
+    head() %>%
+    kable(caption = "Selected census tract variables from the 5-year ACS from 2019 for King County, WA (long format)") %>%
+    kable_styling(full_width = FALSE, position = "left")
+```
+
+Finally, we present a simple map is shown in \@ref(fig:ct), with percent African American residents and tract identifier.
 
 ```{r ct, fig.cap="Percent African American in census tracts in King County, 2019 ACS 5-year estimate", warning=FALSE, message=FALSE}
 library(leaflet)

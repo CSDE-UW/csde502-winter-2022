@@ -11,6 +11,9 @@ library(readstata13)
 <h2>Topics: Functions and sampling</h2>
 This week's topics are functions and sampling, the latter including a cursory treatment of loops and bootstrapping.
 
+* [`demogR`](#demogR): Analysis of Age-Structured Demographic Models
+* [`demography`](#demography): Forecasting Mortality, Fertility, Migration and Population Data; An R intro to the demography package)
+
 ## Environments
 Functions exist in `environments`, which are "frames" or collections containing objects including variables, functions, etc.). There is a global environment (`.GlobalEnv`) that contains all of the data, functions, in the current R session. Those objects can be enumerated with the `ls()` function. 
 

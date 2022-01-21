@@ -1,7 +1,7 @@
 --- 
 title: "UW CSDE 502 A Course Notes"
 author: "Phil Hurvitz"
-date: '2022-01-14 01:31'
+date: '2022-01-21 01:42'
 site: bookdown::bookdown_site
 description: "These are the course notes for Proseminar Winter 2022 (CSDE 502 A) at the University of Washington."
 
@@ -64,6 +64,11 @@ Please come to class promptly at the scheduled time. There will be a 10-minute b
 ### Canvas site {.unnumbered}
 
 The course has a Canvas site [https://canvas.uw.edu/courses/1515226](https://canvas.uw.edu/courses/1515226), which will be used for collection of assignments and distribution of graded assignments. The site may also be used for distribution of data sets used in the course.
+
+### Class e-mail list
+Correspondence among instructor and students should use the class e-mail list, [CSDE 502 Winter 2022](mailto:csde502a_wi22@uw.edu). List archives are available [CSDE 502 Winter 2022 Archives](https://mailman11.u.washington.edu/mailman/private/csde502a_wi22/).
+
+In general, please send any messages you want the entire class to see to the list. If you have a message to the instructor that you don't want others to see, just send the message directly to the instructor. If the answer would be valuable to the rest of the class, the answer will be posted to the class e-mail list and any identification will be removed from the message so the question will appear anonymous.
 :::
 
 ### Class format {.unnumbered}
@@ -247,7 +252,7 @@ This web site was built in R using Rmarkdown and [bookdown](https://cran.r-proje
 <h4>Source code for this document</h4>
 Each of the pages in this book will have a section at the bottom including a link to the source file and the printed source code for the page.
 
-Rendered: 2022-01-14 01:31:38
+Rendered: 2022-01-21 01:42:26
 
 Source code: [index.Rmd](index.Rmd)
 
@@ -332,6 +337,11 @@ Please come to class promptly at the scheduled time. There will be a 10-minute b
 ### Canvas site {.unnumbered}
 
 The course has a Canvas site [https://canvas.uw.edu/courses/1515226](https://canvas.uw.edu/courses/1515226), which will be used for collection of assignments and distribution of graded assignments. The site may also be used for distribution of data sets used in the course.
+
+### Class e-mail list
+Correspondence among instructor and students should use the class e-mail list, [CSDE 502 Winter 2022](mailto:csde502a_wi22@uw.edu). List archives are available [CSDE 502 Winter 2022 Archives](https://mailman11.u.washington.edu/mailman/private/csde502a_wi22/).
+
+In general, please send any messages you want the entire class to see to the list. If you have a message to the instructor that you don't want others to see, just send the message directly to the instructor. If the answer would be valuable to the rest of the class, the answer will be posted to the class e-mail list and any identification will be removed from the message so the question will appear anonymous.
 :::
 
 ### Class format {.unnumbered}

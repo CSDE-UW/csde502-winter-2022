@@ -34,6 +34,7 @@ packages = c(
     "psych",
     "purrr",
     "readstata13",
+    "rmapshaper",
     "rmarkdown",
     "RVerbalExpressions",
     "scales",
