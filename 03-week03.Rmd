@@ -1,12 +1,5 @@
 # Week 3 {#week3}
 
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-pacman::p_load(animation, captioner, idbr, htmltools, kableExtra, knitr, leaflet, leafem, leafpop, magrittr, mapview, pander, pander, psych, readstata13, rmapshaper, sf, stargazer, tidyverse, tidycensus, tigris)
-
-table_nums <- captioner(prefix = "Table")
-figure_nums <- captioner(prefix = "Figure")
-```
-
 <style>
 .border1 {   
     border-width: 1px;   
@@ -14,11 +7,18 @@ figure_nums <- captioner(prefix = "Figure")
     border-style: solid; } 
 </style>
 
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+pacman::p_load(animation, captioner, idbr, htmltools, kableExtra, knitr, leaflet, leafem, leafpop, magrittr, mapview, pander, pander, psych, readstata13, rmapshaper, sf, stargazer, tidyverse, tidycensus, tigris)
+
+table_nums <- captioner(prefix = "Table")
+figure_nums <- captioner(prefix = "Figure")
+```
+
 <h2>Topics</h2>
 
 * [`tidycensus`](#tidycensus): Load US Census Boundary and Attribute Data as ‘tidyverse’ and ‘sf’-Ready Data Frames
 * [`tigris`](#tidycensus): Load Census TIGER/Line Shapefiles
-* [`idbr`](#irbr): R Interface to the US Census Bureau International Data Base API
+* [`idbr`](#idbr): R Interface to the US Census Bureau International Data Base API
 * [`leaflet`](#leaflet): Create Interactive Web Maps with the JavaScript ‘Leaflet’ Library
 * [`mapview`](#mapview): Interactive Viewing of Spatial Data in R
 * [`sf`](#sf): Simple Features for R: Simple Features (GIS) for R
@@ -33,17 +33,17 @@ A simple example will download the variables representing the count of White, Bl
 ### US Census API key installation
 For this example to run, you need to have your US Census API key installed, e.g., 
 
-```
+<tt>
 tidycensus::census_api_key("*****************", install = TRUE)
 Your API key has been stored in your .Renviron and can be accessed by Sys.getenv("CENSUS_API_KEY").
 To use now, restart R or run `readRenviron("~/.Renviron")`
-```
+</tt>
 
 The option `install = TRUE` writes a line in your `~/.Renviron` file (`~/` is shorthand for "home directory"; under Windows typically your `C:\users\username\Documents` folder; under MacOS, typically `/home/username`). For example my `.Renviron` file (`r figure_nums(name = "apikey", display = "cite")`) shows the API key.
 
 ![](images/week03/2022-01-20 12_34_44-Window.png)
 \    
-_`r figure_nums(name = "apikey", caption = "Census API key stored in ~/.Renviron")`
+_`r figure_nums(name = "apikey", caption = "Census API key stored in ~/.Renviron")`_
 
 With the API key installed, you can simply load the `tidycensus` package and download data. When R starts, it reads this file and creates system environment variables for the R session; in this case I'm setting two variables (TIGRIS_CACHE_DIR and CENSUS_API_KEY). You could set other system environment variables to be active in R by adding them to this file.
 
@@ -64,7 +64,7 @@ The table, which has `r nrow(v2019)` records, can then be browsed using the func
 
 ![](images/week03/2022-01-20 13_44_12-Window.png)
 \    
-_`r figure_nums(name = "vnamesearch", caption = "ACS 5 year variables")`
+_`r figure_nums(name = "vnamesearch", caption = "ACS 5 year variables")`_
 
 However, this interface uses only free text searches and will match any record containing the search string, whether or not the search string is the word alone or the whole word. One can use more specific searches using R syntax, for example to list all variables tagged with the concept "RACE", filtering by the explicit string is more specific:
 
@@ -117,7 +117,8 @@ ctdat <- get_acs(
 ctdat %<>% st_transform(4326)
 ```
 
-```Getting data from the 2015-2019 5-year ACS
+```
+Getting data from the 2015-2019 5-year ACS
 Using FIPS code '53' for state 'WA'
 Using FIPS code '033' for 'King County'
 ```
@@ -154,12 +155,14 @@ ctdatlong %>%
     kable_styling(full_width = FALSE, position = "left")
 ```
 
+
 ## Getting US Census International data with `idbr` {#idbr}
 There is also an API for the US Census international data that can be accessed using the [`idbr`](https://cran.r-project.org/web/packages/idbr/index.html) package.
 
 You will need to use your US Census API key to access the data using `idbr`. Here we set the key using the system environment variable so the API key is not stored in plain text:
 
 ```{r}
+# the same census API key is used
 idb_api_key(Sys.getenv("CENSUS_API_KEY"))
 ```
 
@@ -172,11 +175,9 @@ Variables and concepts can be listed using the `idb_variables()` and `idb_concep
 _`r table_nums(name = "idbrvar", caption = "idbr variables")`_
 
 ```{r}
+# print the variables as a table
 variables5 %>% DT::datatable()
 ```
-
-### Downloading IDB data and creating population pyramids
-In this example, we will create a population pyramid for China and India for years 2000 and 2021, following the tutorial [`idbr` README file](https://cran.r-project.org/web/packages/idbr/readme/README.html). The basic `get_idb()` function without `variables` and `concept` arguments downloads population counts.
 
 ```{r pyramid}
 # get data only if necessary
@@ -309,12 +310,12 @@ m %>% addTiles()
 One thing to note is that the `tidyverse::get_...()` functions may not be downloading the most detailed GIS data. Here we compare the data obtained using `tigris::tracts()`, also for King County, WA in 2019 (\@ref(fig:ctcompare)). First, the `tidycensus` map data are clipped at the shore line. Second, there are some differences in the shape and size of tracts in the downtown area. 
 
 ```{r ctcompare, fig.cap="tidyverse generalized tracts versus tigris detailed tracts", warning=FALSE, message=FALSE}
+
 tgtracts_kc_2019 <- tigris::tracts(state = "WA", county = "King", year = 2019)
 tgtracts_kc_2019 %<>%  st_transform(4326)
 
 # the leaflet map
 m <- leaflet(height = "500") %>%
-    # add polygons from tracts
     addPolygons(
         data = ctdat,
         stroke = TRUE,
@@ -333,49 +334,35 @@ m <- leaflet(height = "500") %>%
         colors = c("red", "black"),
         labels = c("tidyverse generalized", "tigris detailed")
     ) %>%
-    addProviderTiles(providers$CartoDB.Positron) %>%
+    addTiles() %>% 
     setView(lng = -122.3603, lat = 47.62231, zoom = 13)
+    
 m
+
 ```
-
-<!--
-# adds a clicker to get extent
-# addEasyButton(easyButton(
-#   states = list(
-#     easyButtonState(
-#       stateName = "unfrozen-markers",
-#       icon = "ion-toggle",
-#       title = "Get Bounding box",
-#       onClick = JS("
-#                    function(btn, map) {
-#                       alert(map.getBounds().getEast() + (map.getBounds().getEast() - map.getBounds().getWest())/2;
-#                       alert(map.getBounds().getWest());
-#                       alert(map.getBounds().getNorth());
-#                       alert(map.getBounds().getSouth());
-#                    }")
-#     )
-#   )
-# ))
--->
-
 
 ## Mapping census data from `tidycensus` and `tigris` using `mapview` {#mapview}
 [`mapview`](https://r-spatial.github.io/mapview/) provides a fast and easy interface for creating interactive maps built on top of the `leaflet` framework. Whereas `leaflet` provides more fundamental controls over mapping, `mapview` will load layers with useful defaults. The map automatically includes the XY location of the mouse pointer at the top of the interface, choices for base map tiles, and when used with the `zcol` argument, color coding based on numerical or categorical variables in the data frame. Here we will create a `mapview` choropleth map of census tracts in King County displaying the ratio of African American to White population counts (`r figure_nums(name = "ctmapview", display = "cite")`). The `popup` argument is used to control which variables are shown in the popup that appears when a feature is clicked.
 
-```{r ctmapview}
-ctdat %>%
-    mutate(afram_white = (p_n_aframE / p_n_whiteE) %>% round(2)) %>%
-    mapview(
+NOTE: There is a problem with `mapview` implemented within R Markdown or Bookdown that does not allow the page to render with `mapview` code. Copy and run the code below. Unfortunately the map will not be rendered in these pages.
+
+```
+ctdat_mv <- ctdat %>%
+    mutate(afram_white = (p_n_aframE / p_n_whiteE) %>% round(2))
+
+mapview(ctdat_mv,
         zcol = "afram_white",
-        popup = popupTable(ctdat,
+        popup = popupTable(ctdat_mv,
             zcol = c("p_n_aframE", "p_n_whiteE")
         )
     )
 ```
+
+
 \    
 _`r figure_nums(name = "ctmapview", caption = "A mapview map of ratio of African American to White population counts in King County, 2019 ACS data")`_
 
-For more things you can do with `mapview` see [mapview](https://r-spatial.github.io/mapview), particulary look at the "Articles" link at the top of the page.
+For more things you can do with `mapview` see [mapview](https://r-spatial.github.io/mapview), in particular, look at the "Articles" link at the top of the page.
 
 ## Simple features: GIS in R {#sf}
 The maps displayed in the sections on [`leaflet`](#leaflet) and [`mapview`](#mapview) are possible because they are using spatially explicit data. When we looked at the contents of the census tract data frames, there was a `geometry` column that contained specially formatted values. The format for these is a standard developed by the [Open Geospatial Consortium (OGC)](https://www.ogc.org/) and the [International Organization for Standardization (ISO)](https://www.iso.org/) . known as "simple features", and includes specifications for how to store and process data representing geographic features.
@@ -482,3 +469,4 @@ Rendered at <tt>`r Sys.time()`</tt>
 ```{r, comment='', echo=FALSE}
 cat(readLines("03-week03.Rmd"), sep = "\n")
 ```
+

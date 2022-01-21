@@ -443,9 +443,9 @@ ft <- set_caption(ft, caption = "New York Air Quality Measurements")
 ft
 ```
 
-A more advanced application (see [Looping over columns with compose](https://ardata-fr.github.io/flextable-book/programming.html#looping-over-columns-with-compose):
+A more advanced application (see [Looping over columns with compose](https://ardata-fr.github.io/flextable-book/programming.html#looping-over-columns-with-compose)):
 
-```{r}
+```{r, warning=FALSE}
 diamond_dat <- nest(diamonds, data = -all_of(c("cut", "color"))) %>% 
   mutate(
     gg = 

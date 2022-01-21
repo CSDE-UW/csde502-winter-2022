@@ -7,7 +7,7 @@
 <title>Chapter 2 Week 2 | UW CSDE 502 A Course Notes</title>
 <meta name="author" content="Phil Hurvitz">
 <meta name="description" content="This session covers the basics of creating R Markdown documents. We will also cover the Keyring package for securely storing passwords and other secrets that one would not want to hard-code into R...">
-<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta name="generator" content="bookdown 0.24.4 with bs4_book()">
 <meta property="og:title" content="Chapter 2 Week 2 | UW CSDE 502 A Course Notes">
 <meta property="og:type" content="book">
 <meta property="og:description" content="This session covers the basics of creating R Markdown documents. We will also cover the Keyring package for securely storing passwords and other secrets that one would not want to hard-code into R...">
@@ -175,7 +175,7 @@ hist(ages$age, xlab = "age (years)", las = 1)
 <h4>
 <span class="header-section-number">2.2.3.2</span> <code>ggplot2</code> graphics<a class="anchor" aria-label="anchor" href="#ggplot2-graphics"><i class="fas fa-link"></i></a>
 </h4>
-<p>The <code>ggplot2</code> package creates compelling graphics that use a common syntax. The main difference between base R graphics and <code>ggplot2</code> graphics is that simply issuing the <code><a href="https://r-spatial.github.io/sf/reference/plot.html">plot()</a></code> or related command (e.g., <code><a href="https://rdrr.io/r/graphics/hist.html">hist()</a></code>, <code><a href="https://rdrr.io/r/graphics/barplot.html">barplot()</a></code>) adds the graphic to the output, whereas with <code>ggplot()</code> it is necessary to issue a command that prints the graphic.</p>
+<p>The <code>ggplot2</code> package creates compelling graphics that use a common syntax. The main difference between base R graphics and <code>ggplot2</code> graphics is that simply issuing the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> or related command (e.g., <code><a href="https://rdrr.io/r/graphics/hist.html">hist()</a></code>, <code><a href="https://rdrr.io/r/graphics/barplot.html">barplot()</a></code>) adds the graphic to the output, whereas with <code>ggplot()</code> it is necessary to issue a command that prints the graphic.</p>
 <p>Following the previous example:</p>
 <pre><code>```{r}
 # how many unique bins? 
@@ -337,19 +337,19 @@ Here we insert a PDF with no code chunk options, which presents the image with a
     <span class="op">)</span>
 
 <span class="co"># tabulate by White</span>
-<span class="va">tabhealth_white</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
-    <span class="fu">group_by</span><span class="op">(</span><span class="va">health</span>, white <span class="op">=</span> <span class="va">h1gi6a</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
-    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop_last"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+<span class="va">tabhealth_white</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op">%&gt;%</span>
+    <span class="fu">group_by</span><span class="op">(</span><span class="va">health</span>, white <span class="op">=</span> <span class="va">h1gi6a</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu">summarise</span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop_last"</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu">mutate</span><span class="op">(</span><span class="st">"%"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">n</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># tabulate by African American</span>
-<span class="va">tabhealth_afram</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
-    <span class="fu">group_by</span><span class="op">(</span><span class="va">health</span>, afram <span class="op">=</span> <span class="va">h1gi6b</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
-    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop_last"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+<span class="va">tabhealth_afram</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op">%&gt;%</span>
+    <span class="fu">group_by</span><span class="op">(</span><span class="va">health</span>, afram <span class="op">=</span> <span class="va">h1gi6b</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu">summarise</span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop_last"</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu">mutate</span><span class="op">(</span><span class="st">"%"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">n</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># column-bind and remove the second "health" column</span>
-<span class="va">sum_health_white_afram</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">tabhealth_white</span>, <span class="va">tabhealth_afram</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+<span class="va">sum_health_white_afram</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">tabhealth_white</span>, <span class="va">tabhealth_afram</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="fl">5</span><span class="op">)</span></code></pre></div>
 <pre><code>## New names:
 ## * health -&gt; health...1
@@ -696,7 +696,7 @@ NA
 <div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">kable</span><span class="op">(</span><span class="va">sum_health_white_afram</span>,
     col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"health"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span><span class="op">)</span>
-<span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+<span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; ">
 <thead><tr>
@@ -1029,8 +1029,8 @@ NA
 <div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">kable</span><span class="op">(</span><span class="va">sum_health_white_afram</span>,
     col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"health"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span><span class="op">)</span>
-<span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
-    <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+<span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu">add_header_above</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">" "</span> <span class="op">=</span> <span class="fl">1</span>, <span class="st">"White"</span> <span class="op">=</span> <span class="fl">3</span>, <span class="st">"African American"</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; ">
 <thead>
@@ -1377,13 +1377,13 @@ NA
 </table></div>
 <p>We could also add some row groupings:</p>
 <div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sum_health_white_afram</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
-    <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
-    <span class="fu">kable</span><span class="op">(</span>col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span><span class="op">)</span>, align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"r"</span>, times <span class="op">=</span> <span class="fl">6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
-    <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
-    <span class="fu">add_header_above</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"White"</span> <span class="op">=</span> <span class="fl">3</span>, <span class="st">"African American"</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
-    <span class="fu">pack_rows</span><span class="op">(</span><span class="st">"health high"</span>, <span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
-    <span class="fu">pack_rows</span><span class="op">(</span><span class="st">"health low"</span>, <span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+<code class="sourceCode R"><span class="va">sum_health_white_afram</span> <span class="op">%&gt;%</span>
+    <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu">kable</span><span class="op">(</span>col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span>, <span class="st">"race"</span>, <span class="st">"n"</span>, <span class="st">"%"</span><span class="op">)</span>, align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"r"</span>, times <span class="op">=</span> <span class="fl">6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu">add_header_above</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"White"</span> <span class="op">=</span> <span class="fl">3</span>, <span class="st">"African American"</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu">pack_rows</span><span class="op">(</span><span class="st">"health high"</span>, <span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu">pack_rows</span><span class="op">(</span><span class="st">"health low"</span>, <span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu">pack_rows</span><span class="op">(</span><span class="st">"health N/A"</span>, <span class="fl">9</span>, <span class="fl">12</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; ">
 <thead>
@@ -2352,14 +2352,14 @@ low
 </h4>
 <p><code><a href="https://rdrr.io/pkg/DT/man/datatable.html">DT::datatable</a></code> presents tables in an interactive format, allowing filtering by free text, sorting by columns, and displaying fewer or more records. Here, the table is loaded sorted in descending order of mean anxiety per industry. The <code><a href="https://rdrr.io/pkg/DT/man/datatable.html">DT::datatable</a></code> can be sorted interactively based on any of the columns.</p>
 <div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">etdata</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">group_by</span><span class="op">(</span><span class="va">industry</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
+<code class="sourceCode R"><span class="va">etdata</span> <span class="op">%&gt;%</span> 
+    <span class="fu">group_by</span><span class="op">(</span><span class="va">industry</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span>,
-                     mean_anxiety <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">anxiety</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">mean_anxiety</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
+                     mean_anxiety <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">anxiety</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+    <span class="fu">arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">mean_anxiety</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
 <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-69f0439218664c2fdce5" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-69f0439218664c2fdce5">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],["PowerGeneration","Mining","Pharma","Telecom","IT","manufacture","Agriculture","etc","Retail","Banks","Consult","State","RealEstate","Building","transport"," HoReCa"],[38,24,20,36,122,145,15,94,289,114,74,55,13,41,38,11],[6.3,6.1,5.9,5.9,5.8,5.8,5.7,5.7,5.7,5.4,5.4,5.4,5.3,5.2,5.2,4.8]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>industry<\/th>\n      <th>n<\/th>\n      <th>mean_anxiety<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d0a3ed79fa4d177b6fac" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d0a3ed79fa4d177b6fac">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],["PowerGeneration","Mining","Pharma","Telecom","IT","manufacture","Agriculture","etc","Retail","Banks","Consult","State","RealEstate","Building","transport"," HoReCa"],[38,24,20,36,122,145,15,94,289,114,74,55,13,41,38,11],[6.3,6.1,5.9,5.9,5.8,5.8,5.7,5.7,5.7,5.4,5.4,5.4,5.3,5.2,5.2,4.8]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>industry<\/th>\n      <th>n<\/th>\n      <th>mean_anxiety<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="flextable" class="section level4" number="2.2.4.5">
 <h4>
@@ -2378,7 +2378,7 @@ low
 <span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu">color</span><span class="op">(</span><span class="va">ft</span>, part <span class="op">=</span> <span class="st">"footer"</span>, color <span class="op">=</span> <span class="st">"#666666"</span><span class="op">)</span>
 <span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu">set_caption</span><span class="op">(</span><span class="va">ft</span>, caption <span class="op">=</span> <span class="st">"New York Air Quality Measurements"</span><span class="op">)</span>
 <span class="va">ft</span></code></pre></div>
-<template id="5c2c8765-d140-4087-bac9-881868f41a0d"><style>
+<template id="bca7eb38-a940-4b8c-a1e1-6cc7c83d4b58"><style>
 .tabwid table{
   border-spacing:0px !important;
   border-collapse:collapse;
@@ -2414,113 +2414,113 @@ background-color: transparent;
 }
 </style>
 <div class="tabwid">
-<style>.cl-cf51bf54{}.cl-cf489712{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cf489713{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cf489714{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(102, 102, 102, 1.00);background-color:transparent;}.cl-cf489715{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cf489716{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cf48e532{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cf48e533{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cf48e534{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(102, 102, 102, 1.00);border-top: 0.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cf48e535{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cf48e536{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<div class="inline-table"><table class="cl-cf51bf54">
+<style>.cl-002121d6{}.cl-00170f20{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-00170f21{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-00170f22{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(102, 102, 102, 1.00);background-color:transparent;}.cl-00170f23{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-00170f24{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-0017845a{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0017845b{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0017845c{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(102, 102, 102, 1.00);border-top: 0.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0017845d{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0017845e{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<div class="inline-table"><table class="cl-002121d6">
 <caption class="Table Caption">
 <p><span id="tab:unnamed-chunk-30">Table 2.1: </span>New York Air Quality Measurements</p>
 </caption>
 <thead>
 <tr style="overflow-wrap:break-word;">
-<td colspan="4" class="cl-cf48e536"><p class="cl-cf489715"><span class="cl-cf489712">Air quality</span></p></td>
-<td colspan="2" class="cl-cf48e536"><p class="cl-cf489715"><span class="cl-cf489712">Time</span></p></td>
+<td colspan="4" class="cl-0017845e"><p class="cl-00170f23"><span class="cl-00170f20">Air quality</span></p></td>
+<td colspan="2" class="cl-0017845e"><p class="cl-00170f23"><span class="cl-00170f20">Time</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-cf48e533"><p class="cl-cf489715"><span class="cl-cf489712">Ozone</span></p></td>
-<td class="cl-cf48e533"><p class="cl-cf489715"><span class="cl-cf489712">Solar.R</span></p></td>
-<td class="cl-cf48e533"><p class="cl-cf489715"><span class="cl-cf489712">Wind</span></p></td>
-<td class="cl-cf48e533"><p class="cl-cf489715"><span class="cl-cf489712">Temp</span></p></td>
-<td class="cl-cf48e533"><p class="cl-cf489715"><span class="cl-cf489712">Month</span></p></td>
-<td class="cl-cf48e533"><p class="cl-cf489715"><span class="cl-cf489712">Day</span></p></td>
+<td class="cl-0017845b"><p class="cl-00170f23"><span class="cl-00170f20">Ozone</span></p></td>
+<td class="cl-0017845b"><p class="cl-00170f23"><span class="cl-00170f20">Solar.R</span></p></td>
+<td class="cl-0017845b"><p class="cl-00170f23"><span class="cl-00170f20">Wind</span></p></td>
+<td class="cl-0017845b"><p class="cl-00170f23"><span class="cl-00170f20">Temp</span></p></td>
+<td class="cl-0017845b"><p class="cl-00170f23"><span class="cl-00170f20">Month</span></p></td>
+<td class="cl-0017845b"><p class="cl-00170f23"><span class="cl-00170f20">Day</span></p></td>
 </tr>
 </thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-cf48e532"><p class="cl-cf489715"><span class="cl-cf489713"></span></p></td>
-<td class="cl-cf48e532"><p class="cl-cf489715"><span class="cl-cf489713">194</span></p></td>
-<td class="cl-cf48e532"><p class="cl-cf489715"><span class="cl-cf489713">8.6</span></p></td>
-<td class="cl-cf48e532"><p class="cl-cf489715"><span class="cl-cf489713">69</span></p></td>
-<td class="cl-cf48e532"><p class="cl-cf489715"><span class="cl-cf489713">5</span></p></td>
-<td class="cl-cf48e532"><p class="cl-cf489715"><span class="cl-cf489713">10</span></p></td>
+<td class="cl-0017845a"><p class="cl-00170f23"><span class="cl-00170f21">41</span></p></td>
+<td class="cl-0017845a"><p class="cl-00170f23"><span class="cl-00170f21">190</span></p></td>
+<td class="cl-0017845a"><p class="cl-00170f23"><span class="cl-00170f21">7.4</span></p></td>
+<td class="cl-0017845a"><p class="cl-00170f23"><span class="cl-00170f21">67</span></p></td>
+<td class="cl-0017845a"><p class="cl-00170f23"><span class="cl-00170f21">5</span></p></td>
+<td class="cl-0017845a"><p class="cl-00170f23"><span class="cl-00170f21">1</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">41</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">190</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">7.4</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">67</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">5</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">1</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">18</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">313</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">11.5</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">62</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">5</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">4</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">18</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">313</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">11.5</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">62</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">5</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">4</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">28</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21"></span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">14.9</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">66</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">5</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">6</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">12</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">149</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">12.6</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">74</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">5</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">3</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">36</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">118</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">8.0</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">72</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">5</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">2</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">8</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">19</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">20.1</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">61</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">5</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">9</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">12</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">149</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">12.6</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">74</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">5</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">3</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713"></span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713"></span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">14.3</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">56</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">5</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">5</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">8</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">19</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">20.1</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">61</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">5</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">9</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">19</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">99</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">13.8</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">59</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">5</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">8</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21"></span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21"></span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">14.3</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">56</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">5</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">5</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">28</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713"></span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">14.9</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">66</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">5</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">6</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21"></span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">194</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">8.6</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">69</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">5</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">10</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">36</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">118</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">8.0</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">72</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">5</span></p></td>
-<td class="cl-cf48e534"><p class="cl-cf489715"><span class="cl-cf489713">2</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">19</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">99</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">13.8</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">59</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">5</span></p></td>
+<td class="cl-0017845c"><p class="cl-00170f23"><span class="cl-00170f21">8</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-cf48e533"><p class="cl-cf489715"><span class="cl-cf489713">23</span></p></td>
-<td class="cl-cf48e533"><p class="cl-cf489715"><span class="cl-cf489713">299</span></p></td>
-<td class="cl-cf48e533"><p class="cl-cf489715"><span class="cl-cf489713">8.6</span></p></td>
-<td class="cl-cf48e533"><p class="cl-cf489715"><span class="cl-cf489713">65</span></p></td>
-<td class="cl-cf48e533"><p class="cl-cf489715"><span class="cl-cf489713">5</span></p></td>
-<td class="cl-cf48e533"><p class="cl-cf489715"><span class="cl-cf489713">7</span></p></td>
+<td class="cl-0017845b"><p class="cl-00170f23"><span class="cl-00170f21">23</span></p></td>
+<td class="cl-0017845b"><p class="cl-00170f23"><span class="cl-00170f21">299</span></p></td>
+<td class="cl-0017845b"><p class="cl-00170f23"><span class="cl-00170f21">8.6</span></p></td>
+<td class="cl-0017845b"><p class="cl-00170f23"><span class="cl-00170f21">65</span></p></td>
+<td class="cl-0017845b"><p class="cl-00170f23"><span class="cl-00170f21">5</span></p></td>
+<td class="cl-0017845b"><p class="cl-00170f23"><span class="cl-00170f21">7</span></p></td>
 </tr>
 </tbody>
-<tfoot><tr style="overflow-wrap:break-word;"><td colspan="6" class="cl-cf48e535"><p class="cl-cf489716"><span class="cl-cf489714">Daily air quality measurements in New York, May to September 1973.</span></p></td></tr></tfoot>
+<tfoot><tr style="overflow-wrap:break-word;"><td colspan="6" class="cl-0017845d"><p class="cl-00170f24"><span class="cl-00170f22">Daily air quality measurements in New York, May to September 1973.</span></p></td></tr></tfoot>
 </table></div>
-</div></template><div class="flextable-shadow-host" id="60d088f6-c8db-49c1-a075-84cee31b7768"></div>
+</div></template><div class="flextable-shadow-host" id="099cd437-bcc8-4af9-840d-797ae2f82fab"></div>
 <script>
-var dest = document.getElementById("60d088f6-c8db-49c1-a075-84cee31b7768");
-var template = document.getElementById("5c2c8765-d140-4087-bac9-881868f41a0d");
+var dest = document.getElementById("099cd437-bcc8-4af9-840d-797ae2f82fab");
+var template = document.getElementById("bca7eb38-a940-4b8c-a1e1-6cc7c83d4b58");
 var caption = template.content.querySelector("caption");
 if(caption) {
   caption.style.cssText = "display:block;text-align:center;";
@@ -2531,9 +2531,9 @@ if(caption) {
 var fantome = dest.attachShadow({mode: 'open'});
 var templateContent = template.content;
 fantome.appendChild(templateContent);
-</script><p>A more advanced application (see <a href="https://ardata-fr.github.io/flextable-book/programming.html#looping-over-columns-with-compose">Looping over columns with compose</a>:</p>
+</script><p>A more advanced application (see <a href="https://ardata-fr.github.io/flextable-book/programming.html#looping-over-columns-with-compose">Looping over columns with compose</a>):</p>
 <div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">diamond_dat</span> <span class="op">&lt;-</span> <span class="fu">nest</span><span class="op">(</span><span class="va">diamonds</span>, data <span class="op">=</span> <span class="op">-</span><span class="fu">all_of</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cut"</span>, <span class="st">"color"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
+<code class="sourceCode R"><span class="va">diamond_dat</span> <span class="op">&lt;-</span> <span class="fu">nest</span><span class="op">(</span><span class="va">diamonds</span>, data <span class="op">=</span> <span class="op">-</span><span class="fu">all_of</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cut"</span>, <span class="st">"color"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">mutate</span><span class="op">(</span>
     gg <span class="op">=</span> 
       <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>
@@ -2546,25 +2546,24 @@ fantome.appendChild(templateContent);
             <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">""</span>, y <span class="op">=</span> <span class="st">""</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_void</span><span class="op">(</span><span class="op">)</span>
         <span class="op">}</span>
       <span class="op">)</span>
-  <span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">data</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
+  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">pivot_wider</span><span class="op">(</span>
     id_cols <span class="op">=</span> <span class="va">cut</span>, 
     names_from <span class="op">=</span> <span class="va">color</span>, 
     values_from <span class="op">=</span> <span class="va">gg</span><span class="op">)</span>
 
-<span class="va">diamond_dat</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-  <span class="fu">flextable</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
+<span class="va">diamond_dat</span> <span class="op">%&gt;%</span> 
+  <span class="fu">flextable</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">mk_par</span><span class="op">(</span>
     value <span class="op">=</span> <span class="fu">as_paragraph</span><span class="op">(</span>
       <span class="fu">gg_chunk</span><span class="op">(</span><span class="va">.</span>, width <span class="op">=</span> <span class="fl">1</span>, height <span class="op">=</span> <span class="fl">1</span>, unit <span class="op">=</span> <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span>, 
     j <span class="op">=</span> <span class="op">~</span> <span class="va">.</span> <span class="op">-</span> <span class="va">cut</span>,
-    use_dot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-  <span class="fu">theme_tron</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-  <span class="fu">align</span><span class="op">(</span>align <span class="op">=</span> <span class="st">"center"</span>, part <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
+    use_dot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">theme_tron</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">align</span><span class="op">(</span>align <span class="op">=</span> <span class="st">"center"</span>, part <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">autofit</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## Warning: No fonts detected on your system. Using an empty font.</code></pre>
-<template id="b8cb3bfb-73dd-41b3-9e8b-92317331f3a9"><style>
+<template id="bbf2c92d-fb07-4415-8629-26f63258a4b6"><style>
 .tabwid table{
   border-spacing:0px !important;
   border-collapse:collapse;
@@ -2600,75 +2599,75 @@ background-color: transparent;
 }
 </style>
 <div class="tabwid">
-<style>.cl-d10a3768{}.cl-d0ffd688{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(236, 147, 70, 1.00);background-color:transparent;}.cl-d0ffd689{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(164, 206, 229, 1.00);background-color:transparent;}.cl-d0ffd68a{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-d10024b2{width:48.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(164, 206, 229, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 1pt solid rgba(164, 206, 229, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d10024b3{width:119.5pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(164, 206, 229, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 1pt solid rgba(164, 206, 229, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d10024b4{width:119.5pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(164, 206, 229, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 1pt solid rgba(164, 206, 229, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d10024b5{width:48.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(164, 206, 229, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 1pt solid rgba(164, 206, 229, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<div class="inline-table"><table class="cl-d10a3768">
+<style>.cl-01b40f86{}.cl-01a8eb42{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(236, 147, 70, 1.00);background-color:transparent;}.cl-01a8eb43{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(164, 206, 229, 1.00);background-color:transparent;}.cl-01a91252{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-01a9396c{width:48.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(164, 206, 229, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 1pt solid rgba(164, 206, 229, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-01a9396d{width:119.5pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(164, 206, 229, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 1pt solid rgba(164, 206, 229, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-01a9396e{width:119.5pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(164, 206, 229, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 1pt solid rgba(164, 206, 229, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-01a9396f{width:48.9pt;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(164, 206, 229, 1.00);border-top: 1pt solid rgba(164, 206, 229, 1.00);border-left: 1pt solid rgba(164, 206, 229, 1.00);border-right: 1pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<div class="inline-table"><table class="cl-01b40f86">
 <thead><tr style="overflow-wrap:break-word;">
-<td class="cl-d10024b4"><p class="cl-d0ffd68a"><span class="cl-d0ffd688">cut</span></p></td>
-<td class="cl-d10024b5"><p class="cl-d0ffd68a"><span class="cl-d0ffd688">E</span></p></td>
-<td class="cl-d10024b5"><p class="cl-d0ffd68a"><span class="cl-d0ffd688">I</span></p></td>
-<td class="cl-d10024b5"><p class="cl-d0ffd68a"><span class="cl-d0ffd688">J</span></p></td>
-<td class="cl-d10024b5"><p class="cl-d0ffd68a"><span class="cl-d0ffd688">H</span></p></td>
-<td class="cl-d10024b5"><p class="cl-d0ffd68a"><span class="cl-d0ffd688">F</span></p></td>
-<td class="cl-d10024b5"><p class="cl-d0ffd68a"><span class="cl-d0ffd688">G</span></p></td>
-<td class="cl-d10024b5"><p class="cl-d0ffd68a"><span class="cl-d0ffd688">D</span></p></td>
+<td class="cl-01a9396e"><p class="cl-01a91252"><span class="cl-01a8eb42">cut</span></p></td>
+<td class="cl-01a9396f"><p class="cl-01a91252"><span class="cl-01a8eb42">E</span></p></td>
+<td class="cl-01a9396f"><p class="cl-01a91252"><span class="cl-01a8eb42">I</span></p></td>
+<td class="cl-01a9396f"><p class="cl-01a91252"><span class="cl-01a8eb42">J</span></p></td>
+<td class="cl-01a9396f"><p class="cl-01a91252"><span class="cl-01a8eb42">H</span></p></td>
+<td class="cl-01a9396f"><p class="cl-01a91252"><span class="cl-01a8eb42">F</span></p></td>
+<td class="cl-01a9396f"><p class="cl-01a91252"><span class="cl-01a8eb42">G</span></p></td>
+<td class="cl-01a9396f"><p class="cl-01a91252"><span class="cl-01a8eb42">D</span></p></td>
 </tr></thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d10024b3"><p class="cl-d0ffd68a"><span class="cl-d0ffd689">Ideal</span></p></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA5ElEQVRoge3X2woDIQxFUfX/P7pQaHGgHXNj7JnuPApmmSBeWt8SDRYWFhYWFhYWFhYWFvbX2DHGBnbsYytc2IUKCwubYQtcWFhYWNgqNu8qsE8RFvZWbI4OstmSpdj0WeVnOywsrB5b8bTJsAlXiC3oshI70ZvYoCvAHpT/YnN7Ks3GXDl27rLbTrCvkUjN4qzTzbOhnSXJhj9Eyqz/36nJ9tuyJ7k3sW4XVof1urWsmbaz5/U4z+Yq1unWsya3jJ2v/DXdPsz5HstlWXM0B2ppnzFLNWvI5WUtqoF+s9cH7AXxABVCOqtnj3hGAAAAAElFTkSuQmCC"></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABCUlEQVRoge3W4Q7CIAxG0a3v/9AaTQaog36sQNTbXwtpOLTAtm1fEhssLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCws7ELWVrB2j79hzWJc2JYa4Eax4kpCWL0DX8O+X92O/ZbY5+wnrOReYx8PPce7gz1cS8uYyFrGqu/qy6xNYxOU+iu2uZu1khXLvcbuJet3u9ikZYdYchW2uLA5WwyNZIuxlw7MYD8vYSoruKGs/xbFsy43lnWXO4D1lCywrkqc7o+wTjec9aWOY6u5flb6sC1ka9mD2Fb2SLaSPoptpLtZUW38bGx5UisU9nTKxPrQINZUVlLr5QqsqJ7Oe7DzA3ZC3AD8MDlC46KdEQAAAABJRU5ErkJggg=="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABBUlEQVRoge3W0Q6DIAyFYe37P/SyxG2yAe0xFLLt75XRY78QoXHbl9QGCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwu7lDVbwNq9/oU1U90vZs1kdxS7L2Tj7gD28H6T/Wj/uKG4MvuxZ20dW/p5rJU33q+Gs+VkKA/sBNb2ynSKu1fYo71V2ZgrsidwPnsSW9srlW09H8yWZ3QVWw9E4ItsNxGAk1jPHc0GXYmNfbeIm8BGxkYK67s5rJtU2LjqLjeJ9bKZbCecxTphgZVUZ7lpbN+Ns/Ffh1O+9YLGCmp/SG5FxCuJbTR9sUFUVHtuKltvLLIy2mj9ZOcX7IS6ARMTOQJ7b+bAAAAAAElFTkSuQmCC"></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA/0lEQVRoge3WwRKDIAxFUcj/f3Q3HUuplTyIMOrNTmTe0QwiKS+pBAsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLO4c1swWsWYx7CdZgZ7EBLixsqT6c1R9FZvcMvQURbEfnYUW2Z31fhv1xn8Da1+iZ7Du7ZqzD7WArd7/z92HzIna7sLyCLUHNHWVtMvv5bj7r7MZsQS9kNXeMzRPYvdxq23C7g2w5qLijbHXf6wayihvJCm0OZf2rOZZ1u37WlbiQ9cwLZr3HyLPYxtRo1umGs9m1bbhZ6QfTdM9hmy+cymmtUtn/IcmPSgfhRorCCupRpshK6kHqxs4v2An1AnAoOcZZ5UTlAAAAAElFTkSuQmCC"></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA6UlEQVRoge3X0Q6DIAyFYeT9H3q7UTKz6SkFCvPvLeR8VGyMaQupBAsLCwsLCwsLCwsLCwsLCwsLCwsLC9uFzRFsftd4NsN2Z3Mk28CFhX0w63dhL9U2nz7YaVm3a2ebtFvJemkH63Fh52RbvFMLsg7Xx+6y+QA1bHHLMYJYo2thP9ILW3PP1ez2SLZumOrZMw0Luy57zKzVhZ2L/RodyP5c7MdKi3/JGtxW7P7vG8HqHevsXWYsq7nLswc9npXHV2a1RtQnbWLFbQKcTrsvy8JehyQd1W5NS7GwiirQRlZWbxIPdnzBDqgXRdM6JUSR5BMAAAAASUVORK5CYII="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA/0lEQVRoge3XQRKDIAxAUcj9D91ubEEcTSAmY/uzYpTJE5CIpaZEgYWFhYWFhYWFhYWFhYWFhYWFhYWFhfVn5R1JrIf7CFZgYe9gHVxYWNgoVvJYny89LOzArtGT7OqQ7azL7l1gpb2RwE6MfYIdZjmHnVnpB7H1iLW5U+zYjGKb9l+xU0XLwnbJO9Zco2FVbLeJg9mtZkWzEs5uboMHsu1Uh7BdpYhkazprdGH1bHN6S2Jt50cDe5R2z2rdRbZ+r4nFXWV39xNYy/K6svrX+SdYtatnVRkTWY3rzB796oey553L0PsktE93naToUSdWbmGvcSurV09zftj4gA2IF4qNOjg1FaSwAAAAAElFTkSuQmCC"></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA/ElEQVRoge3Z0Q6DMAiF4cr7P/SudNlmJnBIK/HnysTIJ43FVse2JAYsLCwsLCwsLCwsbFfWzBawto6tcGFvxxosLGxTtsCFhYWFhYVNqAVumK3ZBqVZjU6yasmtWPm5EljFhYVdzpbMIFjYM1Zw+7AVowx7xW57j5zMfh8/g83LKpt0u7HaKEfYT+VZrPS5VWCV3zMSm+8ZrdmwXcEmau7LZiZSWzbVrTQ2vXgtY2MubJiNz1yR3V9CUff+7HlqO/YnU9n3uYhbxEbLbc4GF5LVrNMtZ32un71KGeqT4+eaf+G5NVeOEUAdZXiTFLOeVGH2WvVkO9j5ATshXq1dOt1v+JwOAAAAAElFTkSuQmCC"></div></td>
+<td class="cl-01a9396d"><p class="cl-01a91252"><span class="cl-01a8eb43">Ideal</span></p></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA5ElEQVRoge3X2woDIQxFUfX/P7pQaHGgHXNj7JnuPApmmSBeWt8SDRYWFhYWFhYWFhYWFvbX2DHGBnbsYytc2IUKCwubYQtcWFhYWNgqNu8qsE8RFvZWbI4OstmSpdj0WeVnOywsrB5b8bTJsAlXiC3oshI70ZvYoCvAHpT/YnN7Ks3GXDl27rLbTrCvkUjN4qzTzbOhnSXJhj9Eyqz/36nJ9tuyJ7k3sW4XVof1urWsmbaz5/U4z+Yq1unWsya3jJ2v/DXdPsz5HstlWXM0B2ppnzFLNWvI5WUtqoF+s9cH7AXxABVCOqtnj3hGAAAAAElFTkSuQmCC"></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABCUlEQVRoge3W4Q7CIAxG0a3v/9AaTQaog36sQNTbXwtpOLTAtm1fEhssLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCws7ELWVrB2j79hzWJc2JYa4Eax4kpCWL0DX8O+X92O/ZbY5+wnrOReYx8PPce7gz1cS8uYyFrGqu/qy6xNYxOU+iu2uZu1khXLvcbuJet3u9ikZYdYchW2uLA5WwyNZIuxlw7MYD8vYSoruKGs/xbFsy43lnWXO4D1lCywrkqc7o+wTjec9aWOY6u5flb6sC1ka9mD2Fb2SLaSPoptpLtZUW38bGx5UisU9nTKxPrQINZUVlLr5QqsqJ7Oe7DzA3ZC3AD8MDlC46KdEQAAAABJRU5ErkJggg=="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABBUlEQVRoge3W0Q6DIAyFYe37P/SyxG2yAe0xFLLt75XRY78QoXHbl9QGCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwu7lDVbwNq9/oU1U90vZs1kdxS7L2Tj7gD28H6T/Wj/uKG4MvuxZ20dW/p5rJU33q+Gs+VkKA/sBNb2ynSKu1fYo71V2ZgrsidwPnsSW9srlW09H8yWZ3QVWw9E4ItsNxGAk1jPHc0GXYmNfbeIm8BGxkYK67s5rJtU2LjqLjeJ9bKZbCecxTphgZVUZ7lpbN+Ns/Ffh1O+9YLGCmp/SG5FxCuJbTR9sUFUVHtuKltvLLIy2mj9ZOcX7IS6ARMTOQJ7b+bAAAAAAElFTkSuQmCC"></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA/0lEQVRoge3WwRKDIAxFUcj/f3Q3HUuplTyIMOrNTmTe0QwiKS+pBAsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLO4c1swWsWYx7CdZgZ7EBLixsqT6c1R9FZvcMvQURbEfnYUW2Z31fhv1xn8Da1+iZ7Du7ZqzD7WArd7/z92HzIna7sLyCLUHNHWVtMvv5bj7r7MZsQS9kNXeMzRPYvdxq23C7g2w5qLijbHXf6wayihvJCm0OZf2rOZZ1u37WlbiQ9cwLZr3HyLPYxtRo1umGs9m1bbhZ6QfTdM9hmy+cymmtUtn/IcmPSgfhRorCCupRpshK6kHqxs4v2An1AnAoOcZZ5UTlAAAAAElFTkSuQmCC"></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA6UlEQVRoge3X0Q6DIAyFYeT9H3q7UTKz6SkFCvPvLeR8VGyMaQupBAsLCwsLCwsLCwsLCwsLCwsLCwsLC9uFzRFsftd4NsN2Z3Mk28CFhX0w63dhL9U2nz7YaVm3a2ebtFvJemkH63Fh52RbvFMLsg7Xx+6y+QA1bHHLMYJYo2thP9ILW3PP1ez2SLZumOrZMw0Luy57zKzVhZ2L/RodyP5c7MdKi3/JGtxW7P7vG8HqHevsXWYsq7nLswc9npXHV2a1RtQnbWLFbQKcTrsvy8JehyQd1W5NS7GwiirQRlZWbxIPdnzBDqgXRdM6JUSR5BMAAAAASUVORK5CYII="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA/0lEQVRoge3XQRKDIAxAUcj9D91ubEEcTSAmY/uzYpTJE5CIpaZEgYWFhYWFhYWFhYWFhYWFhYWFhYWFhfVn5R1JrIf7CFZgYe9gHVxYWNgoVvJYny89LOzArtGT7OqQ7azL7l1gpb2RwE6MfYIdZjmHnVnpB7H1iLW5U+zYjGKb9l+xU0XLwnbJO9Zco2FVbLeJg9mtZkWzEs5uboMHsu1Uh7BdpYhkazprdGH1bHN6S2Jt50cDe5R2z2rdRbZ+r4nFXWV39xNYy/K6svrX+SdYtatnVRkTWY3rzB796oey553L0PsktE93naToUSdWbmGvcSurV09zftj4gA2IF4qNOjg1FaSwAAAAAElFTkSuQmCC"></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA/ElEQVRoge3Z0Q6DMAiF4cr7P/SudNlmJnBIK/HnysTIJ43FVse2JAYsLCwsLCwsLCwsbFfWzBawto6tcGFvxxosLGxTtsCFhYWFhYVNqAVumK3ZBqVZjU6yasmtWPm5EljFhYVdzpbMIFjYM1Zw+7AVowx7xW57j5zMfh8/g83LKpt0u7HaKEfYT+VZrPS5VWCV3zMSm+8ZrdmwXcEmau7LZiZSWzbVrTQ2vXgtY2MubJiNz1yR3V9CUff+7HlqO/YnU9n3uYhbxEbLbc4GF5LVrNMtZ32un71KGeqT4+eaf+G5NVeOEUAdZXiTFLOeVGH2WvVkO9j5ATshXq1dOt1v+JwOAAAAAElFTkSuQmCC"></div></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d10024b3"><p class="cl-d0ffd68a"><span class="cl-d0ffd689">Premium</span></p></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA60lEQVRoge3W0QrDIAyFYc37P/RgUHFj0xMX65Q/l7acz0CjTXlJJVhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWNhzWDNbwJqFuHuwZjEu7N+xTzLChe2wEW4I69/EKGvvi/PZvJC1es3tutiSX0vns5U7dlwOsuWbvlin+wv7UkeztTswubuxeSH7+bScykoPItjv4bDnsm4Xdh/2un8nsM2OnPdfNCu6Uayz3XBWc8NY9RUvq0QuYmX3HFZxg1l1jmRWbEOco2i2/o/tsyaVvL9uSNJRx83WjZnDNhOdrENtZhb2/oK9oR6piTlx3BJ/JAAAAABJRU5ErkJggg=="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABFklEQVRoge3V7Q7CIAyF4cn9X7TxY3MyKD2zQNS3v2bTnSdkDS6XKbXAwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsI+K01g060msYobwqakur/A+t0I9gH+Fyu5OnuIXjnl66psIXoAW4reWoJ7hk3HXv7Un901/MfV2NKtsG9MZF3uKTblPXOgC/v+03s7S+w9z2S9x41mna7OHj9mcc52v5OtAD3Y7DYs5Yeya9gWWl+elvsJa6xsd9YejWR3q1XLbu3yedZOjmOzBR7POm7AnqxzOox1XH9RrON/xT+usX61Md+Xrb7QjzVfcLOyaq778jbSKI2thL5YHxrEJpUVVeu4AiurleiNHV+wA+oKCdw5TXAmYfsAAAAASUVORK5CYII="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABEElEQVRoge3X0Q6DIAxAUez/f/SyJc5hKG214OZuH4yJhUNRVMpySRRYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhY2C9kRWQ+K6+YzYrE3J9mRYJuHrseb8+unt+9C+tzM9gN+wNWavZ5atpJbHXuqHkA63ldnWdrZCq7G4TtZrPOck+zTWI4qxRmuSdZbT7HsupdnMBqF3LZ/SLVB5TIfkq9dZLLypWsmGouK3u2n5rNymIUm8+unjGNiezmiVWs4R5gnR+ZdNa30Upj66Vj/i/1Ug6xvk10EuuhvPlBNqB2G4xmlRZ+Nqz2Hr1SJVhxjG30UQJomNXdEBtV2z1H2bja7PzNzg/YCfEAIhM5DU72TiwAAAAASUVORK5CYII="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABDElEQVRoge3X6w6DIAyGYdf7v+gdssyIYPsp4JS3fwym9glJLTo9TokJFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhZ2RNbOYO0V/VkbiTXTXdhLsB9SdWFh/5NVXZ1Nqn+9tux6MAzJiq7GZqZvP9bSW8Ow81Jyr8Cax4bdeqy0XZlNqids1D3Ilhd92aBbkxW2W52NuQq7Pmw2+ro1m8lozJbPo/uwi2vmy+rddQ3ZbN9m5mdP1nH3sPP7mylenU1aqVQ75NZnl6k1WfcH3t3uPtat24g9mhtnFdXNviG7kd6KddwwG5m0q/ziE9MiyQlBLZec2RgqspuuwmpqsazIqmqp8I/tH7Ad4gkanDm9BGF1GwAAAABJRU5ErkJggg=="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA+UlEQVRoge3X0Q6EIAxEUej/f/RusokRjNhRKFm8fTOaOdZIxZSnVIKFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhf2WmU1gbR6rus9Zg12cFV3YOyrsEmxJBLG1MZHVv30qe+jtVezvYDRb92Yz2K31UNbiWYtkd17ev17ywLjNWjGfQtg8kS0ebAx7MjVWZevdcRRbrxnRldi6wbNTI1n3qZGs6HZl/XBn1ut2YzX379l8WMud2OvQd7FuF/ZJptMdwTpcgXUFOodGb9b5m92d9bl+1j35zAGn6tJ2KXfYzEgCKmwfrkIk1q02I1VWUFuhGxtfsAH1ATaqOaiks2JXAAAAAElFTkSuQmCC"></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA+0lEQVRoge3W2wrEMAhF0dT//+gODFN6sY2mMXbK9jHIWRIIpkwpVWBhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh77KSwcqnHsO6J3GyIorbcAP/y6qjdGUllRXlcDSr3sAw1ufCXrP7Zwrbl/2mbw3tLITdGrCvYjdIKut1m1k5nySKnR7FOtw2VhkgkbW7HnYV/EOUo0h22Ts71ur2Y11uKzsdVNc132SPDTa3mVVfzAC2reNNrNl9PmuJTGKtbgRr6Atia429WaPbnbW5dtax1pLYuhvDVndvWbdVy8meZxQH6vkIV1Ki2ItML+tRL1IXdnzBDqgZQlg5xsBslSwAAAAASUVORK5CYII="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABAklEQVRoge3W0Q6DIAyFYeD9H3rLFonOBU+xtFn291LJ+QCtUmpKFVhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWNglbMtg27Pi2ZbI3neNbIMNY2+7P8G+xCT27Npn4cDOrN6JtbqzbDtcC2FrItv218zuFLt35zrZxPb4JHbnhrL1/9jeS3Z3lj22cDC77W8s259qHFuT2dONtezXdlrBDsKtLizsVbbRhZ2Kfv8aUlh9xQZ2nGo7ZbixNtePNW2zI7vJ8azcRzorJarLdWbV5a5ghXHerPg+y6z61PqBcji4fA4elT6/q5Cio/IHV0ixsKJ6FWhkdXWc2dn4gg2oBymoOYUyp2qrAAAAAElFTkSuQmCC"></div></td>
+<td class="cl-01a9396d"><p class="cl-01a91252"><span class="cl-01a8eb43">Premium</span></p></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA60lEQVRoge3W0QrDIAyFYc37P/RgUHFj0xMX65Q/l7acz0CjTXlJJVhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWNhzWDNbwJqFuHuwZjEu7N+xTzLChe2wEW4I69/EKGvvi/PZvJC1es3tutiSX0vns5U7dlwOsuWbvlin+wv7UkeztTswubuxeSH7+bScykoPItjv4bDnsm4Xdh/2un8nsM2OnPdfNCu6Uayz3XBWc8NY9RUvq0QuYmX3HFZxg1l1jmRWbEOco2i2/o/tsyaVvL9uSNJRx83WjZnDNhOdrENtZhb2/oK9oR6piTlx3BJ/JAAAAABJRU5ErkJggg=="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABFklEQVRoge3V7Q7CIAyF4cn9X7TxY3MyKD2zQNS3v2bTnSdkDS6XKbXAwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsI+K01g060msYobwqakur/A+t0I9gH+Fyu5OnuIXjnl66psIXoAW4reWoJ7hk3HXv7Un901/MfV2NKtsG9MZF3uKTblPXOgC/v+03s7S+w9z2S9x41mna7OHj9mcc52v5OtAD3Y7DYs5Yeya9gWWl+elvsJa6xsd9YejWR3q1XLbu3yedZOjmOzBR7POm7AnqxzOox1XH9RrON/xT+usX61Md+Xrb7QjzVfcLOyaq778jbSKI2thL5YHxrEJpUVVeu4AiurleiNHV+wA+oKCdw5TXAmYfsAAAAASUVORK5CYII="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABEElEQVRoge3X0Q6DIAxAUez/f/SyJc5hKG214OZuH4yJhUNRVMpySRRYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhY2C9kRWQ+K6+YzYrE3J9mRYJuHrseb8+unt+9C+tzM9gN+wNWavZ5atpJbHXuqHkA63ldnWdrZCq7G4TtZrPOck+zTWI4qxRmuSdZbT7HsupdnMBqF3LZ/SLVB5TIfkq9dZLLypWsmGouK3u2n5rNymIUm8+unjGNiezmiVWs4R5gnR+ZdNa30Upj66Vj/i/1Ug6xvk10EuuhvPlBNqB2G4xmlRZ+Nqz2Hr1SJVhxjG30UQJomNXdEBtV2z1H2bja7PzNzg/YCfEAIhM5DU72TiwAAAAASUVORK5CYII="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABDElEQVRoge3X6w6DIAyGYdf7v+gdssyIYPsp4JS3fwym9glJLTo9TokJFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhZ2RNbOYO0V/VkbiTXTXdhLsB9SdWFh/5NVXZ1Nqn+9tux6MAzJiq7GZqZvP9bSW8Ow81Jyr8Cax4bdeqy0XZlNqids1D3Ilhd92aBbkxW2W52NuQq7Pmw2+ro1m8lozJbPo/uwi2vmy+rddQ3ZbN9m5mdP1nH3sPP7mylenU1aqVQ75NZnl6k1WfcH3t3uPtat24g9mhtnFdXNviG7kd6KddwwG5m0q/ziE9MiyQlBLZec2RgqspuuwmpqsazIqmqp8I/tH7Ad4gkanDm9BGF1GwAAAABJRU5ErkJggg=="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA+UlEQVRoge3X0Q6EIAxEUej/f/RusokRjNhRKFm8fTOaOdZIxZSnVIKFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhf2WmU1gbR6rus9Zg12cFV3YOyrsEmxJBLG1MZHVv30qe+jtVezvYDRb92Yz2K31UNbiWYtkd17ev17ywLjNWjGfQtg8kS0ebAx7MjVWZevdcRRbrxnRldi6wbNTI1n3qZGs6HZl/XBn1ut2YzX379l8WMud2OvQd7FuF/ZJptMdwTpcgXUFOodGb9b5m92d9bl+1j35zAGn6tJ2KXfYzEgCKmwfrkIk1q02I1VWUFuhGxtfsAH1ATaqOaiks2JXAAAAAElFTkSuQmCC"></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA+0lEQVRoge3W2wrEMAhF0dT//+gODFN6sY2mMXbK9jHIWRIIpkwpVWBhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh77KSwcqnHsO6J3GyIorbcAP/y6qjdGUllRXlcDSr3sAw1ufCXrP7Zwrbl/2mbw3tLITdGrCvYjdIKut1m1k5nySKnR7FOtw2VhkgkbW7HnYV/EOUo0h22Ts71ur2Y11uKzsdVNc132SPDTa3mVVfzAC2reNNrNl9PmuJTGKtbgRr6Atia429WaPbnbW5dtax1pLYuhvDVndvWbdVy8meZxQH6vkIV1Ki2ItML+tRL1IXdnzBDqgZQlg5xsBslSwAAAAASUVORK5CYII="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABAklEQVRoge3W0Q6DIAyFYeD9H3rLFonOBU+xtFn291LJ+QCtUmpKFVhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWNglbMtg27Pi2ZbI3neNbIMNY2+7P8G+xCT27Npn4cDOrN6JtbqzbDtcC2FrItv218zuFLt35zrZxPb4JHbnhrL1/9jeS3Z3lj22cDC77W8s259qHFuT2dONtezXdlrBDsKtLizsVbbRhZ2Kfv8aUlh9xQZ2nGo7ZbixNtePNW2zI7vJ8azcRzorJarLdWbV5a5ghXHerPg+y6z61PqBcji4fA4elT6/q5Cio/IHV0ixsKJ6FWhkdXWc2dn4gg2oBymoOYUyp2qrAAAAAElFTkSuQmCC"></div></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d10024b3"><p class="cl-d0ffd68a"><span class="cl-d0ffd689">Good</span></p></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA50lEQVRoge3WUQ6FIAxEUej+F+3Hi6DmqVPFEvT2x4SQOZCCIeUulWBhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYT/GmlkH1uyKOyhrsFGs273JGuxbWevH5jh2ZkLZ6gSyi27+vlea62YXp2j23staaWdt6vPscoNFezVb/Sh2fWNXtzeGzRvW6d5i/ww/we7Fw8JeY3fTv8X6XVi3ChvBlgdze/ZwR/MjR3XHZr3u4Gy127JSYkdWctuysquyYp56sjysOk+A03b2QcnrO09JMqr+gKSc9uxpoIt1oCeRhY0v2ICaAGT9OWXdlL2UAAAAAElFTkSuQmCC"></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABEElEQVRoge3X0Q7CIBBE0cr/f7Qxaey2wrKzBRqTuw++OJ0DgdS4vR6ZDRYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhZ2KFs+s5ot+6xlS8m6f8juYMa9yxp+EVueY80CJHkIq7t51jryhdZZu8PTGhRXZc8Hev0m7Irs0f1rKO5AVnE11hxhTYgfcJat94ddiTWv/kZ71JXZ/bNVHnSTrNM9nLW3yamOuCr77XWaJ7G9/QS2m2LvBwU2/g7qJ0V2VHQe62bjrPD70l+ixkphLz2J7aVnsk48zGpqz53LNh+JstI9tm79qe2S8UZSm50HG0L1f5NOjcCqaqtYYxNqvfvLrh/YBfMGqFw441W0t6sAAAAASUVORK5CYII="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABEklEQVRoge3YwQ6DIBREUeX/P7ppk6K2AjPygM2dpZm8E8QocduXZIOFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFLSSlBWx6Zzqb0gM3jPXcONZyu9kPuIi13V7265luBJt53Y1izeV2sifLcuPYfSGrun3sFVrIim4kayy3i/1lFrG628P+7+U0tnVlCiu7HewdMZA9v/zvWMW12fyFuxcGscfB6R4Yw6ZrCo3BbLERzJ7u72w2zy4Ml9xnbLPUalms9rgsYhXXYeXTQ7vosnIxjJUXK1RN1unWyiPZSltnHbXpyqyxs4I7jK3/09iunXoctTjzYDXU/fdUGzOQLc31WBstyZmdH9gJeQHuRjjnbrF6zQAAAABJRU5ErkJggg=="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABB0lEQVRoge3Xyw7DIAxE0cb//9FdVG1KHuCxMAjlesXCmiMLESuvbUq9YGFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWF7s2Y2gTWLuIuyZiEXVlcfxG4Bd0n2Az6LDbgrsl9uAPufP4wtgVHs4ZM0h93PsrsCa1PZszWRldw+rDxunL18ShlsuW9OrOJ2YlU3zB4Y01ydvdntmhtlz4jkBtkrIoktns4VMYatdKSwt9eYzNY6fG5X1j+un/VEusfty7rdDNbR2Jn1ullso7U365zXzSr7pe2msG03h226XlZa4ltlXRSseUpQK4k760LVn7pqjMBq6n2qxqrqbe6PHV+wA+oNcf05a+NduI4AAAAASUVORK5CYII="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA/0lEQVRoge3YwQ6DIBREUeT/P7rd2FQKOkPh0cb7VgTNHCEKxLQtqQQLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwurVn7WItZ3/5TNsNPZvJS1XVjYttq1KsPCttWure8bdvduwb4mN549NiLYvI4tW7PZw+caxe77zhtruj1sofYMt4PNS9hPNYKtnSbms9UzzHS2fnKKYau901m1dxzbyF/Ieq7FNuPns94FWJdth9+Ltd3fZ8+i78W6v8V09jy2POfEsqo7ijXdYexmTbTMKoH6iIeyujuWlV2Vld+WLMmpuPmsjCe8Skkyqq8FQozBqupVnsfq6kXki40v2IB6APkHOWLxVe2UAAAAAElFTkSuQmCC"></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA+UlEQVRoge3Y4Q6CMAxG0a3v/9AaYwhTGO1su6n3+0VC05PB6BJKnZICCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwv7lazMYOWeSazd/ZQV2F9lRcZcWNil2IcIm8RaXQd2ZLmwq7NP7/9Yo+vBDiwXtk+9q/FsA6Sx7Zmez7avNIeV15kYzMo+e8zsjrOSytZJ7HZ1tKeD2bNPKYI9nhW5rPoWrBdr/Zngy6rd9dl+W5vrxmoK4lil68ka3OVZTUv1vvJl1W4Me1nozGpdb7bqxrOaNcwChRvBKp50aQv7sbLnTYoetRzkV10srF7ttjSyFrXXdWPzA5uQG++JOZJpYBmMAAAAAElFTkSuQmCC"></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA50lEQVRoge3Yyw7DIAxEUfD/f3Q3bfNQEzzIxm11vQmK0JyQGCGl9ZJqsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCw3cwKWLMZ90dZg01nrZSVXVjYa7XDLmBn3Dn2xaxj9737vOazttX/s1bHboPTJ65gRTeCnViuxO7iD0cAbA576KPF7KdxMuu5H8NepusbN4TVlwsLW8feZasu7Ey06EayAhzLul0/O0jV3DBWe81xrHT+RbKC++2sK9HdV7Gs+89NEjua287T78r5dI6Q5ke9e9ITk8CO8jTWjY4S3+z6gl1QD4pFOX6+iXRHAAAAAElFTkSuQmCC"></div></td>
+<td class="cl-01a9396d"><p class="cl-01a91252"><span class="cl-01a8eb43">Good</span></p></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA50lEQVRoge3WUQ6FIAxEUej+F+3Hi6DmqVPFEvT2x4SQOZCCIeUulWBhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYT/GmlkH1uyKOyhrsFGs273JGuxbWevH5jh2ZkLZ6gSyi27+vlea62YXp2j23staaWdt6vPscoNFezVb/Sh2fWNXtzeGzRvW6d5i/ww/we7Fw8JeY3fTv8X6XVi3ChvBlgdze/ZwR/MjR3XHZr3u4Gy127JSYkdWctuysquyYp56sjysOk+A03b2QcnrO09JMqr+gKSc9uxpoIt1oCeRhY0v2ICaAGT9OWXdlL2UAAAAAElFTkSuQmCC"></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABEElEQVRoge3X0Q7CIBBE0cr/f7Qxaey2wrKzBRqTuw++OJ0DgdS4vR6ZDRYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhZ2KFs+s5ot+6xlS8m6f8juYMa9yxp+EVueY80CJHkIq7t51jryhdZZu8PTGhRXZc8Hev0m7Irs0f1rKO5AVnE11hxhTYgfcJat94ddiTWv/kZ71JXZ/bNVHnSTrNM9nLW3yamOuCr77XWaJ7G9/QS2m2LvBwU2/g7qJ0V2VHQe62bjrPD70l+ixkphLz2J7aVnsk48zGpqz53LNh+JstI9tm79qe2S8UZSm50HG0L1f5NOjcCqaqtYYxNqvfvLrh/YBfMGqFw441W0t6sAAAAASUVORK5CYII="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABEklEQVRoge3YwQ6DIBREUeX/P7ppk6K2AjPygM2dpZm8E8QocduXZIOFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFLSSlBWx6Zzqb0gM3jPXcONZyu9kPuIi13V7265luBJt53Y1izeV2sifLcuPYfSGrun3sFVrIim4kayy3i/1lFrG628P+7+U0tnVlCiu7HewdMZA9v/zvWMW12fyFuxcGscfB6R4Yw6ZrCo3BbLERzJ7u72w2zy4Ml9xnbLPUalms9rgsYhXXYeXTQ7vosnIxjJUXK1RN1unWyiPZSltnHbXpyqyxs4I7jK3/09iunXoctTjzYDXU/fdUGzOQLc31WBstyZmdH9gJeQHuRjjnbrF6zQAAAABJRU5ErkJggg=="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABB0lEQVRoge3Xyw7DIAxE0cb//9FdVG1KHuCxMAjlesXCmiMLESuvbUq9YGFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWF7s2Y2gTWLuIuyZiEXVlcfxG4Bd0n2Az6LDbgrsl9uAPufP4wtgVHs4ZM0h93PsrsCa1PZszWRldw+rDxunL18ShlsuW9OrOJ2YlU3zB4Y01ydvdntmhtlz4jkBtkrIoktns4VMYatdKSwt9eYzNY6fG5X1j+un/VEusfty7rdDNbR2Jn1ullso7U365zXzSr7pe2msG03h226XlZa4ltlXRSseUpQK4k760LVn7pqjMBq6n2qxqrqbe6PHV+wA+oNcf05a+NduI4AAAAASUVORK5CYII="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA/0lEQVRoge3YwQ6DIBREUeT/P7rd2FQKOkPh0cb7VgTNHCEKxLQtqQQLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwurVn7WItZ3/5TNsNPZvJS1XVjYttq1KsPCttWure8bdvduwb4mN549NiLYvI4tW7PZw+caxe77zhtruj1sofYMt4PNS9hPNYKtnSbms9UzzHS2fnKKYau901m1dxzbyF/Ieq7FNuPns94FWJdth9+Ltd3fZ8+i78W6v8V09jy2POfEsqo7ijXdYexmTbTMKoH6iIeyujuWlV2Vld+WLMmpuPmsjCe8Skkyqq8FQozBqupVnsfq6kXki40v2IB6APkHOWLxVe2UAAAAAElFTkSuQmCC"></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA+UlEQVRoge3Y4Q6CMAxG0a3v/9AaYwhTGO1su6n3+0VC05PB6BJKnZICCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwv7lazMYOWeSazd/ZQV2F9lRcZcWNil2IcIm8RaXQd2ZLmwq7NP7/9Yo+vBDiwXtk+9q/FsA6Sx7Zmez7avNIeV15kYzMo+e8zsjrOSytZJ7HZ1tKeD2bNPKYI9nhW5rPoWrBdr/Zngy6rd9dl+W5vrxmoK4lil68ka3OVZTUv1vvJl1W4Me1nozGpdb7bqxrOaNcwChRvBKp50aQv7sbLnTYoetRzkV10srF7ttjSyFrXXdWPzA5uQG++JOZJpYBmMAAAAAElFTkSuQmCC"></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA50lEQVRoge3Yyw7DIAxEUfD/f3Q3bfNQEzzIxm11vQmK0JyQGCGl9ZJqsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCw3cwKWLMZ90dZg01nrZSVXVjYa7XDLmBn3Dn2xaxj9737vOazttX/s1bHboPTJ65gRTeCnViuxO7iD0cAbA576KPF7KdxMuu5H8NepusbN4TVlwsLW8feZasu7Ey06EayAhzLul0/O0jV3DBWe81xrHT+RbKC++2sK9HdV7Gs+89NEjua287T78r5dI6Q5ke9e9ITk8CO8jTWjY4S3+z6gl1QD4pFOX6+iXRHAAAAAElFTkSuQmCC"></div></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d10024b3"><p class="cl-d0ffd68a"><span class="cl-d0ffd689">Very Good</span></p></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA2ElEQVRoge3WUQqFMAxE0dr9L/oJQn1VayeliSI3H6IY5iR+FNPySCVYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWNi8ljt7FvKIa2OvBH8270S55ih2RTap3PqyuarqOY49zODLtmxvtrG0H1ulP8+OnFOj7PInxrMXL/zZ8wTz2ZtsWFjYd7K30WYXFvaVrNmdyuq0ynbWsf7KTWKt7ldYzZ3FWrpcWAkWWXUN9Us7sb3udGxvlzyfEJNUVD4JpBydFdV+nok1qJ3EwsYXbED9ANJCOUkSt9/CAAAAAElFTkSuQmCC"></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABAElEQVRoge3Xyw6DMAxEUer//2jUTUjaxvHkKVV31oMPiAiL63UkFywsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLOwe1uwAa+9sZ8063EHWUjaylmcb+4hH2I5TNcDmluoOssUtCO4kVnX72Q9Gc6exmjuPlY6VypaH9/tGgq7IPpN/EWtZ89iYq7Hms/HH7WLNY0NuL1uZH91GEpu2TXXnRLegzmb7rt8dYKuVNWzzBQZchS0+Fd7cRex4cQnbbsIOq+3u/7FeOc4qarO9knXqq9iGG2bDGzzvVy+48lIrglof+bAxVP119qYorKbOYkW1Ojex+wO7ITczbzjs/EHl+QAAAABJRU5ErkJggg=="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABBElEQVRoge3VwRKDIAyEYZv3f+jO9GArFdhFCJc/R2cnnxE1x2tLHbCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLB5bEQ+G5/KZiNcdwYbYbsT2NjBnqDlPmR/x8xjLw/XGfcRW5xoElu+RplseWE5+3+WaWzvRlJYfdxx9o6Qx53Llp/UfPa+vfpzHmVrzdey1ebiuANsd82tYIXlKozrstJKn84qqDLuCKvFJrLqX2gBq+aawTVsN2ix+j7dxPaiDqtv8emsk22EDdYZtnePJuul63Gd9Ybt5D3WUNsL/7hkeuWwtZ5fVkQ9temuZCt9TdZFa51PNr9gE+oNFaM4u8GjFc4AAAAASUVORK5CYII="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABBElEQVRoge3X4Q6CMAxGUez7P7QmGiaTjX5jLUZvf9FQeiCwLiy3S2KBhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFFcKuYO0R+azZgAs7oKourKoOLCGZrfo/RdkV2bq/pbAfr/GVJrN2LSu7EluvlZJlsPaelsPfZht3kMFuTkWyBchitxNpf3D8Eet3dba16UjuZNbrDrJ7W3swuy7f2hDcM2yzYCpbjcUG63NPsN2SCLZb4nLnsm43gnXAftb3HE43iD2qnM06h+R81vVdRbAO99tZaRc/dGPYQzeS7VywbMr64Vd7DQvrQsVfyX6bMLbdVGQ1td12ZfMDNiHuokY5W0cwedcAAAAASUVORK5CYII="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA6UlEQVRoge3WQQ6DMAxEUeL7H7qLSjTQKngax27RnxWIaB6RHMTWSrLBwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwoazZlbAWh0ru9Oswd6cVd1Z1ipYq2Cty+3ZXUxgu/489gAcWNHVWeuvn/eL2cP4nN5gPWtFrKWyr/k5ndYEtr2rKWwrYlsRqzyZZwfdsLBfsMNq1YX9L1Zxg1h1u5GsALvZq1bNDWa9bhirbTeOlcY5khXcH2d9hW43lnXP8xr2cm0w++EnesSaJxo7bNncqP+D6+hZwV4Uaqygjit3Nj+wCXkAi6Y5UyNneQ4AAAAASUVORK5CYII="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA9ElEQVRoge3V2xKDIAxFUcj/f3Q7faiXMnhSQ6h150mByUq8QKlTosDCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwjrCZrD2jJ9h/ZX4WLOG+80TOM+2Kvlz1uueZm08aw3jlqzTPcu+bpNY2w5lsPV+rK0Gkthlz7DN1TB2p1kuu3zQM9n1zFC2fmyJWWydxLZ+3wxWnoK9OOt1HWw380TW4UaxTjeWld0w1udennW9Xp0Vck5kNTeU1duNZyU3lpXbHcAq62RW7EN0B7FHa6NZ0S27xd1wVHiQpOiofqwdpxnC9jM6WYfaTflm8wM2IR5orTl8j7diyQAAAABJRU5ErkJggg=="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA5ElEQVRoge3X2w6DIBCEYdj3f+j2wlqkMczSdYnxn0sl8yERD6UuSYGFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhf0vtoK1dx7D2kLW7d6GPRKWw/ZGDvuDZLINlMKadW4/i+tZ+xyYeWD42ZrOfvs315LZdrnXsFMvg1m25rGH+nbf+N1ptl/xLFY5AXsT9rz8eazPDWH9lwvrr4ZNYN0u7ETx9nWTzXp/SoJZ1Y1mRTeKdboqKxUuYnU3lpVv6GvY4eDSDz+PPD2hpqioujW0nnB2XOdjZXXUuLP5gU3IC5rSOUrNsIfxAAAAAElFTkSuQmCC"></div></td>
+<td class="cl-01a9396d"><p class="cl-01a91252"><span class="cl-01a8eb43">Very Good</span></p></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA2ElEQVRoge3WUQqFMAxE0dr9L/oJQn1VayeliSI3H6IY5iR+FNPySCVYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWNi8ljt7FvKIa2OvBH8270S55ih2RTap3PqyuarqOY49zODLtmxvtrG0H1ulP8+OnFOj7PInxrMXL/zZ8wTz2ZtsWFjYd7K30WYXFvaVrNmdyuq0ynbWsf7KTWKt7ldYzZ3FWrpcWAkWWXUN9Us7sb3udGxvlzyfEJNUVD4JpBydFdV+nok1qJ3EwsYXbED9ANJCOUkSt9/CAAAAAElFTkSuQmCC"></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABAElEQVRoge3Xyw6DMAxEUer//2jUTUjaxvHkKVV31oMPiAiL63UkFywsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLOwe1uwAa+9sZ8063EHWUjaylmcb+4hH2I5TNcDmluoOssUtCO4kVnX72Q9Gc6exmjuPlY6VypaH9/tGgq7IPpN/EWtZ89iYq7Hms/HH7WLNY0NuL1uZH91GEpu2TXXnRLegzmb7rt8dYKuVNWzzBQZchS0+Fd7cRex4cQnbbsIOq+3u/7FeOc4qarO9knXqq9iGG2bDGzzvVy+48lIrglof+bAxVP119qYorKbOYkW1Ojex+wO7ITczbzjs/EHl+QAAAABJRU5ErkJggg=="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABBElEQVRoge3VwRKDIAyEYZv3f+jO9GArFdhFCJc/R2cnnxE1x2tLHbCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLB5bEQ+G5/KZiNcdwYbYbsT2NjBnqDlPmR/x8xjLw/XGfcRW5xoElu+RplseWE5+3+WaWzvRlJYfdxx9o6Qx53Llp/UfPa+vfpzHmVrzdey1ebiuANsd82tYIXlKozrstJKn84qqDLuCKvFJrLqX2gBq+aawTVsN2ix+j7dxPaiDqtv8emsk22EDdYZtnePJuul63Gd9Ybt5D3WUNsL/7hkeuWwtZ5fVkQ9temuZCt9TdZFa51PNr9gE+oNFaM4u8GjFc4AAAAASUVORK5CYII="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABBElEQVRoge3X4Q6CMAxGUez7P7QmGiaTjX5jLUZvf9FQeiCwLiy3S2KBhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFFcKuYO0R+azZgAs7oKourKoOLCGZrfo/RdkV2bq/pbAfr/GVJrN2LSu7EluvlZJlsPaelsPfZht3kMFuTkWyBchitxNpf3D8Eet3dba16UjuZNbrDrJ7W3swuy7f2hDcM2yzYCpbjcUG63NPsN2SCLZb4nLnsm43gnXAftb3HE43iD2qnM06h+R81vVdRbAO99tZaRc/dGPYQzeS7VywbMr64Vd7DQvrQsVfyX6bMLbdVGQ1td12ZfMDNiHuokY5W0cwedcAAAAASUVORK5CYII="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA6UlEQVRoge3WQQ6DMAxEUeL7H7qLSjTQKngax27RnxWIaB6RHMTWSrLBwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwoazZlbAWh0ru9Oswd6cVd1Z1ipYq2Cty+3ZXUxgu/489gAcWNHVWeuvn/eL2cP4nN5gPWtFrKWyr/k5ndYEtr2rKWwrYlsRqzyZZwfdsLBfsMNq1YX9L1Zxg1h1u5GsALvZq1bNDWa9bhirbTeOlcY5khXcH2d9hW43lnXP8xr2cm0w++EnesSaJxo7bNncqP+D6+hZwV4Uaqygjit3Nj+wCXkAi6Y5UyNneQ4AAAAASUVORK5CYII="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA9ElEQVRoge3V2xKDIAxFUcj/f3Q7faiXMnhSQ6h150mByUq8QKlTosDCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwjrCZrD2jJ9h/ZX4WLOG+80TOM+2Kvlz1uueZm08aw3jlqzTPcu+bpNY2w5lsPV+rK0Gkthlz7DN1TB2p1kuu3zQM9n1zFC2fmyJWWydxLZ+3wxWnoK9OOt1HWw380TW4UaxTjeWld0w1udennW9Xp0Vck5kNTeU1duNZyU3lpXbHcAq62RW7EN0B7FHa6NZ0S27xd1wVHiQpOiofqwdpxnC9jM6WYfaTflm8wM2IR5orTl8j7diyQAAAABJRU5ErkJggg=="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA5ElEQVRoge3X2w6DIBCEYdj3f+j2wlqkMczSdYnxn0sl8yERD6UuSYGFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhf0vtoK1dx7D2kLW7d6GPRKWw/ZGDvuDZLINlMKadW4/i+tZ+xyYeWD42ZrOfvs315LZdrnXsFMvg1m25rGH+nbf+N1ptl/xLFY5AXsT9rz8eazPDWH9lwvrr4ZNYN0u7ETx9nWTzXp/SoJZ1Y1mRTeKdboqKxUuYnU3lpVv6GvY4eDSDz+PPD2hpqioujW0nnB2XOdjZXXUuLP5gU3IC5rSOUrNsIfxAAAAAElFTkSuQmCC"></div></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d10024b3"><p class="cl-d0ffd68a"><span class="cl-d0ffd689">Fair</span></p></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABB0lEQVRoge3WwRKDIAxFUcr/f7SdLjpqFd5DiKW92TE6OYmCMT1uiQQLCwsLCwsLCwsLCwsLCwsLCwsLCwsbw+Y72PyMeDb/H+u7F9kMCzuEtd0p2ZcICwvbrjaN3A5sS7uwsCdoXukh7GriNZygVnYzaMPY7XiPYne/FKHsdhnA7vdQIFta/xT7ofgHtwvrtzsPe2DAdmYPCdeF/Ub2GHC/U51Yt91J2NOn6bktrHdhPKu7JltIPpr1K7rKFlM7rs+WaxJdi63kNVybrZYlwQ5bzZll12CVjKrbmVVdnVVfW19W36VKv2l9azWMCss5koGqnyAhi8OKqtKuwcpqJeObjQ/YgFgAtwc5fL/IhkUAAAAASUVORK5CYII="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABA0lEQVRoge3XQQ6DMAxEUfD9D121C1SJFHscg0v7Zw1+jFBkZVlbssDCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCfhFr1sDaM01swp1j7R9Z3Z1iX+J/sSl3hrU+dm1lVbeAzdSdYDetiU24sDKru7dj3yn56Nawct1CVnGLWNW9OSv+3TJWc9PsTmlkw24dK9UtZqNuIau45WwMzrLD+XH3F9j4fbeYjR6jU1jfLWdjdZPswewmNuTCzqkhF7aCddwU6409h3Xb+HUTbGDL2JYyNrLbzHNlNrZRPVdlo3vcjuFl/5Qf8SMHLy86qtxjP72eYAV1ODrFSuhw+MZeH9gL8gBNzTk3g+GW0gAAAABJRU5ErkJggg=="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABBElEQVRoge3Z4Q6DIAxGUeT9H3pZlsWFaMtXwYZ5+5fSY42BJpYtJQosLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLOzT2FoT2PqO29maycrummzNY7eAuyT7ARNZ0R3BBtpdkf1yz2J1F1ZWs1jZhdVV+VgexKrtLs6K7nJs42gf1TBWG9RHs532OFZyw+xB9ST2B76X3e3/Yq3aHe4VNrY4l7XdKazfbpB16rrtzmHd9RjrduMlxNlLGTNZIyXE9pxDdk6E7Trs7SshwHbebWaazHYPEKarscLYYrsKK0wP7Yba7C1GwmkEHrTZXWRUeD3HlQOsZJ6UllkZPY11/4zAevECUIs5HFbNYDgAAAAASUVORK5CYII="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA9UlEQVRoge3Wyw7DIAxE0YT//+i2qoKqKMRj81LJnSUyPnhltn1KNlhYWFhYWFhYWFhYWFhYWFhYWFhYWFhY2KqkNIFNnzyFTQ9k/e5fsgl2edbt1rP7cPYLwsJ2YL1uDXtwsMuxWZvEBlzYEPtegEPY3xHdy74pq7ttWPe4bVnZbcReHoxjVTfMXhgTWVFuyTrcHqzgrsBmuhtbbv4sVnJh61TJXYw13Bhr9J3I3rsh1mzbhbWHMSsCrLJl2rPSbrNq3Ky4UY0qL6vucaPOyeqftHTKJXsuuo3nhYXbmxuVf/539/2sqhbbRlgdLb4gs+MDOyAv5qE5YsY+wqEAAAAASUVORK5CYII="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA9UlEQVRoge3W7Q7CIAyFYeD+L1pj4uJ00p7Kh2Nvf47lPJQMRspTKsHCwsLCwsLCwsLCwsLCwsLCwsLC/hFb7jWJDbjnZAvs4qzunpItsLCwZ2Mf4kRWdn9nQ+3CKuokNl+FfXKw/dhNgx3Eqm6YfbFgO7FlBru/QY1iy5XY91tqYONG2fqDhdhPBHYR9sCYxOruAqwgt2OljmX2OF11YQ30a7jgRtjaYBe2vpLCMutsfDjKWu34vyuZteflkTuxlquwjjiv25jNzpOjPZutfSaywmlgNpx275mlTLEWkRRU+KEaGRrrVmuZMiuoldSNHV+wA+oGdKQ5qSGFRH4AAAAASUVORK5CYII="></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA/ElEQVRoge3X0Q6DIAyF4a3v/9BbTKaOOehBKAb/c2NCmn6SYIOP55A8YGFhYWFhYWFhYWFhYWFhYWFhYa/P2gjW3oln7U6swUaxugt7edZgYWdgF/EurK2s7J5nq7Z7gv1scwC7f07NrhosLGy9ekNWdRuwNduFhb0Iu6dgg1jRrWS/pSA2/eGamk3V+dn8Qg/2FxnE6jecHqzDbcymh60de9R3WbMtQeyeHMgW3eas7zA3YtU7jsw6mjpKerGFmm5svqgH63BV1vdZNma9s6/oSqx3BpVdgXVPvq04z6ajLRf1JY8bqKxXLbga60czXVVWQv+3Xdn4wAbkBdhOOdC0clXgAAAAAElFTkSuQmCC"></div></td>
-<td class="cl-d10024b2"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA8klEQVRoge3W6w6CMAyG4dn7v2gNEgKCtt+OCG9/wVj6tBsspMeQSLCwsLCwsLCwx2GvuBeb4RayBgsLCwsLO5DV3TLWYGFhYWFhYWEvwE4i7LVZ2S1ns9qFhT0RO3udWbsTu5xO/dntBSwsrKzCXpxV3QpsTruw52VtBGtzjGHXtx1Yg23O2knYDLcmK9A6Oxnb/g6G2rD7oY8FgC1hD5PL7v+zyrussl9St2WdhXw/jNgS6+1ffIczWLesgKuwfsJmbKCwiCuw4e+yPhue6PwDpNXMQMQL/J0iKWj0MPCTNGH9diU2qm4y7rIvbP+A7RBPYKI6sGjQQUAAAAAASUVORK5CYII="></div></td>
+<td class="cl-01a9396d"><p class="cl-01a91252"><span class="cl-01a8eb43">Fair</span></p></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABB0lEQVRoge3WwRKDIAxFUcr/f7SdLjpqFd5DiKW92TE6OYmCMT1uiQQLCwsLCwsLCwsLCwsLCwsLCwsLCwsbw+Y72PyMeDb/H+u7F9kMCzuEtd0p2ZcICwvbrjaN3A5sS7uwsCdoXukh7GriNZygVnYzaMPY7XiPYne/FKHsdhnA7vdQIFta/xT7ofgHtwvrtzsPe2DAdmYPCdeF/Ub2GHC/U51Yt91J2NOn6bktrHdhPKu7JltIPpr1K7rKFlM7rs+WaxJdi63kNVybrZYlwQ5bzZll12CVjKrbmVVdnVVfW19W36VKv2l9azWMCss5koGqnyAhi8OKqtKuwcpqJeObjQ/YgFgAtwc5fL/IhkUAAAAASUVORK5CYII="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABA0lEQVRoge3XQQ6DMAxEUfD9D121C1SJFHscg0v7Zw1+jFBkZVlbssDCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCfhFr1sDaM01swp1j7R9Z3Z1iX+J/sSl3hrU+dm1lVbeAzdSdYDetiU24sDKru7dj3yn56Nawct1CVnGLWNW9OSv+3TJWc9PsTmlkw24dK9UtZqNuIau45WwMzrLD+XH3F9j4fbeYjR6jU1jfLWdjdZPswewmNuTCzqkhF7aCddwU6409h3Xb+HUTbGDL2JYyNrLbzHNlNrZRPVdlo3vcjuFl/5Qf8SMHLy86qtxjP72eYAV1ODrFSuhw+MZeH9gL8gBNzTk3g+GW0gAAAABJRU5ErkJggg=="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAABBElEQVRoge3Z4Q6DIAxGUeT9H3pZlsWFaMtXwYZ5+5fSY42BJpYtJQosLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLOzT2FoT2PqO29maycrummzNY7eAuyT7ARNZ0R3BBtpdkf1yz2J1F1ZWs1jZhdVV+VgexKrtLs6K7nJs42gf1TBWG9RHs532OFZyw+xB9ST2B76X3e3/Yq3aHe4VNrY4l7XdKazfbpB16rrtzmHd9RjrduMlxNlLGTNZIyXE9pxDdk6E7Trs7SshwHbebWaazHYPEKarscLYYrsKK0wP7Yba7C1GwmkEHrTZXWRUeD3HlQOsZJ6UllkZPY11/4zAevECUIs5HFbNYDgAAAAASUVORK5CYII="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA9UlEQVRoge3Wyw7DIAxE0YT//+i2qoKqKMRj81LJnSUyPnhltn1KNlhYWFhYWFhYWFhYWFhYWFhYWFhYWFhY2KqkNIFNnzyFTQ9k/e5fsgl2edbt1rP7cPYLwsJ2YL1uDXtwsMuxWZvEBlzYEPtegEPY3xHdy74pq7ttWPe4bVnZbcReHoxjVTfMXhgTWVFuyTrcHqzgrsBmuhtbbv4sVnJh61TJXYw13Bhr9J3I3rsh1mzbhbWHMSsCrLJl2rPSbrNq3Ky4UY0qL6vucaPOyeqftHTKJXsuuo3nhYXbmxuVf/539/2sqhbbRlgdLb4gs+MDOyAv5qE5YsY+wqEAAAAASUVORK5CYII="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA9UlEQVRoge3W7Q7CIAyFYeD+L1pj4uJ00p7Kh2Nvf47lPJQMRspTKsHCwsLCwsLCwsLCwsLCwsLCwsLC/hFb7jWJDbjnZAvs4qzunpItsLCwZ2Mf4kRWdn9nQ+3CKuokNl+FfXKw/dhNgx3Eqm6YfbFgO7FlBru/QY1iy5XY91tqYONG2fqDhdhPBHYR9sCYxOruAqwgt2OljmX2OF11YQ30a7jgRtjaYBe2vpLCMutsfDjKWu34vyuZteflkTuxlquwjjiv25jNzpOjPZutfSaywmlgNpx275mlTLEWkRRU+KEaGRrrVmuZMiuoldSNHV+wA+oGdKQ5qSGFRH4AAAAASUVORK5CYII="></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA/ElEQVRoge3X0Q6DIAyF4a3v/9BbTKaOOehBKAb/c2NCmn6SYIOP55A8YGFhYWFhYWFhYWFhYWFhYWFhYa/P2gjW3oln7U6swUaxugt7edZgYWdgF/EurK2s7J5nq7Z7gv1scwC7f07NrhosLGy9ekNWdRuwNduFhb0Iu6dgg1jRrWS/pSA2/eGamk3V+dn8Qg/2FxnE6jecHqzDbcymh60de9R3WbMtQeyeHMgW3eas7zA3YtU7jsw6mjpKerGFmm5svqgH63BV1vdZNma9s6/oSqx3BpVdgXVPvq04z6ajLRf1JY8bqKxXLbga60czXVVWQv+3Xdn4wAbkBdhOOdC0clXgAAAAAElFTkSuQmCC"></div></td>
+<td class="cl-01a9396c"><div class="inline-figure"><img style="vertical-align:middle;width:28pt;height:28pt;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB2CAMAAAAqeZcjAAAACVBMVEX9/v39/v3///8hKJz/AAAAA3RSTlP/AP9p7B++AAAACXBIWXMAAC4jAAAuIwF4pT92AAAA8klEQVRoge3W6w6CMAyG4dn7v2gNEgKCtt+OCG9/wVj6tBsspMeQSLCwsLCwsLCwx2GvuBeb4RayBgsLCwsLO5DV3TLWYGFhYWFhYWEvwE4i7LVZ2S1ns9qFhT0RO3udWbsTu5xO/dntBSwsrKzCXpxV3QpsTruw52VtBGtzjGHXtx1Yg23O2knYDLcmK9A6Oxnb/g6G2rD7oY8FgC1hD5PL7v+zyrussl9St2WdhXw/jNgS6+1ffIczWLesgKuwfsJmbKCwiCuw4e+yPhue6PwDpNXMQMQL/J0iKWj0MPCTNGH9diU2qm4y7rIvbP+A7RBPYKI6sGjQQUAAAAAASUVORK5CYII="></div></td>
 </tr>
 </tbody>
 </table></div>
-</div></template><div class="flextable-shadow-host" id="01a11eda-9582-4ef5-aa1f-36aa89ac030f"></div>
+</div></template><div class="flextable-shadow-host" id="9975faa4-b42b-4424-9627-da15e60f6449"></div>
 <script>
-var dest = document.getElementById("01a11eda-9582-4ef5-aa1f-36aa89ac030f");
-var template = document.getElementById("b8cb3bfb-73dd-41b3-9e8b-92317331f3a9");
+var dest = document.getElementById("9975faa4-b42b-4424-9627-da15e60f6449");
+var template = document.getElementById("bbf2c92d-fb07-4415-8629-26f63258a4b6");
 var caption = template.content.querySelector("caption");
 if(caption) {
   caption.style.cssText = "display:block;text-align:center;";
@@ -2728,7 +2727,7 @@ Figure 2.2: Cars: speed and distance
 <span class="header-section-number">2.2.5.2</span> Tables: <code>kable()</code> “caption”<a class="anchor" aria-label="anchor" href="#tables-kable-caption"><i class="fas fa-link"></i></a>
 </h4>
 <p>Tables created with <code>kable()</code> can include the <code>caption</code> option. For example:</p>
-<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">kable</span><span class="op">(</span>x <span class="op">=</span> <span class="va">sum_health_white_afram</span>, caption <span class="op">=</span> <span class="st">"Self-reported health by race"</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <caption>
@@ -3120,7 +3119,7 @@ figure_nums &lt;- captioner(prefix = "Figure")</a></code></pre>
 <p><code>_`r figure_nums(name = "figname", caption = "My Caption")`_</code></p>
 <p>Although this method requires a bit more coding, it allows great flexibility. A complete example:</p>
 <p>As shown in Figure 1, the distribution of age has a slight negative skew.</p>
-<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># how many unique bins?</span>
 <span class="va">bins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">ages</span><span class="op">$</span><span class="va">age</span><span class="op">)</span><span class="op">)</span>
 
@@ -3134,16 +3133,16 @@ figure_nums &lt;- captioner(prefix = "Figure")</a></code></pre>
 <p><em>Figure 1: Add Health age histogram</em></p>
 <p>Similarly, we can present the same data as a frequency table, as shown in Table 2.</p>
 <p><em>Table 2: Add Health age frequency table</em></p>
-<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ages</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
-    <span class="fu">group_by</span><span class="op">(</span><span class="va">age</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
-    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ages</span> <span class="op">%&gt;%</span>
+    <span class="fu">group_by</span><span class="op">(</span><span class="va">age</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu">summarise</span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu">mutate</span><span class="op">(</span>
         cumsum <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>,
         <span class="st">"%"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">n</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span>,
         <span class="st">"cum %"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">n</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
-    <span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
-    <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+    <span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu">kable_styling</span><span class="op">(</span>
         bootstrap_options <span class="op">=</span>
             <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>,
@@ -3361,13 +3360,13 @@ cum %
 <p>The keyring is stored as part of your user profile on the computer. Therefore if you are using multiple computers (e.g., your own computer as well as the CSDE terminal server), you will need to repeat the steps of setting keys. The keys are stored at the operating system level, so once set, they do not need to be reset, and any R session will have access to the keys. Also once you log on to the computer, the keyring is unlocked automatically.</p>
 <p>The main functions you are likely to use are <code>key_set()</code> to interactively store keys, <code>key_list()</code> to list the service and username for the different keys you have created, and <code>key_get()</code> to retrieve a key. If you want to delete a key, that is done with <code>key_delete()</code>.</p>
 <p>The following code will set the keys for my user. You will want to copy this code to your R Markdown document and change the username. When you run the code, if you have not already entered keys for these two sites, you will be prompted, as shown in r figure_nums(name = “keyring1,” display = “cite”)`.</p>
-<div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># get the keys</span>
 <span class="va">myKeys</span> <span class="op">&lt;-</span> <span class="fu">key_list</span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># Set your password for Human Mortality Database (HMD)</span>
 <span class="co"># does a key exist? if not, create one</span>
-<span class="kw">if</span> <span class="op">(</span><span class="fu">key_list</span><span class="op">(</span>service <span class="op">=</span> <span class="st">"human-mortality-database"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+<span class="kw">if</span> <span class="op">(</span><span class="fu">key_list</span><span class="op">(</span>service <span class="op">=</span> <span class="st">"human-mortality-database"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_set</a></span><span class="op">(</span>
         service <span class="op">=</span> <span class="st">"human-mortality-database"</span>,
         username <span class="op">=</span> <span class="st">"phurvitz@uw.edu"</span>
@@ -3376,7 +3375,7 @@ cum %
 <span class="op">}</span>
 
 <span class="co"># Set your password for Human Fertility Database (HFD)</span>
-<span class="kw">if</span> <span class="op">(</span><span class="fu">key_list</span><span class="op">(</span>service <span class="op">=</span> <span class="st">"human-fertility-database"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+<span class="kw">if</span> <span class="op">(</span><span class="fu">key_list</span><span class="op">(</span>service <span class="op">=</span> <span class="st">"human-fertility-database"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_set</a></span><span class="op">(</span>
         service <span class="op">=</span> <span class="st">"human-fertility-database"</span>,
         username <span class="op">=</span> <span class="st">"phurvitz@uw.edu"</span>
@@ -3386,34 +3385,34 @@ cum %
 <div class="inline-figure"><img src="images/week02/keyring01.png"></div>
 <p><em>Figure 2: The keyring password storage dialogue</em></p>
 <p>Once the keys are stored, the service and username can be shown with <code>key_list()</code>:</p>
-<div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">key_list</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##                    service        username
 ## 1 human-fertility-database phurvitz@uw.edu
 ## 2 human-mortality-database phurvitz@uw.edu</code></pre>
 <p>Within your code, rather than storing any passwords, you can access the password, for example, to get 1 year x 1 year death rates for Israel:</p>
-<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ISR_mx</span> <span class="op">&lt;-</span> <span class="fu">HMDHFDplus</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHMDweb.html">readHMDweb</a></span><span class="op">(</span>
     <span class="co"># data for Israel</span>
     CNTRY <span class="op">=</span> <span class="st">"ISR"</span>,
     <span class="co"># mortality 1 year age by 1 year interval</span>
     item <span class="op">=</span> <span class="st">"Mx_1x1"</span>,
     <span class="co"># get my username</span>
-    username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu">pull</span><span class="op">(</span><span class="va">username</span><span class="op">)</span>,
+    username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">pull</span><span class="op">(</span><span class="va">username</span><span class="op">)</span>,
     password <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_get</a></span><span class="op">(</span>
         service <span class="op">=</span> <span class="st">"human-mortality-database"</span>,
         username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span><span class="op">$</span><span class="va">username</span>
     <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <p>Or to get the total number of live births from Japan:</p>
-<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">JPN_livebirths</span> <span class="op">&lt;-</span> <span class="fu">HMDHFDplus</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHFDweb.html">readHFDweb</a></span><span class="op">(</span>
     <span class="co"># data for Japan</span>
     CNTRY <span class="op">=</span> <span class="st">"JPN"</span>,
     <span class="co"># live births</span>
     item <span class="op">=</span> <span class="st">"totbirthsRR"</span>,
     <span class="co"># get my username</span>
-    username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu">pull</span><span class="op">(</span><span class="va">username</span><span class="op">)</span>,
+    username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">pull</span><span class="op">(</span><span class="va">username</span><span class="op">)</span>,
     password <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_get</a></span><span class="op">(</span>
         service <span class="op">=</span> <span class="st">"human-mortality-database"</span>,
         username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span><span class="op">$</span><span class="va">username</span>
@@ -3422,73 +3421,73 @@ cum %
 <p>The benefit to this method is that the password is read on the fly during the data download process and is not stored in code. Also if you were to save your R session, the password would not be stored as an object.</p>
 <p>Download Ben’s example for how to access the Human Mortality data using <a href="">HMDHFplus</a>
 <a href="https://raw.githubusercontent.com/hanowell/uwsoc533a/main/gists/HMDHFDplus-gist.R">HMDHFDplus-gist.R</a>. Here is an annotated version:</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb214-1"><a href="week2.html#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># load required packages</span></span>
-<span id="cb214-2"><a href="week2.html#cb214-2" aria-hidden="true" tabindex="-1"></a>library(HMDHFDplus)</span>
-<span id="cb214-3"><a href="week2.html#cb214-3" aria-hidden="true" tabindex="-1"></a>library(keyring)</span>
-<span id="cb214-4"><a href="week2.html#cb214-4" aria-hidden="true" tabindex="-1"></a>library(tidyverse)</span>
-<span id="cb214-5"><a href="week2.html#cb214-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb214-6"><a href="week2.html#cb214-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># note to see country codes, </span></span>
-<span id="cb214-7"><a href="week2.html#cb214-7" aria-hidden="true" tabindex="-1"></a><span class="fu"># https://www.mortality.org/cgi-bin/hmd/DataAvailability.php</span></span>
-<span id="cb214-8"><a href="week2.html#cb214-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb214-9"><a href="week2.html#cb214-9" aria-hidden="true" tabindex="-1"></a><span class="fu"># Running for a single country with item left NULL lists available series</span></span>
-<span id="cb214-10"><a href="week2.html#cb214-10" aria-hidden="true" tabindex="-1"></a><span class="fu"># for that country and ask for user entry of desired item</span></span>
-<span id="cb214-11"><a href="week2.html#cb214-11" aria-hidden="true" tabindex="-1"></a><span class="fu"># HMDHFDplus::readHMDweb(</span></span>
-<span id="cb214-12"><a href="week2.html#cb214-12" aria-hidden="true" tabindex="-1"></a><span class="fu">#   CNTRY = "USA",</span></span>
-<span id="cb214-13"><a href="week2.html#cb214-13" aria-hidden="true" tabindex="-1"></a><span class="fu">#   username = keyring::key_list("human-mortality-database")$username,</span></span>
-<span id="cb214-14"><a href="week2.html#cb214-14" aria-hidden="true" tabindex="-1"></a><span class="fu">#   password = keyring::key_get(</span></span>
-<span id="cb214-15"><a href="week2.html#cb214-15" aria-hidden="true" tabindex="-1"></a><span class="fu">#     service = "human-mortality-database",</span></span>
-<span id="cb214-16"><a href="week2.html#cb214-16" aria-hidden="true" tabindex="-1"></a><span class="fu">#     username = keyring::key_list("human-mortality-database")$username</span></span>
-<span id="cb214-17"><a href="week2.html#cb214-17" aria-hidden="true" tabindex="-1"></a><span class="fu">#   )</span></span>
-<span id="cb214-18"><a href="week2.html#cb214-18" aria-hidden="true" tabindex="-1"></a><span class="fu"># )</span></span>
-<span id="cb214-19"><a href="week2.html#cb214-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb214-20"><a href="week2.html#cb214-20" aria-hidden="true" tabindex="-1"></a><span class="fu"># Function to download a specified HMD data set item for a single county</span></span>
-<span id="cb214-21"><a href="week2.html#cb214-21" aria-hidden="true" tabindex="-1"></a><span class="fu"># the country code is referenced as "CNTRY"</span></span>
-<span id="cb214-22"><a href="week2.html#cb214-22" aria-hidden="true" tabindex="-1"></a><span class="fu"># the "item" is the base name of the link with ".txt" removed. For example,</span></span>
-<span id="cb214-23"><a href="week2.html#cb214-23" aria-hidden="true" tabindex="-1"></a><span class="fu"># https://www.mortality.org/hmd/ISR/STATS/Mx_1x1.txt</span></span>
-<span id="cb214-24"><a href="week2.html#cb214-24" aria-hidden="true" tabindex="-1"></a><span class="fu">#                                         Mx_1x1       &lt;&lt;- this is the item for 1 year x 1 year death rates</span></span>
-<span id="cb214-25"><a href="week2.html#cb214-25" aria-hidden="true" tabindex="-1"></a>read_hmd_country &lt;- function(CNTRY, item) {</span>
-<span id="cb214-26"><a href="week2.html#cb214-26" aria-hidden="true" tabindex="-1"></a>  HMDHFDplus::readHMDweb(</span>
-<span id="cb214-27"><a href="week2.html#cb214-27" aria-hidden="true" tabindex="-1"></a>    # the country from the function call</span>
-<span id="cb214-28"><a href="week2.html#cb214-28" aria-hidden="true" tabindex="-1"></a>    CNTRY = CNTRY,</span>
-<span id="cb214-29"><a href="week2.html#cb214-29" aria-hidden="true" tabindex="-1"></a>    # the item to download</span>
-<span id="cb214-30"><a href="week2.html#cb214-30" aria-hidden="true" tabindex="-1"></a>    item = item,</span>
-<span id="cb214-31"><a href="week2.html#cb214-31" aria-hidden="true" tabindex="-1"></a>    # the username from this key's record</span>
-<span id="cb214-32"><a href="week2.html#cb214-32" aria-hidden="true" tabindex="-1"></a>    username = keyring::key_list("human-mortality-database")$username,</span>
-<span id="cb214-33"><a href="week2.html#cb214-33" aria-hidden="true" tabindex="-1"></a>    # the password for this key's record</span>
-<span id="cb214-34"><a href="week2.html#cb214-34" aria-hidden="true" tabindex="-1"></a>    password = keyring::key_get(</span>
-<span id="cb214-35"><a href="week2.html#cb214-35" aria-hidden="true" tabindex="-1"></a>      service = "human-mortality-database",</span>
-<span id="cb214-36"><a href="week2.html#cb214-36" aria-hidden="true" tabindex="-1"></a>      username = keyring::key_list("human-mortality-database")$username</span>
-<span id="cb214-37"><a href="week2.html#cb214-37" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb214-38"><a href="week2.html#cb214-38" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb214-39"><a href="week2.html#cb214-39" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb214-40"><a href="week2.html#cb214-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb214-41"><a href="week2.html#cb214-41" aria-hidden="true" tabindex="-1"></a><span class="fu"># Help function to list the available countries</span></span>
-<span id="cb214-42"><a href="week2.html#cb214-42" aria-hidden="true" tabindex="-1"></a><span class="fu"># this generates a vector of all country abbreviations</span></span>
-<span id="cb214-43"><a href="week2.html#cb214-43" aria-hidden="true" tabindex="-1"></a>countries &lt;- HMDHFDplus::getHMDcountries()</span>
-<span id="cb214-44"><a href="week2.html#cb214-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb214-45"><a href="week2.html#cb214-45" aria-hidden="true" tabindex="-1"></a><span class="fu"># Download a data set iteratively for all countries using purrr::map()</span></span>
-<span id="cb214-46"><a href="week2.html#cb214-46" aria-hidden="true" tabindex="-1"></a><span class="fu"># In this case, age-specific mortality in 1-year periods x 1-year age groups</span></span>
-<span id="cb214-47"><a href="week2.html#cb214-47" aria-hidden="true" tabindex="-1"></a><span class="fu"># for all 1-year periods available</span></span>
-<span id="cb214-48"><a href="week2.html#cb214-48" aria-hidden="true" tabindex="-1"></a><span class="fu"># output is a data frame named "mx_1x1"</span></span>
-<span id="cb214-49"><a href="week2.html#cb214-49" aria-hidden="true" tabindex="-1"></a>mx_1x1 &lt;- countries %&gt;%</span>
-<span id="cb214-50"><a href="week2.html#cb214-50" aria-hidden="true" tabindex="-1"></a>    # Returns a list of data.frames, adding a column for country code to each</span>
-<span id="cb214-51"><a href="week2.html#cb214-51" aria-hidden="true" tabindex="-1"></a>    # the map() function performs a run of Ben's read_hmd_country() function for each listed country</span>
-<span id="cb214-52"><a href="week2.html#cb214-52" aria-hidden="true" tabindex="-1"></a>    purrr::map(function(country) {</span>
-<span id="cb214-53"><a href="week2.html#cb214-53" aria-hidden="true" tabindex="-1"></a>        # the item to read is 1 x 1 death rates</span>
-<span id="cb214-54"><a href="week2.html#cb214-54" aria-hidden="true" tabindex="-1"></a>        read_hmd_country(country, "Mx_1x1") %&gt;%</span>
-<span id="cb214-55"><a href="week2.html#cb214-55" aria-hidden="true" tabindex="-1"></a>            # this adds the column "country" storing the country ISO code</span>
-<span id="cb214-56"><a href="week2.html#cb214-56" aria-hidden="true" tabindex="-1"></a>            dplyr::mutate(country = country)</span>
-<span id="cb214-57"><a href="week2.html#cb214-57" aria-hidden="true" tabindex="-1"></a>    }) %&gt;%</span>
-<span id="cb214-58"><a href="week2.html#cb214-58" aria-hidden="true" tabindex="-1"></a>    # Combines the data.frames into a single data.frame</span>
-<span id="cb214-59"><a href="week2.html#cb214-59" aria-hidden="true" tabindex="-1"></a>    dplyr::bind_rows() %&gt;% </span>
-<span id="cb214-60"><a href="week2.html#cb214-60" aria-hidden="true" tabindex="-1"></a>    # Phil added this to make it a tibble</span>
-<span id="cb214-61"><a href="week2.html#cb214-61" aria-hidden="true" tabindex="-1"></a>    tibble()</span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb213-1"><a href="week2.html#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># load required packages</span></span>
+<span id="cb213-2"><a href="week2.html#cb213-2" aria-hidden="true" tabindex="-1"></a>library(HMDHFDplus)</span>
+<span id="cb213-3"><a href="week2.html#cb213-3" aria-hidden="true" tabindex="-1"></a>library(keyring)</span>
+<span id="cb213-4"><a href="week2.html#cb213-4" aria-hidden="true" tabindex="-1"></a>library(tidyverse)</span>
+<span id="cb213-5"><a href="week2.html#cb213-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb213-6"><a href="week2.html#cb213-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># note to see country codes, </span></span>
+<span id="cb213-7"><a href="week2.html#cb213-7" aria-hidden="true" tabindex="-1"></a><span class="fu"># https://www.mortality.org/cgi-bin/hmd/DataAvailability.php</span></span>
+<span id="cb213-8"><a href="week2.html#cb213-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb213-9"><a href="week2.html#cb213-9" aria-hidden="true" tabindex="-1"></a><span class="fu"># Running for a single country with item left NULL lists available series</span></span>
+<span id="cb213-10"><a href="week2.html#cb213-10" aria-hidden="true" tabindex="-1"></a><span class="fu"># for that country and ask for user entry of desired item</span></span>
+<span id="cb213-11"><a href="week2.html#cb213-11" aria-hidden="true" tabindex="-1"></a><span class="fu"># HMDHFDplus::readHMDweb(</span></span>
+<span id="cb213-12"><a href="week2.html#cb213-12" aria-hidden="true" tabindex="-1"></a><span class="fu">#   CNTRY = "USA",</span></span>
+<span id="cb213-13"><a href="week2.html#cb213-13" aria-hidden="true" tabindex="-1"></a><span class="fu">#   username = keyring::key_list("human-mortality-database")$username,</span></span>
+<span id="cb213-14"><a href="week2.html#cb213-14" aria-hidden="true" tabindex="-1"></a><span class="fu">#   password = keyring::key_get(</span></span>
+<span id="cb213-15"><a href="week2.html#cb213-15" aria-hidden="true" tabindex="-1"></a><span class="fu">#     service = "human-mortality-database",</span></span>
+<span id="cb213-16"><a href="week2.html#cb213-16" aria-hidden="true" tabindex="-1"></a><span class="fu">#     username = keyring::key_list("human-mortality-database")$username</span></span>
+<span id="cb213-17"><a href="week2.html#cb213-17" aria-hidden="true" tabindex="-1"></a><span class="fu">#   )</span></span>
+<span id="cb213-18"><a href="week2.html#cb213-18" aria-hidden="true" tabindex="-1"></a><span class="fu"># )</span></span>
+<span id="cb213-19"><a href="week2.html#cb213-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb213-20"><a href="week2.html#cb213-20" aria-hidden="true" tabindex="-1"></a><span class="fu"># Function to download a specified HMD data set item for a single county</span></span>
+<span id="cb213-21"><a href="week2.html#cb213-21" aria-hidden="true" tabindex="-1"></a><span class="fu"># the country code is referenced as "CNTRY"</span></span>
+<span id="cb213-22"><a href="week2.html#cb213-22" aria-hidden="true" tabindex="-1"></a><span class="fu"># the "item" is the base name of the link with ".txt" removed. For example,</span></span>
+<span id="cb213-23"><a href="week2.html#cb213-23" aria-hidden="true" tabindex="-1"></a><span class="fu"># https://www.mortality.org/hmd/ISR/STATS/Mx_1x1.txt</span></span>
+<span id="cb213-24"><a href="week2.html#cb213-24" aria-hidden="true" tabindex="-1"></a><span class="fu">#                                         Mx_1x1       &lt;&lt;- this is the item for 1 year x 1 year death rates</span></span>
+<span id="cb213-25"><a href="week2.html#cb213-25" aria-hidden="true" tabindex="-1"></a>read_hmd_country &lt;- function(CNTRY, item) {</span>
+<span id="cb213-26"><a href="week2.html#cb213-26" aria-hidden="true" tabindex="-1"></a>  HMDHFDplus::readHMDweb(</span>
+<span id="cb213-27"><a href="week2.html#cb213-27" aria-hidden="true" tabindex="-1"></a>    # the country from the function call</span>
+<span id="cb213-28"><a href="week2.html#cb213-28" aria-hidden="true" tabindex="-1"></a>    CNTRY = CNTRY,</span>
+<span id="cb213-29"><a href="week2.html#cb213-29" aria-hidden="true" tabindex="-1"></a>    # the item to download</span>
+<span id="cb213-30"><a href="week2.html#cb213-30" aria-hidden="true" tabindex="-1"></a>    item = item,</span>
+<span id="cb213-31"><a href="week2.html#cb213-31" aria-hidden="true" tabindex="-1"></a>    # the username from this key's record</span>
+<span id="cb213-32"><a href="week2.html#cb213-32" aria-hidden="true" tabindex="-1"></a>    username = keyring::key_list("human-mortality-database")$username,</span>
+<span id="cb213-33"><a href="week2.html#cb213-33" aria-hidden="true" tabindex="-1"></a>    # the password for this key's record</span>
+<span id="cb213-34"><a href="week2.html#cb213-34" aria-hidden="true" tabindex="-1"></a>    password = keyring::key_get(</span>
+<span id="cb213-35"><a href="week2.html#cb213-35" aria-hidden="true" tabindex="-1"></a>      service = "human-mortality-database",</span>
+<span id="cb213-36"><a href="week2.html#cb213-36" aria-hidden="true" tabindex="-1"></a>      username = keyring::key_list("human-mortality-database")$username</span>
+<span id="cb213-37"><a href="week2.html#cb213-37" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb213-38"><a href="week2.html#cb213-38" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb213-39"><a href="week2.html#cb213-39" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb213-40"><a href="week2.html#cb213-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb213-41"><a href="week2.html#cb213-41" aria-hidden="true" tabindex="-1"></a><span class="fu"># Help function to list the available countries</span></span>
+<span id="cb213-42"><a href="week2.html#cb213-42" aria-hidden="true" tabindex="-1"></a><span class="fu"># this generates a vector of all country abbreviations</span></span>
+<span id="cb213-43"><a href="week2.html#cb213-43" aria-hidden="true" tabindex="-1"></a>countries &lt;- HMDHFDplus::getHMDcountries()</span>
+<span id="cb213-44"><a href="week2.html#cb213-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb213-45"><a href="week2.html#cb213-45" aria-hidden="true" tabindex="-1"></a><span class="fu"># Download a data set iteratively for all countries using purrr::map()</span></span>
+<span id="cb213-46"><a href="week2.html#cb213-46" aria-hidden="true" tabindex="-1"></a><span class="fu"># In this case, age-specific mortality in 1-year periods x 1-year age groups</span></span>
+<span id="cb213-47"><a href="week2.html#cb213-47" aria-hidden="true" tabindex="-1"></a><span class="fu"># for all 1-year periods available</span></span>
+<span id="cb213-48"><a href="week2.html#cb213-48" aria-hidden="true" tabindex="-1"></a><span class="fu"># output is a data frame named "mx_1x1"</span></span>
+<span id="cb213-49"><a href="week2.html#cb213-49" aria-hidden="true" tabindex="-1"></a>mx_1x1 &lt;- countries %&gt;%</span>
+<span id="cb213-50"><a href="week2.html#cb213-50" aria-hidden="true" tabindex="-1"></a>    # Returns a list of data.frames, adding a column for country code to each</span>
+<span id="cb213-51"><a href="week2.html#cb213-51" aria-hidden="true" tabindex="-1"></a>    # the map() function performs a run of Ben's read_hmd_country() function for each listed country</span>
+<span id="cb213-52"><a href="week2.html#cb213-52" aria-hidden="true" tabindex="-1"></a>    purrr::map(function(country) {</span>
+<span id="cb213-53"><a href="week2.html#cb213-53" aria-hidden="true" tabindex="-1"></a>        # the item to read is 1 x 1 death rates</span>
+<span id="cb213-54"><a href="week2.html#cb213-54" aria-hidden="true" tabindex="-1"></a>        read_hmd_country(country, "Mx_1x1") %&gt;%</span>
+<span id="cb213-55"><a href="week2.html#cb213-55" aria-hidden="true" tabindex="-1"></a>            # this adds the column "country" storing the country ISO code</span>
+<span id="cb213-56"><a href="week2.html#cb213-56" aria-hidden="true" tabindex="-1"></a>            dplyr::mutate(country = country)</span>
+<span id="cb213-57"><a href="week2.html#cb213-57" aria-hidden="true" tabindex="-1"></a>    }) %&gt;%</span>
+<span id="cb213-58"><a href="week2.html#cb213-58" aria-hidden="true" tabindex="-1"></a>    # Combines the data.frames into a single data.frame</span>
+<span id="cb213-59"><a href="week2.html#cb213-59" aria-hidden="true" tabindex="-1"></a>    dplyr::bind_rows() %&gt;% </span>
+<span id="cb213-60"><a href="week2.html#cb213-60" aria-hidden="true" tabindex="-1"></a>    # Phil added this to make it a tibble</span>
+<span id="cb213-61"><a href="week2.html#cb213-61" aria-hidden="true" tabindex="-1"></a>    tibble()</span></code></pre></div>
 <hr>
 <h4>
 Source code for this document
 <a class="anchor" aria-label="anchor" href="#keyring"><i class="fas fa-link"></i></a>
 </h4>
-<p>Rendered at <tt>2022-01-14 01:32:01</tt></p>
+<p>Rendered at <tt>2022-01-21 04:24:02</tt></p>
 <p>Source code: <a href="02-week02.Rmd">02-week02.Rmd</a></p>
 <pre><code># Week 2 {#week2}
 This session covers the basics of creating R Markdown documents. We will also cover the [Keyring](https://cran.r-project.org/web/packages/keyring/index.html) package for securely storing passwords and other secrets that one would not want to hard-code into R documents. Finally, we will introduce the Human Mortality and Human Fertility databases that will be used in CSDE 533.
@@ -3935,9 +3934,9 @@ ft &lt;- set_caption(ft, caption = "New York Air Quality Measurements")
 ft
 ```
 
-A more advanced application (see [Looping over columns with compose](https://ardata-fr.github.io/flextable-book/programming.html#looping-over-columns-with-compose):
+A more advanced application (see [Looping over columns with compose](https://ardata-fr.github.io/flextable-book/programming.html#looping-over-columns-with-compose)):
 
-```{r}
+```{r, warning=FALSE}
 diamond_dat &lt;- nest(diamonds, data = -all_of(c("cut", "color"))) %&gt;% 
   mutate(
     gg = 
@@ -4342,7 +4341,7 @@ Topics:
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-01-14 01:31.</p>
+    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-01-21 04:23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
