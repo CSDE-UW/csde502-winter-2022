@@ -4,6 +4,7 @@ fig:plotcars
 tab:unnamed-chunk-33
 eq:emc
 eq:sumn
+tab:v2019tab
 tab:census
 tab:censuslong
 fig:ct
@@ -85,6 +86,7 @@ captioner-for-any-captioning-and-cross-referencing-figures-and-tables
 datasets002
 keyring
 week3
+section
 tidycensus
 us-census-api-key-installation
 census-variables

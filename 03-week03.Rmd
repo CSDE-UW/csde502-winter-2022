@@ -14,6 +14,10 @@ table_nums <- captioner(prefix = "Table")
 figure_nums <- captioner(prefix = "Figure")
 ```
 
+This session covers two basic areas: (1) downloading census and international data using `tidycensus`, `tigris`, and `idbr`, and (2) mapping and GIS analysis with `leaflet`, `mapview`, and `sf`.
+
+Download the file [week03.Rmd](files/week03/week03.Rmd) and use that as the base. Change the second line in the YAML header so it uses your name and your web site. See [UW Students Web Server](https://students.washington.edu/) if you do not have a web site.
+
 <h2>Topics</h2>
 
 * [`tidycensus`](#tidycensus): Load US Census Boundary and Attribute Data as ‘tidyverse’ and ‘sf’-Ready Data Frames
@@ -23,6 +27,8 @@ figure_nums <- captioner(prefix = "Figure")
 * [`mapview`](#mapview): Interactive Viewing of Spatial Data in R
 * [`sf`](#sf): Simple Features for R: Simple Features (GIS) for R
 
+## 
+
 ## Getting US Census data with `tigris`, `tidycensus` {#tidycensus}
 Dealing with US Census data can be overwhelming, particularly if using the raw text-based data. The Census Bureau has an API that allows more streamlined downloads of variables (as data frames) and geographies (as simple format shapes). It is necessary to get an API key, available for free. See [tidycensus](https://walker-data.com/tidycensus/) and  [tidycensus basic usage](https://walker-data.com/tidycensus/articles/basic-usage.html), and for a complete treatment, [Analyzing US Census Data](https://walker-data.com/census-r).
 
@@ -31,15 +37,28 @@ Dealing with US Census data can be overwhelming, particularly if using the raw t
 A simple example will download the variables representing the count of White, Black/African American, American Indian/Native American, and Asian persons from the American Community Survey (ACS) data for King County in 2019. 
 
 ### US Census API key installation
-For this example to run, you need to have your US Census API key installed, e.g., 
+For this example to run, you need to have your US Census API key installed. run this code, but substituting your actual API key for the asterisks.
+
+```{r, eval=FALSE}
+# set the census API key and the persistent tigris cache location
+tidycensus::census_api_key("*****************", install = TRUE)
+tigris::tigris_cache_dir("H:/tigris_cache")
+```
 
 <tt>
-tidycensus::census_api_key("*****************", install = TRUE)
-Your API key has been stored in your .Renviron and can be accessed by Sys.getenv("CENSUS_API_KEY").
+<div style='color: red;'>
+Your API key has been stored in your .Renviron and can be accessed by Sys.getenv("CENSUS_API_KEY").<br>
 To use now, restart R or run `readRenviron("~/.Renviron")`
+</div>
 </tt>
 
-The option `install = TRUE` writes a line in your `~/.Renviron` file (`~/` is shorthand for "home directory"; under Windows typically your `C:\users\username\Documents` folder; under MacOS, typically `/home/username`). For example my `.Renviron` file (`r figure_nums(name = "apikey", display = "cite")`) shows the API key.
+You should enable the API key:
+
+```{r}
+readRenviron("~/.Renviron")
+```
+
+The option `install = TRUE` writes a line in your `~/.Renviron` file (`~/` is shorthand for "home directory"; under Windows typically your `C:\users\username\Documents` folder; under MacOS, typically `/home/username`). Similarly, `tigris_cahce_dir()` writes to the `~/.Renviron` file. For example my `.Renviron` file (`r figure_nums(name = "apikey", display = "cite")`) shows the API key and the persistent `tigris` cache folder.
 
 ![](images/week03/2022-01-20 12_34_44-Window.png)
 \    
@@ -66,12 +85,12 @@ The table, which has `r nrow(v2019)` records, can then be browsed using the func
 \    
 _`r figure_nums(name = "vnamesearch", caption = "ACS 5 year variables")`_
 
-However, this interface uses only free text searches and will match any record containing the search string, whether or not the search string is the word alone or the whole word. One can use more specific searches using R syntax, for example to list all variables tagged with the concept "RACE", filtering by the explicit string is more specific:
+However, this interface uses only free text searches and will match any record containing the search string, whether or not the search string is the word alone or the whole word. One can use more specific searches using R syntax, for example to list all variables tagged with the concept "RACE", filtering by the explicit string is more specific (\@ref(tab:v2019tab)).
 
-```{r}
+```{r v2019tab}
 v2019 %>%
     filter(concept == "RACE") %>%
-    kable() %>%
+    kable(caption = 'ACS 5 year variables for the concept "race"') %>%
     kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left")
 ```
 
@@ -98,9 +117,6 @@ The "named vector" refers to the elements of the vector having names, for exampl
 Next, we will download the actual data. Here we will be downloading census tract level data for King County, WA, from the 5 year ACS estimates for the year ending in 2019. We also specify `options(tigris_use_cache=TRUE)` so that any shapefile data downloaded are cached and will not be re-downloaded if not necessary. Note in `r figure_nums(name = "apikey", display = "cite")` I had specified a location where I wanted my tigris cache to be located (`H:/tigris_cache`). Another important option is `output = "wide"`, which generates an output table with one record per census unit and columns representing the variables. A `tidy` output would present a "long" table with repeated records per census unit, one record per variable estimate.
 
 ```{r, message=FALSE}
-# cache tigris data
-options(tigris_use_cache = TRUE)
-
 # get the data
 ctdat <- get_acs(
     geography = "tract",
@@ -130,7 +146,7 @@ A few values are shown in Table \@ref(tab:census). Because the ACS data include 
 ctdat %>%
     head() %>%
     kable(caption = "Selected census tract variables from the 5-year ACS from 2019 for King County, WA") %>%
-    kable_styling(full_width = FALSE, position = "left")
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left")
 ```
 
 An example of data downloaded in "long" format is shown in \@ref(tab:censuslong). Here, the column `variable` indicates what measure is stored in the record, and `estimate` and `moe` present the data values for that particular variable $\times$ census unit combination. Data in this format are more amenable to generating data summaries, rather than applications such as mapping.
@@ -152,7 +168,7 @@ ctdatlong <- get_acs(
 ctdatlong %>%
     head() %>%
     kable(caption = "Selected census tract variables from the 5-year ACS from 2019 for King County, WA (long format)") %>%
-    kable_styling(full_width = FALSE, position = "left")
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left")
 ```
 
 
@@ -179,7 +195,9 @@ _`r table_nums(name = "idbrvar", caption = "idbr variables")`_
 variables5 %>% DT::datatable()
 ```
 
-```{r pyramid}
+The basic use of `get_idb()` without specification of variables or concepts downloads population counts for specific one-year age classes for specific countries and years. Here we download the data representing China and India from 2000 and 2021.
+
+```{r pyramiddata}
 # get data only if necessary
 if(!exists("china_india_data")){
     china_india_data <- get_idb(
@@ -193,7 +211,11 @@ if(!exists("china_india_data")){
         sex = c("male", "female")
     )
 }
+```
 
+And generate a population pyramid for the two countries for the two years, using `ggplot()` with the `geom_col()` format and a grid of plots with `facet_grid()`.
+
+```{r pyramid}
 china_india_data %>%
     # multiply male population by -1 to graph to the left of 0
     mutate(pop = ifelse(sex == "Male", pop * -1, pop)) %>%
@@ -238,6 +260,8 @@ inf_mort <- get_idb(
            male = imr_m)
 ```
 
+We then create a simple column graph from the data (\@ref(fig:infmort)).
+
 ```{r infmort}
 inf_mort %>% 
     pivot_longer(cols = c(female, male), names_to = "sex", values_to = "count") %>% 
@@ -261,18 +285,16 @@ ctdat %<>%
 # a label
 labels <- sprintf("%s<br/>%s%s", ctdat$GEOID, ctdat$pct_black, "%") %>% lapply(htmltools::HTML)
 
-bins <- seq(0, 50, by = 10)
-pal <- colorBin(
+# a color palette in red with 10% classes 
+# max % AfrAm rounded up to the nearest 10
+myMax <- (ctdat$pct_black %>% max(na.rm = TRUE) + 10) %>% round(0)
+# bins for color
+bins <- seq(0, myMax, by = 10)
+# palette with bins and % AfrAm
+myPal <- colorBin(
     palette = "Reds",
     domain = ctdat$pct_black,
     bins = bins
-)
-
-bins2 <- seq(0, 50, by = 10)
-pal2 <- colorBin(
-    palette = "Reds",
-    domain = ctdat$pct_black,
-    bins = bins2
 )
 
 # the leaflet map
@@ -283,7 +305,7 @@ m <- leaflet(height = "500px") %>%
         weight = 1,
         fillOpacity = 0.8,
         # fill using the palette
-        fillColor = ~ pal(pct_black),
+        fillColor = ~ myPal(pct_black),
         # highlighting
         highlight = highlightOptions(
             weight = 5,
@@ -299,8 +321,9 @@ m <- leaflet(height = "500px") %>%
             direction = "auto"
         )
     ) %>%
+    # add the legend using the palette and % AfrAm
     addLegend(
-        position = "bottomright", pal = pal2, values = ctdat$pct_black,
+        position = "bottomright", pal = myPal, values = ctdat$pct_black,
         title = "% African American",
         opacity = 1
     )
@@ -358,7 +381,6 @@ mapview(ctdat_mv,
     )
 ```
 
-
 \    
 _`r figure_nums(name = "ctmapview", caption = "A mapview map of ratio of African American to White population counts in King County, 2019 ACS data")`_
 
@@ -380,7 +402,7 @@ The geometry for this record is composed of a `MULTIPOLYGON`, that is a polygon 
 The first polygon consists of a set of vertices that define the shape of the polygon:
 
 ```{r}
-st_geometry(ctdat$geometry)[[1]]
+st_geometry(ctdat$geometry)[[1]] %>% st_as_text() %>% str_replace_all(pattern = ", ", replacement = "\n") %>% cat()
 ```
 
 Here we extract the coordinates of vertices the polygon and plot them as points on top of the polygon
@@ -401,9 +423,10 @@ The `sf` and package contains a plethora of analytic functions. Here we could th
 
 We will start by downloading water areas, then perform the spatial overlay, then download the census values (without geometry) and finally join the geometry and census variables together and export to a [geopackage (GPKG) file](https://www.geopackage.org/). A geopackage is a GIS data format that can contain multiple data sources and does not suffer some of the built-in limitations of shapefiles.
 
-```{r}
-# get water
-water_kc <- area_water(state = "WA", county = "King", year = 2019)
+```{r, eval=FALSE}
+# get water and transform to WGS84
+water_kc <- area_water(state = "WA", county = "King", year = 2019) %>% 
+    st_transform(4326)
 
 # erase water from tracts
 tract_nowater <- ms_erase(tgtracts_kc_2019, water_kc) %>% 
@@ -448,6 +471,56 @@ st_write(obj = water_kc, dsn = file.path(myDir, "ctdat_nowater.gpkg"), layer = "
 st_write(obj = tgtracts_kc_2019, dsn = file.path(myDir, "ctdat_nowater.gpkg"), layer = "tgtracts_kc_2019", append = TRUE, delete_layer = TRUE, quiet = TRUE)
 
 ```
+
+```{r, echo=FALSE}
+# get water and transform to WGS84
+water_kc <- area_water(state = "WA", county = "King", year = 2019) %>% 
+    st_transform(4326)
+
+# erase water from tracts
+tract_nowater <- ms_erase(tgtracts_kc_2019, water_kc) %>% 
+    filter(GEOID != "53033990100")
+
+# download census variables
+# the census variables
+census_vars <- c(
+    p_denom_race = "B02001_001",
+    p_n_white = "B02001_002",
+    p_n_afram = "B02001_003",
+    p_n_aian = "B02001_004",
+    p_n_asian = "B02001_005"
+)
+# get the data
+ctdat_nogeom <- get_acs(
+    geography = "tract",
+    variables = census_vars,
+    cache_table = TRUE,
+    year = 2019,
+    output = "wide",
+    state = "WA",
+    county = "King",
+    geometry = FALSE,
+    survey = "acs5"
+)
+
+# join
+ctdat_nowater <- tract_nowater %>% left_join(ctdat_nogeom, by = "GEOID")
+
+# write as a GPKG
+# an output dir
+myDir <- "//udrive.uw.edu/udrive/csde502_winter_2022/week03"
+if(!dir.exists(myDir)){
+    dir.create(myDir)
+}
+# write tracts no water
+st_write(obj = ctdat_nowater, dsn = file.path(myDir, "ctdat_nowater.gpkg"), layer = "ctdat_nowater", append = TRUE, delete_layer = TRUE, quiet = TRUE)
+# write water
+st_write(obj = water_kc, dsn = file.path(myDir, "ctdat_nowater.gpkg"), layer = "water_kc", append = TRUE, delete_layer = TRUE, quiet = TRUE)
+# write tracts
+st_write(obj = tgtracts_kc_2019, dsn = file.path(myDir, "ctdat_nowater.gpkg"), layer = "tgtracts_kc_2019", append = TRUE, delete_layer = TRUE, quiet = TRUE)
+
+```
+
 
 The GPKG layers are viewable in QGIS (`r figure_nums(name = "tracts_qgis", display = "cite")`, `r figure_nums(name = "tracts_nowater_qgis", display = "cite")`.
 
