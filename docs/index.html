@@ -103,10 +103,11 @@ Office hours: by appointment; see <a href="http://staff.washington.edu/phurvitz/
 <h2>Course logistics<a class="anchor" aria-label="anchor" href="#course-logistics"><i class="fas fa-link"></i></a>
 </h2>
 <div class="rmdnote">
-<div id="course-location" class="section level3 unnumbered">
-<h3>Course location<a class="anchor" aria-label="anchor" href="#course-location"><i class="fas fa-link"></i></a>
+<div id="class-location" class="section level3 unnumbered">
+<h3>Class location<a class="anchor" aria-label="anchor" href="#class-location"><i class="fas fa-link"></i></a>
 </h3>
-<p>Class meetings will happen initially over Zoom. The Zoom link for this course is <a href="https://washington.zoom.us/j/976094407559">https://washington.zoom.us/j/97609440755</a>. It is not known whether in-person class meetings will be held during Winter 2022.</p>
+<p>Class meetings will happen initially over Zoom. The Zoom link for this course is <a href="https://washington.zoom.us/j/976094407559">https://washington.zoom.us/j/97609440755</a>.</p>
+<p>Hybrid in-person/Zoom meetings will start on Feb 4, 2022 in <a href="https://www.washington.edu/classroom/CMU">Communications</a> B027.</p>
 </div>
 <div id="course-days-and-times" class="section level3 unnumbered">
 <h3>Course days and times<a class="anchor" aria-label="anchor" href="#course-days-and-times"><i class="fas fa-link"></i></a>
@@ -119,9 +120,8 @@ Please come to class promptly at the scheduled time. There will be a 10-minute b
 </h3>
 <p>The course has a Canvas site <a href="https://canvas.uw.edu/courses/1515226">https://canvas.uw.edu/courses/1515226</a>, which will be used for collection of assignments and distribution of graded assignments. The site may also be used for distribution of data sets used in the course.</p>
 </div>
-<div id="class-e-mail-list" class="section level3" number="0.0.1">
-<h3>
-<span class="header-section-number">0.0.1</span> Class e-mail list<a class="anchor" aria-label="anchor" href="#class-e-mail-list"><i class="fas fa-link"></i></a>
+<div id="class-e-mail-list" class="section level3 unnumbered">
+<h3>Class e-mail list<a class="anchor" aria-label="anchor" href="#class-e-mail-list"><i class="fas fa-link"></i></a>
 </h3>
 <p>Correspondence among instructor and students should use the class e-mail list, <a href="mailto:csde502a_wi22@uw.edu">CSDE 502 Winter 2022</a>. List archives are available <a href="https://mailman11.u.washington.edu/mailman/private/csde502a_wi22/">CSDE 502 Winter 2022 Archives</a>.</p>
 <p>In general, please send any messages you want the entire class to see to the list. If you have a message to the instructor that you don’t want others to see, just send the message directly to the instructor. If the answer would be valuable to the rest of the class, the answer will be posted to the class e-mail list and any identification will be removed from the message so the question will appear anonymous.</p>
@@ -225,7 +225,12 @@ Please come to class promptly at the scheduled time. There will be a 10-minute b
 <ul>
 <li>Code blocks in R Markdown</li>
 <li>Graphs in R Markdown</li>
-<li>Tables in R Markdown</li>
+<li>Tables in R Markdown
+<ul>
+<li>Pretty printouts of life tables with <code>flextable</code> and <code>DT</code>
+</li>
+</ul>
+</li>
 <li>Equations in R Markdown</li>
 <li>HTML output from R Markdown</li>
 </ul>
@@ -251,12 +256,6 @@ Please come to class promptly at the scheduled time. There will be a 10-minute b
 <a href="https://cran.r-project.org/web/packages/leaflet/"><code>leaflet</code></a>: Create Interactive Web Maps with the JavaScript ‘Leaflet’ Library</li>
 <li>
 <a href="https://cran.r-project.org/web/packages/mapview/"><code>mapview</code></a>: Interactive Viewing of Spatial Data in R</li>
-<li>
-<a href="https://cran.r-project.org/web/packages/demogR/index.html"><code>demogR</code></a>: Analysis of Age-Structured Demographic Models</li>
-<li>
-<a href="https://cran.r-project.org/web/packages/demography/"><code>demography</code></a>: Forecasting Mortality, Fertility, Migration and Population Data; <a href="https://rpubs.com/Timexpo/487053">An R intro to the demography package</a>)</li>
-<li>Pretty printouts of life tables with <code>flextable</code> and <code>DT</code>
-</li>
 <li>Data:
 <ul>
 <li>Accessing Human Mortality Database life tables using <a href="https://cran.r-project.org/web/packages/HMDHFDplus/index.html">HMDHFDplus</a>
@@ -272,6 +271,10 @@ Please come to class promptly at the scheduled time. There will be a 10-minute b
 <li>Sampling in R</li>
 <li>Revisiting <a href="https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R">Ben’s code for reading HMD and HFD data</a>
 </li>
+<li>
+<a href="https://cran.r-project.org/web/packages/demogR/index.html"><code>demogR</code></a>: Analysis of Age-Structured Demographic Models</li>
+<li>
+<a href="https://cran.r-project.org/web/packages/demography/"><code>demography</code></a>: Forecasting Mortality, Fertility, Migration and Population Data; <a href="https://rpubs.com/Timexpo/487053">An R intro to the demography package</a>)</li>
 </ul>
 <p><strong><em>Week 5</em></strong></p>
 <p><strong>Topics</strong>:</p>
@@ -322,7 +325,7 @@ Source code for this document
 <a class="anchor" aria-label="anchor" href="#about-this-web-site"><i class="fas fa-link"></i></a>
 </h4>
 <p>Each of the pages in this book will have a section at the bottom including a link to the source file and the printed source code for the page.</p>
-<p>Rendered: 2022-01-21 13:41:53</p>
+<p>Rendered: 2022-01-27 01:34:25</p>
 <p>Source code: <a href="index.Rmd">index.Rmd</a></p>
 <pre><code>--- 
 title: "UW CSDE 502 A Course Notes"
@@ -392,9 +395,11 @@ Office hours: by appointment; see [my calendar](http://staff.washington.edu/phur
 ## Course logistics {.unnumbered}
 
 :::{.rmdnote}
-### Course location {.unnumbered}
+### Class location {.unnumbered}
 
-Class meetings will happen initially over Zoom. The Zoom link for this course is [https://washington.zoom.us/j/97609440755](https://washington.zoom.us/j/976094407559). It is not known whether in-person class meetings will be held during Winter 2022.
+Class meetings will happen initially over Zoom. The Zoom link for this course is [https://washington.zoom.us/j/97609440755](https://washington.zoom.us/j/976094407559). 
+
+Hybrid in-person/Zoom meetings will start on Feb 4, 2022 in [Communications](https://www.washington.edu/classroom/CMU) B027.
 
 ### Course days and times {.unnumbered}
 Friday 10:30-12:20&lt;br&gt;
@@ -404,7 +409,7 @@ Please come to class promptly at the scheduled time. There will be a 10-minute b
 
 The course has a Canvas site [https://canvas.uw.edu/courses/1515226](https://canvas.uw.edu/courses/1515226), which will be used for collection of assignments and distribution of graded assignments. The site may also be used for distribution of data sets used in the course.
 
-### Class e-mail list
+### Class e-mail list {.unnumbered}
 Correspondence among instructor and students should use the class e-mail list, [CSDE 502 Winter 2022](mailto:csde502a_wi22@uw.edu). List archives are available [CSDE 502 Winter 2022 Archives](https://mailman11.u.washington.edu/mailman/private/csde502a_wi22/).
 
 In general, please send any messages you want the entire class to see to the list. If you have a message to the instructor that you don't want others to see, just send the message directly to the instructor. If the answer would be valuable to the rest of the class, the answer will be posted to the class e-mail list and any identification will be removed from the message so the question will appear anonymous.
@@ -511,6 +516,7 @@ A link to the SafeCampus program is below:
     * Code blocks in R Markdown
     * Graphs in R Markdown
     * Tables in R Markdown
+        * Pretty printouts of life tables with `flextable` and `DT`
     * Equations in R Markdown
     * HTML output from R Markdown
 * [Keyring: securely store secrets](https://cran.r-project.org/web/packages/keyring/)
@@ -527,9 +533,6 @@ A link to the SafeCampus program is below:
 * [`sf: Simple Features for R`](https://cran.r-project.org/web/packages/sf/): Simple Features (GIS) for R
 * [`leaflet`](https://cran.r-project.org/web/packages/leaflet/): Create Interactive Web Maps with the JavaScript 'Leaflet' Library
 * [`mapview`](https://cran.r-project.org/web/packages/mapview/): Interactive Viewing of Spatial Data in R
-* [`demogR`](https://cran.r-project.org/web/packages/demogR/index.html): Analysis of Age-Structured Demographic Models
-* [`demography`](https://cran.r-project.org/web/packages/demography/): Forecasting Mortality, Fertility, Migration and Population Data; [An R intro to the demography package](https://rpubs.com/Timexpo/487053))
-* Pretty printouts of life tables with `flextable` and `DT`
 * Data:
     * Accessing Human Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
 
@@ -541,6 +544,8 @@ A link to the SafeCampus program is below:
 * R functions
 * Sampling in R
 * Revisiting [Ben's code for reading HMD and HFD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R)
+* [`demogR`](https://cran.r-project.org/web/packages/demogR/index.html): Analysis of Age-Structured Demographic Models
+* [`demography`](https://cran.r-project.org/web/packages/demography/): Forecasting Mortality, Fertility, Migration and Population Data; [An R intro to the demography package](https://rpubs.com/Timexpo/487053))
 
 ***Week 5***
 
@@ -612,10 +617,10 @@ cat(readLines("index.Rmd"), sep = "\n")
 <li><a class="nav-link" href="#about-this-course">About this course</a></li>
 <li>
 <a class="nav-link" href="#course-logistics">Course logistics</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#course-location">Course location</a></li>
+<li><a class="nav-link" href="#class-location">Class location</a></li>
 <li><a class="nav-link" href="#course-days-and-times">Course days and times</a></li>
 <li><a class="nav-link" href="#canvas-site">Canvas site</a></li>
-<li><a class="nav-link" href="#class-e-mail-list"><span class="header-section-number">0.0.1</span> Class e-mail list</a></li>
+<li><a class="nav-link" href="#class-e-mail-list">Class e-mail list</a></li>
 <li><a class="nav-link" href="#class-format">Class format</a></li>
 </ul>
 </li>
@@ -641,7 +646,7 @@ cat(readLines("index.Rmd"), sep = "\n")
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-01-21 13:41.</p>
+    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-01-27 01:34.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

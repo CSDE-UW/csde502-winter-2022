@@ -7,7 +7,7 @@
     border-style: solid; } 
 </style>
 
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 pacman::p_load(animation, captioner, idbr, htmltools, kableExtra, knitr, leaflet, leafem, leafpop, magrittr, mapview, pander, pander, psych, readstata13, rmapshaper, sf, stargazer, tidyverse, tidycensus, tigris)
 
 table_nums <- captioner(prefix = "Table")
@@ -215,7 +215,7 @@ if(!exists("china_india_data")){
 
 And generate a population pyramid for the two countries for the two years, using `ggplot()` with the `geom_col()` format and a grid of plots with `facet_grid()`.
 
-```{r pyramid}
+```{r pyramid, fig.cap="Population structure of\nChina and Japan, 2000 and 2021"}
 china_india_data %>%
     # multiply male population by -1 to graph to the left of 0
     mutate(pop = ifelse(sex == "Male", pop * -1, pop)) %>%
@@ -233,7 +233,6 @@ china_india_data %>%
     scale_fill_manual(values = c("red", "gold")) +
     # set the labels
     labs(
-        title = "Population structure of\nChina and Japan, 2000 and 2021",
         x = "Population",
         y = "Age",
         fill = ""
@@ -262,7 +261,7 @@ inf_mort <- get_idb(
 
 We then create a simple column graph from the data (\@ref(fig:infmort)).
 
-```{r infmort}
+```{r infmort, fig.cap="INnfant mortality, China and Japan, 2000 and 2021"}
 inf_mort %>% 
     pivot_longer(cols = c(female, male), names_to = "sex", values_to = "count") %>% 
     ggplot(aes(x = factor(sex), y = count)) +

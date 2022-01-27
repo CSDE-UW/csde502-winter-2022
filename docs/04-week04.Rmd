@@ -1,25 +1,27 @@
 # Week 4 {#week4}
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-library(tidyverse)
-library(magrittr)
-library(knitr)
-library(kableExtra)
-library(readstata13)
+pacman::p_load(tidyverse, magrittr, knitr, kableExtra, readstata13, captioner)
+
+figure_nums <- captioner(prefix = "Figure")
+table_nums <- captioner(prefix = "Table")
 ```
 
 <h2>Topics: Functions and sampling</h2>
-This week's topics are functions and sampling, the latter including a cursory treatment of loops and bootstrapping.
+This week's topics cover functions and sampling, the latter including a cursory treatment of loops and bootstrapping. We will revisit Ben's code for reading Human Mortality and Human Fertility databases to look at the use of `purrr::map()` as an alternative to `for()` looping in functions. Finally we will delve into `demogR` and `demography` packages for analysis of age-structured demographic models and forecasting mortality, fertility, migration and population data.
 
-* [`demogR`](#demogR): Analysis of Age-Structured Demographic Models
-* [`demography`](#demography): Forecasting Mortality, Fertility, Migration and Population Data; An R intro to the demography package)
+* [R environments](#renviron)
+* [R functions](#rfunc)
+* [Sampling in R](#rsampling)
+* [`demogR`](#demogR)
+* [`demography`](#demography)
 
-## Environments
-Functions exist in `environments`, which are "frames" or collections containing objects including variables, functions, etc.). There is a global environment (`.GlobalEnv`) that contains all of the data, functions, in the current R session. Those objects can be enumerated with the `ls()` function. 
+## Environments {#renviron}
+Functions exist in `environments`, which are "frames" or collections containing objects including variables, functions, etc. There is a global environment (`.GlobalEnv`) that contains all of the data, functions, in the current R session. Those objects can be enumerated with the `ls()` function. 
 
-The reason environments are mentioned at this time is because functions instantiate environments that exist while the function is running. More on this in a bit....
+The reason environments are mentioned at this time is because functions instantiate environments that exist while the function is running, but once the function is completed, the environment is removed from memory. More on this [below](#funcenviron).
 
-## Functions
+## Functions {#rfunc}
 Functions are sets of statements in R that are grouped together to perform a specific task or set of tasks. Functions are either built in, included in packages, or user-defined. Functions are used mainly to simplify running a series of individual commands or functions, for situations where the same process will need to be run multiple times on different inputs, or when control structures are needed (e.g., looping, logical branching).
 
 ### Function Components
@@ -76,21 +78,21 @@ L <- list(v1, v2, v3)
 lapply(X = L, FUN = function(x) {x[1]})
 ```
 
-The last line of the code chunk is:
+The `lapply()` function is used to _apply_ a function to each element of a list. In this example, the last line of the code chunk is:
 
 ```
 lapply(X = L, FUN = function(x) {x[1]})
 
 ```
 
-in which the body of the function is `x[1]`, i.e., obtain the first element of a vector. But the function itself is not named, and hence "anonymous."
+in which the body of the function is `x[1]`, i.e., obtain the first element of a vector. In natural language, this translates to "for each element of the list _L_, obtain the first element of vector _x_". But the function itself is not named, and hence "anonymous."
 
 #### Arguments
 Most functions require arguments. Arguments are used to instantiate variables within the function's environment that can be used later in the body of the function. Each argument is named, and the name is used within the function as a local variable within the function's environment.
 
 Following our example from above, `f_square` takes an argument named "x" that is a numeric vector.
 
-Here, let's modify the function to demonstrate that within the environment of the function, `x` is a variable:
+Here, let's modify the function to demonstrate that within the environment of the function, `x` is a variable by using `print(x)`:
 
 ```{r}
 f_square_2 <- function(x){
@@ -103,7 +105,7 @@ f_square_2 <- function(x){
 f_square_2(c(1,2,3))
 ```
 
-We can try running the function using different (or no) arguments:
+We can try running the original function using different (or no) arguments:
 
 Here, using a vector of a single NA numeric
 
@@ -111,7 +113,7 @@ Here, using a vector of a single NA numeric
 f_square(as.numeric(NA))
 ```
 
-... or a vector that contains a numeric NA:
+... or a vector that contains a numeric NA (with the first two elements being numeric, the third element `NA` is automatically cast as a numeric):
 
 ```{r}
 f_square(c(1, 2, NA))
@@ -161,44 +163,36 @@ Sys.Date(1)
 </font>
 
 ##### Default values for arguments
-If you want an argument to have a default value, it is specified in the listed arguments in the form `argument = value`. Following our previous `f_square_2()` function, we can modify to print the input based on the logical argument `verbose`:
+If you want an argument to have a default value, it is specified in the listed arguments in the form `argument = value`. 
 
-```{r, collapse=TRUE}
-f_square_3 <- function(x, verbose = FALSE){
-    # only run the next lines if verbose is true
-    if(verbose){
-        message("input:")
-        print(x)
-        message("output:")
-    }
+Following our previous `f_square_2()` function, we can set the default value of `x` to `3`:
+
+```{r}
+f_square_3 <- function(x = 3){
     x^2
 }
 ```
 
-Here we run with the default `verbose` option (`FALSE`):
+Because the default argument is set, the function can be run with no arguments, and the default will be substituted in:
 
 ```{r}
-f_square_3(x = c(1, 2, 3))
+f_square_3()
 ```
 
-... and with `verbose = TRUE`:
-
-
-```{r}
-f_square_3(x = c(1, 2, 3), verbose = TRUE)
-```
 
 A more meaningful example demonstrates stratification of counts into intensity bins using accelerometry data. We will be using accelerometry from one day's data from one subject in a study.
 
 The cut points for accelerometry were identified at 0, 2690, 6167, and 9642 counts per minute, from Sasaki et al. (2011).
 
-__Sasaki JE, John D, Freedson PS. Validation and comparison of ActiGraph activity monitors. J Sci Med Sport. 2011;14(5):411-416. doi:10.1016/j.jsams.2011.04.003__
+*Sasaki JE, John D, Freedson PS. Validation and comparison of ActiGraph activity monitors. J Sci Med Sport. 2011;14(5):411-416. doi:10.1016/j.jsams.2011.04.003"*
 
 The variable `vm3` is the vector magnitude measured with the accelerometer for each minute. Data: [accelerometry.csv](files/accelerometry.csv).
 
 ```{r}
+# read the accelerometry data
 acc <- read.csv("files/accelerometry.csv")
 
+# print first 6 lines
 head(acc)
 ```
 
@@ -206,9 +200,15 @@ head(acc)
 The following function codes intensity by the aforementioned cut points by default and using default labels:
 
 ```{r}
-f_acc_intensity <- function(x, 
-                            cuts = c(-Inf, 2690, 6167, 9642, Inf),
-                            labels = c("sedentary/low", "moderate", "vigorous", "very vigorous")){
+f_acc_intensity <- function(x,
+                            cuts = c(
+                                -Inf,
+                                2690, 6167, 9642, Inf
+                            ),
+                            labels = c(
+                                "sedentary/low",
+                                "moderate", "vigorous", "very vigorous"
+                            )) {
     cut(x = acc$vm3, breaks = cuts, labels = labels)
 }
 ```
@@ -216,8 +216,13 @@ f_acc_intensity <- function(x,
 ... and when run with the defaults to tabulate the minutes spent in different PA levels
 
 ```{r}
+# recode
 acc$intens_default <- f_acc_intensity(acc$vm3)
-table(acc$intens_default)
+
+# tabulate
+acc %>% 
+    group_by(intens_default) %>% 
+    summarise(n = n())
 ```
 
 But we could run this with different thresholds and levels, where SPLA = "sedentary/low physical activity" and MVPA = "moderate-to-very vigorous physical activity):
@@ -226,12 +231,14 @@ But we could run this with different thresholds and levels, where SPLA = "sedent
 acc$intens_2lev <- f_acc_intensity(x = acc$vm3,
                                 cuts = c(-Inf, 2690, Inf),
                                 labels = c("SLPA", "MVVPA"))
-table(acc$intens_2lev)
+acc %>% 
+    group_by(intens_2lev) %>% 
+    summarise(n = n())
 ```
 
 
 ##### The `...` argument
-When functions do not have a known _a priori_ number or set of arguments, or when a large number of arguments is to be passed to another function the `...` argument is used. We will not cover this but you are encouraged to read more: [How to Use the Dots Argument in R](https://www.dummies.com/programming/r/how-to-use-the-dots-argument-in-r/); [The three-dots construct in R](https://www.r-bloggers.com/2013/01/the-three-dots-construct-in-r/).
+When functions do not have a known _a priori_ number or set of arguments, or when a large number of arguments is to be passed to another function the `...` argument is used. We will not cover this here, but you are encouraged to read more: [How to Use the Dots Argument in R](https://www.dummies.com/programming/r/how-to-use-the-dots-argument-in-r/); [The three-dots construct in R](https://www.r-bloggers.com/2013/01/the-three-dots-construct-in-r/).
 
 #### Body
 The function's body contains all of the code to perform the purpose of the function. Following our initial example, the body of the function is simply 
@@ -242,8 +249,81 @@ x^2
 
 The body can be as simple or complicated as it needs to be in order to achieve the desired result.
 
-#### Return value
-The return value is either the last evaluated expression in the function or an object specified using the `return()` function. 
+### Logical testing for branching
+Sometimes you want to vary what your code does based on some condition. If the condition is met, then execute a block of code. If the condition is not met, or some other condition is met, then execute other code. For a more complete tutorial, see [R if else elseif Statement](https://www.learnbyexample.org/r-if-else-elseif-statement/)
+
+
+Following our previous `f_square_2()` function, we can modify to print the input based on the logical argument `verbose`. In this code, if the `verbose` object is set to `TRUE`, some text is printed in a message as well as the value that was supplied for `x`. In either case (`verbose = TRUE` or `verbose = FALSE`), the output value of `x^2` is returned.
+
+```{r, collapse=TRUE}
+f_square_4 <- function(x, verbose = FALSE){
+    # only run the next lines if verbose is true
+    if(verbose){
+        message("input:")
+        print(x)
+        message("output:")
+    }
+    x^2
+}
+```
+
+Here we run with the default option `verbose = FALSE`; only the final value `x^2` is in the output:
+
+```{r}
+f_square_4(x = c(1, 2, 3))
+```
+
+... and with `verbose = TRUE`, additional text is printed :
+
+
+```{r}
+f_square_4(x = c(1, 2, 3), verbose = TRUE)
+```
+
+There are additional ways to use `if()`, as nested statements, using:
+
+```
+if(condition1){
+    if(condition2){
+        statement
+    }
+}
+```
+
+Or with an alternative:
+
+```
+if(condition){
+    statement1
+    statement2
+    ...
+} else {
+    statement3
+    statement4
+}
+...
+```
+
+Or with an additional condition to check if the first condition is not met:
+
+
+```
+if(condition1){
+    statement1
+    statement2
+    ...
+} else if (condition2){
+    statement3
+    statement4
+} else {
+    statement5
+    statement6
+}
+...
+```
+
+### Return value
+The return value is either the last evaluated expression in the function or an object specified using the `return()` function. For functions that are intended to return only one value, by convention that is the last line in the function.
 
 In our original `f_square()` function, the return value is `x^2` since no other `return()` value was specified, e.g., for a vector of one element:
 
@@ -260,7 +340,7 @@ or a vector with multiple elements:
 f_square(c(1,2,3))
 ```
 
-An simple example of explicitly specifying return values is shown in this numerical comparison function:
+However, if it is possible that different outputs can be produced by a function based on some logical testing, one can explicitly use `return(object)` in the code; at that time the object will be output and the function will stop. A simple example of explicitly specifying return values is shown in this numerical comparison function:
 
 ```{r}
 f_compare <- function(x, y){
@@ -284,7 +364,17 @@ f_compare <- function(x, y){
 }
 ```
 
-If you want to handle an expected error, you can print an informative message and use `return(invisible())`, which returns nothing at all (whereas `return()` results in a `NULL`) e.g., here without `invisible()`:
+Based on criteria such as the number of arguments or the relative value of the arguments `x` and `y`, different outputs are generated. Here are a few examples running the function:
+
+```{r}
+f_compare(1)
+
+f_compare(1, 2)
+
+f_compare(2, 1)
+```
+
+If you want to handle an expected error, you can print an informative message and use `return(invisible())`, which returns nothing at all (whereas `return()` results in a `NULL` object) e.g., here without `invisible()`:
 
 ```{r}
 f_readfile <- function(fname){
@@ -314,8 +404,7 @@ f_readfile <- function(fname){
 f_readfile("foobar.txt")
 ```
 
-
-#### Function environments
+### Function environments {#funcenviron}
 As mentioned before, functions instantiate environments that exist only while the function is being evaluated. This means that functions can include named variables that have the same name as a variable in a different environment. For example here is a function that only lists what objects are in the local and global environments:
 
 ```{r}
@@ -347,22 +436,26 @@ f <- function(x){
 f(1)
 ```
 
-Once the function completes, all objects in its local environment are purged. If you are running a complicated function that creates intermediate values that you want to examine for troubleshooting, this kind of thing can be done, to assign a variable with a specific value to a different environment created specifically for examining the intermediate products of the function:
+Once the function completes, all objects in its local environment are purged. If you are running a complicated function that creates intermediate values that you want to examine for troubleshooting, you can create an environment in the `.GlobalEnv` (i.e., the overall environment in which R is running), and then assign a variable with a specific value to that environment created specifically for examining the intermediate products of the function:
 
 ```{r}
-# create an environment for holding intermediate objects created in the function run
-foo <- new.env()
+# a function to show how we can assign
 g <- function(x){
     # code for a bunch of complicated operations
     # ...
+    # create environment "foo"
+    if(!exists("foo")){
+        message("make foo")
+        assign(x = "foo", value = new.env(), envir = .GlobalEnv)
+    }    
     # generates an intermediate data frame named "bar"
     bar <- head(iris)
-    # save to the other env
+    # save to the foo env
     assign(x = "bar", value = bar, envir = foo)
     # more code to do more complicated stuff
     # ...
     foobar <- head(cars)
-    # assign this too
+    # also assign 
     assign(x = "foobar", value = foobar, envir = foo)
     # yet more complicated stuff here
     # ...
@@ -389,47 +482,17 @@ print(foo$bar)
 print(foo$foobar)
 ```
 
-## Sampling
-The general topic of sampling is far greater than what we can cover in this course. However, a few examples may be helpful for students who have little experience in sampling.
-
-The main R function for sampling is `sample()`, which draws a random sample from a vector or data frame. Options for `sample()` include the size of the sample, whether or not to replace sampled individuals to the pool, and a probability weight of the same length (or number of rows) as the population from which the sample is drawn.
-
-### Sampling with replacement
-Sampling with replacement is similar to rolling a die. Each roll of the die has a 1/6 probability of coming up with each value. For example:
+But those objects will not appear in the `.GloalEnv`, even though the environment `foo` does; you could consider that the objects `bar` and `foobar` are "nested" in environment `foo` which is itself nested in `.GlobalEnv`.
 
 ```{r}
-# create a vector to represent the faces of a die
-d <- 1:6
-
-# now make a sample of 100,000 rolls of the die
-s <- sample(x = d, size = 100000, replace = TRUE)
-
-# tabulate the result
-(tbs <- table(s))
-
-# proportions
-(prop.table(tbs))
+ls(envir = .GlobalEnv)
 ```
 
-The probability of rolling two of the same number in a row is 1/6 $\times$ 1/6, or $\approx$ 0.028
+### Looping 
+Loops are run when you want to perform a series of tasks over and over on a set of objects. 
 
-### Sampling without replacement
-Sampling without replacement removes from the population the individual that was sampled. For example, the probability of selecting an ace from a whole deck of cards is 4/52, or $\approx$ 0.077. If we drew once from the deck and returned the card back to the deck to draw again, both samples would be independent. The probability of drawing two aces would be 4/52 $\times$ 4/52, or $\approx$ 0.0059. _That_ is an example of sampling _with_ replacement.
-
-Performing the same sample _without_ replacement, i.e., finding an ace, removing it, and then sampling again would have a probability of drawing two aces being 4/52 $\times$ 3/51, or $\approx$ 0.0045.
-
-For a population of sufficient size relative to the sample, sampling with or without replacement will lead to nearly identical results.
-
-Let's use an example of a population of 50,000 persons, where 30,000 are female and 20,000 are male. If we were to sample two persons with replacement, the probability that they would both be female would be 30000/50000 $\times$ 30000/50000, or 0.36.
-
-If we sample without replacement, the probability of selecting a female in the first sample of one would be 30000/50000, and the second sample of 1 would have a probability of selecting a female 29999/49999, with a joint probability of $\approx$ 0.359995.
-
-### Bootstrapping
-Bootstrapping is used to estimate the characteristics of a population by repeating a large number of random samples (with replacement) and then calculating summary statistics on the set of samples. The reason replacement is used is that each sample represents a "snapshot" of the population. As the number of samples increases, the summary continues to approach the true population characteristics.
-
-We will use a simple example from our previously created hypothetical population. If we had no idea what the male/female split was, we could generate a large number of small-is samples and the take the mean.
-
-Here we will use an R loop. A loop is constructed using the form
+#### Looping with `for()` loops
+ A loop is constructed using the form ...
 
 ```
 for (element in set){
@@ -437,9 +500,11 @@ for (element in set){
 }
 ```
 
+where `element` represents the variable value of the current iteration and `set` is a group of objects, such as elements in a vector or list
+
 A few simple examples follow.
 
-Print each letter in the first 5 letters of the alphabet. In this example, the iterated element is a letter. The built in vector `letters` is used:
+Print each letter in the first 5 letters of the alphabet. In this example, the iterated element is a letter, and the variable `i` has the value of the letter in each iteration. The built in vector `letters` is used. So on the first iteration, `i = 1`, on the second iteration,m `i = 2` and so on.
 
 ```{r}
 for (i in head(letters, 5)){
@@ -447,17 +512,238 @@ for (i in head(letters, 5)){
 }
 ```
 
-A similar approach, but using a numerical index:
+
+In this example, the object `i` takes on integer values 1 through 10. Within the loop, a message is printed that includes the term `i^2`, which evaluates to `1^2`, `2^2`, $\dots$, `10^2`.
 
 ```{r}
-states_5 <- head(state.name, 5)
-for (i in 1:length(states_5)){
-    s <- states_5[i]
-    print(s)
+for(i in 1:10){
+    message(paste(i, "squared equals", i^2))
 }
 ```
 
-The bootstrap will use 5,000 samples of size 100 from our hypothetical population to estimate the proportion of females.
+Here is a similar approach, but using a numerical index referring to the position within a vector. The vector to be iterated over is `1:length(states_5)`, which evaluates to ``r 1:length(head(state.name, 5))``. In each iteration, we print the index of the iterator and the state name.
+
+```{r}
+# take the first 5 state names
+states_5 <- head(state.name, 5)
+
+# iterate over those
+for (i in 1:length(states_5)){
+    s <- states_5[i]
+    message(paste0(i, ": ", s))
+}
+```
+
+In this example, we will use an index that is the position of rows within a data frame.
+
+```{r}
+# initialize a value to hold a sum
+mySum <- 0
+
+# create a data frame of 5 rows
+y <- iris %>% head(5)
+
+# loop
+for(x in 1:nrow(y)){
+    message(paste("iteration:", x))
+    # get the sepal length for this iteration
+    sl <- y$Sepal.Length[x]
+    # add to make a cumulative sum
+    mySum <- mySum + sl
+    # calculate the mean
+    myMean <- mySum / x
+    message(paste0("  sepal length = ", sl, 
+                   "; cumulative sum = ", mySum, 
+                   "; mean = ", myMean))
+  
+}
+```
+
+Here we will iterate over the elements of a list, also including the system run time by wrapping the loop in a `system.time()` call.
+
+```{r}
+# make it reproducible
+set.seed(5)
+
+# create a list
+L <- list(
+    v1 = rnorm(n = 10, mean = 1),
+    v2 = rpois(n = 20, lambda = 5),
+    v3 = runif(n = 25, min = 0, max = 10)
+)
+
+# run the loop
+system.time(
+    for(i in L){
+        print(mean(i))
+    }
+)
+```
+
+#### Alternatives to loops: `apply()`. `lapply()`, `tapply()`, `sapply()`
+There is a family of functions (`*apply()`) in R that are built to iterate over a matrix, or elements of vectors or lists.
+
+The `apply` function performs a function over the rows or columns of a matrix. Here are some simple examples that get the sums of the rows and columns of a matrix:
+
+```{r}
+# a matrix
+(m <- matrix(1:9, nrow = 3))
+
+
+# row sums
+message("row sums")
+(rs <- apply(X = m, MARGIN = 1, FUN = sum))
+
+# column sums
+message("column sums")
+(cs <- apply(X = m, MARGIN = 2, FUN = sum))
+
+```
+
+The `lapply()` function runs over elements of a list. Here we will run the same analysis as before (mean of the vectors in list `L`). The output of `lapply()` is a list with the same number of elements as the input; the output elements also have the original list element names.
+
+```{r}
+system.time(
+    Lmean <- lapply(X = L, FUN = mean)
+)
+
+Lmean
+```
+
+Note the difference in `system.time()` when using `lapply()`. In general one should always use the `*apply()` functions rather than loops if possible. Loops are better for multi-step operations versus operations on single matrices, vectors, or lists.
+
+You should look up the help documentation for `tapply()`, `lapply()`. There is also a nice tutorial, [Tutorial on the R Apply Family](https://www.datacamp.com/community/tutorials/r-tutorial-apply-family)
+
+#### `purrr` 
+`purrr` aims to simplify looping, particularly for multiple-step processes.
+
+The main functions in `purrr` are `map_*()`, with specific variants to be run on data frames (`map_dfr()`), character vectors (`map_chr()`), logical (`map_lgl()`), integer (`map_int()`), and double precision numeric (`map_dbl()`).
+
+Although a full treatment of `purrr` is beyond our scope, see a [great `purrr` tutorial with worked examples](https://jennybc.github.io/purrr-tutorial.)
+
+##### Efficient download of census data using `purrr` and `tigris`
+
+Here, following on the lessons from using the `tigirs` package for downloading US Census TIGER/Line data, we will download all counties for all states using `purrr::map_dfr()` and export to a GPKG database.
+
+```{r}
+library(tigris)
+library(sf)
+
+options(tigris_use_cache = TRUE)
+
+# the tigris download function for counties
+f_county <- function(state_name, year = 2019){
+    # this downloads a single county
+    counties(state = state_name, year)
+}
+
+# the map_dfr() functionality is wrapped in here
+get_counties <- function(year = 2019) {
+    # the output is a data frame. input (.x) is the state name, the function (.f) is the county download
+    map_dfr(
+        # input is the built in vector "state.name"
+        .x = state.name,
+        # each iteration runs the f_county() function over the iteration's state
+        .f = function(x) {
+            f_county(state_name = x, year = year)
+        }
+    )
+}
+
+# run the function
+all_counties <- get_counties()
+
+# export to GPKG
+myTmpDir <- tempdir()
+st_write(obj = all_counties, dsn = file.path(myTmpDir, "counties.gpkg"), layer = "us_counties_2019", delete_dsn = TRUE)
+```
+
+In `r figure_nums(name = "countymap", display = "cite")` we show the counties displayed in QGIS.
+
+![](images/week04/2022-01-26 23_42_02-Window.png)
+\    
+_`r figure_nums(name = "countymap", caption = "Downloaded counties for the US")`_
+
+This process could easily be applied to multiple years of data or different census units (block groups, blocks, tracts).
+
+##### Revisiting Ben's HMDHFDplus example
+Let's revisit Ben's [example using HMDHFDplus](#benhmdhfdplus)
+
+```{r}
+# Help function to list the available countries
+# this generates a vector of all country abbreviations
+countries <- HMDHFDplus::getHMDcountries()[1:2]
+
+# Function to download a specified HMD data set item for a single county
+# the country code is referenced as "CNTRY"
+# the "item" is the base name of the link with ".txt" removed. For example,
+# https://www.mortality.org/hmd/ISR/STATS/Mx_1x1.txt
+#                                         Mx_1x1       <<- this is the item for 1 year x 1 year death rates
+read_hmd_country <- function(CNTRY, item) {
+  HMDHFDplus::readHMDweb(
+    # the country from the function call
+    CNTRY = CNTRY,
+    # the item to download
+    item = item,
+    # the username from this key's record
+    username = keyring::key_list("human-mortality-database")$username,
+    # the password for this key's record
+    password = keyring::key_get(
+      service = "human-mortality-database",
+      username = keyring::key_list("human-mortality-database")$username
+    )
+  )
+}
+
+# Help function to list the available countries
+# this generates a vector of all country abbreviations
+# for speed in class we will use only two countries
+countries <- HMDHFDplus::getHMDcountries()[1:2]
+
+# Download a data set iteratively for all countries using purrr::map()
+# In this case, age-specific mortality in 1-year periods x 1-year age groups
+# for all 1-year periods available
+# output is a data frame named "mx_1x1"
+mx_1x1 <- countries %>%
+    # Returns a list of data.frames, adding a column for country code to each
+    # the map() function performs a run of Ben's read_hmd_country() function for each listed country
+    purrr::map_dfr(function(country) {
+        # the item to read is 1 x 1 death rates
+        read_hmd_country(CNTRY = country, item = "Mx_1x1") %>%
+            # this adds the column "country" storing the country ISO code
+            dplyr::mutate(country = country)
+    }) %>%
+    # Phil added this to make it a tibble
+    tibble()
+```
+
+The key piece here is 
+
+```
+purrr::map_dfr(function(country) {
+    # the item to read is 1 x 1 death rates
+    read_hmd_country(country, "Mx_1x1")
+```
+
+which constructs a data frame by iterating over `countries` and applying the function `read_hmd_country()` to download the variable `Mx_1x1`.
+
+```{r}
+tmx <- mx_1x1 %>% 
+    group_by(Year, country) %>% 
+    summarise(mortality = sum(Total, na.rm = TRUE))
+
+tmx %>% ggplot(mapping = aes(x = Year, y = mortality)) +
+    geom_line() +
+    facet_grid(country ~ .) + 
+    xlab("year")
+```
+
+#### Bootstrapping 
+Bootstrapping is used to estimate the characteristics of a population by repeating a large number of random samples (with replacement) and then calculating summary statistics on the set of samples. The reason replacement is used is that each sample represents a "snapshot" of the population. As the number of samples increases, the summary continues to approach the true population characteristics.
+
+We will use a simple example from a hypothetical population. If we had no idea what the male/female split was, we could generate a large number of small-ish samples and the take the mean.
+
+Back to the bootstrap: we will use 5,000 samples of size 100 from our hypothetical population to estimate the proportion of females.
 
 ```{r}
 # create the population
@@ -494,6 +780,112 @@ abline(v = ci_95, col=c(2,1,2))
 ```
 
 If we already had an enumeration of the population, this method would be unnecessary. However, most survey-derived data are generated from samples. If the sample is representative of the underlying population,  the sample can be considered an acceptable proxy.
+
+
+## Sampling {#rsampling}
+The general topic of sampling is far greater than what we can cover in this course. However, a few examples may be helpful for students who have little experience in sampling.
+
+The main R function for sampling is `sample()`, which draws a random sample from a vector or data frame. Options for `sample()` include the size of the sample, whether or not to replace sampled individuals to the pool, and a probability weight of the same length (or number of rows) as the population from which the sample is drawn.
+
+### Sampling with replacement
+Sampling with replacement is similar to rolling a die. Each roll of the die has a 1/6 probability of coming up with each value. For example we simulate rolling a die 100,00 times:
+
+```{r}
+# set.seed makes it so that random processes can be repeated with the same outputs
+set.seed(5)
+
+# create a vector to represent the faces of a die
+d <- 1:6
+
+# now make a sample of 100,000 rolls of the die, with replacement for independent rolls
+s <- sample(x = d, size = 100000, replace = TRUE)
+
+# tabulate the result
+(tbs <- table(s))
+
+# proportions
+(prop.table(tbs))
+```
+
+The probability of rolling two of the same number in a row is 1/6 $\times$ 1/6, or $\approx$ 0.028
+
+### Sampling without replacement
+Sampling without replacement removes from the population the individual that was sampled. For example, the probability of selecting an ace from a whole deck of cards is 4/52, or $\approx$ 0.077. If we drew once from the deck and returned the card back to the deck to draw again, both samples would be independent. The probability of drawing two aces would be 4/52 $\times$ 4/52, or $\approx$ 0.0059. _That_ is an example of sampling _with_ replacement, similar to rolling a die.
+
+Performing the same sample _without_ replacement, i.e., finding an ace, removing it, and then sampling again would have a probability of drawing two aces being 4/52 $\times$ 3/51, or $\approx$ `r round((4/52) * (3/51), 4)`.
+
+If you were to design an study in which once a person was surveyed once they would not be eligible to be surveyed again, that would also be an example of samping *without* replacement.
+
+For a population of sufficient size relative to the sample, sampling with or without replacement will lead to nearly identical results.
+
+Let's use an example of a population of 50,000 persons, where 30,000 are female and 20,000 are male. If we were to sample two persons with replacement, the probability that they would both be female would be 30000/50000 $\times$ 30000/50000, or 0.36.
+
+If we sample without replacement, the probability of selecting a female in the first sample of one would be 30000/50000, and the second sample of 1 would have a probability of selecting a female 29999/49999, with a joint probability of $\approx$ 0.359995.
+
+
+## See file://netid.washington.edu/csde/other/Desktop/phurvitz/Desktop/uwsoc533a-main/docs/life-tables-and-single-decrement-processes.html
+
+Notes for 402 instructor Phil Hurvitz
+Lifetables from Humanity Mortality Database (HMD) via HMDHFDplus
+The HMD is back! This week, students will be called upon to use mortality and exposure data from HMD to construct life tables. Luckily, they’ll be able to check their work, because HMD also publishes life tables.
+
+Example: fltper_1x1 is the name of the dataset for a female lifetable with one-year age groups for one-year periods 1920-2018.
+
+Recall the gist I wrote for accessing HMD data. This week, to acquire both mortality and life table data, students would need to know about HMD item codes with the following naming convention:
+
+[one-letter sex code]ltper_[length of age interval in years]_[length of period in years]
+
+One-letter sex codes:
+
+b: Both male and female
+f: Female
+m: Male
+I will show them what each of the columns in these tables mean. All you need to do is show them how they can access the lifetable data using HMDHFDplus.
+
+Death counts and population sizes from HMD
+In addition to lifetables datasets, students will be using death counts and annual population estimates. HMD uses the following definitions that students should be familiar with:
+
+Deaths: Death counts are collected at the finest level of detail available. If raw data are aggregated, uniform methods are used to estimate death counts by completed age (i.e., age-last-birthday at time of death), calendar year of death, and calendar year of birth. Death datasets have the following naming convention:
+
+Deaths_[length of age interval in years]_[length of period in years]
+
+Population size: Estimates of the population exposed to the risk of death during some age-time interval are based on annual (January 1st) population estimates, with a small correction that reflects the timing of deaths within the interval. Death datasets have the following naming convention:
+
+“Population” is for population estimates in 1-year age intervals for 1-year periods
+“Population5” is for population estimates in 5-year age intervals for 1-year periods
+Easy lifetable construction using demogR
+The demogR::life.table function allows for the construction of lifetables from enumerated deaths and mid-year population counts. I will illustrate manual lifetable construction using the demogR::goodman dataset using methods from the Using rules of thumb section, checking it against the results of demogR::life.table under two settings:
+
+When type = "kf" in demogR::life.table, the Keyfitz-Flieger method cited in Graduation of the age-specific mortality rate (
+n
+m
+x
+) function is used for estimating 
+n
+a
+x
+.
+When type = "cd" instead, the Coale-Demeny method discussed in The very young ages is used instead.
+The demogR manual provides a good worked example of constructed a life table from the enumerated deaths and mid-year population estimates in the goodman dataset:
+
+Closer to week 4, I will provide a helpful gist for you. Until then, I hope these notes help you get familiar with the package.
+
+3.0.1 demography: An alternative package for lifetable construction
+The demography::lifetable function also produces an easy lifetable, although unfortunately the package isn’t well documented in terms of which methods it uses for period lifetable construction and I haven’t had time to dig into the function to figure out what it uses. In any case, the RPubs page shows how to use the function: https://rpubs.com/Timexpo/487053. See the sections titled “Example Zero” and “Example One.”
+
+
+
+
+
+
+
+
+## `demogR` {#demogR}
+Analysis of Age-Structured Demographic Models
+
+## `demography` {#demography}
+Forecasting Mortality, Fertility, Migration and Population Data; An R intro to the demography package)
+
 
 <hr>
 Rendered at <tt>`r Sys.time()`</tt>

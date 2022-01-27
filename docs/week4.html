@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 4 Week 4 | UW CSDE 502 A Course Notes</title>
 <meta name="author" content="Phil Hurvitz">
-<meta name="description" content="Topics: Functions and sampling  This week’s topics are functions and sampling, the latter including a cursory treatment of loops and bootstrapping. demogR: Analysis of Age-Structured Demographic...">
+<meta name="description" content="Topics: Functions and sampling  This week’s topics cover functions and sampling, the latter including a cursory treatment of loops and bootstrapping. We will revisit Ben’s code for reading Human...">
 <meta name="generator" content="bookdown 0.24.4 with bs4_book()">
 <meta property="og:title" content="Chapter 4 Week 4 | UW CSDE 502 A Course Notes">
 <meta property="og:type" content="book">
-<meta property="og:description" content="Topics: Functions and sampling  This week’s topics are functions and sampling, the latter including a cursory treatment of loops and bootstrapping. demogR: Analysis of Age-Structured Demographic...">
+<meta property="og:description" content="Topics: Functions and sampling  This week’s topics cover functions and sampling, the latter including a cursory treatment of loops and bootstrapping. We will revisit Ben’s code for reading Human...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 4 Week 4 | UW CSDE 502 A Course Notes">
-<meta name="twitter:description" content="Topics: Functions and sampling  This week’s topics are functions and sampling, the latter including a cursory treatment of loops and bootstrapping. demogR: Analysis of Age-Structured Demographic...">
+<meta name="twitter:description" content="Topics: Functions and sampling  This week’s topics cover functions and sampling, the latter including a cursory treatment of loops and bootstrapping. We will revisit Ben’s code for reading Human...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -75,23 +75,24 @@
 Topics: Functions and sampling
 <a class="anchor" aria-label="anchor" href="#week4"><i class="fas fa-link"></i></a>
 </h2>
-<p>This week’s topics are functions and sampling, the latter including a cursory treatment of loops and bootstrapping.</p>
+<p>This week’s topics cover functions and sampling, the latter including a cursory treatment of loops and bootstrapping. We will revisit Ben’s code for reading Human Mortality and Human Fertility databases to look at the use of <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code> as an alternative to <code>for()</code> looping in functions. Finally we will delve into <code>demogR</code> and <code>demography</code> packages for analysis of age-structured demographic models and forecasting mortality, fertility, migration and population data.</p>
 <ul>
-<li>
-<a href="#demogR"><code>demogR</code></a>: Analysis of Age-Structured Demographic Models</li>
-<li>
-<a href="#demography"><code>demography</code></a>: Forecasting Mortality, Fertility, Migration and Population Data; An R intro to the demography package)</li>
+<li><a href="week4.html#renviron">R environments</a></li>
+<li><a href="week4.html#rfunc">R functions</a></li>
+<li><a href="week4.html#rsampling">Sampling in R</a></li>
+<li><a href="week4.html#demogR"><code>demogR</code></a></li>
+<li><a href="week4.html#demography"><code>demography</code></a></li>
 </ul>
-<div id="environments" class="section level2" number="4.1">
+<div id="renviron" class="section level2" number="4.1">
 <h2>
-<span class="header-section-number">4.1</span> Environments<a class="anchor" aria-label="anchor" href="#environments"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1</span> Environments<a class="anchor" aria-label="anchor" href="#renviron"><i class="fas fa-link"></i></a>
 </h2>
-<p>Functions exist in <code>environments</code>, which are “frames” or collections containing objects including variables, functions, etc.). There is a global environment (<code>.GlobalEnv</code>) that contains all of the data, functions, in the current R session. Those objects can be enumerated with the <code><a href="https://rdrr.io/r/base/ls.html">ls()</a></code> function.</p>
-<p>The reason environments are mentioned at this time is because functions instantiate environments that exist while the function is running. More on this in a bit….</p>
+<p>Functions exist in <code>environments</code>, which are “frames” or collections containing objects including variables, functions, etc. There is a global environment (<code>.GlobalEnv</code>) that contains all of the data, functions, in the current R session. Those objects can be enumerated with the <code><a href="https://rdrr.io/r/base/ls.html">ls()</a></code> function.</p>
+<p>The reason environments are mentioned at this time is because functions instantiate environments that exist while the function is running, but once the function is completed, the environment is removed from memory. More on this <a href="week4.html#funcenviron">below</a>.</p>
 </div>
-<div id="functions" class="section level2" number="4.2">
+<div id="rfunc" class="section level2" number="4.2">
 <h2>
-<span class="header-section-number">4.2</span> Functions<a class="anchor" aria-label="anchor" href="#functions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2</span> Functions<a class="anchor" aria-label="anchor" href="#rfunc"><i class="fas fa-link"></i></a>
 </h2>
 <p>Functions are sets of statements in R that are grouped together to perform a specific task or set of tasks. Functions are either built in, included in packages, or user-defined. Functions are used mainly to simplify running a series of individual commands or functions, for situations where the same process will need to be run multiple times on different inputs, or when control structures are needed (e.g., looping, logical branching).</p>
 <div id="function-components" class="section level3" number="4.2.1">
@@ -115,13 +116,13 @@ Topics: Functions and sampling
     statement(s)
 }</code></pre>
 <p>For example, to square a vector of numerical values:</p>
-<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_square</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
     <span class="va">x</span><span class="op">^</span><span class="fl">2</span>
 <span class="op">}</span></code></pre></div>
 <p>the function name is <code>f_square</code>.</p>
 <p>Some functions are not named, and are referred to as “anonymous” functions. For example, functions can be used within the <code>apply</code> family of functions. Here is an oprationalized example.</p>
-<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create a list of three vectors of random numbers of different random lengths</span>
 
 <span class="co"># set.seed() makes the random process reproducible.</span>
@@ -150,10 +151,10 @@ Topics: Functions and sampling
 ## 
 ## [[3]]
 ## [1] 0.269606</code></pre>
-<p>The last line of the code chunk is:</p>
+<p>The <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> function is used to <em>apply</em> a function to each element of a list. In this example, the last line of the code chunk is:</p>
 <pre><code>lapply(X = L, FUN = function(x) {x[1]})
 </code></pre>
-<p>in which the body of the function is <code>x[1]</code>, i.e., obtain the first element of a vector. But the function itself is not named, and hence “anonymous.”</p>
+<p>in which the body of the function is <code>x[1]</code>, i.e., obtain the first element of a vector. In natural language, this translates to “for each element of the list <em>L</em>, obtain the first element of vector <em>x</em>.” But the function itself is not named, and hence “anonymous.”</p>
 </div>
 <div id="arguments" class="section level4" number="4.2.1.2">
 <h4>
@@ -161,8 +162,8 @@ Topics: Functions and sampling
 </h4>
 <p>Most functions require arguments. Arguments are used to instantiate variables within the function’s environment that can be used later in the body of the function. Each argument is named, and the name is used within the function as a local variable within the function’s environment.</p>
 <p>Following our example from above, <code>f_square</code> takes an argument named “x” that is a numeric vector.</p>
-<p>Here, let’s modify the function to demonstrate that within the environment of the function, <code>x</code> is a variable:</p>
-<div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
+<p>Here, let’s modify the function to demonstrate that within the environment of the function, <code>x</code> is a variable by using <code>print(x)</code>:</p>
+<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_square_2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"input:"</span><span class="op">)</span>
     <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
@@ -175,21 +176,21 @@ Topics: Functions and sampling
 <pre><code>## [1] 1 2 3</code></pre>
 <pre><code>## output:</code></pre>
 <pre><code>## [1] 1 4 9</code></pre>
-<p>We can try running the function using different (or no) arguments:</p>
+<p>We can try running the original function using different (or no) arguments:</p>
 <p>Here, using a vector of a single NA numeric</p>
-<div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
-<p>… or a vector that contains a numeric NA:</p>
-<div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
+<p>… or a vector that contains a numeric NA (with the first two elements being numeric, the third element <code>NA</code> is automatically cast as a numeric):</p>
+<div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1]  1  4 NA</code></pre>
 <p>… or a null:</p>
-<div class="sourceCode" id="cb264"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square</span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></code></pre></div>
 <pre><code>## numeric(0)</code></pre>
 <p>… or a vector containing a null:</p>
-<div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 1 4</code></pre>
 <p>… or with no argument at all:</p>
@@ -198,12 +199,12 @@ Topics: Functions and sampling
 <pre><code>## Error in f_square() : argument "x" is missing, with no default</code></pre>
 <p></p>
 <p>Some functions do not require arguments, e.g., to get the current date or time:</p>
-<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "2022-01-21"</code></pre>
-<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
+<pre><code>## [1] "2022-01-27"</code></pre>
+<div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "2022-01-21 13:42:53 PST"</code></pre>
+<pre><code>## [1] "2022-01-27 01:35:44 PST"</code></pre>
 <p>… and if we try to use an argument we get an error:</p>
 <pre><code>Sys.Date(1)</code></pre>
 <p><font color="red"></font></p>
@@ -213,35 +214,25 @@ Topics: Functions and sampling
 <h5>
 <span class="header-section-number">4.2.1.2.1</span> Default values for arguments<a class="anchor" aria-label="anchor" href="#default-values-for-arguments"><i class="fas fa-link"></i></a>
 </h5>
-<p>If you want an argument to have a default value, it is specified in the listed arguments in the form <code>argument = value</code>. Following our previous <code>f_square_2()</code> function, we can modify to print the input based on the logical argument <code>verbose</code>:</p>
-<div class="sourceCode" id="cb276"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">f_square_3</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">verbose</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">{</span>
-    <span class="co"># only run the next lines if verbose is true</span>
-    <span class="kw">if</span><span class="op">(</span><span class="va">verbose</span><span class="op">)</span><span class="op">{</span>
-        <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"input:"</span><span class="op">)</span>
-        <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-        <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"output:"</span><span class="op">)</span>
-    <span class="op">}</span>
+<p>If you want an argument to have a default value, it is specified in the listed arguments in the form <code>argument = value</code>.</p>
+<p>Following our previous <code>f_square_2()</code> function, we can set the default value of <code>x</code> to <code>3</code>:</p>
+<div class="sourceCode" id="cb279"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">f_square_3</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">{</span>
     <span class="va">x</span><span class="op">^</span><span class="fl">2</span>
 <span class="op">}</span></code></pre></div>
-<p>Here we run with the default <code>verbose</code> option (<code>FALSE</code>):</p>
-<div class="sourceCode" id="cb277"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">f_square_3</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1 4 9</code></pre>
-<p>… and with <code>verbose = TRUE</code>:</p>
-<div class="sourceCode" id="cb279"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">f_square_3</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code>## input:</code></pre>
-<pre><code>## [1] 1 2 3</code></pre>
-<pre><code>## output:</code></pre>
-<pre><code>## [1] 1 4 9</code></pre>
+<p>Because the default argument is set, the function can be run with no arguments, and the default will be substituted in:</p>
+<div class="sourceCode" id="cb280"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">f_square_3</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 9</code></pre>
 <p>A more meaningful example demonstrates stratification of counts into intensity bins using accelerometry data. We will be using accelerometry from one day’s data from one subject in a study.</p>
 <p>The cut points for accelerometry were identified at 0, 2690, 6167, and 9642 counts per minute, from Sasaki et al. (2011).</p>
-<p>__Sasaki JE, John D, Freedson PS. Validation and comparison of ActiGraph activity monitors. J Sci Med Sport. 2011;14(5):411-416. <a href="doi:10.1016/j.jsams.2011.04.003__" class="uri">doi:10.1016/j.jsams.2011.04.003__</a></p>
+<p><em>Sasaki JE, John D, Freedson PS. Validation and comparison of ActiGraph activity monitors. J Sci Med Sport. 2011;14(5):411-416. <a href="doi:10.1016/j.jsams.2011.04.003" class="uri">doi:10.1016/j.jsams.2011.04.003</a>“</em></p>
 <p>The variable <code>vm3</code> is the vector magnitude measured with the accelerometer for each minute. Data: <a href="files/accelerometry.csv">accelerometry.csv</a>.</p>
-<div class="sourceCode" id="cb284"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">acc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"files/accelerometry.csv"</span><span class="op">)</span>
+<div class="sourceCode" id="cb282"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># read the accelerometry data</span>
+<span class="va">acc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"files/accelerometry.csv"</span><span class="op">)</span>
 
+<span class="co"># print first 6 lines</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">acc</span><span class="op">)</span></code></pre></div>
 <pre><code>##                 time_acc vm3
 ## 1 2018-09-13 02:59:00-07   0
@@ -251,34 +242,52 @@ Topics: Functions and sampling
 ## 5 2018-09-13 02:55:00-07   0
 ## 6 2018-09-13 02:54:00-07   0</code></pre>
 <p>The following function codes intensity by the aforementioned cut points by default and using default labels:</p>
-<div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">f_acc_intensity</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, 
-                            <span class="va">cuts</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">2690</span>, <span class="fl">6167</span>, <span class="fl">9642</span>, <span class="cn">Inf</span><span class="op">)</span>,
-                            <span class="va">labels</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sedentary/low"</span>, <span class="st">"moderate"</span>, <span class="st">"vigorous"</span>, <span class="st">"very vigorous"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
+<div class="sourceCode" id="cb284"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">f_acc_intensity</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,
+                            <span class="va">cuts</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+                                <span class="op">-</span><span class="cn">Inf</span>,
+                                <span class="fl">2690</span>, <span class="fl">6167</span>, <span class="fl">9642</span>, <span class="cn">Inf</span>
+                            <span class="op">)</span>,
+                            <span class="va">labels</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+                                <span class="st">"sedentary/low"</span>,
+                                <span class="st">"moderate"</span>, <span class="st">"vigorous"</span>, <span class="st">"very vigorous"</span>
+                            <span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">acc</span><span class="op">$</span><span class="va">vm3</span>, breaks <span class="op">=</span> <span class="va">cuts</span>, labels <span class="op">=</span> <span class="va">labels</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>… and when run with the defaults to tabulate the minutes spent in different PA levels</p>
-<div class="sourceCode" id="cb287"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">acc</span><span class="op">$</span><span class="va">intens_default</span> <span class="op">&lt;-</span> <span class="fu">f_acc_intensity</span><span class="op">(</span><span class="va">acc</span><span class="op">$</span><span class="va">vm3</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">acc</span><span class="op">$</span><span class="va">intens_default</span><span class="op">)</span></code></pre></div>
-<pre><code>## 
-## sedentary/low      moderate      vigorous very vigorous 
-##          1435             4             1             0</code></pre>
+<div class="sourceCode" id="cb285"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># recode</span>
+<span class="va">acc</span><span class="op">$</span><span class="va">intens_default</span> <span class="op">&lt;-</span> <span class="fu">f_acc_intensity</span><span class="op">(</span><span class="va">acc</span><span class="op">$</span><span class="va">vm3</span><span class="op">)</span>
+
+<span class="co"># tabulate</span>
+<span class="va">acc</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
+    <span class="fu">group_by</span><span class="op">(</span><span class="va">intens_default</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##   intens_default     n
+##   &lt;fct&gt;          &lt;int&gt;
+## 1 sedentary/low   1435
+## 2 moderate           4
+## 3 vigorous           1</code></pre>
 <p>But we could run this with different thresholds and levels, where SPLA = “sedentary/low physical activity” and MVPA = “moderate-to-very vigorous physical activity):</p>
-<div class="sourceCode" id="cb289"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb287"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">acc</span><span class="op">$</span><span class="va">intens_2lev</span> <span class="op">&lt;-</span> <span class="fu">f_acc_intensity</span><span class="op">(</span>x <span class="op">=</span> <span class="va">acc</span><span class="op">$</span><span class="va">vm3</span>,
                                 cuts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">2690</span>, <span class="cn">Inf</span><span class="op">)</span>,
                                 labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"SLPA"</span>, <span class="st">"MVVPA"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">acc</span><span class="op">$</span><span class="va">intens_2lev</span><span class="op">)</span></code></pre></div>
-<pre><code>## 
-##  SLPA MVVPA 
-##  1435     5</code></pre>
+<span class="va">acc</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
+    <span class="fu">group_by</span><span class="op">(</span><span class="va">intens_2lev</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 2
+##   intens_2lev     n
+##   &lt;fct&gt;       &lt;int&gt;
+## 1 SLPA         1435
+## 2 MVVPA           5</code></pre>
 </div>
 <div id="the-...-argument" class="section level5" number="4.2.1.2.2">
 <h5>
 <span class="header-section-number">4.2.1.2.2</span> The <code>...</code> argument<a class="anchor" aria-label="anchor" href="#the-...-argument"><i class="fas fa-link"></i></a>
 </h5>
-<p>When functions do not have a known <em>a priori</em> number or set of arguments, or when a large number of arguments is to be passed to another function the <code>...</code> argument is used. We will not cover this but you are encouraged to read more: <a href="https://www.dummies.com/programming/r/how-to-use-the-dots-argument-in-r/">How to Use the Dots Argument in R</a>; <a href="https://www.r-bloggers.com/2013/01/the-three-dots-construct-in-r/">The three-dots construct in R</a>.</p>
+<p>When functions do not have a known <em>a priori</em> number or set of arguments, or when a large number of arguments is to be passed to another function the <code>...</code> argument is used. We will not cover this here, but you are encouraged to read more: <a href="https://www.dummies.com/programming/r/how-to-use-the-dots-argument-in-r/">How to Use the Dots Argument in R</a>; <a href="https://www.r-bloggers.com/2013/01/the-three-dots-construct-in-r/">The three-dots construct in R</a>.</p>
 </div>
 </div>
 <div id="body" class="section level4" number="4.2.1.3">
@@ -289,24 +298,82 @@ Topics: Functions and sampling
 <pre><code>x^2</code></pre>
 <p>The body can be as simple or complicated as it needs to be in order to achieve the desired result.</p>
 </div>
-<div id="return-value" class="section level4" number="4.2.1.4">
-<h4>
-<span class="header-section-number">4.2.1.4</span> Return value<a class="anchor" aria-label="anchor" href="#return-value"><i class="fas fa-link"></i></a>
-</h4>
-<p>The return value is either the last evaluated expression in the function or an object specified using the <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> function.</p>
+</div>
+<div id="logical-testing-for-branching" class="section level3" number="4.2.2">
+<h3>
+<span class="header-section-number">4.2.2</span> Logical testing for branching<a class="anchor" aria-label="anchor" href="#logical-testing-for-branching"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sometimes you want to vary what your code does based on some condition. If the condition is met, then execute a block of code. If the condition is not met, or some other condition is met, then execute other code. For a more complete tutorial, see <a href="https://www.learnbyexample.org/r-if-else-elseif-statement/">R if else elseif Statement</a></p>
+<p>Following our previous <code>f_square_2()</code> function, we can modify to print the input based on the logical argument <code>verbose</code>. In this code, if the <code>verbose</code> object is set to <code>TRUE</code>, some text is printed in a message as well as the value that was supplied for <code>x</code>. In either case (<code>verbose = TRUE</code> or <code>verbose = FALSE</code>), the output value of <code>x^2</code> is returned.</p>
+<div class="sourceCode" id="cb290"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">f_square_4</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">verbose</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">{</span>
+    <span class="co"># only run the next lines if verbose is true</span>
+    <span class="kw">if</span><span class="op">(</span><span class="va">verbose</span><span class="op">)</span><span class="op">{</span>
+        <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"input:"</span><span class="op">)</span>
+        <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+        <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"output:"</span><span class="op">)</span>
+    <span class="op">}</span>
+    <span class="va">x</span><span class="op">^</span><span class="fl">2</span>
+<span class="op">}</span></code></pre></div>
+<p>Here we run with the default option <code>verbose = FALSE</code>; only the final value <code>x^2</code> is in the output:</p>
+<div class="sourceCode" id="cb291"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">f_square_4</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 1 4 9</code></pre>
+<p>… and with <code>verbose = TRUE</code>, additional text is printed :</p>
+<div class="sourceCode" id="cb293"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">f_square_4</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<pre><code>## input:</code></pre>
+<pre><code>## [1] 1 2 3</code></pre>
+<pre><code>## output:</code></pre>
+<pre><code>## [1] 1 4 9</code></pre>
+<p>There are additional ways to use <code>if()</code>, as nested statements, using:</p>
+<pre><code>if(condition1){
+    if(condition2){
+        statement
+    }
+}</code></pre>
+<p>Or with an alternative:</p>
+<pre><code>if(condition){
+    statement1
+    statement2
+    ...
+} else {
+    statement3
+    statement4
+}
+...</code></pre>
+<p>Or with an additional condition to check if the first condition is not met:</p>
+<pre><code>if(condition1){
+    statement1
+    statement2
+    ...
+} else if (condition2){
+    statement3
+    statement4
+} else {
+    statement5
+    statement6
+}
+...</code></pre>
+</div>
+<div id="return-value" class="section level3" number="4.2.3">
+<h3>
+<span class="header-section-number">4.2.3</span> Return value<a class="anchor" aria-label="anchor" href="#return-value"><i class="fas fa-link"></i></a>
+</h3>
+<p>The return value is either the last evaluated expression in the function or an object specified using the <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> function. For functions that are intended to return only one value, by convention that is the last line in the function.</p>
 <p>In our original <code>f_square()</code> function, the return value is <code>x^2</code> since no other <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> value was specified, e.g., for a vector of one element:</p>
-<div class="sourceCode" id="cb292"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb301"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_square</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
     <span class="va">x</span><span class="op">^</span><span class="fl">2</span>
 <span class="op">}</span>
 <span class="fu">f_square</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 9</code></pre>
 <p>or a vector with multiple elements:</p>
-<div class="sourceCode" id="cb294"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb303"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 1 4 9</code></pre>
-<p>An simple example of explicitly specifying return values is shown in this numerical comparison function:</p>
-<div class="sourceCode" id="cb296"><pre class="downlit sourceCode r">
+<p>However, if it is possible that different outputs can be produced by a function based on some logical testing, one can explicitly use <code>return(object)</code> in the code; at that time the object will be output and the function will stop. A simple example of explicitly specifying return values is shown in this numerical comparison function:</p>
+<div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_compare</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">{</span>
     <span class="co"># either missing?</span>
     <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nargs.html">nargs</a></span><span class="op">(</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">2</span><span class="op">)</span>
@@ -326,8 +393,18 @@ Topics: Functions and sampling
         <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"%s equals %s"</span>, <span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span>
     <span class="op">}</span>
 <span class="op">}</span></code></pre></div>
-<p>If you want to handle an expected error, you can print an informative message and use <code>return(invisible())</code>, which returns nothing at all (whereas <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> results in a <code>NULL</code>) e.g., here without <code><a href="https://rdrr.io/r/base/invisible.html">invisible()</a></code>:</p>
-<div class="sourceCode" id="cb297"><pre class="downlit sourceCode r">
+<p>Based on criteria such as the number of arguments or the relative value of the arguments <code>x</code> and <code>y</code>, different outputs are generated. Here are a few examples running the function:</p>
+<div class="sourceCode" id="cb306"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">f_compare</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "invalid number of arguments"</code></pre>
+<div class="sourceCode" id="cb308"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">f_compare</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "1 is less than 2"</code></pre>
+<div class="sourceCode" id="cb310"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">f_compare</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "2 is greater than 1"</code></pre>
+<p>If you want to handle an expected error, you can print an informative message and use <code>return(invisible())</code>, which returns nothing at all (whereas <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> results in a <code>NULL</code> object) e.g., here without <code><a href="https://rdrr.io/r/base/invisible.html">invisible()</a></code>:</p>
+<div class="sourceCode" id="cb312"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_readfile</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">fname</span><span class="op">)</span><span class="op">{</span>
     <span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="va">fname</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
         <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">fname</span>, <span class="st">"does not exist!"</span><span class="op">)</span><span class="op">)</span>
@@ -341,7 +418,7 @@ Topics: Functions and sampling
 <pre><code>## Warning in f_readfile("foobar.txt"): foobar.txt does not exist!</code></pre>
 <pre><code>## NULL</code></pre>
 <p>… and with <code><a href="https://rdrr.io/r/base/invisible.html">invisible()</a></code>:</p>
-<div class="sourceCode" id="cb300"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_readfile</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">fname</span><span class="op">)</span><span class="op">{</span>
     <span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="va">fname</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
         <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">fname</span>, <span class="st">"does not exist!"</span><span class="op">)</span><span class="op">)</span>
@@ -354,12 +431,12 @@ Topics: Functions and sampling
 <span class="fu">f_readfile</span><span class="op">(</span><span class="st">"foobar.txt"</span><span class="op">)</span></code></pre></div>
 <pre><code>## Warning in f_readfile("foobar.txt"): foobar.txt does not exist!</code></pre>
 </div>
-<div id="function-environments" class="section level4" number="4.2.1.5">
-<h4>
-<span class="header-section-number">4.2.1.5</span> Function environments<a class="anchor" aria-label="anchor" href="#function-environments"><i class="fas fa-link"></i></a>
-</h4>
+<div id="funcenviron" class="section level3" number="4.2.4">
+<h3>
+<span class="header-section-number">4.2.4</span> Function environments<a class="anchor" aria-label="anchor" href="#funcenviron"><i class="fas fa-link"></i></a>
+</h3>
 <p>As mentioned before, functions instantiate environments that exist only while the function is being evaluated. This means that functions can include named variables that have the same name as a variable in a different environment. For example here is a function that only lists what objects are in the local and global environments:</p>
-<div class="sourceCode" id="cb302"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># declare a few variables</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="st">"hello"</span>
@@ -393,39 +470,45 @@ Topics: Functions and sampling
 ## [1] "objects in the global environment:"
 ##  [1] "acc"             "f"               "f_acc_intensity" "f_compare"      
 ##  [5] "f_readfile"      "f_square"        "f_square_2"      "f_square_3"     
-##  [9] "L"               "v.len"           "v1"              "v2"             
-## [13] "v3"              "x"               "y"              
+##  [9] "f_square_4"      "figure_nums"     "L"               "table_nums"     
+## [13] "v.len"           "v1"              "v2"              "v3"             
+## [17] "x"               "y"              
 ## [1] "----------"</code></pre>
 <pre><code>## [1] 3</code></pre>
-<p>Once the function completes, all objects in its local environment are purged. If you are running a complicated function that creates intermediate values that you want to examine for troubleshooting, this kind of thing can be done, to assign a variable with a specific value to a different environment created specifically for examining the intermediate products of the function:</p>
-<div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create an environment for holding intermediate objects created in the function run</span>
-<span class="va">foo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html">new.env</a></span><span class="op">(</span><span class="op">)</span>
+<p>Once the function completes, all objects in its local environment are purged. If you are running a complicated function that creates intermediate values that you want to examine for troubleshooting, you can create an environment in the <code>.GlobalEnv</code> (i.e., the overall environment in which R is running), and then assign a variable with a specific value to that environment created specifically for examining the intermediate products of the function:</p>
+<div class="sourceCode" id="cb320"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># a function to show how we can assign</span>
 <span class="va">g</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
     <span class="co"># code for a bunch of complicated operations</span>
     <span class="co"># ...</span>
+    <span class="co"># create environment "foo"</span>
+    <span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html">exists</a></span><span class="op">(</span><span class="st">"foo"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
+        <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"make foo"</span><span class="op">)</span>
+        <span class="fu"><a href="https://rdrr.io/r/base/assign.html">assign</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"foo"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html">new.env</a></span><span class="op">(</span><span class="op">)</span>, envir <span class="op">=</span> <span class="va">.GlobalEnv</span><span class="op">)</span>
+    <span class="op">}</span>    
     <span class="co"># generates an intermediate data frame named "bar"</span>
     <span class="va">bar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>
-    <span class="co"># save to the other env</span>
+    <span class="co"># save to the foo env</span>
     <span class="fu"><a href="https://rdrr.io/r/base/assign.html">assign</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"bar"</span>, value <span class="op">=</span> <span class="va">bar</span>, envir <span class="op">=</span> <span class="va">foo</span><span class="op">)</span>
     <span class="co"># more code to do more complicated stuff</span>
     <span class="co"># ...</span>
     <span class="va">foobar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span>
-    <span class="co"># assign this too</span>
+    <span class="co"># also assign </span>
     <span class="fu"><a href="https://rdrr.io/r/base/assign.html">assign</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"foobar"</span>, value <span class="op">=</span> <span class="va">foobar</span>, envir <span class="op">=</span> <span class="va">foo</span><span class="op">)</span>
     <span class="co"># yet more complicated stuff here</span>
     <span class="co"># ...</span>
 <span class="op">}</span></code></pre></div>
 <p>When the function runs, the objects <code>bar</code> and <code>foobar</code> are placed in the <code>foo</code> environment. We can examine those:</p>
-<div class="sourceCode" id="cb306"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># run the function</span>
-<span class="fu">g</span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># what is in environment "foo"?</span>
+<span class="fu">g</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>## make foo</code></pre>
+<div class="sourceCode" id="cb323"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># what is in environment "foo"?</span>
 <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span>envir <span class="op">=</span> <span class="va">foo</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "bar"    "foobar"</code></pre>
 <p>And we can view their values:</p>
-<div class="sourceCode" id="cb308"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">foo</span><span class="op">$</span><span class="va">bar</span><span class="op">)</span></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
@@ -434,7 +517,7 @@ Topics: Functions and sampling
 ## 4          4.6         3.1          1.5         0.2  setosa
 ## 5          5.0         3.6          1.4         0.2  setosa
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<div class="sourceCode" id="cb310"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">foo</span><span class="op">$</span><span class="va">foobar</span><span class="op">)</span></code></pre></div>
 <pre><code>##   speed dist
 ## 1     4    2
@@ -443,63 +526,32 @@ Topics: Functions and sampling
 ## 4     7   22
 ## 5     8   16
 ## 6     9   10</code></pre>
+<p>But those objects will not appear in the <code>.GloalEnv</code>, even though the environment <code>foo</code> does; you could consider that the objects <code>bar</code> and <code>foobar</code> are “nested” in environment <code>foo</code> which is itself nested in <code>.GlobalEnv</code>.</p>
+<div class="sourceCode" id="cb329"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span>envir <span class="op">=</span> <span class="va">.GlobalEnv</span><span class="op">)</span></code></pre></div>
+<pre><code>##  [1] "acc"             "f"               "f_acc_intensity" "f_compare"      
+##  [5] "f_readfile"      "f_square"        "f_square_2"      "f_square_3"     
+##  [9] "f_square_4"      "figure_nums"     "foo"             "g"              
+## [13] "L"               "table_nums"      "v.len"           "v1"             
+## [17] "v2"              "v3"              "x"               "y"</code></pre>
 </div>
-</div>
-</div>
-<div id="sampling" class="section level2" number="4.3">
-<h2>
-<span class="header-section-number">4.3</span> Sampling<a class="anchor" aria-label="anchor" href="#sampling"><i class="fas fa-link"></i></a>
-</h2>
-<p>The general topic of sampling is far greater than what we can cover in this course. However, a few examples may be helpful for students who have little experience in sampling.</p>
-<p>The main R function for sampling is <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code>, which draws a random sample from a vector or data frame. Options for <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code> include the size of the sample, whether or not to replace sampled individuals to the pool, and a probability weight of the same length (or number of rows) as the population from which the sample is drawn.</p>
-<div id="sampling-with-replacement" class="section level3" number="4.3.1">
+<div id="looping" class="section level3" number="4.2.5">
 <h3>
-<span class="header-section-number">4.3.1</span> Sampling with replacement<a class="anchor" aria-label="anchor" href="#sampling-with-replacement"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.5</span> Looping<a class="anchor" aria-label="anchor" href="#looping"><i class="fas fa-link"></i></a>
 </h3>
-<p>Sampling with replacement is similar to rolling a die. Each roll of the die has a 1/6 probability of coming up with each value. For example:</p>
-<div class="sourceCode" id="cb312"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create a vector to represent the faces of a die</span>
-<span class="va">d</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>
-
-<span class="co"># now make a sample of 100,000 rolls of the die</span>
-<span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">d</span>, size <span class="op">=</span> <span class="fl">100000</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="co"># tabulate the result</span>
-<span class="op">(</span><span class="va">tbs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## s
-##     1     2     3     4     5     6 
-## 16391 16931 16557 16728 16609 16784</code></pre>
-<div class="sourceCode" id="cb314"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># proportions</span>
-<span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="va">tbs</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## s
-##       1       2       3       4       5       6 
-## 0.16391 0.16931 0.16557 0.16728 0.16609 0.16784</code></pre>
-<p>The probability of rolling two of the same number in a row is 1/6 <span class="math inline">\(\times\)</span> 1/6, or <span class="math inline">\(\approx\)</span> 0.028</p>
-</div>
-<div id="sampling-without-replacement" class="section level3" number="4.3.2">
-<h3>
-<span class="header-section-number">4.3.2</span> Sampling without replacement<a class="anchor" aria-label="anchor" href="#sampling-without-replacement"><i class="fas fa-link"></i></a>
-</h3>
-<p>Sampling without replacement removes from the population the individual that was sampled. For example, the probability of selecting an ace from a whole deck of cards is 4/52, or <span class="math inline">\(\approx\)</span> 0.077. If we drew once from the deck and returned the card back to the deck to draw again, both samples would be independent. The probability of drawing two aces would be 4/52 <span class="math inline">\(\times\)</span> 4/52, or <span class="math inline">\(\approx\)</span> 0.0059. <em>That</em> is an example of sampling <em>with</em> replacement.</p>
-<p>Performing the same sample <em>without</em> replacement, i.e., finding an ace, removing it, and then sampling again would have a probability of drawing two aces being 4/52 <span class="math inline">\(\times\)</span> 3/51, or <span class="math inline">\(\approx\)</span> 0.0045.</p>
-<p>For a population of sufficient size relative to the sample, sampling with or without replacement will lead to nearly identical results.</p>
-<p>Let’s use an example of a population of 50,000 persons, where 30,000 are female and 20,000 are male. If we were to sample two persons with replacement, the probability that they would both be female would be 30000/50000 <span class="math inline">\(\times\)</span> 30000/50000, or 0.36.</p>
-<p>If we sample without replacement, the probability of selecting a female in the first sample of one would be 30000/50000, and the second sample of 1 would have a probability of selecting a female 29999/49999, with a joint probability of <span class="math inline">\(\approx\)</span> 0.359995.</p>
-</div>
-<div id="bootstrapping" class="section level3" number="4.3.3">
-<h3>
-<span class="header-section-number">4.3.3</span> Bootstrapping<a class="anchor" aria-label="anchor" href="#bootstrapping"><i class="fas fa-link"></i></a>
-</h3>
-<p>Bootstrapping is used to estimate the characteristics of a population by repeating a large number of random samples (with replacement) and then calculating summary statistics on the set of samples. The reason replacement is used is that each sample represents a “snapshot” of the population. As the number of samples increases, the summary continues to approach the true population characteristics.</p>
-<p>We will use a simple example from our previously created hypothetical population. If we had no idea what the male/female split was, we could generate a large number of small-is samples and the take the mean.</p>
-<p>Here we will use an R loop. A loop is constructed using the form</p>
+<p>Loops are run when you want to perform a series of tasks over and over on a set of objects.</p>
+<div id="looping-with-for-loops" class="section level4" number="4.2.5.1">
+<h4>
+<span class="header-section-number">4.2.5.1</span> Looping with <code>for()</code> loops<a class="anchor" aria-label="anchor" href="#looping-with-for-loops"><i class="fas fa-link"></i></a>
+</h4>
+<p>A loop is constructed using the form …</p>
 <pre><code>for (element in set){
     do something
 }</code></pre>
+<p>where <code>element</code> represents the variable value of the current iteration and <code>set</code> is a group of objects, such as elements in a vector or list</p>
 <p>A few simple examples follow.</p>
-<p>Print each letter in the first 5 letters of the alphabet. In this example, the iterated element is a letter. The built in vector <code>letters</code> is used:</p>
-<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
+<p>Print each letter in the first 5 letters of the alphabet. In this example, the iterated element is a letter, and the variable <code>i</code> has the value of the letter in each iteration. The built in vector <code>letters</code> is used. So on the first iteration, <code>i = 1</code>, on the second iteration,m <code>i = 2</code> and so on.</p>
+<div class="sourceCode" id="cb332"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">letters</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
@@ -508,20 +560,272 @@ Topics: Functions and sampling
 ## [1] "c"
 ## [1] "d"
 ## [1] "e"</code></pre>
-<p>A similar approach, but using a numerical index:</p>
-<div class="sourceCode" id="cb319"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">states_5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">state.name</span>, <span class="fl">5</span><span class="op">)</span>
+<p>In this example, the object <code>i</code> takes on integer values 1 through 10. Within the loop, a message is printed that includes the term <code>i^2</code>, which evaluates to <code>1^2</code>, <code>2^2</code>, <span class="math inline">\(\dots\)</span>, <code>10^2</code>.</p>
+<div class="sourceCode" id="cb334"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">i</span>, <span class="st">"squared equals"</span>, <span class="va">i</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<pre><code>## 1 squared equals 1</code></pre>
+<pre><code>## 2 squared equals 4</code></pre>
+<pre><code>## 3 squared equals 9</code></pre>
+<pre><code>## 4 squared equals 16</code></pre>
+<pre><code>## 5 squared equals 25</code></pre>
+<pre><code>## 6 squared equals 36</code></pre>
+<pre><code>## 7 squared equals 49</code></pre>
+<pre><code>## 8 squared equals 64</code></pre>
+<pre><code>## 9 squared equals 81</code></pre>
+<pre><code>## 10 squared equals 100</code></pre>
+<p>Here is a similar approach, but using a numerical index referring to the position within a vector. The vector to be iterated over is <code>1:length(states_5)</code>, which evaluates to <code>1, 2, 3, 4, 5</code>. In each iteration, we print the index of the iterator and the state name.</p>
+<div class="sourceCode" id="cb345"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># take the first 5 state names</span>
+<span class="va">states_5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">state.name</span>, <span class="fl">5</span><span class="op">)</span>
+
+<span class="co"># iterate over those</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">states_5</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
     <span class="va">s</span> <span class="op">&lt;-</span> <span class="va">states_5</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">i</span>, <span class="st">": "</span>, <span class="va">s</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<pre><code>## [1] "Alabama"
-## [1] "Alaska"
-## [1] "Arizona"
-## [1] "Arkansas"
-## [1] "California"</code></pre>
-<p>The bootstrap will use 5,000 samples of size 100 from our hypothetical population to estimate the proportion of females.</p>
-<div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
+<pre><code>## 1: Alabama</code></pre>
+<pre><code>## 2: Alaska</code></pre>
+<pre><code>## 3: Arizona</code></pre>
+<pre><code>## 4: Arkansas</code></pre>
+<pre><code>## 5: California</code></pre>
+<p>In this example, we will use an index that is the position of rows within a data frame.</p>
+<div class="sourceCode" id="cb351"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># initialize a value to hold a sum</span>
+<span class="va">mySum</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+
+<span class="co"># create a data frame of 5 rows</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>
+
+<span class="co"># loop</span>
+<span class="kw">for</span><span class="op">(</span><span class="va">x</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"iteration:"</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span>
+    <span class="co"># get the sepal length for this iteration</span>
+    <span class="va">sl</span> <span class="op">&lt;-</span> <span class="va">y</span><span class="op">$</span><span class="va">Sepal.Length</span><span class="op">[</span><span class="va">x</span><span class="op">]</span>
+    <span class="co"># add to make a cumulative sum</span>
+    <span class="va">mySum</span> <span class="op">&lt;-</span> <span class="va">mySum</span> <span class="op">+</span> <span class="va">sl</span>
+    <span class="co"># calculate the mean</span>
+    <span class="va">myMean</span> <span class="op">&lt;-</span> <span class="va">mySum</span> <span class="op">/</span> <span class="va">x</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"  sepal length = "</span>, <span class="va">sl</span>, 
+                   <span class="st">"; cumulative sum = "</span>, <span class="va">mySum</span>, 
+                   <span class="st">"; mean = "</span>, <span class="va">myMean</span><span class="op">)</span><span class="op">)</span>
+  
+<span class="op">}</span></code></pre></div>
+<pre><code>## iteration: 1</code></pre>
+<pre><code>##   sepal length = 5.1; cumulative sum = 5.1; mean = 5.1</code></pre>
+<pre><code>## iteration: 2</code></pre>
+<pre><code>##   sepal length = 4.9; cumulative sum = 10; mean = 5</code></pre>
+<pre><code>## iteration: 3</code></pre>
+<pre><code>##   sepal length = 4.7; cumulative sum = 14.7; mean = 4.9</code></pre>
+<pre><code>## iteration: 4</code></pre>
+<pre><code>##   sepal length = 4.6; cumulative sum = 19.3; mean = 4.825</code></pre>
+<pre><code>## iteration: 5</code></pre>
+<pre><code>##   sepal length = 5; cumulative sum = 24.3; mean = 4.86</code></pre>
+<p>Here we will iterate over the elements of a list, also including the system run time by wrapping the loop in a <code><a href="https://rdrr.io/r/base/system.time.html">system.time()</a></code> call.</p>
+<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># make it reproducible</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>
+
+<span class="co"># create a list</span>
+<span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gsubfn/man/list.html">list</a></span><span class="op">(</span>
+    v1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
+    v2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span>, lambda <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,
+    v3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">25</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
+<span class="op">)</span>
+
+<span class="co"># run the loop</span>
+<span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span>
+    <span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="va">L</span><span class="op">)</span><span class="op">{</span>
+        <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span>
+    <span class="op">}</span>
+<span class="op">)</span></code></pre></div>
+<pre><code>## [1] 0.9211485
+## [1] 4.45
+## [1] 5.917916</code></pre>
+<pre><code>##    user  system elapsed 
+##       0       0       0</code></pre>
+</div>
+<div id="alternatives-to-loops-apply.-lapply-tapply-sapply" class="section level4" number="4.2.5.2">
+<h4>
+<span class="header-section-number">4.2.5.2</span> Alternatives to loops: <code>apply()</code>. <code>lapply()</code>, <code>tapply()</code>, <code>sapply()</code><a class="anchor" aria-label="anchor" href="#alternatives-to-loops-apply.-lapply-tapply-sapply"><i class="fas fa-link"></i></a>
+</h4>
+<p>There is a family of functions (<code>*apply()</code>) in R that are built to iterate over a matrix, or elements of vectors or lists.</p>
+<p>The <code>apply</code> function performs a function over the rows or columns of a matrix. Here are some simple examples that get the sums of the rows and columns of a matrix:</p>
+<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># a matrix</span>
+<span class="op">(</span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    4    7
+## [2,]    2    5    8
+## [3,]    3    6    9</code></pre>
+<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># row sums</span>
+<span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"row sums"</span><span class="op">)</span></code></pre></div>
+<pre><code>## row sums</code></pre>
+<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">(</span><span class="va">rs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">m</span>, MARGIN <span class="op">=</span> <span class="fl">1</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 12 15 18</code></pre>
+<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># column sums</span>
+<span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"column sums"</span><span class="op">)</span></code></pre></div>
+<pre><code>## column sums</code></pre>
+<div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">(</span><span class="va">cs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">m</span>, MARGIN <span class="op">=</span> <span class="fl">2</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1]  6 15 24</code></pre>
+<p>The <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> function runs over elements of a list. Here we will run the same analysis as before (mean of the vectors in list <code>L</code>). The output of <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> is a list with the same number of elements as the input; the output elements also have the original list element names.</p>
+<div class="sourceCode" id="cb375"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span>
+    <span class="va">Lmean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">L</span>, FUN <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+<pre><code>##    user  system elapsed 
+##       0       0       0</code></pre>
+<div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Lmean</span></code></pre></div>
+<pre><code>## $v1
+## [1] 0.9211485
+## 
+## $v2
+## [1] 4.45
+## 
+## $v3
+## [1] 5.917916</code></pre>
+<p>Note the difference in <code><a href="https://rdrr.io/r/base/system.time.html">system.time()</a></code> when using <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>. In general one should always use the <code>*apply()</code> functions rather than loops if possible. Loops are better for multi-step operations versus operations on single matrices, vectors, or lists.</p>
+<p>You should look up the help documentation for <code><a href="https://rdrr.io/r/base/tapply.html">tapply()</a></code>, <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>. There is also a nice tutorial, <a href="https://www.datacamp.com/community/tutorials/r-tutorial-apply-family">Tutorial on the R Apply Family</a></p>
+</div>
+<div id="purrr" class="section level4" number="4.2.5.3">
+<h4>
+<span class="header-section-number">4.2.5.3</span> <code>purrr</code><a class="anchor" aria-label="anchor" href="#purrr"><i class="fas fa-link"></i></a>
+</h4>
+<p><code>purrr</code> aims to simplify looping, particularly for multiple-step processes.</p>
+<p>The main functions in <code>purrr</code> are <code>map_*()</code>, with specific variants to be run on data frames (<code>map_dfr()</code>), character vectors (<code>map_chr()</code>), logical (<code>map_lgl()</code>), integer (<code>map_int()</code>), and double precision numeric (<code>map_dbl()</code>).</p>
+<p>Although a full treatment of <code>purrr</code> is beyond our scope, see a <a href="https://jennybc.github.io/purrr-tutorial.">great <code>purrr</code> tutorial with worked examples</a></p>
+<div id="efficient-download-of-census-data-using-purrr-and-tigris" class="section level5" number="4.2.5.3.1">
+<h5>
+<span class="header-section-number">4.2.5.3.1</span> Efficient download of census data using <code>purrr</code> and <code>tigris</code><a class="anchor" aria-label="anchor" href="#efficient-download-of-census-data-using-purrr-and-tigris"><i class="fas fa-link"></i></a>
+</h5>
+<p>Here, following on the lessons from using the <code>tigirs</code> package for downloading US Census TIGER/Line data, we will download all counties for all states using <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map_dfr()</a></code> and export to a GPKG database.</p>
+<div class="sourceCode" id="cb379"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/walkerke/tigris">tigris</a></span><span class="op">)</span></code></pre></div>
+<pre><code>## To enable 
+## caching of data, set `options(tigris_use_cache = TRUE)` in your R script or .Rprofile.</code></pre>
+<div class="sourceCode" id="cb381"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></code></pre></div>
+<pre><code>## Linking to GEOS 3.9.1, GDAL 3.2.1, PROJ 7.2.1; sf_use_s2() is TRUE</code></pre>
+<div class="sourceCode" id="cb383"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>tigris_use_cache <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="co"># the tigris download function for counties</span>
+<span class="va">f_county</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">state_name</span>, <span class="va">year</span> <span class="op">=</span> <span class="fl">2019</span><span class="op">)</span><span class="op">{</span>
+    <span class="co"># this downloads a single county</span>
+    <span class="fu"><a href="https://rdrr.io/pkg/tigris/man/counties.html">counties</a></span><span class="op">(</span>state <span class="op">=</span> <span class="va">state_name</span>, <span class="va">year</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="co"># the map_dfr() functionality is wrapped in here</span>
+<span class="va">get_counties</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">year</span> <span class="op">=</span> <span class="fl">2019</span><span class="op">)</span> <span class="op">{</span>
+    <span class="co"># the output is a data frame. input (.x) is the state name, the function (.f) is the county download</span>
+    <span class="fu">map_dfr</span><span class="op">(</span>
+        <span class="co"># input is the built in vector "state.name"</span>
+        .x <span class="op">=</span> <span class="va">state.name</span>,
+        <span class="co"># each iteration runs the f_county() function over the iteration's state</span>
+        .f <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+            <span class="fu">f_county</span><span class="op">(</span>state_name <span class="op">=</span> <span class="va">x</span>, year <span class="op">=</span> <span class="va">year</span><span class="op">)</span>
+        <span class="op">}</span>
+    <span class="op">)</span>
+<span class="op">}</span>
+
+<span class="co"># run the function</span>
+<span class="va">all_counties</span> <span class="op">&lt;-</span> <span class="fu">get_counties</span><span class="op">(</span><span class="op">)</span>
+
+<span class="co"># export to GPKG</span>
+<span class="va">myTmpDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_write.html">st_write</a></span><span class="op">(</span>obj <span class="op">=</span> <span class="va">all_counties</span>, dsn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myTmpDir</span>, <span class="st">"counties.gpkg"</span><span class="op">)</span>, layer <span class="op">=</span> <span class="st">"us_counties_2019"</span>, delete_dsn <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<pre><code>## Deleting source `C:\Temp\2\RtmpGIcpPW/counties.gpkg' failed
+## Writing layer `us_counties_2019' to data source 
+##   `C:\Temp\2\RtmpGIcpPW/counties.gpkg' using driver `GPKG'
+## Writing 3141 features with 17 fields and geometry type Multi Polygon.</code></pre>
+<p>In Figure 1 we show the counties displayed in QGIS.</p>
+<p><img src="images/week04/2022-01-26%2023_42_02-Window.png">
+ <br><em>Figure 1: Downloaded counties for the US</em></p>
+<p>This process could easily be applied to multiple years of data or different census units (block groups, blocks, tracts).</p>
+</div>
+<div id="revisiting-bens-hmdhfdplus-example" class="section level5" number="4.2.5.3.2">
+<h5>
+<span class="header-section-number">4.2.5.3.2</span> Revisiting Ben’s HMDHFDplus example<a class="anchor" aria-label="anchor" href="#revisiting-bens-hmdhfdplus-example"><i class="fas fa-link"></i></a>
+</h5>
+<p>Let’s revisit Ben’s <a href="#benhmdhfdplus">example using HMDHFDplus</a></p>
+<div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Help function to list the available countries</span>
+<span class="co"># this generates a vector of all country abbreviations</span>
+<span class="va">countries</span> <span class="op">&lt;-</span> <span class="fu">HMDHFDplus</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/getHMDcountries.html">getHMDcountries</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>
+
+<span class="co"># Function to download a specified HMD data set item for a single county</span>
+<span class="co"># the country code is referenced as "CNTRY"</span>
+<span class="co"># the "item" is the base name of the link with ".txt" removed. For example,</span>
+<span class="co"># https://www.mortality.org/hmd/ISR/STATS/Mx_1x1.txt</span>
+<span class="co">#                                         Mx_1x1       &lt;&lt;- this is the item for 1 year x 1 year death rates</span>
+<span class="va">read_hmd_country</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">CNTRY</span>, <span class="va">item</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">HMDHFDplus</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHMDweb.html">readHMDweb</a></span><span class="op">(</span>
+    <span class="co"># the country from the function call</span>
+    CNTRY <span class="op">=</span> <span class="va">CNTRY</span>,
+    <span class="co"># the item to download</span>
+    item <span class="op">=</span> <span class="va">item</span>,
+    <span class="co"># the username from this key's record</span>
+    username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span><span class="op">$</span><span class="va">username</span>,
+    <span class="co"># the password for this key's record</span>
+    password <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_get</a></span><span class="op">(</span>
+      service <span class="op">=</span> <span class="st">"human-mortality-database"</span>,
+      username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span><span class="op">$</span><span class="va">username</span>
+    <span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span>
+
+<span class="co"># Help function to list the available countries</span>
+<span class="co"># this generates a vector of all country abbreviations</span>
+<span class="co"># for speed in class we will use only two countries</span>
+<span class="va">countries</span> <span class="op">&lt;-</span> <span class="fu">HMDHFDplus</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/getHMDcountries.html">getHMDcountries</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>
+
+<span class="co"># Download a data set iteratively for all countries using purrr::map()</span>
+<span class="co"># In this case, age-specific mortality in 1-year periods x 1-year age groups</span>
+<span class="co"># for all 1-year periods available</span>
+<span class="co"># output is a data frame named "mx_1x1"</span>
+<span class="va">mx_1x1</span> <span class="op">&lt;-</span> <span class="va">countries</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="co"># Returns a list of data.frames, adding a column for country code to each</span>
+    <span class="co"># the map() function performs a run of Ben's read_hmd_country() function for each listed country</span>
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">country</span><span class="op">)</span> <span class="op">{</span>
+        <span class="co"># the item to read is 1 x 1 death rates</span>
+        <span class="fu">read_hmd_country</span><span class="op">(</span>CNTRY <span class="op">=</span> <span class="va">country</span>, item <span class="op">=</span> <span class="st">"Mx_1x1"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+            <span class="co"># this adds the column "country" storing the country ISO code</span>
+            <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>country <span class="op">=</span> <span class="va">country</span><span class="op">)</span>
+    <span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="co"># Phil added this to make it a tibble</span>
+    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>The key piece here is</p>
+<pre><code>purrr::map_dfr(function(country) {
+    # the item to read is 1 x 1 death rates
+    read_hmd_country(country, "Mx_1x1")</code></pre>
+<p>which constructs a data frame by iterating over <code>countries</code> and applying the function <code>read_hmd_country()</code> to download the variable <code>Mx_1x1</code>.</p>
+<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tmx</span> <span class="op">&lt;-</span> <span class="va">mx_1x1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu">group_by</span><span class="op">(</span><span class="va">Year</span>, <span class="va">country</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html">summarise</a></span><span class="op">(</span>mortality <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Total</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by 'Year'. You can override using the `.groups` argument.</code></pre>
+<div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tmx</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span>, y <span class="op">=</span> <span class="va">mortality</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu">facet_grid</span><span class="op">(</span><span class="va">country</span> <span class="op">~</span> <span class="va">.</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu">xlab</span><span class="op">(</span><span class="st">"year"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="04-week04_files/figure-html/unnamed-chunk-40-1.png" width="672"></div>
+</div>
+</div>
+<div id="bootstrapping" class="section level4" number="4.2.5.4">
+<h4>
+<span class="header-section-number">4.2.5.4</span> Bootstrapping<a class="anchor" aria-label="anchor" href="#bootstrapping"><i class="fas fa-link"></i></a>
+</h4>
+<p>Bootstrapping is used to estimate the characteristics of a population by repeating a large number of random samples (with replacement) and then calculating summary statistics on the set of samples. The reason replacement is used is that each sample represents a “snapshot” of the population. As the number of samples increases, the summary continues to approach the true population characteristics.</p>
+<p>We will use a simple example from a hypothetical population. If we had no idea what the male/female split was, we could generate a large number of small-ish samples and the take the mean.</p>
+<p>Back to the bootstrap: we will use 5,000 samples of size 100 from our hypothetical population to estimate the proportion of females.</p>
+<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create the population</span>
 <span class="co"># 1 indicates female and 0 indicates male</span>
 <span class="va">pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5e4</span> <span class="op">*</span> <span class="fl">3</span> <span class="op">/</span> <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5e4</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">/</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
@@ -541,49 +845,150 @@ Topics: Functions and sampling
 
 <span class="co"># mean and standard deviation of the bootstrap</span>
 <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="cn">F</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 0.600582</code></pre>
-<div class="sourceCode" id="cb323"><pre class="downlit sourceCode r">
+<pre><code>## [1] 0.602186</code></pre>
+<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="cn">F</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 0.04883276</code></pre>
+<pre><code>## [1] 0.04900736</code></pre>
 <p>Using the bootstrap results, we can estimate the 95% confidence interval around the mean using the <code><a href="https://rdrr.io/pkg/Rmisc/man/CI.html">Rmisc::CI()</a></code> function, and make a density plot showing the mean and the confidence interval.</p>
-<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb394"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># 95% CI</span>
 <span class="va">ci_95</span> <span class="op">&lt;-</span> <span class="fu">Rmisc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Rmisc/man/CI.html">CI</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">F</span>, ci <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span>
 
 <span class="co"># plot with 95 % CI</span>
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="cn">F</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"density plot of bootstrap"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">ci_95</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="04-week04_files/figure-html/unnamed-chunk-31-1.png" width="672"></div>
+<div class="inline-figure"><img src="04-week04_files/figure-html/unnamed-chunk-42-1.png" width="672"></div>
 <p>If we already had an enumeration of the population, this method would be unnecessary. However, most survey-derived data are generated from samples. If the sample is representative of the underlying population, the sample can be considered an acceptable proxy.</p>
+</div>
+</div>
+</div>
+<div id="rsampling" class="section level2" number="4.3">
+<h2>
+<span class="header-section-number">4.3</span> Sampling<a class="anchor" aria-label="anchor" href="#rsampling"><i class="fas fa-link"></i></a>
+</h2>
+<p>The general topic of sampling is far greater than what we can cover in this course. However, a few examples may be helpful for students who have little experience in sampling.</p>
+<p>The main R function for sampling is <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code>, which draws a random sample from a vector or data frame. Options for <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code> include the size of the sample, whether or not to replace sampled individuals to the pool, and a probability weight of the same length (or number of rows) as the population from which the sample is drawn.</p>
+<div id="sampling-with-replacement" class="section level3" number="4.3.1">
+<h3>
+<span class="header-section-number">4.3.1</span> Sampling with replacement<a class="anchor" aria-label="anchor" href="#sampling-with-replacement"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sampling with replacement is similar to rolling a die. Each roll of the die has a 1/6 probability of coming up with each value. For example we simulate rolling a die 100,00 times:</p>
+<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># set.seed makes it so that random processes can be repeated with the same outputs</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>
+
+<span class="co"># create a vector to represent the faces of a die</span>
+<span class="va">d</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>
+
+<span class="co"># now make a sample of 100,000 rolls of the die, with replacement for independent rolls</span>
+<span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">d</span>, size <span class="op">=</span> <span class="fl">100000</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="co"># tabulate the result</span>
+<span class="op">(</span><span class="va">tbs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## s
+##     1     2     3     4     5     6 
+## 16644 16856 16839 16705 16453 16503</code></pre>
+<div class="sourceCode" id="cb397"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># proportions</span>
+<span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="va">tbs</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## s
+##       1       2       3       4       5       6 
+## 0.16644 0.16856 0.16839 0.16705 0.16453 0.16503</code></pre>
+<p>The probability of rolling two of the same number in a row is 1/6 <span class="math inline">\(\times\)</span> 1/6, or <span class="math inline">\(\approx\)</span> 0.028</p>
+</div>
+<div id="sampling-without-replacement" class="section level3" number="4.3.2">
+<h3>
+<span class="header-section-number">4.3.2</span> Sampling without replacement<a class="anchor" aria-label="anchor" href="#sampling-without-replacement"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sampling without replacement removes from the population the individual that was sampled. For example, the probability of selecting an ace from a whole deck of cards is 4/52, or <span class="math inline">\(\approx\)</span> 0.077. If we drew once from the deck and returned the card back to the deck to draw again, both samples would be independent. The probability of drawing two aces would be 4/52 <span class="math inline">\(\times\)</span> 4/52, or <span class="math inline">\(\approx\)</span> 0.0059. <em>That</em> is an example of sampling <em>with</em> replacement, similar to rolling a die.</p>
+<p>Performing the same sample <em>without</em> replacement, i.e., finding an ace, removing it, and then sampling again would have a probability of drawing two aces being 4/52 <span class="math inline">\(\times\)</span> 3/51, or <span class="math inline">\(\approx\)</span> 0.0045.</p>
+<p>If you were to design an study in which once a person was surveyed once they would not be eligible to be surveyed again, that would also be an example of samping <em>without</em> replacement.</p>
+<p>For a population of sufficient size relative to the sample, sampling with or without replacement will lead to nearly identical results.</p>
+<p>Let’s use an example of a population of 50,000 persons, where 30,000 are female and 20,000 are male. If we were to sample two persons with replacement, the probability that they would both be female would be 30000/50000 <span class="math inline">\(\times\)</span> 30000/50000, or 0.36.</p>
+<p>If we sample without replacement, the probability of selecting a female in the first sample of one would be 30000/50000, and the second sample of 1 would have a probability of selecting a female 29999/49999, with a joint probability of <span class="math inline">\(\approx\)</span> 0.359995.</p>
+</div>
+</div>
+<div id="see-filenetid.washington.educsdeotherdesktopphurvitzdesktopuwsoc533a-maindocslife-tables-and-single-decrement-processes.html" class="section level2" number="4.4">
+<h2>
+<span class="header-section-number">4.4</span> See <a href="file://netid.washington.edu/csde/other/Desktop/phurvitz/Desktop/uwsoc533a-main/docs/life-tables-and-single-decrement-processes.html" class="uri">file://netid.washington.edu/csde/other/Desktop/phurvitz/Desktop/uwsoc533a-main/docs/life-tables-and-single-decrement-processes.html</a><a class="anchor" aria-label="anchor" href="#see-filenetid.washington.educsdeotherdesktopphurvitzdesktopuwsoc533a-maindocslife-tables-and-single-decrement-processes.html"><i class="fas fa-link"></i></a>
+</h2>
+<p>Notes for 402 instructor Phil Hurvitz
+Lifetables from Humanity Mortality Database (HMD) via HMDHFDplus
+The HMD is back! This week, students will be called upon to use mortality and exposure data from HMD to construct life tables. Luckily, they’ll be able to check their work, because HMD also publishes life tables.</p>
+<p>Example: fltper_1x1 is the name of the dataset for a female lifetable with one-year age groups for one-year periods 1920-2018.</p>
+<p>Recall the gist I wrote for accessing HMD data. This week, to acquire both mortality and life table data, students would need to know about HMD item codes with the following naming convention:</p>
+<p>[one-letter sex code]ltper_[length of age interval in years]_[length of period in years]</p>
+<p>One-letter sex codes:</p>
+<p>b: Both male and female
+f: Female
+m: Male
+I will show them what each of the columns in these tables mean. All you need to do is show them how they can access the lifetable data using HMDHFDplus.</p>
+<p>Death counts and population sizes from HMD
+In addition to lifetables datasets, students will be using death counts and annual population estimates. HMD uses the following definitions that students should be familiar with:</p>
+<p>Deaths: Death counts are collected at the finest level of detail available. If raw data are aggregated, uniform methods are used to estimate death counts by completed age (i.e., age-last-birthday at time of death), calendar year of death, and calendar year of birth. Death datasets have the following naming convention:</p>
+<p>Deaths_[length of age interval in years]_[length of period in years]</p>
+<p>Population size: Estimates of the population exposed to the risk of death during some age-time interval are based on annual (January 1st) population estimates, with a small correction that reflects the timing of deaths within the interval. Death datasets have the following naming convention:</p>
+<p>“Population” is for population estimates in 1-year age intervals for 1-year periods
+“Population5” is for population estimates in 5-year age intervals for 1-year periods
+Easy lifetable construction using demogR
+The demogR::life.table function allows for the construction of lifetables from enumerated deaths and mid-year population counts. I will illustrate manual lifetable construction using the demogR::goodman dataset using methods from the Using rules of thumb section, checking it against the results of demogR::life.table under two settings:</p>
+<p>When type = “kf” in demogR::life.table, the Keyfitz-Flieger method cited in Graduation of the age-specific mortality rate (
+n
+m
+x
+) function is used for estimating
+n
+a
+x
+.
+When type = “cd” instead, the Coale-Demeny method discussed in The very young ages is used instead.
+The demogR manual provides a good worked example of constructed a life table from the enumerated deaths and mid-year population estimates in the goodman dataset:</p>
+<p>Closer to week 4, I will provide a helpful gist for you. Until then, I hope these notes help you get familiar with the package.</p>
+<p>3.0.1 demography: An alternative package for lifetable construction
+The demography::lifetable function also produces an easy lifetable, although unfortunately the package isn’t well documented in terms of which methods it uses for period lifetable construction and I haven’t had time to dig into the function to figure out what it uses. In any case, the RPubs page shows how to use the function: <a href="https://rpubs.com/Timexpo/487053" class="uri">https://rpubs.com/Timexpo/487053</a>. See the sections titled “Example Zero” and “Example One.”</p>
+</div>
+<div id="demogR" class="section level2" number="4.5">
+<h2>
+<span class="header-section-number">4.5</span> <code>demogR</code><a class="anchor" aria-label="anchor" href="#demogR"><i class="fas fa-link"></i></a>
+</h2>
+<p>Analysis of Age-Structured Demographic Models</p>
+</div>
+<div id="demography" class="section level2" number="4.6">
+<h2>
+<span class="header-section-number">4.6</span> <code>demography</code><a class="anchor" aria-label="anchor" href="#demography"><i class="fas fa-link"></i></a>
+</h2>
+<p>Forecasting Mortality, Fertility, Migration and Population Data; An R intro to the demography package)</p>
 <hr>
-<p>Rendered at <tt>2022-01-21 13:42:54</tt></p>
+<p>Rendered at <tt>2022-01-27 01:36:11</tt></p>
 <h4>
 Source code for this document
-<a class="anchor" aria-label="anchor" href="#bootstrapping"><i class="fas fa-link"></i></a>
+<a class="anchor" aria-label="anchor" href="#demography"><i class="fas fa-link"></i></a>
 </h4>
 <p><a href="04-week04.Rmd">04-week04.Rmd</a></p>
 <pre><code># Week 4 {#week4}
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-library(tidyverse)
-library(magrittr)
-library(knitr)
-library(kableExtra)
-library(readstata13)
+pacman::p_load(tidyverse, magrittr, knitr, kableExtra, readstata13, captioner)
+
+figure_nums &lt;- captioner(prefix = "Figure")
+table_nums &lt;- captioner(prefix = "Table")
 ```
 
 &lt;h2&gt;Topics: Functions and sampling&lt;/h2&gt;
-This week's topics are functions and sampling, the latter including a cursory treatment of loops and bootstrapping.
+This week's topics cover functions and sampling, the latter including a cursory treatment of loops and bootstrapping. We will revisit Ben's code for reading Human Mortality and Human Fertility databases to look at the use of `purrr::map()` as an alternative to `for()` looping in functions. Finally we will delve into `demogR` and `demography` packages for analysis of age-structured demographic models and forecasting mortality, fertility, migration and population data.
 
-* [`demogR`](#demogR): Analysis of Age-Structured Demographic Models
-* [`demography`](#demography): Forecasting Mortality, Fertility, Migration and Population Data; An R intro to the demography package)
+* [R environments](#renviron)
+* [R functions](#rfunc)
+* [Sampling in R](#rsampling)
+* [`demogR`](#demogR)
+* [`demography`](#demography)
 
-## Environments
-Functions exist in `environments`, which are "frames" or collections containing objects including variables, functions, etc.). There is a global environment (`.GlobalEnv`) that contains all of the data, functions, in the current R session. Those objects can be enumerated with the `ls()` function. 
+## Environments {#renviron}
+Functions exist in `environments`, which are "frames" or collections containing objects including variables, functions, etc. There is a global environment (`.GlobalEnv`) that contains all of the data, functions, in the current R session. Those objects can be enumerated with the `ls()` function. 
 
-The reason environments are mentioned at this time is because functions instantiate environments that exist while the function is running. More on this in a bit....
+The reason environments are mentioned at this time is because functions instantiate environments that exist while the function is running, but once the function is completed, the environment is removed from memory. More on this [below](#funcenviron).
 
-## Functions
+## Functions {#rfunc}
 Functions are sets of statements in R that are grouped together to perform a specific task or set of tasks. Functions are either built in, included in packages, or user-defined. Functions are used mainly to simplify running a series of individual commands or functions, for situations where the same process will need to be run multiple times on different inputs, or when control structures are needed (e.g., looping, logical branching).
 
 ### Function Components
@@ -640,21 +1045,21 @@ L &lt;- list(v1, v2, v3)
 lapply(X = L, FUN = function(x) {x[1]})
 ```
 
-The last line of the code chunk is:
+The `lapply()` function is used to _apply_ a function to each element of a list. In this example, the last line of the code chunk is:
 
 ```
 lapply(X = L, FUN = function(x) {x[1]})
 
 ```
 
-in which the body of the function is `x[1]`, i.e., obtain the first element of a vector. But the function itself is not named, and hence "anonymous."
+in which the body of the function is `x[1]`, i.e., obtain the first element of a vector. In natural language, this translates to "for each element of the list _L_, obtain the first element of vector _x_". But the function itself is not named, and hence "anonymous."
 
 #### Arguments
 Most functions require arguments. Arguments are used to instantiate variables within the function's environment that can be used later in the body of the function. Each argument is named, and the name is used within the function as a local variable within the function's environment.
 
 Following our example from above, `f_square` takes an argument named "x" that is a numeric vector.
 
-Here, let's modify the function to demonstrate that within the environment of the function, `x` is a variable:
+Here, let's modify the function to demonstrate that within the environment of the function, `x` is a variable by using `print(x)`:
 
 ```{r}
 f_square_2 &lt;- function(x){
@@ -667,7 +1072,7 @@ f_square_2 &lt;- function(x){
 f_square_2(c(1,2,3))
 ```
 
-We can try running the function using different (or no) arguments:
+We can try running the original function using different (or no) arguments:
 
 Here, using a vector of a single NA numeric
 
@@ -675,7 +1080,7 @@ Here, using a vector of a single NA numeric
 f_square(as.numeric(NA))
 ```
 
-... or a vector that contains a numeric NA:
+... or a vector that contains a numeric NA (with the first two elements being numeric, the third element `NA` is automatically cast as a numeric):
 
 ```{r}
 f_square(c(1, 2, NA))
@@ -725,43 +1130,36 @@ Sys.Date(1)
 &lt;/font&gt;
 
 ##### Default values for arguments
-If you want an argument to have a default value, it is specified in the listed arguments in the form `argument = value`. Following our previous `f_square_2()` function, we can modify to print the input based on the logical argument `verbose`:
+If you want an argument to have a default value, it is specified in the listed arguments in the form `argument = value`. 
 
-```{r, collapse=TRUE}
-f_square_3 &lt;- function(x, verbose = FALSE){
-    # only run the next lines if verbose is true
-    if(verbose){
-        message("input:")
-        print(x)
-        message("output:")
-    }
+Following our previous `f_square_2()` function, we can set the default value of `x` to `3`:
+
+```{r}
+f_square_3 &lt;- function(x = 3){
     x^2
 }
 ```
 
-Here we run with the default `verbose` option (`FALSE`):
+Because the default argument is set, the function can be run with no arguments, and the default will be substituted in:
 
 ```{r}
-f_square_3(x = c(1, 2, 3))
+f_square_3()
 ```
 
-... and with `verbose = TRUE`:
-
-```{r}
-f_square_3(x = c(1, 2, 3), verbose = TRUE)
-```
 
 A more meaningful example demonstrates stratification of counts into intensity bins using accelerometry data. We will be using accelerometry from one day's data from one subject in a study.
 
 The cut points for accelerometry were identified at 0, 2690, 6167, and 9642 counts per minute, from Sasaki et al. (2011).
 
-__Sasaki JE, John D, Freedson PS. Validation and comparison of ActiGraph activity monitors. J Sci Med Sport. 2011;14(5):411-416. doi:10.1016/j.jsams.2011.04.003__
+*Sasaki JE, John D, Freedson PS. Validation and comparison of ActiGraph activity monitors. J Sci Med Sport. 2011;14(5):411-416. doi:10.1016/j.jsams.2011.04.003"*
 
 The variable `vm3` is the vector magnitude measured with the accelerometer for each minute. Data: [accelerometry.csv](files/accelerometry.csv).
 
 ```{r}
+# read the accelerometry data
 acc &lt;- read.csv("files/accelerometry.csv")
 
+# print first 6 lines
 head(acc)
 ```
 
@@ -769,9 +1167,15 @@ head(acc)
 The following function codes intensity by the aforementioned cut points by default and using default labels:
 
 ```{r}
-f_acc_intensity &lt;- function(x, 
-                            cuts = c(-Inf, 2690, 6167, 9642, Inf),
-                            labels = c("sedentary/low", "moderate", "vigorous", "very vigorous")){
+f_acc_intensity &lt;- function(x,
+                            cuts = c(
+                                -Inf,
+                                2690, 6167, 9642, Inf
+                            ),
+                            labels = c(
+                                "sedentary/low",
+                                "moderate", "vigorous", "very vigorous"
+                            )) {
     cut(x = acc$vm3, breaks = cuts, labels = labels)
 }
 ```
@@ -779,8 +1183,13 @@ f_acc_intensity &lt;- function(x,
 ... and when run with the defaults to tabulate the minutes spent in different PA levels
 
 ```{r}
+# recode
 acc$intens_default &lt;- f_acc_intensity(acc$vm3)
-table(acc$intens_default)
+
+# tabulate
+acc %&gt;% 
+    group_by(intens_default) %&gt;% 
+    summarise(n = n())
 ```
 
 But we could run this with different thresholds and levels, where SPLA = "sedentary/low physical activity" and MVPA = "moderate-to-very vigorous physical activity):
@@ -789,12 +1198,14 @@ But we could run this with different thresholds and levels, where SPLA = "sedent
 acc$intens_2lev &lt;- f_acc_intensity(x = acc$vm3,
                                 cuts = c(-Inf, 2690, Inf),
                                 labels = c("SLPA", "MVVPA"))
-table(acc$intens_2lev)
+acc %&gt;% 
+    group_by(intens_2lev) %&gt;% 
+    summarise(n = n())
 ```
 
 
 ##### The `...` argument
-When functions do not have a known _a priori_ number or set of arguments, or when a large number of arguments is to be passed to another function the `...` argument is used. We will not cover this but you are encouraged to read more: [How to Use the Dots Argument in R](https://www.dummies.com/programming/r/how-to-use-the-dots-argument-in-r/); [The three-dots construct in R](https://www.r-bloggers.com/2013/01/the-three-dots-construct-in-r/).
+When functions do not have a known _a priori_ number or set of arguments, or when a large number of arguments is to be passed to another function the `...` argument is used. We will not cover this here, but you are encouraged to read more: [How to Use the Dots Argument in R](https://www.dummies.com/programming/r/how-to-use-the-dots-argument-in-r/); [The three-dots construct in R](https://www.r-bloggers.com/2013/01/the-three-dots-construct-in-r/).
 
 #### Body
 The function's body contains all of the code to perform the purpose of the function. Following our initial example, the body of the function is simply 
@@ -805,8 +1216,79 @@ x^2
 
 The body can be as simple or complicated as it needs to be in order to achieve the desired result.
 
-#### Return value
-The return value is either the last evaluated expression in the function or an object specified using the `return()` function. 
+### Logical testing for branching
+Sometimes you want to vary what your code does based on some condition. If the condition is met, then execute a block of code. If the condition is not met, or some other condition is met, then execute other code. For a more complete tutorial, see [R if else elseif Statement](https://www.learnbyexample.org/r-if-else-elseif-statement/)
+
+
+Following our previous `f_square_2()` function, we can modify to print the input based on the logical argument `verbose`. In this code, if the `verbose` object is set to `TRUE`, some text is printed in a message as well as the value that was supplied for `x`. In either case (`verbose = TRUE` or `verbose = FALSE`), the output value of `x^2` is returned.
+
+```{r, collapse=TRUE}
+f_square_4 &lt;- function(x, verbose = FALSE){
+    # only run the next lines if verbose is true
+    if(verbose){
+        message("input:")
+        print(x)
+        message("output:")
+    }
+    x^2
+}
+```
+
+Here we run with the default option `verbose = FALSE`; only the final value `x^2` is in the output:
+
+```{r}
+f_square_4(x = c(1, 2, 3))
+```
+
+... and with `verbose = TRUE`, additional text is printed :
+
+```{r}
+f_square_4(x = c(1, 2, 3), verbose = TRUE)
+```
+
+There are additional ways to use `if()`, as nested statements, using:
+
+```
+if(condition1){
+    if(condition2){
+        statement
+    }
+}
+```
+
+Or with an alternative:
+
+```
+if(condition){
+    statement1
+    statement2
+    ...
+} else {
+    statement3
+    statement4
+}
+...
+```
+
+Or with an additional condition to check if the first condition is not met:
+
+```
+if(condition1){
+    statement1
+    statement2
+    ...
+} else if (condition2){
+    statement3
+    statement4
+} else {
+    statement5
+    statement6
+}
+...
+```
+
+### Return value
+The return value is either the last evaluated expression in the function or an object specified using the `return()` function. For functions that are intended to return only one value, by convention that is the last line in the function.
 
 In our original `f_square()` function, the return value is `x^2` since no other `return()` value was specified, e.g., for a vector of one element:
 
@@ -823,7 +1305,7 @@ or a vector with multiple elements:
 f_square(c(1,2,3))
 ```
 
-An simple example of explicitly specifying return values is shown in this numerical comparison function:
+However, if it is possible that different outputs can be produced by a function based on some logical testing, one can explicitly use `return(object)` in the code; at that time the object will be output and the function will stop. A simple example of explicitly specifying return values is shown in this numerical comparison function:
 
 ```{r}
 f_compare &lt;- function(x, y){
@@ -847,7 +1329,17 @@ f_compare &lt;- function(x, y){
 }
 ```
 
-If you want to handle an expected error, you can print an informative message and use `return(invisible())`, which returns nothing at all (whereas `return()` results in a `NULL`) e.g., here without `invisible()`:
+Based on criteria such as the number of arguments or the relative value of the arguments `x` and `y`, different outputs are generated. Here are a few examples running the function:
+
+```{r}
+f_compare(1)
+
+f_compare(1, 2)
+
+f_compare(2, 1)
+```
+
+If you want to handle an expected error, you can print an informative message and use `return(invisible())`, which returns nothing at all (whereas `return()` results in a `NULL` object) e.g., here without `invisible()`:
 
 ```{r}
 f_readfile &lt;- function(fname){
@@ -877,8 +1369,7 @@ f_readfile &lt;- function(fname){
 f_readfile("foobar.txt")
 ```
 
-
-#### Function environments
+### Function environments {#funcenviron}
 As mentioned before, functions instantiate environments that exist only while the function is being evaluated. This means that functions can include named variables that have the same name as a variable in a different environment. For example here is a function that only lists what objects are in the local and global environments:
 
 ```{r}
@@ -910,22 +1401,26 @@ f &lt;- function(x){
 f(1)
 ```
 
-Once the function completes, all objects in its local environment are purged. If you are running a complicated function that creates intermediate values that you want to examine for troubleshooting, this kind of thing can be done, to assign a variable with a specific value to a different environment created specifically for examining the intermediate products of the function:
+Once the function completes, all objects in its local environment are purged. If you are running a complicated function that creates intermediate values that you want to examine for troubleshooting, you can create an environment in the `.GlobalEnv` (i.e., the overall environment in which R is running), and then assign a variable with a specific value to that environment created specifically for examining the intermediate products of the function:
 
 ```{r}
-# create an environment for holding intermediate objects created in the function run
-foo &lt;- new.env()
+# a function to show how we can assign
 g &lt;- function(x){
     # code for a bunch of complicated operations
     # ...
+    # create environment "foo"
+    if(!exists("foo")){
+        message("make foo")
+        assign(x = "foo", value = new.env(), envir = .GlobalEnv)
+    }    
     # generates an intermediate data frame named "bar"
     bar &lt;- head(iris)
-    # save to the other env
+    # save to the foo env
     assign(x = "bar", value = bar, envir = foo)
     # more code to do more complicated stuff
     # ...
     foobar &lt;- head(cars)
-    # assign this too
+    # also assign 
     assign(x = "foobar", value = foobar, envir = foo)
     # yet more complicated stuff here
     # ...
@@ -952,47 +1447,17 @@ print(foo$bar)
 print(foo$foobar)
 ```
 
-## Sampling
-The general topic of sampling is far greater than what we can cover in this course. However, a few examples may be helpful for students who have little experience in sampling.
-
-The main R function for sampling is `sample()`, which draws a random sample from a vector or data frame. Options for `sample()` include the size of the sample, whether or not to replace sampled individuals to the pool, and a probability weight of the same length (or number of rows) as the population from which the sample is drawn.
-
-### Sampling with replacement
-Sampling with replacement is similar to rolling a die. Each roll of the die has a 1/6 probability of coming up with each value. For example:
+But those objects will not appear in the `.GloalEnv`, even though the environment `foo` does; you could consider that the objects `bar` and `foobar` are "nested" in environment `foo` which is itself nested in `.GlobalEnv`.
 
 ```{r}
-# create a vector to represent the faces of a die
-d &lt;- 1:6
-
-# now make a sample of 100,000 rolls of the die
-s &lt;- sample(x = d, size = 100000, replace = TRUE)
-
-# tabulate the result
-(tbs &lt;- table(s))
-
-# proportions
-(prop.table(tbs))
+ls(envir = .GlobalEnv)
 ```
 
-The probability of rolling two of the same number in a row is 1/6 $\times$ 1/6, or $\approx$ 0.028
+### Looping 
+Loops are run when you want to perform a series of tasks over and over on a set of objects. 
 
-### Sampling without replacement
-Sampling without replacement removes from the population the individual that was sampled. For example, the probability of selecting an ace from a whole deck of cards is 4/52, or $\approx$ 0.077. If we drew once from the deck and returned the card back to the deck to draw again, both samples would be independent. The probability of drawing two aces would be 4/52 $\times$ 4/52, or $\approx$ 0.0059. _That_ is an example of sampling _with_ replacement.
-
-Performing the same sample _without_ replacement, i.e., finding an ace, removing it, and then sampling again would have a probability of drawing two aces being 4/52 $\times$ 3/51, or $\approx$ 0.0045.
-
-For a population of sufficient size relative to the sample, sampling with or without replacement will lead to nearly identical results.
-
-Let's use an example of a population of 50,000 persons, where 30,000 are female and 20,000 are male. If we were to sample two persons with replacement, the probability that they would both be female would be 30000/50000 $\times$ 30000/50000, or 0.36.
-
-If we sample without replacement, the probability of selecting a female in the first sample of one would be 30000/50000, and the second sample of 1 would have a probability of selecting a female 29999/49999, with a joint probability of $\approx$ 0.359995.
-
-### Bootstrapping
-Bootstrapping is used to estimate the characteristics of a population by repeating a large number of random samples (with replacement) and then calculating summary statistics on the set of samples. The reason replacement is used is that each sample represents a "snapshot" of the population. As the number of samples increases, the summary continues to approach the true population characteristics.
-
-We will use a simple example from our previously created hypothetical population. If we had no idea what the male/female split was, we could generate a large number of small-is samples and the take the mean.
-
-Here we will use an R loop. A loop is constructed using the form
+#### Looping with `for()` loops
+ A loop is constructed using the form ...
 
 ```
 for (element in set){
@@ -1000,9 +1465,11 @@ for (element in set){
 }
 ```
 
+where `element` represents the variable value of the current iteration and `set` is a group of objects, such as elements in a vector or list
+
 A few simple examples follow.
 
-Print each letter in the first 5 letters of the alphabet. In this example, the iterated element is a letter. The built in vector `letters` is used:
+Print each letter in the first 5 letters of the alphabet. In this example, the iterated element is a letter, and the variable `i` has the value of the letter in each iteration. The built in vector `letters` is used. So on the first iteration, `i = 1`, on the second iteration,m `i = 2` and so on.
 
 ```{r}
 for (i in head(letters, 5)){
@@ -1010,17 +1477,238 @@ for (i in head(letters, 5)){
 }
 ```
 
-A similar approach, but using a numerical index:
+
+In this example, the object `i` takes on integer values 1 through 10. Within the loop, a message is printed that includes the term `i^2`, which evaluates to `1^2`, `2^2`, $\dots$, `10^2`.
 
 ```{r}
-states_5 &lt;- head(state.name, 5)
-for (i in 1:length(states_5)){
-    s &lt;- states_5[i]
-    print(s)
+for(i in 1:10){
+    message(paste(i, "squared equals", i^2))
 }
 ```
 
-The bootstrap will use 5,000 samples of size 100 from our hypothetical population to estimate the proportion of females.
+Here is a similar approach, but using a numerical index referring to the position within a vector. The vector to be iterated over is `1:length(states_5)`, which evaluates to ``r 1:length(head(state.name, 5))``. In each iteration, we print the index of the iterator and the state name.
+
+```{r}
+# take the first 5 state names
+states_5 &lt;- head(state.name, 5)
+
+# iterate over those
+for (i in 1:length(states_5)){
+    s &lt;- states_5[i]
+    message(paste0(i, ": ", s))
+}
+```
+
+In this example, we will use an index that is the position of rows within a data frame.
+
+```{r}
+# initialize a value to hold a sum
+mySum &lt;- 0
+
+# create a data frame of 5 rows
+y &lt;- iris %&gt;% head(5)
+
+# loop
+for(x in 1:nrow(y)){
+    message(paste("iteration:", x))
+    # get the sepal length for this iteration
+    sl &lt;- y$Sepal.Length[x]
+    # add to make a cumulative sum
+    mySum &lt;- mySum + sl
+    # calculate the mean
+    myMean &lt;- mySum / x
+    message(paste0("  sepal length = ", sl, 
+                   "; cumulative sum = ", mySum, 
+                   "; mean = ", myMean))
+  
+}
+```
+
+Here we will iterate over the elements of a list, also including the system run time by wrapping the loop in a `system.time()` call.
+
+```{r}
+# make it reproducible
+set.seed(5)
+
+# create a list
+L &lt;- list(
+    v1 = rnorm(n = 10, mean = 1),
+    v2 = rpois(n = 20, lambda = 5),
+    v3 = runif(n = 25, min = 0, max = 10)
+)
+
+# run the loop
+system.time(
+    for(i in L){
+        print(mean(i))
+    }
+)
+```
+
+#### Alternatives to loops: `apply()`. `lapply()`, `tapply()`, `sapply()`
+There is a family of functions (`*apply()`) in R that are built to iterate over a matrix, or elements of vectors or lists.
+
+The `apply` function performs a function over the rows or columns of a matrix. Here are some simple examples that get the sums of the rows and columns of a matrix:
+
+```{r}
+# a matrix
+(m &lt;- matrix(1:9, nrow = 3))
+
+
+# row sums
+message("row sums")
+(rs &lt;- apply(X = m, MARGIN = 1, FUN = sum))
+
+# column sums
+message("column sums")
+(cs &lt;- apply(X = m, MARGIN = 2, FUN = sum))
+
+```
+
+The `lapply()` function runs over elements of a list. Here we will run the same analysis as before (mean of the vectors in list `L`). The output of `lapply()` is a list with the same number of elements as the input; the output elements also have the original list element names.
+
+```{r}
+system.time(
+    Lmean &lt;- lapply(X = L, FUN = mean)
+)
+
+Lmean
+```
+
+Note the difference in `system.time()` when using `lapply()`. In general one should always use the `*apply()` functions rather than loops if possible. Loops are better for multi-step operations versus operations on single matrices, vectors, or lists.
+
+You should look up the help documentation for `tapply()`, `lapply()`. There is also a nice tutorial, [Tutorial on the R Apply Family](https://www.datacamp.com/community/tutorials/r-tutorial-apply-family)
+
+#### `purrr` 
+`purrr` aims to simplify looping, particularly for multiple-step processes.
+
+The main functions in `purrr` are `map_*()`, with specific variants to be run on data frames (`map_dfr()`), character vectors (`map_chr()`), logical (`map_lgl()`), integer (`map_int()`), and double precision numeric (`map_dbl()`).
+
+Although a full treatment of `purrr` is beyond our scope, see a [great `purrr` tutorial with worked examples](https://jennybc.github.io/purrr-tutorial.)
+
+##### Efficient download of census data using `purrr` and `tigris`
+
+Here, following on the lessons from using the `tigirs` package for downloading US Census TIGER/Line data, we will download all counties for all states using `purrr::map_dfr()` and export to a GPKG database.
+
+```{r}
+library(tigris)
+library(sf)
+
+options(tigris_use_cache = TRUE)
+
+# the tigris download function for counties
+f_county &lt;- function(state_name, year = 2019){
+    # this downloads a single county
+    counties(state = state_name, year)
+}
+
+# the map_dfr() functionality is wrapped in here
+get_counties &lt;- function(year = 2019) {
+    # the output is a data frame. input (.x) is the state name, the function (.f) is the county download
+    map_dfr(
+        # input is the built in vector "state.name"
+        .x = state.name,
+        # each iteration runs the f_county() function over the iteration's state
+        .f = function(x) {
+            f_county(state_name = x, year = year)
+        }
+    )
+}
+
+# run the function
+all_counties &lt;- get_counties()
+
+# export to GPKG
+myTmpDir &lt;- tempdir()
+st_write(obj = all_counties, dsn = file.path(myTmpDir, "counties.gpkg"), layer = "us_counties_2019", delete_dsn = TRUE)
+```
+
+In `r figure_nums(name = "countymap", display = "cite")` we show the counties displayed in QGIS.
+
+![](images/week04/2022-01-26 23_42_02-Window.png)
+\    
+_`r figure_nums(name = "countymap", caption = "Downloaded counties for the US")`_
+
+This process could easily be applied to multiple years of data or different census units (block groups, blocks, tracts).
+
+##### Revisiting Ben's HMDHFDplus example
+Let's revisit Ben's [example using HMDHFDplus](#benhmdhfdplus)
+
+```{r}
+# Help function to list the available countries
+# this generates a vector of all country abbreviations
+countries &lt;- HMDHFDplus::getHMDcountries()[1:2]
+
+# Function to download a specified HMD data set item for a single county
+# the country code is referenced as "CNTRY"
+# the "item" is the base name of the link with ".txt" removed. For example,
+# https://www.mortality.org/hmd/ISR/STATS/Mx_1x1.txt
+#                                         Mx_1x1       &lt;&lt;- this is the item for 1 year x 1 year death rates
+read_hmd_country &lt;- function(CNTRY, item) {
+  HMDHFDplus::readHMDweb(
+    # the country from the function call
+    CNTRY = CNTRY,
+    # the item to download
+    item = item,
+    # the username from this key's record
+    username = keyring::key_list("human-mortality-database")$username,
+    # the password for this key's record
+    password = keyring::key_get(
+      service = "human-mortality-database",
+      username = keyring::key_list("human-mortality-database")$username
+    )
+  )
+}
+
+# Help function to list the available countries
+# this generates a vector of all country abbreviations
+# for speed in class we will use only two countries
+countries &lt;- HMDHFDplus::getHMDcountries()[1:2]
+
+# Download a data set iteratively for all countries using purrr::map()
+# In this case, age-specific mortality in 1-year periods x 1-year age groups
+# for all 1-year periods available
+# output is a data frame named "mx_1x1"
+mx_1x1 &lt;- countries %&gt;%
+    # Returns a list of data.frames, adding a column for country code to each
+    # the map() function performs a run of Ben's read_hmd_country() function for each listed country
+    purrr::map_dfr(function(country) {
+        # the item to read is 1 x 1 death rates
+        read_hmd_country(CNTRY = country, item = "Mx_1x1") %&gt;%
+            # this adds the column "country" storing the country ISO code
+            dplyr::mutate(country = country)
+    }) %&gt;%
+    # Phil added this to make it a tibble
+    tibble()
+```
+
+The key piece here is 
+
+```
+purrr::map_dfr(function(country) {
+    # the item to read is 1 x 1 death rates
+    read_hmd_country(country, "Mx_1x1")
+```
+
+which constructs a data frame by iterating over `countries` and applying the function `read_hmd_country()` to download the variable `Mx_1x1`.
+
+```{r}
+tmx &lt;- mx_1x1 %&gt;% 
+    group_by(Year, country) %&gt;% 
+    summarise(mortality = sum(Total, na.rm = TRUE))
+
+tmx %&gt;% ggplot(mapping = aes(x = Year, y = mortality)) +
+    geom_line() +
+    facet_grid(country ~ .) + 
+    xlab("year")
+```
+
+#### Bootstrapping 
+Bootstrapping is used to estimate the characteristics of a population by repeating a large number of random samples (with replacement) and then calculating summary statistics on the set of samples. The reason replacement is used is that each sample represents a "snapshot" of the population. As the number of samples increases, the summary continues to approach the true population characteristics.
+
+We will use a simple example from a hypothetical population. If we had no idea what the male/female split was, we could generate a large number of small-ish samples and the take the mean.
+
+Back to the bootstrap: we will use 5,000 samples of size 100 from our hypothetical population to estimate the proportion of females.
 
 ```{r}
 # create the population
@@ -1058,6 +1746,112 @@ abline(v = ci_95, col=c(2,1,2))
 
 If we already had an enumeration of the population, this method would be unnecessary. However, most survey-derived data are generated from samples. If the sample is representative of the underlying population,  the sample can be considered an acceptable proxy.
 
+
+## Sampling {#rsampling}
+The general topic of sampling is far greater than what we can cover in this course. However, a few examples may be helpful for students who have little experience in sampling.
+
+The main R function for sampling is `sample()`, which draws a random sample from a vector or data frame. Options for `sample()` include the size of the sample, whether or not to replace sampled individuals to the pool, and a probability weight of the same length (or number of rows) as the population from which the sample is drawn.
+
+### Sampling with replacement
+Sampling with replacement is similar to rolling a die. Each roll of the die has a 1/6 probability of coming up with each value. For example we simulate rolling a die 100,00 times:
+
+```{r}
+# set.seed makes it so that random processes can be repeated with the same outputs
+set.seed(5)
+
+# create a vector to represent the faces of a die
+d &lt;- 1:6
+
+# now make a sample of 100,000 rolls of the die, with replacement for independent rolls
+s &lt;- sample(x = d, size = 100000, replace = TRUE)
+
+# tabulate the result
+(tbs &lt;- table(s))
+
+# proportions
+(prop.table(tbs))
+```
+
+The probability of rolling two of the same number in a row is 1/6 $\times$ 1/6, or $\approx$ 0.028
+
+### Sampling without replacement
+Sampling without replacement removes from the population the individual that was sampled. For example, the probability of selecting an ace from a whole deck of cards is 4/52, or $\approx$ 0.077. If we drew once from the deck and returned the card back to the deck to draw again, both samples would be independent. The probability of drawing two aces would be 4/52 $\times$ 4/52, or $\approx$ 0.0059. _That_ is an example of sampling _with_ replacement, similar to rolling a die.
+
+Performing the same sample _without_ replacement, i.e., finding an ace, removing it, and then sampling again would have a probability of drawing two aces being 4/52 $\times$ 3/51, or $\approx$ `r round((4/52) * (3/51), 4)`.
+
+If you were to design an study in which once a person was surveyed once they would not be eligible to be surveyed again, that would also be an example of samping *without* replacement.
+
+For a population of sufficient size relative to the sample, sampling with or without replacement will lead to nearly identical results.
+
+Let's use an example of a population of 50,000 persons, where 30,000 are female and 20,000 are male. If we were to sample two persons with replacement, the probability that they would both be female would be 30000/50000 $\times$ 30000/50000, or 0.36.
+
+If we sample without replacement, the probability of selecting a female in the first sample of one would be 30000/50000, and the second sample of 1 would have a probability of selecting a female 29999/49999, with a joint probability of $\approx$ 0.359995.
+
+
+## See file://netid.washington.edu/csde/other/Desktop/phurvitz/Desktop/uwsoc533a-main/docs/life-tables-and-single-decrement-processes.html
+
+Notes for 402 instructor Phil Hurvitz
+Lifetables from Humanity Mortality Database (HMD) via HMDHFDplus
+The HMD is back! This week, students will be called upon to use mortality and exposure data from HMD to construct life tables. Luckily, theyâ€™ll be able to check their work, because HMD also publishes life tables.
+
+Example: fltper_1x1 is the name of the dataset for a female lifetable with one-year age groups for one-year periods 1920-2018.
+
+Recall the gist I wrote for accessing HMD data. This week, to acquire both mortality and life table data, students would need to know about HMD item codes with the following naming convention:
+
+[one-letter sex code]ltper_[length of age interval in years]_[length of period in years]
+
+One-letter sex codes:
+
+b: Both male and female
+f: Female
+m: Male
+I will show them what each of the columns in these tables mean. All you need to do is show them how they can access the lifetable data using HMDHFDplus.
+
+Death counts and population sizes from HMD
+In addition to lifetables datasets, students will be using death counts and annual population estimates. HMD uses the following definitions that students should be familiar with:
+
+Deaths: Death counts are collected at the finest level of detail available. If raw data are aggregated, uniform methods are used to estimate death counts by completed age (i.e., age-last-birthday at time of death), calendar year of death, and calendar year of birth. Death datasets have the following naming convention:
+
+Deaths_[length of age interval in years]_[length of period in years]
+
+Population size: Estimates of the population exposed to the risk of death during some age-time interval are based on annual (January 1st) population estimates, with a small correction that reflects the timing of deaths within the interval. Death datasets have the following naming convention:
+
+â€œPopulationâ€ is for population estimates in 1-year age intervals for 1-year periods
+â€œPopulation5â€ is for population estimates in 5-year age intervals for 1-year periods
+Easy lifetable construction using demogR
+The demogR::life.table function allows for the construction of lifetables from enumerated deaths and mid-year population counts. I will illustrate manual lifetable construction using the demogR::goodman dataset using methods from the Using rules of thumb section, checking it against the results of demogR::life.table under two settings:
+
+When type = "kf" in demogR::life.table, the Keyfitz-Flieger method cited in Graduation of the age-specific mortality rate (
+n
+m
+x
+) function is used for estimating 
+n
+a
+x
+.
+When type = "cd" instead, the Coale-Demeny method discussed in The very young ages is used instead.
+The demogR manual provides a good worked example of constructed a life table from the enumerated deaths and mid-year population estimates in the goodman dataset:
+
+Closer to week 4, I will provide a helpful gist for you. Until then, I hope these notes help you get familiar with the package.
+
+3.0.1 demography: An alternative package for lifetable construction
+The demography::lifetable function also produces an easy lifetable, although unfortunately the package isnâ€™t well documented in terms of which methods it uses for period lifetable construction and I havenâ€™t had time to dig into the function to figure out what it uses. In any case, the RPubs page shows how to use the function: https://rpubs.com/Timexpo/487053. See the sections titled â€œExample Zeroâ€ and â€œExample One.â€
+
+
+
+
+
+
+
+
+## `demogR` {#demogR}
+Analysis of Age-Structured Demographic Models
+
+## `demography` {#demography}
+Forecasting Mortality, Fertility, Migration and Population Data; An R intro to the demography package)
+
+
 &lt;hr&gt;
 Rendered at &lt;tt&gt;`r Sys.time()`&lt;/tt&gt;
 
@@ -1070,7 +1864,6 @@ cat(readLines("04-week04.Rmd"), sep = '\n')
 
 </div>
 </div>
-</div>
   <div class="chapter-nav">
 <div class="prev"><a href="week3.html"><span class="header-section-number">3</span> Week 3</a></div>
 <div class="next"><a href="week5.html"><span class="header-section-number">5</span> Week 5</a></div>
@@ -1081,17 +1874,25 @@ cat(readLines("04-week04.Rmd"), sep = '\n')
 <li><a class="nav-link" href="#week4">
 Topics: Functions and sampling
 </a></li>
-<li><a class="nav-link" href="#environments"><span class="header-section-number">4.1</span> Environments</a></li>
+<li><a class="nav-link" href="#renviron"><span class="header-section-number">4.1</span> Environments</a></li>
 <li>
-<a class="nav-link" href="#functions"><span class="header-section-number">4.2</span> Functions</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#function-components"><span class="header-section-number">4.2.1</span> Function Components</a></li></ul>
-</li>
-<li>
-<a class="nav-link" href="#sampling"><span class="header-section-number">4.3</span> Sampling</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#sampling-with-replacement"><span class="header-section-number">4.3.1</span> Sampling with replacement</a></li>
-<li><a class="nav-link" href="#sampling-without-replacement"><span class="header-section-number">4.3.2</span> Sampling without replacement</a></li>
-<li><a class="nav-link" href="#bootstrapping"><span class="header-section-number">4.3.3</span> Bootstrapping</a></li>
+<a class="nav-link" href="#rfunc"><span class="header-section-number">4.2</span> Functions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#function-components"><span class="header-section-number">4.2.1</span> Function Components</a></li>
+<li><a class="nav-link" href="#logical-testing-for-branching"><span class="header-section-number">4.2.2</span> Logical testing for branching</a></li>
+<li><a class="nav-link" href="#return-value"><span class="header-section-number">4.2.3</span> Return value</a></li>
+<li><a class="nav-link" href="#funcenviron"><span class="header-section-number">4.2.4</span> Function environments</a></li>
+<li><a class="nav-link" href="#looping"><span class="header-section-number">4.2.5</span> Looping</a></li>
 </ul>
 </li>
+<li>
+<a class="nav-link" href="#rsampling"><span class="header-section-number">4.3</span> Sampling</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#sampling-with-replacement"><span class="header-section-number">4.3.1</span> Sampling with replacement</a></li>
+<li><a class="nav-link" href="#sampling-without-replacement"><span class="header-section-number">4.3.2</span> Sampling without replacement</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#see-filenetid.washington.educsdeotherdesktopphurvitzdesktopuwsoc533a-maindocslife-tables-and-single-decrement-processes.html"><span class="header-section-number">4.4</span> See file://netid.washington.edu/csde/other/Desktop/phurvitz/Desktop/uwsoc533a-main/docs/life-tables-and-single-decrement-processes.html</a></li>
+<li><a class="nav-link" href="#demogR"><span class="header-section-number">4.5</span> demogR</a></li>
+<li><a class="nav-link" href="#demography"><span class="header-section-number">4.6</span> demography</a></li>
 </ul>
 
       <div class="book-extra">
@@ -1109,7 +1910,7 @@ Topics: Functions and sampling
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-01-21 13:41.</p>
+    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-01-27 01:34.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

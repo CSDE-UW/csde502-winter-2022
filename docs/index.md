@@ -1,7 +1,7 @@
 --- 
 title: "UW CSDE 502 A Course Notes"
 author: "Phil Hurvitz"
-date: '2022-01-21 13:41'
+date: '2022-01-27 01:34'
 site: bookdown::bookdown_site
 description: "These are the course notes for Proseminar Winter 2022 (CSDE 502 A) at the University of Washington."
 
@@ -53,9 +53,11 @@ Office hours: by appointment; see [my calendar](http://staff.washington.edu/phur
 ## Course logistics {.unnumbered}
 
 :::{.rmdnote}
-### Course location {.unnumbered}
+### Class location {.unnumbered}
 
-Class meetings will happen initially over Zoom. The Zoom link for this course is [https://washington.zoom.us/j/97609440755](https://washington.zoom.us/j/976094407559). It is not known whether in-person class meetings will be held during Winter 2022.
+Class meetings will happen initially over Zoom. The Zoom link for this course is [https://washington.zoom.us/j/97609440755](https://washington.zoom.us/j/976094407559). 
+
+Hybrid in-person/Zoom meetings will start on Feb 4, 2022 in [Communications](https://www.washington.edu/classroom/CMU) B027.
 
 ### Course days and times {.unnumbered}
 Friday 10:30-12:20<br>
@@ -65,7 +67,7 @@ Please come to class promptly at the scheduled time. There will be a 10-minute b
 
 The course has a Canvas site [https://canvas.uw.edu/courses/1515226](https://canvas.uw.edu/courses/1515226), which will be used for collection of assignments and distribution of graded assignments. The site may also be used for distribution of data sets used in the course.
 
-### Class e-mail list
+### Class e-mail list {.unnumbered}
 Correspondence among instructor and students should use the class e-mail list, [CSDE 502 Winter 2022](mailto:csde502a_wi22@uw.edu). List archives are available [CSDE 502 Winter 2022 Archives](https://mailman11.u.washington.edu/mailman/private/csde502a_wi22/).
 
 In general, please send any messages you want the entire class to see to the list. If you have a message to the instructor that you don't want others to see, just send the message directly to the instructor. If the answer would be valuable to the rest of the class, the answer will be posted to the class e-mail list and any identification will be removed from the message so the question will appear anonymous.
@@ -172,6 +174,7 @@ A link to the SafeCampus program is below:
     * Code blocks in R Markdown
     * Graphs in R Markdown
     * Tables in R Markdown
+        * Pretty printouts of life tables with `flextable` and `DT`
     * Equations in R Markdown
     * HTML output from R Markdown
 * [Keyring: securely store secrets](https://cran.r-project.org/web/packages/keyring/)
@@ -188,9 +191,6 @@ A link to the SafeCampus program is below:
 * [`sf: Simple Features for R`](https://cran.r-project.org/web/packages/sf/): Simple Features (GIS) for R
 * [`leaflet`](https://cran.r-project.org/web/packages/leaflet/): Create Interactive Web Maps with the JavaScript 'Leaflet' Library
 * [`mapview`](https://cran.r-project.org/web/packages/mapview/): Interactive Viewing of Spatial Data in R
-* [`demogR`](https://cran.r-project.org/web/packages/demogR/index.html): Analysis of Age-Structured Demographic Models
-* [`demography`](https://cran.r-project.org/web/packages/demography/): Forecasting Mortality, Fertility, Migration and Population Data; [An R intro to the demography package](https://rpubs.com/Timexpo/487053))
-* Pretty printouts of life tables with `flextable` and `DT`
 * Data:
     * Accessing Human Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
 
@@ -202,6 +202,8 @@ A link to the SafeCampus program is below:
 * R functions
 * Sampling in R
 * Revisiting [Ben's code for reading HMD and HFD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R)
+* [`demogR`](https://cran.r-project.org/web/packages/demogR/index.html): Analysis of Age-Structured Demographic Models
+* [`demography`](https://cran.r-project.org/web/packages/demography/): Forecasting Mortality, Fertility, Migration and Population Data; [An R intro to the demography package](https://rpubs.com/Timexpo/487053))
 
 ***Week 5***
 
@@ -252,7 +254,7 @@ This web site was built in R using Rmarkdown and [bookdown](https://cran.r-proje
 <h4>Source code for this document</h4>
 Each of the pages in this book will have a section at the bottom including a link to the source file and the printed source code for the page.
 
-Rendered: 2022-01-21 13:41:53
+Rendered: 2022-01-27 01:34:25
 
 Source code: [index.Rmd](index.Rmd)
 
@@ -326,9 +328,11 @@ Office hours: by appointment; see [my calendar](http://staff.washington.edu/phur
 ## Course logistics {.unnumbered}
 
 :::{.rmdnote}
-### Course location {.unnumbered}
+### Class location {.unnumbered}
 
-Class meetings will happen initially over Zoom. The Zoom link for this course is [https://washington.zoom.us/j/97609440755](https://washington.zoom.us/j/976094407559). It is not known whether in-person class meetings will be held during Winter 2022.
+Class meetings will happen initially over Zoom. The Zoom link for this course is [https://washington.zoom.us/j/97609440755](https://washington.zoom.us/j/976094407559). 
+
+Hybrid in-person/Zoom meetings will start on Feb 4, 2022 in [Communications](https://www.washington.edu/classroom/CMU) B027.
 
 ### Course days and times {.unnumbered}
 Friday 10:30-12:20<br>
@@ -338,7 +342,7 @@ Please come to class promptly at the scheduled time. There will be a 10-minute b
 
 The course has a Canvas site [https://canvas.uw.edu/courses/1515226](https://canvas.uw.edu/courses/1515226), which will be used for collection of assignments and distribution of graded assignments. The site may also be used for distribution of data sets used in the course.
 
-### Class e-mail list
+### Class e-mail list {.unnumbered}
 Correspondence among instructor and students should use the class e-mail list, [CSDE 502 Winter 2022](mailto:csde502a_wi22@uw.edu). List archives are available [CSDE 502 Winter 2022 Archives](https://mailman11.u.washington.edu/mailman/private/csde502a_wi22/).
 
 In general, please send any messages you want the entire class to see to the list. If you have a message to the instructor that you don't want others to see, just send the message directly to the instructor. If the answer would be valuable to the rest of the class, the answer will be posted to the class e-mail list and any identification will be removed from the message so the question will appear anonymous.
@@ -445,6 +449,7 @@ A link to the SafeCampus program is below:
     * Code blocks in R Markdown
     * Graphs in R Markdown
     * Tables in R Markdown
+        * Pretty printouts of life tables with `flextable` and `DT`
     * Equations in R Markdown
     * HTML output from R Markdown
 * [Keyring: securely store secrets](https://cran.r-project.org/web/packages/keyring/)
@@ -461,9 +466,6 @@ A link to the SafeCampus program is below:
 * [`sf: Simple Features for R`](https://cran.r-project.org/web/packages/sf/): Simple Features (GIS) for R
 * [`leaflet`](https://cran.r-project.org/web/packages/leaflet/): Create Interactive Web Maps with the JavaScript 'Leaflet' Library
 * [`mapview`](https://cran.r-project.org/web/packages/mapview/): Interactive Viewing of Spatial Data in R
-* [`demogR`](https://cran.r-project.org/web/packages/demogR/index.html): Analysis of Age-Structured Demographic Models
-* [`demography`](https://cran.r-project.org/web/packages/demography/): Forecasting Mortality, Fertility, Migration and Population Data; [An R intro to the demography package](https://rpubs.com/Timexpo/487053))
-* Pretty printouts of life tables with `flextable` and `DT`
 * Data:
     * Accessing Human Mortality Database life tables using [HMDHFDplus](https://cran.r-project.org/web/packages/HMDHFDplus/index.html)
 
@@ -475,6 +477,8 @@ A link to the SafeCampus program is below:
 * R functions
 * Sampling in R
 * Revisiting [Ben's code for reading HMD and HFD data](https://github.com/hanowell/uwsoc533a/blob/main/gists/HMDHFDplus-gist.R)
+* [`demogR`](https://cran.r-project.org/web/packages/demogR/index.html): Analysis of Age-Structured Demographic Models
+* [`demography`](https://cran.r-project.org/web/packages/demography/): Forecasting Mortality, Fertility, Migration and Population Data; [An R intro to the demography package](https://rpubs.com/Timexpo/487053))
 
 ***Week 5***
 

@@ -646,18 +646,19 @@ ages %>%
 ```
 
 
-## Data sets: {#datasets002}
-In preparation for some later work, go to the following web sites and create a user profile. This will require that you establish a username and password for both sites if you have not done so already. Make a note of your username and password for these sites! You will need them later. If you are not using a password manager, you should! Highly recommended: [KeePass Password Safe](https://keepass.info/). You can store the password database on DropBox or OneDrive and you will always have access to your passwords.
-
-* [Human Mortality Database](https://www.mortality.org/)
-* [Human Fertility Database](https://www.humanfertility.org/cgi-bin/main.php)
-
 ## Keyring {#keyring}
+In preparation for some later work, go to the following web sites and create a user profile. This will require that you establish a username and password for both sites if you have not done so already. Make a note of your username and password for these sites! You will need them later. If you are not using a password manager, you should! Highly recommended: [KeePass Password Safe](https://keepass.info/). You can store the password database on DropBox or OneDrive and you will always have access to your passwords. **Make sure you record your password correctly or you will have errors later on!**
+
+* [Human Mortality Database (HMD)](https://www.mortality.org/)
+* [Human Fertility Database (HFD)](https://www.humanfertility.org/cgi-bin/main.php)
+
 The [Keyring](https://cran.r-project.org/web/packages/keyring/index.html) package is used for accessing credentials that you would not want to store in your R code. We will use the passwords for the Human Mortality and Human Fertility databases (covered below) as the example for how to use this package.
 
 The keyring is stored as part of your user profile on the computer. Therefore if you are using multiple computers (e.g., your own computer as well as the CSDE terminal server), you will need to repeat the steps of setting keys. The keys are stored at the operating system level, so once set, they do not need to be reset, and any R session will have access to the keys. Also once you log on to the computer, the keyring is unlocked automatically.
 
 The main functions you are likely to use are `key_set()` to interactively store keys, `key_list()` to list the service and username for the different keys you have created, and `key_get()` to retrieve a key. If you want to delete a key, that is done with `key_delete()`.
+
+### Setting (storing) keys
 
 The following code will set the keys for my user. You will want to copy this code to your R Markdown document and change the username. When you run the code, if you have not already entered keys for these two sites, you will be prompted, as shown in r figure_nums(name = "keyring1", display = "cite")`.
 
@@ -695,7 +696,37 @@ Once the keys are stored, the service and username can be shown with `key_list()
 key_list()
 ```
 
-Within your code, rather than storing any passwords, you can access the password, for example, to get 1 year x 1 year death rates for Israel:
+### Retreiving/using usernames and passwords
+In the following example, I set a bogus key to demonstrate retrieving the secret. Thde dialog appears and I enter the fake password.
+
+```{r}
+# I only create the key if it does not exist
+if(nrow(key_list(service = "bogus")) == 0){
+    key_set_with_value(service = "bogus", 
+                           username = "fake@user.tv",
+                           password = "the user and password are fake.")
+}
+```
+
+Now I retrieve the key:
+
+```{r}
+key_get(service = "bogus", "fake@user.tv")
+```
+
+### Deleting a key
+Here I delete the bogus key:
+
+```{r}
+key_delete(service = "bogus", username = "fake@user.tv")
+```
+
+## Data sets: {#datasets002}
+Here we will use the keyring to access data in the Human Mortality and Human Fertility databases.
+
+### Using keyring in an application
+
+Within your code, rather than storing any passwords, you can access the password, for example, to get 1 year x 1 year death rates for Israel from the Human Mortality Database:
 
 ```{r}
 ISR_mx <- HMDHFDplus::readHMDweb(
@@ -712,7 +743,7 @@ ISR_mx <- HMDHFDplus::readHMDweb(
 )
 ```
 
-Or to get the total number of live births from Japan:
+Or to get the total number of live births from Japan from the Human Fertility Database:
 
 ```{r}
 JPN_livebirths <- HMDHFDplus::readHFDweb(
@@ -733,6 +764,8 @@ The benefit to this method is that the password is read on the fly during the da
 
 Download Ben's example for how to access the Human Mortality data using [HMDHFplus]()
 [HMDHFDplus-gist.R](https://raw.githubusercontent.com/hanowell/uwsoc533a/main/gists/HMDHFDplus-gist.R). Here is an annotated version:
+
+{#benhmdhfdplus}
 
 ```{md}
 # load required packages
@@ -786,17 +819,30 @@ countries <- HMDHFDplus::getHMDcountries()
 mx_1x1 <- countries %>%
     # Returns a list of data.frames, adding a column for country code to each
     # the map() function performs a run of Ben's read_hmd_country() function for each listed country
-    purrr::map(function(country) {
+    purrr::map_dfr(function(country) {
         # the item to read is 1 x 1 death rates
         read_hmd_country(country, "Mx_1x1") %>%
             # this adds the column "country" storing the country ISO code
             dplyr::mutate(country = country)
     }) %>%
-    # Combines the data.frames into a single data.frame
-    dplyr::bind_rows() %>% 
     # Phil added this to make it a tibble
     tibble()
 ```
+
+### Human Mortality Database naming conventions
+#### Mortality table naming conventions
+The deaths tables are named with coding `[Deaths]_[length of age interval in years]x[length of period in years].txt`, for example deaths for each one-year age class over each year would be in a table named `Deaths_1x1.txt`; deaths for each one-year age class over 5 year intervals would be named `Deaths_1x5.txt`; deaths for 5-year age classes aggregated over 5 year intervals would be named `Deaths_5x5.txt`.
+
+####Life table naming conventions
+Data in the HMD life tables are coded `[one-letter sex code]ltper_[length of age interval in years]x[length of period in years].txt`
+
+The one-letter sex codes:
+
+b: Both male and female
+f: Female
+m: Male
+
+For example, for females listed in one-year agre classes over each year, the file would be named `fltper_1x1.txt`, whereas for males in 5-year age classes aggregated over 10-year intervals, the table would be named `mltper_5x10.txt`.
 
 <hr>
 
