@@ -93,7 +93,6 @@ using-keyring-in-an-application
 human-mortality-database-naming-conventions
 mortality-table-naming-conventions
 week3
-section
 tidycensus
 us-census-api-key-installation
 census-variables

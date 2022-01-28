@@ -88,6 +88,7 @@ Topics: Functions and sampling
 </ul>
 </li>
 </ul>
+<p>Download <a href="files/exercise_blank.Rmd">exercise_blank.Rmd</a> as a template for this lesson.</p>
 <div id="renviron" class="section level2" number="4.1">
 <h2>
 <span class="header-section-number">4.1</span> Environments<a class="anchor" aria-label="anchor" href="#renviron"><i class="fas fa-link"></i></a>
@@ -206,10 +207,10 @@ Topics: Functions and sampling
 <p>Some functions do not require arguments, e.g., to get the current date or time:</p>
 <div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "2022-01-27"</code></pre>
+<pre><code>## [1] "2022-01-28"</code></pre>
 <div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "2022-01-27 22:58:00 PST"</code></pre>
+<pre><code>## [1] "2022-01-28 00:55:41 PST"</code></pre>
 <p>… and if we try to use an argument we get an error:</p>
 <pre><code>Sys.Date(1)</code></pre>
 <p><font color="red"></font></p>
@@ -736,9 +737,9 @@ Topics: Functions and sampling
 <span class="co"># export to GPKG</span>
 <span class="va">myTmpDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_write.html">st_write</a></span><span class="op">(</span>obj <span class="op">=</span> <span class="va">all_counties</span>, dsn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myTmpDir</span>, <span class="st">"counties.gpkg"</span><span class="op">)</span>, layer <span class="op">=</span> <span class="st">"us_counties_2019"</span>, delete_dsn <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code>## Deleting source `C:\Temp\2\Rtmp2rN81X/counties.gpkg' failed
+<pre><code>## Deleting source `C:\Temp\2\RtmpcTNDJ9/counties.gpkg' failed
 ## Writing layer `us_counties_2019' to data source 
-##   `C:\Temp\2\Rtmp2rN81X/counties.gpkg' using driver `GPKG'
+##   `C:\Temp\2\RtmpcTNDJ9/counties.gpkg' using driver `GPKG'
 ## Writing 3141 features with 17 fields and geometry type Multi Polygon.</code></pre>
 <p>In Figure 1 we show the counties displayed in QGIS.</p>
 <p><img src="images/week04/2022-01-26%2023_42_02-Window.png">
@@ -5875,7 +5876,7 @@ rx
 </tbody>
 </table></div>
 <hr>
-<p>Rendered at <tt>2022-01-27 22:58:34</tt></p>
+<p>Rendered at <tt>2022-01-28 00:56:16</tt></p>
 <h4>
 Source code for this document
 <a class="anchor" aria-label="anchor" href="#demography"><i class="fas fa-link"></i></a>
@@ -5900,6 +5901,8 @@ This week's topics cover functions and sampling, the latter including a cursory 
 * [Packages for running demographic analysis](#demogpackages)
     * [`demogR`](#demogR)
     * [`demography`](#demography)
+    
+Download [exercise_blank.Rmd](files/exercise_blank.Rmd) as a template for this lesson.
 
 ## Environments {#renviron}
 Functions exist in `environments`, which are "frames" or collections containing objects including variables, functions, etc. There is a global environment (`.GlobalEnv`) that contains all of the data, functions, in the current R session. Those objects can be enumerated with the `ls()` function. 
@@ -6968,7 +6971,7 @@ Topics: Functions and sampling
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-01-27 22:56.</p>
+    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-01-28 00:54.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

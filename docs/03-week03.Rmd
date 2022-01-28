@@ -27,8 +27,6 @@ Download the file [week03.Rmd](files/week03/week03.Rmd) and use that as the base
 * [`mapview`](#mapview): Interactive Viewing of Spatial Data in R
 * [`sf`](#sf): Simple Features for R: Simple Features (GIS) for R
 
-## 
-
 ## Getting US Census data with `tigris`, `tidycensus` {#tidycensus}
 Dealing with US Census data can be overwhelming, particularly if using the raw text-based data. The Census Bureau has an API that allows more streamlined downloads of variables (as data frames) and geographies (as simple format shapes). It is necessary to get an API key, available for free. See [tidycensus](https://walker-data.com/tidycensus/) and  [tidycensus basic usage](https://walker-data.com/tidycensus/articles/basic-usage.html), and for a complete treatment, [Analyzing US Census Data](https://walker-data.com/census-r).
 

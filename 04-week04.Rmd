@@ -17,6 +17,8 @@ This week's topics cover functions and sampling, the latter including a cursory 
 * [Packages for running demographic analysis](#demogpackages)
     * [`demogR`](#demogR)
     * [`demography`](#demography)
+    
+Download [exercise_blank.Rmd](files/exercise_blank.Rmd) as a template for this lesson.
 
 ## Environments {#renviron}
 Functions exist in `environments`, which are "frames" or collections containing objects including variables, functions, etc. There is a global environment (`.GlobalEnv`) that contains all of the data, functions, in the current R session. Those objects can be enumerated with the `ls()` function. 

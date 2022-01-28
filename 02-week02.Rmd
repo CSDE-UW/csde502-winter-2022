@@ -1,4 +1,5 @@
 # Week 2 {#week2}
+
 This session covers the basics of creating R Markdown documents. We will also cover the [Keyring](https://cran.r-project.org/web/packages/keyring/index.html) package for securely storing passwords and other secrets that one would not want to hard-code into R documents. Finally, we will introduce the Human Mortality and Human Fertility databases that will be used in CSDE 533.
 
 For this class session, we will be building up an R Markdown document using various code chunks copied and pasted from this page.
@@ -764,8 +765,6 @@ The benefit to this method is that the password is read on the fly during the da
 
 Download Ben's example for how to access the Human Mortality data using [HMDHFplus]()
 [HMDHFDplus-gist.R](https://raw.githubusercontent.com/hanowell/uwsoc533a/main/gists/HMDHFDplus-gist.R). Here is an annotated version:
-
-{#benhmdhfdplus}
 
 ```{md}
 # load required packages
