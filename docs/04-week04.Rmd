@@ -1,7 +1,8 @@
 # Week 4 {#week4}
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-pacman::p_load(tidyverse, magrittr, knitr, kableExtra, readstata13, captioner)
+options(tigris_use_cache = TRUE)
+pacman::p_load(demogR, demography, magrittr, knitr, kableExtra, readstata13, captioner,tigris, sf, tidyverse)
 
 figure_nums <- captioner(prefix = "Figure")
 table_nums <- captioner(prefix = "Table")
@@ -13,8 +14,9 @@ This week's topics cover functions and sampling, the latter including a cursory 
 * [R environments](#renviron)
 * [R functions](#rfunc)
 * [Sampling in R](#rsampling)
-* [`demogR`](#demogR)
-* [`demography`](#demography)
+* [Packages for running demographic analysis](#demogpackages)
+    * [`demogR`](#demogR)
+    * [`demography`](#demography)
 
 ## Environments {#renviron}
 Functions exist in `environments`, which are "frames" or collections containing objects including variables, functions, etc. There is a global environment (`.GlobalEnv`) that contains all of the data, functions, in the current R session. Those objects can be enumerated with the `ls()` function. 
@@ -612,7 +614,7 @@ Lmean
 
 Note the difference in `system.time()` when using `lapply()`. In general one should always use the `*apply()` functions rather than loops if possible. Loops are better for multi-step operations versus operations on single matrices, vectors, or lists.
 
-You should look up the help documentation for `tapply()`, `lapply()`. There is also a nice tutorial, [Tutorial on the R Apply Family](https://www.datacamp.com/community/tutorials/r-tutorial-apply-family)
+You should look up the help documentation for `tapply()`, `lapply()`. There is also a nice tutorial, [Tutorial on the R Apply Family](https://www.datacamp.com/community/tutorials/r-tutorial-apply-family).
 
 #### `purrr` 
 `purrr` aims to simplify looping, particularly for multiple-step processes.
@@ -626,11 +628,6 @@ Although a full treatment of `purrr` is beyond our scope, see a [great `purrr` t
 Here, following on the lessons from using the `tigirs` package for downloading US Census TIGER/Line data, we will download all counties for all states using `purrr::map_dfr()` and export to a GPKG database.
 
 ```{r}
-library(tigris)
-library(sf)
-
-options(tigris_use_cache = TRUE)
-
 # the tigris download function for counties
 f_county <- function(state_name, year = 2019){
     # this downloads a single county
@@ -725,18 +722,20 @@ purrr::map_dfr(function(country) {
     read_hmd_country(country, "Mx_1x1")
 ```
 
-which constructs a data frame by iterating over `countries` and applying the function `read_hmd_country()` to download the variable `Mx_1x1`.
+which constructs a data frame by iterating over `countries` and applying the function `read_hmd_country()` to download the variable `Mx_1x1`. Here we plot mortality data from Australia and Austria over the time series (`r figure_nums(name = "aus_aut_mort", display = "cite")`).
 
 ```{r}
 tmx <- mx_1x1 %>% 
     group_by(Year, country) %>% 
-    summarise(mortality = sum(Total, na.rm = TRUE))
+    dplyr::summarise(mortality = sum(Total, na.rm = TRUE), .groups = "keep")
 
 tmx %>% ggplot(mapping = aes(x = Year, y = mortality)) +
     geom_line() +
     facet_grid(country ~ .) + 
     xlab("year")
 ```
+\    
+*`r figure_nums(name = "aus_aut_mort", caption = "Mortality data from Australia and Austria")`*
 
 #### Bootstrapping 
 Bootstrapping is used to estimate the characteristics of a population by repeating a large number of random samples (with replacement) and then calculating summary statistics on the set of samples. The reason replacement is used is that each sample represents a "snapshot" of the population. As the number of samples increases, the summary continues to approach the true population characteristics.
@@ -768,16 +767,18 @@ mean(F)
 sd(F)
 ```
 
-Using the bootstrap results, we can estimate the 95% confidence interval around the mean using the `Rmisc::CI()` function, and make a density plot showing the mean and the confidence interval.
+Using the bootstrap results, we can estimate the 95% confidence interval around the mean using the `Rmisc::CI()` function, and make a density plot showing the mean and the confidence interval (`r figure_nums(name = "bootstrat_plot", display = "cite")).
 
 ```{r}
 # 95% CI
 ci_95 <- Rmisc::CI(x = F, ci = 0.95)
 
 # plot with 95 % CI
-plot(density(F), main = "density plot of bootstrap")
+plot(density(F), main = "")
 abline(v = ci_95, col=c(2,1,2))
 ```
+\    
+*`r figure_nums(name = "bootstrat_plot", caption = "Density plot from bootstrapping")`*
 
 If we already had an enumeration of the population, this method would be unnecessary. However, most survey-derived data are generated from samples. If the sample is representative of the underlying population,  the sample can be considered an acceptable proxy.
 
@@ -822,69 +823,206 @@ Let's use an example of a population of 50,000 persons, where 30,000 are female 
 
 If we sample without replacement, the probability of selecting a female in the first sample of one would be 30000/50000, and the second sample of 1 would have a probability of selecting a female 29999/49999, with a joint probability of $\approx$ 0.359995.
 
+## R packages for demographic analysis {#demogpackages}
+There is always a growing list of available packages for analysis in R. Here we will briefly cover two packages for demographic analysis.
 
-## See file://netid.washington.edu/csde/other/Desktop/phurvitz/Desktop/uwsoc533a-main/docs/life-tables-and-single-decrement-processes.html
+### `demogR` {#demogR}
+Age-Structured Demographic Models
 
-Notes for 402 instructor Phil Hurvitz
-Lifetables from Humanity Mortality Database (HMD) via HMDHFDplus
-The HMD is back! This week, students will be called upon to use mortality and exposure data from HMD to construct life tables. Luckily, they’ll be able to check their work, because HMD also publishes life tables.
+The [`demogR`](https://cran.r-project.org/web/packages/demogR/) package provides a number of functions for analysis of age-structured demographic models. In this exercise we will look at the `life.table()` function for creating life tables from enumerated deaths and mid-interval population estimates.
 
-Example: fltper_1x1 is the name of the dataset for a female lifetable with one-year age groups for one-year periods 1920-2018.
+We will follow the example from the help page on `life.table()`. The example uses the `goodman` data set, which has aggregate data from Venezuela, Madagascar, and the USA from 1965, 1966, and 1967, respectively. The table contains these fields:
 
-Recall the gist I wrote for accessing HMD data. This week, to acquire both mortality and life table data, students would need to know about HMD item codes with the following naming convention:
+* age\
+age classes
+* ven.nKx\
+mid-year population structure for Venezuela
+* ven.nDx\
+enumerated deaths for Venezuela
+* ven.bx\
+enumerated births for Venezuela
+* mad.nKx\
+mid-year population structure for Madagascar
+* mad.nDx\
+enumerated deaths for Madagascar
+* mad.bx\
+enumerated births for Madagascar
+* usa.nKx\
+mid-year population structure for the United States
+* usa.nDx\
+enumerated deaths for the United States
+* usa.bx\
+enumerated births for the United States
 
-[one-letter sex code]ltper_[length of age interval in years]_[length of period in years]
+The first step is to create the life table itself, which should be run with at least three arguments, `x` (age at the beginning of the age classes of the life table), `nDx` (deaths), and `nKx` (population size). We will create the life table using the three countries' data and the default Keyfitz and Fleiger (`kf`) calculation type. Results are in `r table_nums(name = "kf", display = "cite")`.
 
-One-letter sex codes:
+```{r, warning=FALSE}
+# load the Goodman data from the demogR package
+data(goodman)
 
-b: Both male and female
-f: Female
-m: Male
-I will show them what each of the columns in these tables mean. All you need to do is show them how they can access the lifetable data using HMDHFDplus.
+## default type="kf", Venezuela data
+vlt <- with(goodman, life.table(x=age, nKx=ven.nKx, nDx=ven.nDx))
 
-Death counts and population sizes from HMD
-In addition to lifetables datasets, students will be using death counts and annual population estimates. HMD uses the following definitions that students should be familiar with:
+## US life table
+ult <- with(goodman, life.table(x=age, nKx=usa.nKx, nDx=usa.nDx))
 
-Deaths: Death counts are collected at the finest level of detail available. If raw data are aggregated, uniform methods are used to estimate death counts by completed age (i.e., age-last-birthday at time of death), calendar year of death, and calendar year of birth. Death datasets have the following naming convention:
+## Madagascar life table
+mlt <- with(goodman, life.table(x=age, nKx=mad.nKx, nDx=mad.nDx))
 
-Deaths_[length of age interval in years]_[length of period in years]
+# some values for the text
+vlx35 <- vlt %>% filter(x == 35) %>% pull(lx) %>% round(2)
+vlx80 <- vlt %>% filter(x == 80) %>% pull(lx) %>% round(2)
+ulx35 <- ult %>% filter(x == 35) %>% pull(lx) %>% round(2)
+ulx80 <- ult %>% filter(x == 80) %>% pull(lx) %>% round(2)
+mlx35 <- mlt %>% filter(x == 35) %>% pull(lx) %>% round(2)
+mlx80 <- mlt %>% filter(x == 80) %>% pull(lx) %>% round(2)
 
-Population size: Estimates of the population exposed to the risk of death during some age-time interval are based on annual (January 1st) population estimates, with a small correction that reflects the timing of deaths within the interval. Death datasets have the following naming convention:
+# combine these
+lt <- bind_rows(vlt, ult, mlt)
+```
 
-“Population” is for population estimates in 1-year age intervals for 1-year periods
-“Population5” is for population estimates in 5-year age intervals for 1-year periods
-Easy lifetable construction using demogR
-The demogR::life.table function allows for the construction of lifetables from enumerated deaths and mid-year population counts. I will illustrate manual lifetable construction using the demogR::goodman dataset using methods from the Using rules of thumb section, checking it against the results of demogR::life.table under two settings:
+*`r table_nums(name = "kf", caption = "Venezuela life table, Keyfitz and Fleiger method")`*
 
-When type = "kf" in demogR::life.table, the Keyfitz-Flieger method cited in Graduation of the age-specific mortality rate (
-n
-m
-x
-) function is used for estimating 
-n
-a
-x
-.
-When type = "cd" instead, the Coale-Demeny method discussed in The very young ages is used instead.
-The demogR manual provides a good worked example of constructed a life table from the enumerated deaths and mid-year population estimates in the goodman dataset:
+```{r, warning=FALSE}
+lt %>% kable() %>% 
+    kable_styling(bootstrap_options =
+                      c("striped", "hover", "condensed", "responsive"), 
+                  full_width = F, position = "left", font_size = 12, fixed_thead = T) %>% 
+    pack_rows(group_label = "Venezuela", start_row = 1, end_row = 19) %>% 
+    pack_rows(group_label = "USA", start_row = 20, end_row = 38) %>% 
+    pack_rows(group_label = "Madagascar", start_row = 39, end_row = 57)
+```
 
-Closer to week 4, I will provide a helpful gist for you. Until then, I hope these notes help you get familiar with the package.
+The results have nine output columns:
 
-3.0.1 demography: An alternative package for lifetable construction
-The demography::lifetable function also produces an easy lifetable, although unfortunately the package isn’t well documented in terms of which methods it uses for period lifetable construction and I haven’t had time to dig into the function to figure out what it uses. In any case, the RPubs page shows how to use the function: https://rpubs.com/Timexpo/487053. See the sections titled “Example Zero” and “Example One.”
+1. x\	
+age at the beginning of the interval
+1. nax\
+person-years lived by those dying in the interval x to x+n
+1. nMx\
+period central death rate
+1. nqx\
+probability of death between ages x and x+n
+1. lx\
+probability of survival to exact age x
+1. ndx\
+proportion of deaths occurring between ages x and x+n
+1. nLx\
+person-years lived in the interval x to x+n
+1. Tx\
+person-years of life left in the cohort at age x
+1. ex\
+life expectancy at age x
 
+For example, the life table estimates in Venezuela in 1965, a probability of reaching the age of 35 was `r vlx35`, whereas reaching 80 had a probability of `r vlx80`. In the US in 1967, the respective probabilities were `r ulx35` and `r ulx80`, and in Madagascar in 1966 the probabilities were `r mlx35` and `r mlx80`.
 
+Another way to look at the data is to plot the life expectancy, shown in `r figure_nums(name = "demogrltplot", display = "cite")`. The difference between Venezuela and the US were less stark than the difference between Madagascar and the other two countries. In 1966, a woman from Madagascar had a less than 50% chance of reaching age 40! One wonders what these life expectancies look like with more recent data.
 
+```{r}
+lt %<>% mutate(
+    country = c(rep("VEN", 19), rep("USA", 19), rep("MDG", 19))
+)
+ggplot(data = lt, mapping = aes(x = x, y = lx, col = country))+
+    geom_line() +
+    xlab("age") +
+    ylab("probability of surviving to age on X axis")
+```
+\    
+*`r figure_nums(name = "demogrltplot", caption = "Life expectancy, Madagascar (1966), Venezuela (1965), USA (1967)")`*
 
+### `demography` {#demography}
+The [`demography`](https://cran.r-project.org/web/packages/demography/index.html) also contains a large number of functions for demographic analysis. For other reference, see [An R intro to the demography package](https://rpubs.com/Timexpo/487053).
 
+We will look at one example from the documentation.
 
+```{md}
+france.lt <- lifetable(fr.mort)
+plot(france.lt)
+lt1990 <- print(lifetable(fr.mort,year=1990))
+```
 
+The first step is creating the life table using the `lifetable()` function. The function requires data of a specific format, which can be provided in the package's `fr.mort` data set. What is in the `fr.mort` data set? Let's see:
 
-## `demogR` {#demogR}
-Analysis of Age-Structured Demographic Models
+```{r}
+fr.mort
+```
 
-## `demography` {#demography}
-Forecasting Mortality, Fertility, Migration and Population Data; An R intro to the demography package)
+This tells us there were time series for females, males, and all persons, spanning years 1816 to 2006 and covering ages 0 to 110.
+
+We can delve deeper:
+
+```{r}
+attributes(fr.mort)
+```
+
+Here we see there are specific objects within the data set. Let's look at some of them. `age`:
+
+```{r}
+fr.mort$age
+```
+
+`year`:
+
+```{r}
+fr.mort$year
+```
+
+The population data are stored in the `pop` object, which is composed of three matrices representing all persons, females, and males:
+
+```{r}
+fr.mort$pop %>% names()
+```
+
+Each of these matrices has the same number of rows and columns, corresponding to the ages (0-110, 111 rows) and years (1816-2006, columns). Here let's look at a sample of the total, the first 5 rows and columns:
+
+```{r}
+fr.mort$pop$total[1:5, 1:5]
+```
+
+This shows for example in 1816 there were estimated to be `r prettyNum(fr.mort$pop$total[1, 1])` persons less than one year of age.
+
+Output from running the `lifetable()` function can be plotted. `r figure_nums(name = "france_ltplot", display = "cite") shows curves for each year using a rainbow palette. It is interesting to note that the earliest years in the time series had more positive life expectancies than some of the intermediate years particularly for persons below the age of 40.
+
+```{r}
+# min and max years
+y0 <- min(fr.mort$year)
+y1 <- max(fr.mort$year)
+
+# make the life table and plot life expectancy graph
+france.lt <- lifetable(fr.mort)
+plot(france.lt)
+```
+*`r figure_nums(name = "france_ltplot", paste("Life expectancy in France from", y0, "to", y1))`*
+
+Finally, let's look at the life table from 2005. 
+
+```{r}
+# create the life table
+lt_france_2005 <- lifetable(fr.mort,year=2005)
+
+# print using the native interface
+print(lt_france_2005)
+```
+The output of `lifetable` prints in a tabular format but is not a data frame and so the various methods of making nice looking tables do not work out of the box. This also means standard exporting functions such as `write.csv()` will not work. However, with some work the specific objects returned from the function, we can construct a decent looking table.
+
+```{r, message=FALSE, warning=FALSE}
+# I looked at the individual vectors output from the lifetable function. These are the ones we want:
+positions <- c(1,3:10)
+
+# use lapply() across some of the list objects to
+#   get the object (a vector), that is the anonymous "function(x) x"
+# use "do.call" to do something to each of those vectors. that something is a "cbind"
+# turn it into a data frame and then a tibble
+lt_france_2005_df <- do.call(cbind, lapply(lt_france_2005[positions], function(x) x)) %>% 
+    data.frame %>% tibble()
+
+# set the column names from the names of the vectors
+colnames(lt_france_2005_df) <- names(lt_france_2005)[positions]
+
+# print a nice table
+lt_france_2005_df %>% kable() %>% 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F, position = "left", font_size = 12, )
+```
 
 
 <hr>

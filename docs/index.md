@@ -1,7 +1,7 @@
 --- 
 title: "UW CSDE 502 A Course Notes"
 author: "Phil Hurvitz"
-date: '2022-01-27 01:34'
+date: '2022-01-27 22:56'
 site: bookdown::bookdown_site
 description: "These are the course notes for Proseminar Winter 2022 (CSDE 502 A) at the University of Washington."
 
@@ -17,13 +17,6 @@ suppress-bibliography: true
 # Introduction and Welcome! {.unnumbered}
 
 This is the main course notes for CSDE 502 for Winter 2022. It will contain or link to all lecture notes, code examples, exercises, and assignments. We will review these course notes during lecture. Assignment answer keys will be provided on the Canvas site, accessible only to currently enrolled CSDE 502 students.
-
-:::{.rmdcaution}
-<center>
-**CAUTION**
-Material on these pages will be in major flux until at least the second week of the quarter!
-</center>
-:::
 
 ## About this course {.unnumbered}
 
@@ -254,7 +247,7 @@ This web site was built in R using Rmarkdown and [bookdown](https://cran.r-proje
 <h4>Source code for this document</h4>
 Each of the pages in this book will have a section at the bottom including a link to the source file and the printed source code for the page.
 
-Rendered: 2022-01-27 01:34:25
+Rendered: 2022-01-27 22:56:30
 
 Source code: [index.Rmd](index.Rmd)
 
@@ -292,13 +285,6 @@ syllabusdocx <- paste0("files/csde502_syllabus_", year, ".docx")
 # Introduction and Welcome! {.unnumbered}
 
 This is the main course notes for CSDE 502 for Winter 2022. It will contain or link to all lecture notes, code examples, exercises, and assignments. We will review these course notes during lecture. Assignment answer keys will be provided on the Canvas site, accessible only to currently enrolled CSDE 502 students.
-
-:::{.rmdcaution}
-<center>
-**CAUTION**
-Material on these pages will be in major flux until at least the second week of the quarter!
-</center>
-:::
 
 ## About this course {.unnumbered}
 

@@ -126,7 +126,7 @@ bootstrapping
 rsampling
 sampling-with-replacement
 sampling-without-replacement
-see-filenetid.washington.educsdeotherdesktopphurvitzdesktopuwsoc533a-maindocslife-tables-and-single-decrement-processes.html
+demogpackages
 demogR
 demography
 week5

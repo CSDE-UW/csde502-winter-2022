@@ -332,8 +332,9 @@ m %>% addTiles()
 One thing to note is that the `tidyverse::get_...()` functions may not be downloading the most detailed GIS data. Here we compare the data obtained using `tigris::tracts()`, also for King County, WA in 2019 (\@ref(fig:ctcompare)). First, the `tidycensus` map data are clipped at the shore line. Second, there are some differences in the shape and size of tracts in the downtown area. 
 
 ```{r ctcompare, fig.cap="tidyverse generalized tracts versus tigris detailed tracts", warning=FALSE, message=FALSE}
-
-tgtracts_kc_2019 <- tigris::tracts(state = "WA", county = "King", year = 2019)
+# get the tracts
+tgtracts_kc_2019 <- tigris::tracts(state = "WA", county = "King", year = 2019, progress_bar = FALSE)
+# project the coordinates to WGS84 for mapping
 tgtracts_kc_2019 %<>%  st_transform(4326)
 
 # the leaflet map
@@ -450,7 +451,8 @@ ctdat_nogeom <- get_acs(
     state = "WA",
     county = "King",
     geometry = FALSE,
-    survey = "acs5"
+    survey = "acs5",
+    progress_bar = FALSE
 )
 
 # join

@@ -9,6 +9,15 @@ library(readstata13)
 ```
 
 <h2>Topic: Git</h2>
+
+
+The HFD is back!
+This time, we’ll be adding the period, cohort, and other synthetic indicators for all birth orders combined, and by birth order, such as those listed here for the USA (as before, you can figure out the naming convention of a given dataset by clicking on a dataset you want to show them to see its item naming convention, which is the suffix of the file name after the country code): https://www.humanfertility.org/cgi-bin/country.php?country=USA&tab=si
+
+I’ll teach them what these datasets contain, and they’ll see it in their problem sets, too. For your part, please just remind them that they can access HFD data for both age-specific rates and summary indicators this way.
+
+
+
 This week's topic is a brief introduction to [Git](https://git-scm.com/), the free and open source version control system for text-based files. Much of the material in this lesson is derived from the [Software Carpentry Git tutorial](https://swcarpentry.github.io/git-novice/).
 
 ## Why use version control?

@@ -12,6 +12,14 @@ library(pdftools)
 
 <h2>Topic: Add Health data: exploring variables and data documentation</h2>
 
+
+
+The ccmpp package implements the cohort component method of population projection (CCMPP) described in this section. There is an excellent vignette for this package, which gives a worked example of projection Thailand population from 1960 through 2000 using a baseline population for the year 1960: https://ihmeuw-demographics.github.io/demCore/articles/ccmpp.html
+I would show teach this worked example on the second day of this week so students can use the package to check their work if they want.
+
+
+
+
 ## The Add Health study data
 The Add Health [web site](https://data.cpc.unc.edu/projects/2/view) describes the study:
 
