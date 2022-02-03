@@ -28,8 +28,6 @@ In order to download data using `HMDHFDplus::readHFDweb()` two key pieces of inf
 
 First, we should be able to deal with country abbreviations. The `HMDHFDplus` package has the function `getHFDcountries()` that returns the abbreviations shown at [Human Fertility Collection Country / area codes](https://www.fertilitydata.org/cgi-bin/country_codes.php). However, some of the country codes are not ISO standards. This next block of code will generate a tibble with the country abbreviations and country names used in the HFD (`r table_nums(name = "hfdcountries", display = "cite")`). This will help with formulating the download function.
 
-*`r table_nums(name = "hfdcountries", caption = "HFD countries: codes and names")`*
-
 ```{r}
 library(ISOcodes)
 library(HMDHFDplus)
@@ -59,11 +57,16 @@ hfdcodes %<>%
                   ccode == "GBR_NIR" ~ "Northern Ireland",
                   TRUE ~ Name)
     )
+```
 
+*`r table_nums(name = "hfdcountries", caption = "HFD countries: codes and names")`*
+
+```{r}
 hfdcodes %>% 
     kable() %>% 
     kable_styling(bootstrap_options =
                       c("striped", "hover", "condensed", "responsive"), 
+                  font_size = 12,
                   full_width = F, position = "left")
 ```
 
@@ -111,7 +114,7 @@ read_hfd_countries_item <- function(countries, item){
         # Phil added this to make it a tibble
         tibble() %>% 
         # and add country name
-        left_join(hfdcodes)
+        left_join(hfdcodes, by = "ccode")
 }
 ```
 
@@ -142,9 +145,9 @@ totbirthsRR_USA_LTU_JPN %>%
 
 ## Git {#git}
 
-is a brief introduction to [Git](https://git-scm.com/), the free and open source version control system for text-based files. Much of the material in this lesson is derived from the [Software Carpentry Git tutorial](https://swcarpentry.github.io/git-novice/).
+This section is a brief introduction to [Git](https://git-scm.com/), the free and open source version control system for text-based files. Much of the material in this lesson is derived from the [Software Carpentry Git tutorial](https://swcarpentry.github.io/git-novice/).
 
-## Why use version control?
+### Why use version control?
 Version control is simply having control over various versions of your documents. In the context of code-based research using text files such as `.R`, `.Rmd`, `.tex`, `.sql`, `.do`, at the simplest level, version control means having the ability to track changes to your files. In more advanced levels, you should be able to revert to previous versions, collaborate with others and know who did what and when, or to merge together edits made by more than one person
 
 We covered one form of version control in a previous assignment and in the section of this document on [File systems](#file-systems). The version control system was simply keeping copies of existing files and naming new files according to a temporal sequence, with date being the suggested method of nomenclature.
@@ -158,7 +161,7 @@ Jorge Cham's ([Piled Higher and Deeper](http://www.phdcomics.com)) comic points 
 
 [![](images/week05/phd101212s.png)](http://www.phdcomics.com)
 
-## Why use Git?
+### Why use Git?
 Version controls systems have been in use since the early 1980s. Commonly used applications are RCS (Revision Control System), CVS (Concurrent Versions System), SVN (Subversion).  However, some of these require centralized servers, are limited in their capabilities, and are not free.
 
 Git has multiple advantages:
@@ -170,7 +173,7 @@ Git has multiple advantages:
 * can be used within RStudio
 * has a large community of users (i.e., free advice)
 
-## Limitations of version control systems
+### Limitations of version control systems
 Although version control systems are quite useful, there are some potential drawbacks.
 
 1. requires learning yet another somewhat-complicated system
@@ -179,15 +182,15 @@ Although version control systems are quite useful, there are some potential draw
     * can only "undo" changes that were committed
 1. designed for text files; cannot deal with binary files, e.g., Word or other formats
 
-## A brief Git tutorial
+### A brief Git tutorial
 Here we will be using the basic functions of Git while building up an Rmd file.
 
-### Setting up Git in RStudio
+#### Setting up Git in RStudio
 We will be working on CSDE Terminal Server 4 (see [Getting started on Terminal Server 4](#getting-started-on-terminal-server-4)). 
 
 Start RStudio and open a web browser.
 
-### Creating a repository
+#### Creating a repository
 Using the web browser, go to [github.com](http://github.com) and create a repository named `git_r`.
 
 ![](images/week05/2021-02-04_21_21_47.png)
@@ -216,7 +219,7 @@ After you have specified the repository URL, project directory name, and parent 
 
 ![](images/week05/2021-02-04_21_54_04.png)
 
-### Tracking changes
+#### Tracking changes
 One of the files we will change is [week_01.Rmd](files/week_01.Rmd), so download this to the main folder of your project.
 
 The first file we will make changes to is `README.md`.
@@ -326,7 +329,7 @@ Save the edits to the file and then tap the "knit" button or enter at the consol
 
 ![](images/week05/2021-02-04_22_32_50.png)
 
-### Git bash shell
+#### Git bash shell
 
 Another interface you can use is the Git bash shell. To open the shell, click `Tools > Shell`. 
 
@@ -340,7 +343,7 @@ At the prompt, enter `git status`. This will show the status of all files, in th
 
 ![](images/week05/2021-02-04_23_36_02.png)
 
-### Ignoring specific files
+#### Ignoring specific files
 Sometimes we are not interested in particular files being committed or pushed to the repository. For version control, we are interested in managing the code that is used to create outputs rather than the outputs themselves, with the idea being that if you have the code, you can recreate any outputs.
 
 So there are files that can be ignored, which are specified in the `.gitignore` file. Open the file and add the line `*.html`. This tells Git not to bother managing HTML files (under the assumption that these are the output of rendering Rmd files).
@@ -366,7 +369,7 @@ Refreshing the Git tab will show that these two files are staged.
 ![](images/week05/2021-02-04_23_45_37.png)
 
 
-### Exploring file change history
+#### Exploring file change history
 Click `Commit` to prepare to commit the changes (addition of `.gitignore` and the changes to `week_01.Rmd`).
 
 As previously mentioned, deleted lines are shown in light red, added lines in light green, and unchanged lines with no highlighting. Click the entry for `week_01.Rmd` and the changes are apparent. Line numbers on the far left are the original line numbers. The next column to the right shows updated line numbers.
@@ -405,7 +408,7 @@ You will see the changes to the two files in the last commit/push. The `.gitigno
 
 ![](images/week05/2021-02-05_00_12_20.png)
 
-### Restoring a previous version
+#### Restoring a previous version
 What good are all of these tracked changes if we cannot revert to a previous version of a file? Here we will make some intentional bad edits to a file, commit and push, but then retrieve a previous version of the file. Any version can be recovered. Note that this does not mean you can recover any and all edits to a file. It only means you can recover what changed between commits. For example, if I made a commit/push at noon, then made a lot of changes and saved the file multiple times before 5 PM and then made a commit/push, there would only be two versions of the file available. For this reason it is worth making commit/push cycles every time you thing you might want to revert to a previous version.
 
 The intentional bad change to `week_01.Rmd` is the complete removal of the code that produces the Leaflet map. See the following image.
@@ -477,7 +480,7 @@ If you open that file, you will see the restored text.
 
 ![](images/week05/2021-02-05_00_46_04.png)
 
-## Conclusion
+#### Conclusion
 This was a brief introduction to the main functionality of Git with RStudio and github. If you expect to perform even a modest amount of coding, you could benefit from Git as a way to keep track of your work, collaborate with others, and avoid programming disasters due to inadvertent deletion of overwriting of files.
 
 <hr>

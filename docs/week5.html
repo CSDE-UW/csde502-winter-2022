@@ -96,22 +96,21 @@ Topics: Human Fertility Database (age-specific rates and summary indicators); Gi
 </h3>
 <p>In order to download data using <code><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHFDweb.html">HMDHFDplus::readHFDweb()</a></code> two key pieces of information are needed, the country abbreviation and the coded item name.</p>
 <p>First, we should be able to deal with country abbreviations. The <code>HMDHFDplus</code> package has the function <code><a href="https://rdrr.io/pkg/HMDHFDplus/man/getHFDcountries.html">getHFDcountries()</a></code> that returns the abbreviations shown at <a href="https://www.fertilitydata.org/cgi-bin/country_codes.php">Human Fertility Collection Country / area codes</a>. However, some of the country codes are not ISO standards. This next block of code will generate a tibble with the country abbreviations and country names used in the HFD (Table 1). This will help with formulating the download function.</p>
-<p><em>Table 1: HFD countries: codes and names</em></p>
 <div class="sourceCode" id="cb412"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ISOcodes</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/timriffe/TR1">HMDHFDplus</a></span><span class="op">)</span>
 
 <span class="co"># HFD country codes</span>
-<span class="va">hfdcodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/getHFDcountries.html">getHFDcountries</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">tibble</span><span class="op">(</span>ccode <span class="op">=</span> <span class="va">.</span><span class="op">)</span>
+<span class="va">hfdcodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/getHFDcountries.html">getHFDcountries</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tibble.html">tibble</a></span><span class="op">(</span>ccode <span class="op">=</span> <span class="va">.</span><span class="op">)</span>
 
 <span class="co"># ISO country codes</span>
-<span class="va">isocodes</span> <span class="op">&lt;-</span> <span class="va">ISO_3166_1</span> <span class="op">%&gt;%</span> <span class="fu">tibble</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">select</span><span class="op">(</span>ccode <span class="op">=</span> <span class="va">Alpha_3</span>, <span class="va">Name</span><span class="op">)</span>
+<span class="va">isocodes</span> <span class="op">&lt;-</span> <span class="va">ISO_3166_1</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu">select</span><span class="op">(</span>ccode <span class="op">=</span> <span class="va">Alpha_3</span>, <span class="va">Name</span><span class="op">)</span>
 
 <span class="co"># join ISO codes with country names</span>
 <span class="va">hfdcodes</span> <span class="op">%&lt;&gt;%</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">isocodes</span>, by <span class="op">=</span> <span class="st">"ccode"</span><span class="op">)</span>
 
 <span class="co"># there are some countries in the HFD that do not use standard 3 character ISO codes</span>
-<span class="va">hfdcodes</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">Name</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="va">hfdcodes</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">Name</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 8 x 2
 ##   ccode   Name 
 ##   &lt;chr&gt;   &lt;chr&gt;
@@ -136,14 +135,16 @@ Topics: Human Fertility Database (age-specific rates and summary indicators); Gi
                   <span class="va">ccode</span> <span class="op">==</span> <span class="st">"GBR_SCO"</span> <span class="op">~</span> <span class="st">"Scotland"</span>,
                   <span class="va">ccode</span> <span class="op">==</span> <span class="st">"GBR_NIR"</span> <span class="op">~</span> <span class="st">"Northern Ireland"</span>,
                   <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">Name</span><span class="op">)</span>
-    <span class="op">)</span>
-
-<span class="va">hfdcodes</span> <span class="op">%&gt;%</span> 
-    <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+    <span class="op">)</span></code></pre></div>
+<p><em>Table 1: HFD countries: codes and names</em></p>
+<div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">hfdcodes</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
+    <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
     <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span>
                       <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, 
+                  font_size <span class="op">=</span> <span class="fl">12</span>,
                   full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></code></pre></div>
-<div class="inline-table"><table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; ">
+<div class="inline-table"><table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 12px; width: auto !important; ">
 <thead><tr>
 <th style="text-align:left;">
 ccode
@@ -459,7 +460,7 @@ United States
 <p>To download data using <code><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHFDweb.html">HMDHFDplus::readHFDweb()</a></code>, it is necessary to specify the item name. For example at thee HFD page <a href="https://www.humanfertility.org/cgi-bin/country.php?country=USA&amp;tab=si">Unites States of America</a>, the first item listed is total number of live births for all birth orders combined between 1933 and 2019; the URL is <strong>www.humanfertility.org/cgi-bin/getfile.plx?f=USA\20210422<span class="und">totbirthsRR</span>.txt</strong> (where the item name is underlined).</p>
 <p>Using Ben’s HFD code as a template, we can download the same item for several countries.</p>
 <p>First, we create a generic function to download HFD data for a country and an item:</p>
-<div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># a function to read HFD for one country and one item</span>
 <span class="va">read_hfd_country</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">CNTRY</span>, <span class="va">item</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu">HMDHFDplus</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHFDweb.html">readHFDweb</a></span><span class="op">(</span>
@@ -477,43 +478,42 @@ United States
   <span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>We then create a function to download an item for a set of countries</p>
-<div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Download a data set iteratively for all named countries using purrr::map()</span>
 <span class="va">read_hfd_countries_item</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">countries</span>, <span class="va">item</span><span class="op">)</span><span class="op">{</span>
-    <span class="va">countries</span> <span class="op">%&gt;%</span>
+    <span class="va">countries</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
         <span class="co"># Returns a list of data.frames, adding a column for country code to each</span>
         <span class="co"># the map() function performs a run of Ben's read_hmd_country() </span>
         <span class="co">#   function for each listed country</span>
         <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">ccode</span><span class="op">)</span> <span class="op">{</span>
             <span class="co"># the item to read is 1 x 1 death rates</span>
-            <span class="fu">read_hfd_country</span><span class="op">(</span><span class="va">ccode</span>, <span class="va">item</span><span class="op">)</span> <span class="op">%&gt;%</span>
+            <span class="fu">read_hfd_country</span><span class="op">(</span><span class="va">ccode</span>, <span class="va">item</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
                 <span class="co"># this adds the column "country" storing the country ISO code</span>
                 <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>ccode <span class="op">=</span> <span class="va">ccode</span><span class="op">)</span>
-        <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span>
+        <span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
         <span class="co"># Phil added this to make it a tibble</span>
-        <span class="fu">tibble</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+        <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
         <span class="co"># and add country name</span>
-        <span class="fu">left_join</span><span class="op">(</span><span class="va">hfdcodes</span><span class="op">)</span>
+        <span class="fu">left_join</span><span class="op">(</span><span class="va">hfdcodes</span>, by <span class="op">=</span> <span class="st">"ccode"</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>Finally, run the function to download one item for a set of countries:</p>
-<div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">CNTRIES</span> <span class="op">&lt;-</span> <span class="va">hfdcodes</span> <span class="op">%&gt;%</span> 
-    <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"United States"</span>, <span class="st">"Lithuania"</span>, <span class="st">"Japan"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<div class="sourceCode" id="cb418"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">CNTRIES</span> <span class="op">&lt;-</span> <span class="va">hfdcodes</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"United States"</span>, <span class="st">"Lithuania"</span>, <span class="st">"Japan"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
     <span class="fu">pull</span><span class="op">(</span><span class="va">ccode</span><span class="op">)</span>
 
 <span class="va">totbirthsRR_USA_LTU_JPN</span> <span class="op">&lt;-</span> <span class="fu">read_hfd_countries_item</span><span class="op">(</span>countries <span class="op">=</span> <span class="va">CNTRIES</span>, item <span class="op">=</span> <span class="st">"totbirthsRR"</span><span class="op">)</span></code></pre></div>
-<pre><code>## Joining, by = "ccode"</code></pre>
 <p>Let’s make a graph from that (Figure 1).</p>
 <div class="sourceCode" id="cb419"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">totbirthsRR_USA_LTU_JPN</span> <span class="op">%&gt;%</span> 
-    <span class="fu">mutate</span><span class="op">(</span>TotalM <span class="op">=</span> <span class="va">Total</span> <span class="op">/</span> <span class="fl">1000000</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">totbirthsRR_USA_LTU_JPN</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
+    <span class="fu">mutate</span><span class="op">(</span>TotalM <span class="op">=</span> <span class="va">Total</span> <span class="op">/</span> <span class="fl">1000000</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
     <span class="fu">ggplot</span><span class="op">(</span> 
        mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span>, y <span class="op">=</span> <span class="va">TotalM</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">Name</span>, ncol <span class="op">=</span> <span class="fl">1</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu">ylab</span><span class="op">(</span><span class="st">"live births"</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu">xlab</span><span class="op">(</span><span class="st">"year"</span><span class="op">)</span></code></pre></div>
-<p><img src="05-week05_files/figure-html/unnamed-chunk-6-1.png" width="672">
+<p><img src="05-week05_files/figure-html/unnamed-chunk-7-1.png" width="672">
  <br><em>Figure 1: Live births x 1 million: Japan, Lithuania, USA (note non-standardized Y scale)</em></p>
 </div>
 </div>
@@ -521,12 +521,11 @@ United States
 <h2>
 <span class="header-section-number">5.2</span> Git<a class="anchor" aria-label="anchor" href="#git"><i class="fas fa-link"></i></a>
 </h2>
-<p>is a brief introduction to <a href="https://git-scm.com/">Git</a>, the free and open source version control system for text-based files. Much of the material in this lesson is derived from the <a href="https://swcarpentry.github.io/git-novice/">Software Carpentry Git tutorial</a>.</p>
-</div>
-<div id="why-use-version-control" class="section level2" number="5.3">
-<h2>
-<span class="header-section-number">5.3</span> Why use version control?<a class="anchor" aria-label="anchor" href="#why-use-version-control"><i class="fas fa-link"></i></a>
-</h2>
+<p>This section is a brief introduction to <a href="https://git-scm.com/">Git</a>, the free and open source version control system for text-based files. Much of the material in this lesson is derived from the <a href="https://swcarpentry.github.io/git-novice/">Software Carpentry Git tutorial</a>.</p>
+<div id="why-use-version-control" class="section level3" number="5.2.1">
+<h3>
+<span class="header-section-number">5.2.1</span> Why use version control?<a class="anchor" aria-label="anchor" href="#why-use-version-control"><i class="fas fa-link"></i></a>
+</h3>
 <p>Version control is simply having control over various versions of your documents. In the context of code-based research using text files such as <code>.R</code>, <code>.Rmd</code>, <code>.tex</code>, <code>.sql</code>, <code>.do</code>, at the simplest level, version control means having the ability to track changes to your files. In more advanced levels, you should be able to revert to previous versions, collaborate with others and know who did what and when, or to merge together edits made by more than one person</p>
 <p>We covered one form of version control in a previous assignment and in the section of this document on <a href="#file-systems">File systems</a>. The version control system was simply keeping copies of existing files and naming new files according to a temporal sequence, with date being the suggested method of nomenclature.</p>
 <p>While keeping backup, dated copies of files is not necessarily a bad approach, it suffers from a few major limitations, including:</p>
@@ -537,10 +536,10 @@ United States
 <p>Jorge Cham’s (<a href="http://www.phdcomics.com">Piled Higher and Deeper</a>) comic points out what happens to a typical graduate student’s “final” version:</p>
 <p><a href="http://www.phdcomics.com"><img src="images/week05/phd101212s.png"></a></p>
 </div>
-<div id="why-use-git" class="section level2" number="5.4">
-<h2>
-<span class="header-section-number">5.4</span> Why use Git?<a class="anchor" aria-label="anchor" href="#why-use-git"><i class="fas fa-link"></i></a>
-</h2>
+<div id="why-use-git" class="section level3" number="5.2.2">
+<h3>
+<span class="header-section-number">5.2.2</span> Why use Git?<a class="anchor" aria-label="anchor" href="#why-use-git"><i class="fas fa-link"></i></a>
+</h3>
 <p>Version controls systems have been in use since the early 1980s. Commonly used applications are RCS (Revision Control System), CVS (Concurrent Versions System), SVN (Subversion). However, some of these require centralized servers, are limited in their capabilities, and are not free.</p>
 <p>Git has multiple advantages:</p>
 <ul>
@@ -555,10 +554,10 @@ United States
 <li>has a large community of users (i.e., free advice)</li>
 </ul>
 </div>
-<div id="limitations-of-version-control-systems" class="section level2" number="5.5">
-<h2>
-<span class="header-section-number">5.5</span> Limitations of version control systems<a class="anchor" aria-label="anchor" href="#limitations-of-version-control-systems"><i class="fas fa-link"></i></a>
-</h2>
+<div id="limitations-of-version-control-systems" class="section level3" number="5.2.3">
+<h3>
+<span class="header-section-number">5.2.3</span> Limitations of version control systems<a class="anchor" aria-label="anchor" href="#limitations-of-version-control-systems"><i class="fas fa-link"></i></a>
+</h3>
 <p>Although version control systems are quite useful, there are some potential drawbacks.</p>
 <ol style="list-style-type: decimal">
 <li>requires learning yet another somewhat-complicated system</li>
@@ -571,22 +570,22 @@ United States
 <li>designed for text files; cannot deal with binary files, e.g., Word or other formats</li>
 </ol>
 </div>
-<div id="a-brief-git-tutorial" class="section level2" number="5.6">
-<h2>
-<span class="header-section-number">5.6</span> A brief Git tutorial<a class="anchor" aria-label="anchor" href="#a-brief-git-tutorial"><i class="fas fa-link"></i></a>
-</h2>
-<p>Here we will be using the basic functions of Git while building up an Rmd file.</p>
-<div id="setting-up-git-in-rstudio" class="section level3" number="5.6.1">
+<div id="a-brief-git-tutorial" class="section level3" number="5.2.4">
 <h3>
-<span class="header-section-number">5.6.1</span> Setting up Git in RStudio<a class="anchor" aria-label="anchor" href="#setting-up-git-in-rstudio"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2.4</span> A brief Git tutorial<a class="anchor" aria-label="anchor" href="#a-brief-git-tutorial"><i class="fas fa-link"></i></a>
 </h3>
+<p>Here we will be using the basic functions of Git while building up an Rmd file.</p>
+<div id="setting-up-git-in-rstudio" class="section level4" number="5.2.4.1">
+<h4>
+<span class="header-section-number">5.2.4.1</span> Setting up Git in RStudio<a class="anchor" aria-label="anchor" href="#setting-up-git-in-rstudio"><i class="fas fa-link"></i></a>
+</h4>
 <p>We will be working on CSDE Terminal Server 4 (see <a href="#getting-started-on-terminal-server-4">Getting started on Terminal Server 4</a>).</p>
 <p>Start RStudio and open a web browser.</p>
 </div>
-<div id="creating-a-repository" class="section level3" number="5.6.2">
-<h3>
-<span class="header-section-number">5.6.2</span> Creating a repository<a class="anchor" aria-label="anchor" href="#creating-a-repository"><i class="fas fa-link"></i></a>
-</h3>
+<div id="creating-a-repository" class="section level4" number="5.2.4.2">
+<h4>
+<span class="header-section-number">5.2.4.2</span> Creating a repository<a class="anchor" aria-label="anchor" href="#creating-a-repository"><i class="fas fa-link"></i></a>
+</h4>
 <p>Using the web browser, go to <a href="http://github.com">github.com</a> and create a repository named <code>git_r</code>.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_21_21_47.png"></div>
 <p>Make the repository public and add a README file.</p>
@@ -602,10 +601,10 @@ United States
 <p>After you have specified the repository URL, project directory name, and parent directory of the project directory, click <code>Create Project</code>.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_21_54_04.png"></div>
 </div>
-<div id="tracking-changes" class="section level3" number="5.6.3">
-<h3>
-<span class="header-section-number">5.6.3</span> Tracking changes<a class="anchor" aria-label="anchor" href="#tracking-changes"><i class="fas fa-link"></i></a>
-</h3>
+<div id="tracking-changes" class="section level4" number="5.2.4.3">
+<h4>
+<span class="header-section-number">5.2.4.3</span> Tracking changes<a class="anchor" aria-label="anchor" href="#tracking-changes"><i class="fas fa-link"></i></a>
+</h4>
 <p>One of the files we will change is <a href="files/week_01.Rmd">week_01.Rmd</a>, so download this to the main folder of your project.</p>
 <p>The first file we will make changes to is <code>README.md</code>.</p>
 <p>Add some text explaining what purpose the repository serves.</p>
@@ -667,10 +666,10 @@ m</code></pre>
 <p>Save the edits to the file and then tap the “knit” button or enter at the console prompt <code>rmarkdown::render("week_01.Rmd")</code> to generate the HTML file. You should see that now there are three point markers, and if you hover over any of the markers you will see the name popup.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_22_32_50.png"></div>
 </div>
-<div id="git-bash-shell" class="section level3" number="5.6.4">
-<h3>
-<span class="header-section-number">5.6.4</span> Git bash shell<a class="anchor" aria-label="anchor" href="#git-bash-shell"><i class="fas fa-link"></i></a>
-</h3>
+<div id="git-bash-shell" class="section level4" number="5.2.4.4">
+<h4>
+<span class="header-section-number">5.2.4.4</span> Git bash shell<a class="anchor" aria-label="anchor" href="#git-bash-shell"><i class="fas fa-link"></i></a>
+</h4>
 <p>Another interface you can use is the Git bash shell. To open the shell, click <code>Tools &gt; Shell</code>.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_22_01_34.png"></div>
 <p>All of the GUI commands we have used in RStudio are available in the shell. In fact, very little of the functionality of Git is available within RStudio. To take full advantage of Git, it is necessary to use the shell. There are a number of excellent tutorials on the use of the shell. For now because this is an introductory lesson, we will focus mainly on the RStudio interface,</p>
@@ -678,10 +677,10 @@ m</code></pre>
 <p>At the prompt, enter <code>git status</code>. This will show the status of all files, in this case showing that <code>week_01.Rmd</code> has been modified, and that there are some files that are not being tracked.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_23_36_02.png"></div>
 </div>
-<div id="ignoring-specific-files" class="section level3" number="5.6.5">
-<h3>
-<span class="header-section-number">5.6.5</span> Ignoring specific files<a class="anchor" aria-label="anchor" href="#ignoring-specific-files"><i class="fas fa-link"></i></a>
-</h3>
+<div id="ignoring-specific-files" class="section level4" number="5.2.4.5">
+<h4>
+<span class="header-section-number">5.2.4.5</span> Ignoring specific files<a class="anchor" aria-label="anchor" href="#ignoring-specific-files"><i class="fas fa-link"></i></a>
+</h4>
 <p>Sometimes we are not interested in particular files being committed or pushed to the repository. For version control, we are interested in managing the code that is used to create outputs rather than the outputs themselves, with the idea being that if you have the code, you can recreate any outputs.</p>
 <p>So there are files that can be ignored, which are specified in the <code>.gitignore</code> file. Open the file and add the line <code>*.html</code>. This tells Git not to bother managing HTML files (under the assumption that these are the output of rendering Rmd files).</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_23_40_15.png"></div>
@@ -695,10 +694,10 @@ m</code></pre>
 <p>Refreshing the Git tab will show that these two files are staged.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_23_45_37.png"></div>
 </div>
-<div id="exploring-file-change-history" class="section level3" number="5.6.6">
-<h3>
-<span class="header-section-number">5.6.6</span> Exploring file change history<a class="anchor" aria-label="anchor" href="#exploring-file-change-history"><i class="fas fa-link"></i></a>
-</h3>
+<div id="exploring-file-change-history" class="section level4" number="5.2.4.6">
+<h4>
+<span class="header-section-number">5.2.4.6</span> Exploring file change history<a class="anchor" aria-label="anchor" href="#exploring-file-change-history"><i class="fas fa-link"></i></a>
+</h4>
 <p>Click <code>Commit</code> to prepare to commit the changes (addition of <code>.gitignore</code> and the changes to <code>week_01.Rmd</code>).</p>
 <p>As previously mentioned, deleted lines are shown in light red, added lines in light green, and unchanged lines with no highlighting. Click the entry for <code>week_01.Rmd</code> and the changes are apparent. Line numbers on the far left are the original line numbers. The next column to the right shows updated line numbers.</p>
 <p>This allows you to compare the currently saved version against the previous version of the file.</p>
@@ -716,10 +715,10 @@ m</code></pre>
 <p>You will see the changes to the two files in the last commit/push. The <code>.gitignore</code> file has all of its lines in green, indicating they are all new with respect to the repository. The file <code>week_01.Rmd</code> shows the same changes on github as we saw in the local view before pushing the commit to the server.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-05_00_12_20.png"></div>
 </div>
-<div id="restoring-a-previous-version" class="section level3" number="5.6.7">
-<h3>
-<span class="header-section-number">5.6.7</span> Restoring a previous version<a class="anchor" aria-label="anchor" href="#restoring-a-previous-version"><i class="fas fa-link"></i></a>
-</h3>
+<div id="restoring-a-previous-version" class="section level4" number="5.2.4.7">
+<h4>
+<span class="header-section-number">5.2.4.7</span> Restoring a previous version<a class="anchor" aria-label="anchor" href="#restoring-a-previous-version"><i class="fas fa-link"></i></a>
+</h4>
 <p>What good are all of these tracked changes if we cannot revert to a previous version of a file? Here we will make some intentional bad edits to a file, commit and push, but then retrieve a previous version of the file. Any version can be recovered. Note that this does not mean you can recover any and all edits to a file. It only means you can recover what changed between commits. For example, if I made a commit/push at noon, then made a lot of changes and saved the file multiple times before 5 PM and then made a commit/push, there would only be two versions of the file available. For this reason it is worth making commit/push cycles every time you thing you might want to revert to a previous version.</p>
 <p>The intentional bad change to <code>week_01.Rmd</code> is the complete removal of the code that produces the Leaflet map. See the following image.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-05_00_13_13.png"></div>
@@ -754,14 +753,13 @@ m</code></pre>
 <p>If you open that file, you will see the restored text.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-05_00_46_04.png"></div>
 </div>
-</div>
-<div id="conclusion" class="section level2" number="5.7">
-<h2>
-<span class="header-section-number">5.7</span> Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"><i class="fas fa-link"></i></a>
-</h2>
+<div id="conclusion" class="section level4" number="5.2.4.8">
+<h4>
+<span class="header-section-number">5.2.4.8</span> Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"><i class="fas fa-link"></i></a>
+</h4>
 <p>This was a brief introduction to the main functionality of Git with RStudio and github. If you expect to perform even a modest amount of coding, you could benefit from Git as a way to keep track of your work, collaborate with others, and avoid programming disasters due to inadvertent deletion of overwriting of files.</p>
 <hr>
-<p>Rendered at <tt>2022-02-03 01:19:01</tt></p>
+<p>Rendered at <tt>2022-02-03 01:44:31</tt></p>
 <h4>
 Source code for this document
 <a class="anchor" aria-label="anchor" href="#conclusion"><i class="fas fa-link"></i></a>
@@ -799,8 +797,6 @@ In order to download data using `HMDHFDplus::readHFDweb()` two key pieces of inf
 
 First, we should be able to deal with country abbreviations. The `HMDHFDplus` package has the function `getHFDcountries()` that returns the abbreviations shown at [Human Fertility Collection Country / area codes](https://www.fertilitydata.org/cgi-bin/country_codes.php). However, some of the country codes are not ISO standards. This next block of code will generate a tibble with the country abbreviations and country names used in the HFD (`r table_nums(name = "hfdcountries", display = "cite")`). This will help with formulating the download function.
 
-*`r table_nums(name = "hfdcountries", caption = "HFD countries: codes and names")`*
-
 ```{r}
 library(ISOcodes)
 library(HMDHFDplus)
@@ -830,11 +826,16 @@ hfdcodes %&lt;&gt;%
                   ccode == "GBR_NIR" ~ "Northern Ireland",
                   TRUE ~ Name)
     )
+```
 
+*`r table_nums(name = "hfdcountries", caption = "HFD countries: codes and names")`*
+
+```{r}
 hfdcodes %&gt;% 
     kable() %&gt;% 
     kable_styling(bootstrap_options =
                       c("striped", "hover", "condensed", "responsive"), 
+                  font_size = 12,
                   full_width = F, position = "left")
 ```
 
@@ -882,7 +883,7 @@ read_hfd_countries_item &lt;- function(countries, item){
         # Phil added this to make it a tibble
         tibble() %&gt;% 
         # and add country name
-        left_join(hfdcodes)
+        left_join(hfdcodes, by = "ccode")
 }
 ```
 
@@ -913,9 +914,9 @@ totbirthsRR_USA_LTU_JPN %&gt;%
 
 ## Git {#git}
 
-is a brief introduction to [Git](https://git-scm.com/), the free and open source version control system for text-based files. Much of the material in this lesson is derived from the [Software Carpentry Git tutorial](https://swcarpentry.github.io/git-novice/).
+This section is a brief introduction to [Git](https://git-scm.com/), the free and open source version control system for text-based files. Much of the material in this lesson is derived from the [Software Carpentry Git tutorial](https://swcarpentry.github.io/git-novice/).
 
-## Why use version control?
+### Why use version control?
 Version control is simply having control over various versions of your documents. In the context of code-based research using text files such as `.R`, `.Rmd`, `.tex`, `.sql`, `.do`, at the simplest level, version control means having the ability to track changes to your files. In more advanced levels, you should be able to revert to previous versions, collaborate with others and know who did what and when, or to merge together edits made by more than one person
 
 We covered one form of version control in a previous assignment and in the section of this document on [File systems](#file-systems). The version control system was simply keeping copies of existing files and naming new files according to a temporal sequence, with date being the suggested method of nomenclature.
@@ -929,7 +930,7 @@ Jorge Cham's ([Piled Higher and Deeper](http://www.phdcomics.com)) comic points 
 
 [![](images/week05/phd101212s.png)](http://www.phdcomics.com)
 
-## Why use Git?
+### Why use Git?
 Version controls systems have been in use since the early 1980s. Commonly used applications are RCS (Revision Control System), CVS (Concurrent Versions System), SVN (Subversion).  However, some of these require centralized servers, are limited in their capabilities, and are not free.
 
 Git has multiple advantages:
@@ -941,7 +942,7 @@ Git has multiple advantages:
 * can be used within RStudio
 * has a large community of users (i.e., free advice)
 
-## Limitations of version control systems
+### Limitations of version control systems
 Although version control systems are quite useful, there are some potential drawbacks.
 
 1. requires learning yet another somewhat-complicated system
@@ -950,15 +951,15 @@ Although version control systems are quite useful, there are some potential draw
     * can only "undo" changes that were committed
 1. designed for text files; cannot deal with binary files, e.g., Word or other formats
 
-## A brief Git tutorial
+### A brief Git tutorial
 Here we will be using the basic functions of Git while building up an Rmd file.
 
-### Setting up Git in RStudio
+#### Setting up Git in RStudio
 We will be working on CSDE Terminal Server 4 (see [Getting started on Terminal Server 4](#getting-started-on-terminal-server-4)). 
 
 Start RStudio and open a web browser.
 
-### Creating a repository
+#### Creating a repository
 Using the web browser, go to [github.com](http://github.com) and create a repository named `git_r`.
 
 ![](images/week05/2021-02-04_21_21_47.png)
@@ -987,7 +988,7 @@ After you have specified the repository URL, project directory name, and parent 
 
 ![](images/week05/2021-02-04_21_54_04.png)
 
-### Tracking changes
+#### Tracking changes
 One of the files we will change is [week_01.Rmd](files/week_01.Rmd), so download this to the main folder of your project.
 
 The first file we will make changes to is `README.md`.
@@ -1097,7 +1098,7 @@ Save the edits to the file and then tap the "knit" button or enter at the consol
 
 ![](images/week05/2021-02-04_22_32_50.png)
 
-### Git bash shell
+#### Git bash shell
 
 Another interface you can use is the Git bash shell. To open the shell, click `Tools &gt; Shell`. 
 
@@ -1111,7 +1112,7 @@ At the prompt, enter `git status`. This will show the status of all files, in th
 
 ![](images/week05/2021-02-04_23_36_02.png)
 
-### Ignoring specific files
+#### Ignoring specific files
 Sometimes we are not interested in particular files being committed or pushed to the repository. For version control, we are interested in managing the code that is used to create outputs rather than the outputs themselves, with the idea being that if you have the code, you can recreate any outputs.
 
 So there are files that can be ignored, which are specified in the `.gitignore` file. Open the file and add the line `*.html`. This tells Git not to bother managing HTML files (under the assumption that these are the output of rendering Rmd files).
@@ -1137,7 +1138,7 @@ Refreshing the Git tab will show that these two files are staged.
 ![](images/week05/2021-02-04_23_45_37.png)
 
 
-### Exploring file change history
+#### Exploring file change history
 Click `Commit` to prepare to commit the changes (addition of `.gitignore` and the changes to `week_01.Rmd`).
 
 As previously mentioned, deleted lines are shown in light red, added lines in light green, and unchanged lines with no highlighting. Click the entry for `week_01.Rmd` and the changes are apparent. Line numbers on the far left are the original line numbers. The next column to the right shows updated line numbers.
@@ -1176,7 +1177,7 @@ You will see the changes to the two files in the last commit/push. The `.gitigno
 
 ![](images/week05/2021-02-05_00_12_20.png)
 
-### Restoring a previous version
+#### Restoring a previous version
 What good are all of these tracked changes if we cannot revert to a previous version of a file? Here we will make some intentional bad edits to a file, commit and push, but then retrieve a previous version of the file. Any version can be recovered. Note that this does not mean you can recover any and all edits to a file. It only means you can recover what changed between commits. For example, if I made a commit/push at noon, then made a lot of changes and saved the file multiple times before 5 PM and then made a commit/push, there would only be two versions of the file available. For this reason it is worth making commit/push cycles every time you thing you might want to revert to a previous version.
 
 The intentional bad change to `week_01.Rmd` is the complete removal of the code that produces the Leaflet map. See the following image.
@@ -1248,7 +1249,7 @@ If you open that file, you will see the restored text.
 
 ![](images/week05/2021-02-05_00_46_04.png)
 
-## Conclusion
+#### Conclusion
 This was a brief introduction to the main functionality of Git with RStudio and github. If you expect to perform even a modest amount of coding, you could benefit from Git as a way to keep track of your work, collaborate with others, and avoid programming disasters due to inadvertent deletion of overwriting of files.
 
 &lt;hr&gt;
@@ -1261,6 +1262,8 @@ Rendered at &lt;tt&gt;`r Sys.time()`&lt;/tt&gt;
 cat(readLines("05-week05.Rmd"), sep = '\n')
 ```</code></pre>
 
+</div>
+</div>
 </div>
 </div>
   <div class="chapter-nav">
@@ -1279,22 +1282,14 @@ Topics: Human Fertility Database (age-specific rates and summary indicators); Gi
 <li><a class="nav-link" href="#hfd-items"><span class="header-section-number">5.1.2</span> HFD items</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#git"><span class="header-section-number">5.2</span> Git</a></li>
-<li><a class="nav-link" href="#why-use-version-control"><span class="header-section-number">5.3</span> Why use version control?</a></li>
-<li><a class="nav-link" href="#why-use-git"><span class="header-section-number">5.4</span> Why use Git?</a></li>
-<li><a class="nav-link" href="#limitations-of-version-control-systems"><span class="header-section-number">5.5</span> Limitations of version control systems</a></li>
 <li>
-<a class="nav-link" href="#a-brief-git-tutorial"><span class="header-section-number">5.6</span> A brief Git tutorial</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#setting-up-git-in-rstudio"><span class="header-section-number">5.6.1</span> Setting up Git in RStudio</a></li>
-<li><a class="nav-link" href="#creating-a-repository"><span class="header-section-number">5.6.2</span> Creating a repository</a></li>
-<li><a class="nav-link" href="#tracking-changes"><span class="header-section-number">5.6.3</span> Tracking changes</a></li>
-<li><a class="nav-link" href="#git-bash-shell"><span class="header-section-number">5.6.4</span> Git bash shell</a></li>
-<li><a class="nav-link" href="#ignoring-specific-files"><span class="header-section-number">5.6.5</span> Ignoring specific files</a></li>
-<li><a class="nav-link" href="#exploring-file-change-history"><span class="header-section-number">5.6.6</span> Exploring file change history</a></li>
-<li><a class="nav-link" href="#restoring-a-previous-version"><span class="header-section-number">5.6.7</span> Restoring a previous version</a></li>
+<a class="nav-link" href="#git"><span class="header-section-number">5.2</span> Git</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#why-use-version-control"><span class="header-section-number">5.2.1</span> Why use version control?</a></li>
+<li><a class="nav-link" href="#why-use-git"><span class="header-section-number">5.2.2</span> Why use Git?</a></li>
+<li><a class="nav-link" href="#limitations-of-version-control-systems"><span class="header-section-number">5.2.3</span> Limitations of version control systems</a></li>
+<li><a class="nav-link" href="#a-brief-git-tutorial"><span class="header-section-number">5.2.4</span> A brief Git tutorial</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#conclusion"><span class="header-section-number">5.7</span> Conclusion</a></li>
 </ul>
 
       <div class="book-extra">
@@ -1312,7 +1307,7 @@ Topics: Human Fertility Database (age-specific rates and summary indicators); Gi
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-02-03 01:17.</p>
+    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-02-03 01:42.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
