@@ -1,24 +1,148 @@
 # Week 5 {#week5}
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-library(tidyverse)
-library(magrittr)
-library(knitr)
-library(kableExtra)
-library(readstata13)
+pacman::p_load(ISOcodes, tidyverse, magrittr, knitr, kableExtra, readstata13, HMDHFDplus, captioner)
+
+figure_nums <- captioner(prefix = "Figure")
+table_nums <- captioner(prefix = "Table")
 ```
 
-<h2>Topic: Git</h2>
+<style>
+.und {
+  text-decoration: underline;
+}
+</style>
 
+<h2>Topics: Human Fertility Database (age-specific rates and summary indicators); Git</h2>
 
-The HFD is back!
-This time, we’ll be adding the period, cohort, and other synthetic indicators for all birth orders combined, and by birth order, such as those listed here for the USA (as before, you can figure out the naming convention of a given dataset by clicking on a dataset you want to show them to see its item naming convention, which is the suffix of the file name after the country code): https://www.humanfertility.org/cgi-bin/country.php?country=USA&tab=si
+This week we will be covering two topics:
 
-I’ll teach them what these datasets contain, and they’ll see it in their problem sets, too. For your part, please just remind them that they can access HFD data for both age-specific rates and summary indicators this way.
+* [Human Fertility Database (age-specific rates and summary indicators)](#hmdrevisit)
+* [Git](#git)
 
+## Human Fertility Database (age-specific rates and summary indicators) {#hmdrevisit}
+CSDE 533 will be looking more at the Human Fertility Database (HFD). This brief section will cover the HFD in a bit more detail than in [Week 2](#datasets002)
 
+### Country code abbreviations
+In order to download data using `HMDHFDplus::readHFDweb()` two key pieces of information are needed, the country abbreviation and the coded item name.
 
-This week's topic is a brief introduction to [Git](https://git-scm.com/), the free and open source version control system for text-based files. Much of the material in this lesson is derived from the [Software Carpentry Git tutorial](https://swcarpentry.github.io/git-novice/).
+First, we should be able to deal with country abbreviations. The `HMDHFDplus` package has the function `getHFDcountries()` that returns the abbreviations shown at [Human Fertility Collection Country / area codes](https://www.fertilitydata.org/cgi-bin/country_codes.php). However, some of the country codes are not ISO standards. This next block of code will generate a tibble with the country abbreviations and country names used in the HFD (`r table_nums(name = "hfdcountries", display = "cite")`). This will help with formulating the download function.
+
+*`r table_nums(name = "hfdcountries", caption = "HFD countries: codes and names")`*
+
+```{r}
+library(ISOcodes)
+library(HMDHFDplus)
+
+# HFD country codes
+hfdcodes <- getHFDcountries() %>% tibble(ccode = .)
+
+# ISO country codes
+isocodes <- ISO_3166_1 %>% tibble() %>% select(ccode = Alpha_3, Name)
+
+# join ISO codes with country names
+hfdcodes %<>% left_join(isocodes, by = "ccode")
+
+# there are some countries in the HFD that do not use standard 3 character ISO codes
+hfdcodes %>% filter(is.na(Name))
+
+# update those
+hfdcodes %<>% 
+    mutate(Name = 
+        case_when(ccode == "FRATNP" ~  "France",
+                  ccode == "DEUTNP" ~  "Germany",
+                  ccode == "DEUTE" ~   "East Germany",
+                  ccode == "DEUTW" ~   "West Germany",
+                  ccode == "GBR_NP" ~  "United Kingdom", 
+                  ccode == "GBRTENW" ~ "England and Wales",
+                  ccode == "GBR_SCO" ~ "Scotland",
+                  ccode == "GBR_NIR" ~ "Northern Ireland",
+                  TRUE ~ Name)
+    )
+
+hfdcodes %>% 
+    kable() %>% 
+    kable_styling(bootstrap_options =
+                      c("striped", "hover", "condensed", "responsive"), 
+                  full_width = F, position = "left")
+```
+
+### HFD items
+To download data using `HMDHFDplus::readHFDweb()`, it is necessary to specify the item name. For example at thee HFD page [Unites States of America](https://www.humanfertility.org/cgi-bin/country.php?country=USA&tab=si), the first item listed is total number of live births for all birth orders combined between 1933 and 2019; the URL is **www.humanfertility.org/cgi-bin/getfile.plx?f=USA\20210422\USA<span class="und">totbirthsRR</span>.txt** (where the item name is underlined).
+
+Using Ben's HFD code as a template, we can download the same item for several countries.
+
+First, we create a generic function to download HFD data for a country and an item:
+
+```{r}
+# a function to read HFD for one country and one item
+read_hfd_country <- function(CNTRY, item) {
+  HMDHFDplus::readHFDweb(
+    # the country from the function call
+    CNTRY = CNTRY,
+    # the item to download
+    item = item,
+    # the username from this key's record
+    username = keyring::key_list("human-mortality-database")$username,
+    # the password for this key's record
+    password = keyring::key_get(
+      service = "human-mortality-database",
+      username = keyring::key_list("human-mortality-database")$username
+    )
+  )
+}
+```
+
+We then create a function to download an item for a set of countries
+
+```{r}
+# Download a data set iteratively for all named countries using purrr::map()
+read_hfd_countries_item <- function(countries, item){
+    countries %>%
+        # Returns a list of data.frames, adding a column for country code to each
+        # the map() function performs a run of Ben's read_hmd_country() 
+        #   function for each listed country
+        purrr::map_dfr(function(ccode) {
+            # the item to read is 1 x 1 death rates
+            read_hfd_country(ccode, item) %>%
+                # this adds the column "country" storing the country ISO code
+                dplyr::mutate(ccode = ccode)
+        }) %>%
+        # Phil added this to make it a tibble
+        tibble() %>% 
+        # and add country name
+        left_join(hfdcodes)
+}
+```
+
+Finally, run the function to download one item for a set of countries:
+
+```{r}
+CNTRIES <- hfdcodes %>% 
+    filter(Name %in% c("United States", "Lithuania", "Japan")) %>% 
+    pull(ccode)
+
+totbirthsRR_USA_LTU_JPN <- read_hfd_countries_item(countries = CNTRIES, item = "totbirthsRR")
+```
+
+Let's make a graph from that (`r figure_nums(name = "livebirths", display = "cite")`).
+
+```{r}
+totbirthsRR_USA_LTU_JPN %>% 
+    mutate(TotalM = Total / 1000000) %>% 
+    ggplot( 
+       mapping = aes(x = Year, y = TotalM)) +
+    geom_line() +
+    facet_wrap(~Name, ncol = 1, scales = "free_y") +
+    ylab("live births") +
+    xlab("year")
+```
+\    
+*`r figure_nums(name = "livebirths", caption = "Live births x 1 million: Japan, Lithuania, USA (note non-standardized Y scale)")`*
+
+## Git {#git}
+
+is a brief introduction to [Git](https://git-scm.com/), the free and open source version control system for text-based files. Much of the material in this lesson is derived from the [Software Carpentry Git tutorial](https://swcarpentry.github.io/git-novice/).
 
 ## Why use version control?
 Version control is simply having control over various versions of your documents. In the context of code-based research using text files such as `.R`, `.Rmd`, `.tex`, `.sql`, `.do`, at the simplest level, version control means having the ability to track changes to your files. In more advanced levels, you should be able to revert to previous versions, collaborate with others and know who did what and when, or to merge together edits made by more than one person
@@ -35,7 +159,7 @@ Jorge Cham's ([Piled Higher and Deeper](http://www.phdcomics.com)) comic points 
 [![](images/week05/phd101212s.png)](http://www.phdcomics.com)
 
 ## Why use Git?
-Version controls systems have been in use since the early 1980s. Commonly used applications are RCS, CVS, SVN, and Subversion. However, some of these require centralized servers, are limited in their capabilities, and are not free.
+Version controls systems have been in use since the early 1980s. Commonly used applications are RCS (Revision Control System), CVS (Concurrent Versions System), SVN (Subversion).  However, some of these require centralized servers, are limited in their capabilities, and are not free.
 
 Git has multiple advantages:
 

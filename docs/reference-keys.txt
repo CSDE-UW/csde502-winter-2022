@@ -129,6 +129,10 @@ demogpackages
 demogR
 demography
 week5
+hmdrevisit
+country-code-abbreviations
+hfd-items
+git
 why-use-version-control
 why-use-git
 limitations-of-version-control-systems
