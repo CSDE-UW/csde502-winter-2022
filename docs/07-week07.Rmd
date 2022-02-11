@@ -412,7 +412,7 @@ attributes(ahcomplete$h1gh59b)$labels
 attributes(ahcomplete$h1gh60)$labels
 ```
 
-First, we need to select the variables representing feet and inches, then filter out invalid heights (> 90) and weights (> 900) identified above, and finally calculate height in m, weight in kg, and BMI ($\frac{weight\_{kg}}{{height\_m}^2}$). For future use we will also select self-reported health and interviewer observed race as factors.
+First, we need to select the variables representing feet and inches, then filter out invalid heights (> 90) and weights (> 900) identified above, and finally calculate height in m, weight in kg, and BMI ($\frac{weight}{height^2}$). For future use we will also select self-reported health and interviewer observed race as factors.
 
 ```{r}
 # make the data frame
