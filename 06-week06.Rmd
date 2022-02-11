@@ -456,7 +456,7 @@ Start by installing a version of `pdfgrep`. These are three implementations, one
 
 [pdfgrep for Mac](http://macappstore.org/pdfgrep/)
 
-A zipped file containing the metadata files for the public use Add Health data is available as [wave1_metadata.zip](data/wave1_metadata.zip). Download the file and unzip it in an appropriate location.
+A zipped file containing the metadata files for the public use Add Health data is available as [add_health_wave1_metadata.zip](data/add_health_wave1_metadata.zip). Download the file and unzip it in an appropriate location.
 
 ###### A few use examples
 _[Note: the images below may be hard to read; clicking them will open them in full-size; click with the middle mouse button to open in a new tab.]_
