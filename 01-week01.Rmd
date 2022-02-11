@@ -8,6 +8,11 @@ library(kableExtra)
 
 # this course's URL
 myurl <- "https://csde-uw.github.io/csde502-winter-2022"
+
+# path to this file name
+if (!interactive()) {
+    fnamepath <- current_input(dir = TRUE)
+}
 ```
 
 <h2>Topics:</h2>
@@ -934,9 +939,16 @@ etdata %>%
 <hr>
 Rendered at <tt>`r Sys.time()`</tt>
 
-<h4>Source code for this document</h4>
-[01-week01.Rmd](01-week01.Rmd)
+## Source code
+File is at `r fnamepath`.
 
-```{r, comment='', echo=FALSE}
-cat(readLines("01-week01.Rmd"), sep = '\n')
+### Source code for this document
+
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+```
+
+### Complete Rmd code
+
+```{r comment=''}
+cat(readLines(fnamepath), sep = '\n')
 ```

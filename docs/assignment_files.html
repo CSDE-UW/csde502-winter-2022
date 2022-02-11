@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 11 Assignment support files | UW CSDE 502 A Course Notes</title>
 <meta name="author" content="Phil Hurvitz">
-<meta name="description" content='11.1 Assignment 1 file_naming.Rmd Rendered at 2022-02-03 01:46:31 Source code for this document  11-assignment-files.Rmd-week10.Rmd cat(readLines(con = "11-assignment-files.Rmd"), sep = "\n") #...'>
+<meta name="description" content="# path to this file name if (!interactive()) {   fnamepath &lt;- knitr::current_input(dir = TRUE) }  11.1 R Markdown Template For weekly lessons: template.Rmd.  11.2 Assignment 1 file_naming.Rmd...">
 <meta name="generator" content="bookdown 0.24.4 with bs4_book()">
 <meta property="og:title" content="Chapter 11 Assignment support files | UW CSDE 502 A Course Notes">
 <meta property="og:type" content="book">
-<meta property="og:description" content='11.1 Assignment 1 file_naming.Rmd Rendered at 2022-02-03 01:46:31 Source code for this document  11-assignment-files.Rmd-week10.Rmd cat(readLines(con = "11-assignment-files.Rmd"), sep = "\n") #...'>
+<meta property="og:description" content="# path to this file name if (!interactive()) {   fnamepath &lt;- knitr::current_input(dir = TRUE) }  11.1 R Markdown Template For weekly lessons: template.Rmd.  11.2 Assignment 1 file_naming.Rmd...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 11 Assignment support files | UW CSDE 502 A Course Notes">
-<meta name="twitter:description" content='11.1 Assignment 1 file_naming.Rmd Rendered at 2022-02-03 01:46:31 Source code for this document  11-assignment-files.Rmd-week10.Rmd cat(readLines(con = "11-assignment-files.Rmd"), sep = "\n") #...'>
+<meta name="twitter:description" content="# path to this file name if (!interactive()) {   fnamepath &lt;- knitr::current_input(dir = TRUE) }  11.1 R Markdown Template For weekly lessons: template.Rmd.  11.2 Assignment 1 file_naming.Rmd...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -71,21 +71,61 @@
 <h1>
 <span class="header-section-number">11</span> Assignment support files<a class="anchor" aria-label="anchor" href="#assignment_files"><i class="fas fa-link"></i></a>
 </h1>
-<div id="assignment-1" class="section level2" number="11.1">
+<div class="sourceCode" id="cb713"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># path to this file name</span>
+<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">fnamepath</span> <span class="op">&lt;-</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/current_input.html">current_input</a></span><span class="op">(</span>dir <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<div id="r-markdown-template" class="section level2" number="11.1">
 <h2>
-<span class="header-section-number">11.1</span> Assignment 1<a class="anchor" aria-label="anchor" href="#assignment-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">11.1</span> R Markdown Template<a class="anchor" aria-label="anchor" href="#r-markdown-template"><i class="fas fa-link"></i></a>
+</h2>
+<p>For weekly lessons: <a href="files/template.Rmd">template.Rmd</a>.</p>
+</div>
+<div id="assignment-1" class="section level2" number="11.2">
+<h2>
+<span class="header-section-number">11.2</span> Assignment 1<a class="anchor" aria-label="anchor" href="#assignment-1"><i class="fas fa-link"></i></a>
 </h2>
 <p><a href="files/file_naming.Rmd">file_naming.Rmd</a></p>
 <hr>
-<p>Rendered at <tt>2022-02-03 01:46:31</tt></p>
-<h4>
-Source code for this document
-<a class="anchor" aria-label="anchor" href="#assignment-1"><i class="fas fa-link"></i></a>
-</h4>
-<p><a href="11-assignment-files.Rmd">11-assignment-files.Rmd-week10.Rmd</a></p>
-<div class="sourceCode" id="cb677"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span>con <span class="op">=</span> <span class="st">"11-assignment-files.Rmd"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></code></pre></div>
+<p>Rendered at <tt>2022-02-11 00:27:42</tt></p>
+</div>
+<div id="source-code-6" class="section level2" number="11.3">
+<h2>
+<span class="header-section-number">11.3</span> Source code<a class="anchor" aria-label="anchor" href="#source-code-6"><i class="fas fa-link"></i></a>
+</h2>
+<p>File is at H:/csde502-winter-2022-main/11-assignment-files.Rmd.</p>
+<div id="source-code-for-this-document-6" class="section level3" number="11.3.1">
+<h3>
+<span class="header-section-number">11.3.1</span> Source code for this document<a class="anchor" aria-label="anchor" href="#source-code-for-this-document-6"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb714"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># path to this file name</span>
+<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">fnamepath</span> <span class="op">&lt;-</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/current_input.html">current_input</a></span><span class="op">(</span>dir <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">fnamepath</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">'\n'</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="complete-rmd-code-6" class="section level3" number="11.3.2">
+<h3>
+<span class="header-section-number">11.3.2</span> Complete Rmd code<a class="anchor" aria-label="anchor" href="#complete-rmd-code-6"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb715"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">fnamepath</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">'\n'</span><span class="op">)</span></code></pre></div>
 <pre><code># Assignment support files {#assignment_files}
+
+```{r fileamepath}
+
+# path to this file name
+if (!interactive()) {
+    fnamepath &lt;- knitr::current_input(dir = TRUE)
+}
+
+```
+
+## R Markdown Template
+For weekly lessons: [template.Rmd](files/template.Rmd).
 
 ## Assignment 1
 [file_naming.Rmd](files/file_naming.Rmd)
@@ -93,13 +133,21 @@ Source code for this document
 &lt;hr&gt;
 Rendered at &lt;tt&gt;`r Sys.time()`&lt;/tt&gt;
 
-&lt;h4&gt;Source code for this document&lt;/h4&gt;
-[11-assignment-files.Rmd-week10.Rmd](11-assignment-files.Rmd)
+## Source code
+File is at `r fnamepath`.
 
-```{r comment='', warning=FALSE}
-cat(readLines(con = "11-assignment-files.Rmd"), sep = "\n")
+### Source code for this document
+
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+```
+
+### Complete Rmd code
+
+```{r comment=''}
+cat(readLines(fnamepath), sep = '\n')
 ```</code></pre>
 
+</div>
 </div>
 </div>
 
@@ -115,7 +163,14 @@ cat(readLines(con = "11-assignment-files.Rmd"), sep = "\n")
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#assignment_files"><span class="header-section-number">11</span> Assignment support files</a></li>
-<li><a class="nav-link" href="#assignment-1"><span class="header-section-number">11.1</span> Assignment 1</a></li>
+<li><a class="nav-link" href="#r-markdown-template"><span class="header-section-number">11.1</span> R Markdown Template</a></li>
+<li><a class="nav-link" href="#assignment-1"><span class="header-section-number">11.2</span> Assignment 1</a></li>
+<li>
+<a class="nav-link" href="#source-code-6"><span class="header-section-number">11.3</span> Source code</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#source-code-for-this-document-6"><span class="header-section-number">11.3.1</span> Source code for this document</a></li>
+<li><a class="nav-link" href="#complete-rmd-code-6"><span class="header-section-number">11.3.2</span> Complete Rmd code</a></li>
+</ul>
+</li>
 </ul>
 
       <div class="book-extra">
@@ -133,7 +188,7 @@ cat(readLines(con = "11-assignment-files.Rmd"), sep = "\n")
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-02-03 01:42.</p>
+    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-02-11 00:23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

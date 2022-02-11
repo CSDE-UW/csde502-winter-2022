@@ -57,6 +57,9 @@ summarizingaggregating-data
 purrr-efficient-iterating-over-elements-in-vectors-and-lists
 datasets001
 babushkin1
+source-code
+source-code-for-this-document
+complete-rmd-code
 week2
 code-to-run-for-the-in-class-exercise
 r-markdown
@@ -92,6 +95,9 @@ datasets002
 using-keyring-in-an-application
 human-mortality-database-naming-conventions
 mortality-table-naming-conventions
+source-code-1
+source-code-for-this-document-1
+complete-rmd-code-1
 week3
 tidycensus
 us-census-api-key-installation
@@ -103,6 +109,9 @@ downloading-variables-or-concept-groups
 leaflet
 mapview
 sf
+source-code-2
+source-code-for-this-document-2
+complete-rmd-code-2
 week4
 renviron
 rfunc
@@ -128,6 +137,9 @@ sampling-without-replacement
 demogpackages
 demogR
 demography
+source-code-3
+source-code-for-this-document-3
+complete-rmd-code-3
 week5
 hmdrevisit
 country-code-abbreviations
@@ -145,9 +157,12 @@ ignoring-specific-files
 exploring-file-change-history
 restoring-a-previous-version
 conclusion
+source-code-4
+source-code-for-this-document-4
+complete-rmd-code-4
 week6
-the-add-health-study-data
-documentation
+ccmpp
+addhealthmetadata
 data-sets
 ahwave1_v1.dta
 havenread_dta
@@ -158,6 +173,9 @@ pdfgrep
 a-few-use-examples
 pdftoolspdf_text
 conclusion-1
+source-code-5
+source-code-for-this-document-5
+complete-rmd-code-5
 week7
 creating-value-labels
 creating-factor-variables
@@ -204,4 +222,8 @@ testing-output_type
 advantages-and-disadvantages-of-pdf
 bibliography-in-r-markdown
 assignment_files
+r-markdown-template
 assignment-1
+source-code-6
+source-code-for-this-document-6
+complete-rmd-code-6

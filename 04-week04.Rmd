@@ -6,6 +6,11 @@ pacman::p_load(demogR, demography, magrittr, knitr, kableExtra, readstata13, cap
 
 figure_nums <- captioner(prefix = "Figure")
 table_nums <- captioner(prefix = "Table")
+
+# path to this file name
+if (!interactive()) {
+    fnamepath <- current_input(dir = TRUE)
+}
 ```
 
 <h2>Topics: Functions and sampling</h2>
@@ -1030,9 +1035,15 @@ lt_france_2005_df %>% kable() %>%
 <hr>
 Rendered at <tt>`r Sys.time()`</tt>
 
-<h4>Source code for this document</h4>
-[04-week04.Rmd](04-week04.Rmd)
+## Source code
+File is at `r fnamepath`.
 
-```{r, comment='', echo=FALSE}
-cat(readLines("04-week04.Rmd"), sep = '\n')
+### Source code for this document
+
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
 ```
+
+### Complete Rmd code
+
+```{r comment=''}
+cat(readLines(fnamepath), sep = '\n')

@@ -12,6 +12,11 @@ pacman::p_load(animation, captioner, idbr, htmltools, kableExtra, knitr, leaflet
 
 table_nums <- captioner(prefix = "Table")
 figure_nums <- captioner(prefix = "Figure")
+
+# path to this file name
+if (!interactive()) {
+    fnamepath <- current_input(dir = TRUE)
+}
 ```
 
 This session covers two basic areas: (1) downloading census and international data using `tidycensus`, `tigris`, and `idbr`, and (2) mapping and GIS analysis with `leaflet`, `mapview`, and `sf`.
@@ -535,10 +540,15 @@ _`r figure_nums(name = "tracts_nowater_qgis", caption = "King County census trac
 <hr>
 Rendered at <tt>`r Sys.time()`</tt>
 
-<h4>Source code for this document</h4>
-[03-week03.Rmd](03-week03.Rmd)
+## Source code
+File is at `r fnamepath`.
 
-```{r, comment='', echo=FALSE}
-cat(readLines("03-week03.Rmd"), sep = "\n")
+### Source code for this document
+
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
 ```
 
+### Complete Rmd code
+
+```{r comment=''}
+cat(readLines(fnamepath), sep = '\n')

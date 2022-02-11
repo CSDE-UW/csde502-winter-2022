@@ -5,6 +5,11 @@ pacman::p_load(ISOcodes, tidyverse, magrittr, knitr, kableExtra, readstata13, HM
 
 figure_nums <- captioner(prefix = "Figure")
 table_nums <- captioner(prefix = "Table")
+
+# path to this file name
+if (!interactive()) {
+    fnamepath <- current_input(dir = TRUE)
+}
 ```
 
 <style>
@@ -169,7 +174,7 @@ Git has multiple advantages:
 * free
 * supports complex work flows with branching, merging, etc., allowing multiple collaborators to work on the same set of files at the same time
 * does not require a centralized server (version control can be managed completely within a single computer)
-    * it is possible to use online repositories, such as github.com
+    * it is possible to use online repositories, such as Github.com
 * can be used within RStudio
 * has a large community of users (i.e., free advice)
 
@@ -191,7 +196,7 @@ We will be working on CSDE Terminal Server 4 (see [Getting started on Terminal S
 Start RStudio and open a web browser.
 
 #### Creating a repository
-Using the web browser, go to [github.com](http://github.com) and create a repository named `git_r`.
+Using the web browser, go to [Github.com](http://github.com) and create a repository named `git_r`.
 
 ![](images/week05/2021-02-04_21_21_47.png)
 
@@ -199,7 +204,7 @@ Make the repository public and add a README file.
 
 ![](images/week05/2021-02-04_21_37_13.png)
 
-Switch back to RStudio and select `File > New Project` and in the choice of project types, select `Version Control`. This will streamline the process of linking the RStudio project with github.
+Switch back to RStudio and select `File > New Project` and in the choice of project types, select `Version Control`. This will streamline the process of linking the RStudio project with Github.
 
 ![](images/week05/2021-02-04_21_39_10.png)
 
@@ -259,7 +264,7 @@ Next, click the `Push` icon to upload any changed files.
 
 ![](images/week05/2021-02-04_22_17_58.png)
 
-At some point in the process of establishing the connection to github, you may get some popups asking you to sign in. If this happens, proceed with the authorization.
+At some point in the process of establishing the connection to Github, you may get some popups asking you to sign in. If this happens, proceed with the authorization.
 
 ![](images/week05/2021-02-04_22_19_18.png)
 
@@ -267,20 +272,20 @@ At some point in the process of establishing the connection to github, you may g
 
 ![](images/week05/2021-02-04_22_20_08.png)
 
-When the authorization is completed, the push will proceed. Your screen will look different, but the last line of text here shows a truncated version of the unique hash (identifier) of the push transaction. This has will allow you to download previous versions of the file in case you made commits and pushes that caused unintended consequences.
+When the authorization is completed, the push will proceed. Your screen will look different, but the last line of text here shows a truncated version of the unique hash (identifier) of the push transaction. This unique hash will allow you to download previous versions of the file in case you made commits and pushes that caused unintended consequences.
 
 ![](images/week05/2021-02-04_22_20_32.png)
 
-If you refresh the page for your repository, you should see the updates you made to the README.md file. This is the basic process for updating files, committing changes, and pushing to github.
+If you refresh the page for your repository, you should see the updates you made to the README.md file. This is the basic process for updating files, committing changes, and pushing to Github.
 
 ![](images/week05/2021-02-04_22_21_18.png)
 
 
-Perform the same steps (click `Staged` then `Commit` for week_01.Rmd). Because this is a new file that was not in the github repository, when it is committed, it will show in all green since all of the text has been added. 
+Perform the same steps (click `Staged` then `Commit` for week_01.Rmd). Because this is a new file that was not in the Github repository, when it is committed, it will show in all green since all of the text has been added. 
 
 ![](images/week05/2021-02-04_22_46_24.png)
 
-Repeat the pull/push cycle and then refresh your browser to show that the file was added to the online github repository.
+Repeat the pull/push cycle and then refresh your browser to show that the file was added to the online Github repository.
 
 ![](images/week05/2021-02-04_22_48_45.png)
 
@@ -360,11 +365,11 @@ Likewise, if you refresh the Git tab in RStudio, the HTML file is no longer list
 
 ![](images/week05/2021-02-04_23_43_13.png)
 
-We will perform a few more tasks with the shell. Enter `add .gitignore` and `add week_01.Rmd`. This is the equivalent of clicking the `Staged` check box 
+We will perform a few more tasks with the shell. Enter `add .gitignore` and `add week_01.Rmd`. This is the equivalent of clicking the `Staged` check box in RStudio.
 
 ![](images/week05/2021-02-04_23_45_14.png)
 
-Refreshing the Git tab will show that these two files are staged.
+Refreshing the Git tab in RStudio will show that these two files are staged. This demonstrates that the RStudio Git environment is up to date with any changes made using the Git shell, and vice versa.
 
 ![](images/week05/2021-02-04_23_45_37.png)
 
@@ -403,19 +408,19 @@ Perform another pull/push cycle and then refresh your web browser. Click on the 
 
 ![](images/week05/2021-02-05_00_10_46.png)
 
-You will see the changes to the two files in the last commit/push. The `.gitignore` file has all of its lines in green, indicating they are all new with respect to the repository. The file `week_01.Rmd` shows the same changes on github as we saw in the local view before pushing the commit to the server.
+You will see the changes to the two files in the last commit/push. The `.gitignore` file has all of its lines in green, indicating they are all new with respect to the repository. The file `week_01.Rmd` shows the same changes on Github as we saw in the local view before pushing the commit to the server.
 
 
 ![](images/week05/2021-02-05_00_12_20.png)
 
 #### Restoring a previous version
-What good are all of these tracked changes if we cannot revert to a previous version of a file? Here we will make some intentional bad edits to a file, commit and push, but then retrieve a previous version of the file. Any version can be recovered. Note that this does not mean you can recover any and all edits to a file. It only means you can recover what changed between commits. For example, if I made a commit/push at noon, then made a lot of changes and saved the file multiple times before 5 PM and then made a commit/push, there would only be two versions of the file available. For this reason it is worth making commit/push cycles every time you thing you might want to revert to a previous version.
+What good are all of these tracked changes if we cannot revert to a previous version of a file? Here we will make some intentional bad edits to a file, commit and push, but then retrieve a previous version of the file. Any version can be recovered. Note that this does not mean you can recover any and all edits to a file. It only means you can recover what changed between commits. For example, if I made a commit/push at noon, then made a lot of changes and saved the file multiple times before 5 PM and then made a commit/push, there would only be two versions of the file available in Git, the one committed at noon, and the one committed at 5 PM. For this reason it is worth making commit/push cycles every time you thing you might want to revert to a previous version.
 
 The intentional bad change to `week_01.Rmd` is the complete removal of the code that produces the Leaflet map. See the following image.
 
 ![](images/week05/2021-02-05_00_13_13.png)
 
-Perform the standard cycle: stage, commit (with comment), pull, push.
+Perform the standard cycle: stage, commit (with a snarky comment), pull, and push.
 
 ![](images/week05/2021-02-05_00_14_07.png)
 
@@ -432,7 +437,7 @@ You should see the large swath of deleted lines
 
 ![](images/week05/2021-02-05_00_22_10.png)
 
-Back in the github, find and click the file name.
+Back in the Github, find and click the file name.
 
 ![](images/week05/2021-02-05_00_24_21.png)
 
@@ -440,7 +445,7 @@ The file contents will show the most recent saved version (missing the Leaflet m
 
 ![](images/week05/2021-02-05_00_25_05.png)
 
-Click the commit where you followed the questionable advice from your adviser.
+Click the commit where you followed the questionable advice from your advisor.
 
 ![](images/week05/2021-02-05_00_25_23.png)
 
@@ -455,6 +460,12 @@ Identify the previous commit and click the clipboard icon to the left of the fir
 Back in the shell, enter
 
 ```
+git show *****
+```
+
+where ***** is the hash. This will display encoded instructions for changes made to the file. Now enter
+
+```
 git show *****:week_01.Rmd
 ```
 
@@ -462,7 +473,7 @@ where `*****` is the hash.
 
 ![](images/week05/2021-02-05_00_40_36.png)
 
-You will see the text that was present at that commit, which includes the deleted Leaflet map.
+This applies the changes to the file for the commit represented by the hash. You will see the text that was present at that commit, which includes the deleted Leaflet map.
 
 ![](images/week05/2021-02-05_00_40_59.png)
 
@@ -481,14 +492,24 @@ If you open that file, you will see the restored text.
 ![](images/week05/2021-02-05_00_46_04.png)
 
 #### Conclusion
-This was a brief introduction to the main functionality of Git with RStudio and github. If you expect to perform even a modest amount of coding, you could benefit from Git as a way to keep track of your work, collaborate with others, and avoid programming disasters due to inadvertent deletion of overwriting of files.
+This was a brief introduction to the main functionality of Git with RStudio and Github. If you expect to perform even a modest amount of coding, you could benefit from Git as a way to keep track of your work, collaborate with others, and avoid programming disasters due to inadvertent deletion of overwriting of files.
 
 <hr>
 Rendered at <tt>`r Sys.time()`</tt>
 
-<h4>Source code for this document</h4>
-[05-week05.Rmd](05-week05.Rmd)
+<hr>
+Rendered at <tt>`r Sys.time()`</tt>
+
+## Source code
+File is at `r fnamepath`.
+
+### Source code for this document
+
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+```
+
+### Complete Rmd code
 
 ```{r comment=''}
-cat(readLines("05-week05.Rmd"), sep = '\n')
+cat(readLines(fnamepath), sep = '\n')
 ```

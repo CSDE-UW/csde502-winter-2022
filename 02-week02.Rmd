@@ -12,6 +12,11 @@ pacman::p_load(tidyverse, magrittr, knitr, kableExtra, readstata13, stargazer, p
 # captions
 figure_nums <- captioner(prefix = "Figure")
 table_nums <- captioner(prefix = "Table")
+
+# path to this file name
+if (!interactive()) {
+    fnamepath <- current_input(dir = TRUE)
+}
 ```
 
 <h2>Topics:</h2>
@@ -844,12 +849,18 @@ m: Male
 For example, for females listed in one-year agre classes over each year, the file would be named `fltper_1x1.txt`, whereas for males in 5-year age classes aggregated over 10-year intervals, the table would be named `mltper_5x10.txt`.
 
 <hr>
-
-<h4>Source code for this document</h4>
 Rendered at <tt>`r Sys.time()`</tt>
 
-Source code: [02-week02.Rmd](02-week02.Rmd)
+## Source code
+File is at `r fnamepath`.
 
-```{r sourcecode_week2, comment='', echo=FALSE}
-cat(readLines("02-week02.Rmd"), sep = "\n")
+### Source code for this document
+
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+```
+
+### Complete Rmd code
+
+```{r comment=''}
+cat(readLines(fnamepath), sep = '\n')
 ```

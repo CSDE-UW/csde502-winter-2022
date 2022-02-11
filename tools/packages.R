@@ -10,6 +10,7 @@ packages = c(
     "captioner",
     "countrycode",
     "curl",
+    "demCore",
     "demogR",
     "demography",
     "devtools",

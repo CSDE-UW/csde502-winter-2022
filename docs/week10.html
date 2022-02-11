@@ -80,7 +80,7 @@ Topic:Odds and ends
 <h2>
 <span class="header-section-number">10.1</span> R Markdown to Microsoft Word<a class="anchor" aria-label="anchor" href="#r-markdown-to-microsoft-word"><i class="fas fa-link"></i></a>
 </h2>
-<p>Microsoft Word (“Word”), is used widely to document research. Because of its advanced word processing and “track changes” capabilities, it is commonly used for preparation of manuscripts. Using R to generate output for Word is often a tedious process (e.g., create CSV files <span class="math inline">\(\rightarrow\)</span> paste the contents <span class="math inline">\(\rightarrow\)</span> convert to table; export R graphics with <code><a href="https://rdrr.io/r/grDevices/png.html">png()</a></code> or <code>ggsave()</code> <span class="math inline">\(\rightarrow\)</span> insert the file).</p>
+<p>Microsoft Word (“Word”), is used widely to document research. Because of its advanced word processing and “track changes” capabilities, it is commonly used for preparation of manuscripts. Using R to generate output for Word is often a tedious process (e.g., create CSV files <span class="math inline">\(\rightarrow\)</span> paste the contents <span class="math inline">\(\rightarrow\)</span> convert to table; export R graphics with <code><a href="https://rdrr.io/r/grDevices/png.html">png()</a></code> or <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code> <span class="math inline">\(\rightarrow\)</span> insert the file).</p>
 <p>RMarkdown can be used to generate Word documents. This should be thought of as a one-way operation. That is to say, when a team works on a manuscript using Word, the typical work flow is that the lead author creates the first draft. Other authors make changes to the document using tracked changes. When the manuscript circulates over all authors, the lead author decides which changes to accept and which to reject, resulting in a new version. The process continues until the group of authors agrees that the manuscript is ready for publication.</p>
 <p>Unfortunately there is no backwards path to take an existing Word docx and regenerate an Rmd (e.g., after you and your colleagues made a lot of changes to the Word docx). Nevertheless using this method could save you some “busy work” time in Word, as well as to provide a common stylistic template for your R outputs if you will be generating Word documents.</p>
 <p>To export to a Word document, the following work flow should be followed:</p>
@@ -164,7 +164,7 @@ output:
 <h3>
 <span class="header-section-number">10.2.2</span> Testing <code>output_type()</code><a class="anchor" aria-label="anchor" href="#testing-output_type"><i class="fas fa-link"></i></a>
 </h3>
-<p>Because different output formats support (or do not support) different features, a test can be made for the output format to determine which code to run, using <code>is_html_output()</code> and <code>is_latex_output()</code>. Any R code within the Rmd file can be run or not run based on these tests. For a working example, download and render the file <a href="files/output_type_test.Rmd">output_type_test</a>. Using a single source, the <a href="files/output_type_test.html">output rendered as HTML</a> appears as</p>
+<p>Because different output formats support (or do not support) different features, a test can be made for the output format to determine which code to run, using <code><a href="https://rdrr.io/pkg/knitr/man/output_type.html">is_html_output()</a></code> and <code><a href="https://rdrr.io/pkg/knitr/man/output_type.html">is_latex_output()</a></code>. Any R code within the Rmd file can be run or not run based on these tests. For a working example, download and render the file <a href="files/output_type_test.Rmd">output_type_test</a>. Using a single source, the <a href="files/output_type_test.html">output rendered as HTML</a> appears as</p>
 <div class="inline-figure"><img src="images/week03/20210124_190945-R%20Markdown%20Output%20Type%20Test%20-%20Work%20-%20MicrosoftEdge.png"></div>
 <p>whereas the <a href="files/output_type_test.pdf">PDF output</a> is rendered as</p>
 <div class="inline-figure"><img src="images/week03/20210124_191706-output_type_test.pdf%20-%20%5BR%20Markdown%20Output%20Type%20Test%5D%20-%20SumatraPDF.png"></div>
@@ -214,13 +214,13 @@ csl: biomed-central.csl
 </li>
 </ul>
 <hr>
-<p>Rendered at <tt>2022-02-03 01:46:30</tt></p>
+<p>Rendered at <tt>2022-02-11 00:27:40</tt></p>
 <h4>
 Source code for this document
 <a class="anchor" aria-label="anchor" href="#bibliography-in-r-markdown"><i class="fas fa-link"></i></a>
 </h4>
 <p><a href="10-week10.Rmd">10-week10.Rmd</a></p>
-<div class="sourceCode" id="cb674"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb710"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span>con <span class="op">=</span> <span class="st">"10-week10.Rmd"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></code></pre></div>
 <pre><code>Warning in readLines(con = "10-week10.Rmd"): incomplete final line found on '10-
 week10.Rmd'</code></pre>
@@ -462,7 +462,7 @@ Topic:Odds and ends
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-02-03 01:42.</p>
+    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-02-11 00:23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

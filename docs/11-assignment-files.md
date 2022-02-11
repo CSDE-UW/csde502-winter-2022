@@ -1,21 +1,58 @@
 # Assignment support files {#assignment_files}
 
+
+```r
+# path to this file name
+if (!interactive()) {
+    fnamepath <- knitr::current_input(dir = TRUE)
+}
+```
+
+## R Markdown Template
+For weekly lessons: [template.Rmd](files/template.Rmd).
+
 ## Assignment 1
 [file_naming.Rmd](files/file_naming.Rmd)
 
 <hr>
-Rendered at <tt>2022-02-03 01:46:31</tt>
+Rendered at <tt>2022-02-11 00:27:42</tt>
 
-<h4>Source code for this document</h4>
-[11-assignment-files.Rmd-week10.Rmd](11-assignment-files.Rmd)
+## Source code
+File is at H:/csde502-winter-2022-main/11-assignment-files.Rmd.
+
+### Source code for this document
 
 
 ```r
-cat(readLines(con = "11-assignment-files.Rmd"), sep = "\n")
+# path to this file name
+if (!interactive()) {
+    fnamepath <- knitr::current_input(dir = TRUE)
+}
+
+cat(readLines(fnamepath), sep = '\n')
+```
+
+### Complete Rmd code
+
+
+```r
+cat(readLines(fnamepath), sep = '\n')
 ```
 
 ````
 # Assignment support files {#assignment_files}
+
+```{r fileamepath}
+
+# path to this file name
+if (!interactive()) {
+    fnamepath <- knitr::current_input(dir = TRUE)
+}
+
+```
+
+## R Markdown Template
+For weekly lessons: [template.Rmd](files/template.Rmd).
 
 ## Assignment 1
 [file_naming.Rmd](files/file_naming.Rmd)
@@ -23,10 +60,17 @@ cat(readLines(con = "11-assignment-files.Rmd"), sep = "\n")
 <hr>
 Rendered at <tt>`r Sys.time()`</tt>
 
-<h4>Source code for this document</h4>
-[11-assignment-files.Rmd-week10.Rmd](11-assignment-files.Rmd)
+## Source code
+File is at `r fnamepath`.
 
-```{r comment='', warning=FALSE}
-cat(readLines(con = "11-assignment-files.Rmd"), sep = "\n")
+### Source code for this document
+
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+```
+
+### Complete Rmd code
+
+```{r comment=''}
+cat(readLines(fnamepath), sep = '\n')
 ```
 ````

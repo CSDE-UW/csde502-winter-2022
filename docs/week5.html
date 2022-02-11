@@ -96,21 +96,21 @@ Topics: Human Fertility Database (age-specific rates and summary indicators); Gi
 </h3>
 <p>In order to download data using <code><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHFDweb.html">HMDHFDplus::readHFDweb()</a></code> two key pieces of information are needed, the country abbreviation and the coded item name.</p>
 <p>First, we should be able to deal with country abbreviations. The <code>HMDHFDplus</code> package has the function <code><a href="https://rdrr.io/pkg/HMDHFDplus/man/getHFDcountries.html">getHFDcountries()</a></code> that returns the abbreviations shown at <a href="https://www.fertilitydata.org/cgi-bin/country_codes.php">Human Fertility Collection Country / area codes</a>. However, some of the country codes are not ISO standards. This next block of code will generate a tibble with the country abbreviations and country names used in the HFD (Table 1). This will help with formulating the download function.</p>
-<div class="sourceCode" id="cb412"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ISOcodes</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/timriffe/TR1">HMDHFDplus</a></span><span class="op">)</span>
 
 <span class="co"># HFD country codes</span>
-<span class="va">hfdcodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/getHFDcountries.html">getHFDcountries</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tibble.html">tibble</a></span><span class="op">(</span>ccode <span class="op">=</span> <span class="va">.</span><span class="op">)</span>
+<span class="va">hfdcodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/getHFDcountries.html">getHFDcountries</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>ccode <span class="op">=</span> <span class="va">.</span><span class="op">)</span>
 
 <span class="co"># ISO country codes</span>
-<span class="va">isocodes</span> <span class="op">&lt;-</span> <span class="va">ISO_3166_1</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu">select</span><span class="op">(</span>ccode <span class="op">=</span> <span class="va">Alpha_3</span>, <span class="va">Name</span><span class="op">)</span>
+<span class="va">isocodes</span> <span class="op">&lt;-</span> <span class="va">ISO_3166_1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>ccode <span class="op">=</span> <span class="va">Alpha_3</span>, <span class="va">Name</span><span class="op">)</span>
 
 <span class="co"># join ISO codes with country names</span>
-<span class="va">hfdcodes</span> <span class="op">%&lt;&gt;%</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">isocodes</span>, by <span class="op">=</span> <span class="st">"ccode"</span><span class="op">)</span>
+<span class="va">hfdcodes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">isocodes</span>, by <span class="op">=</span> <span class="st">"ccode"</span><span class="op">)</span>
 
 <span class="co"># there are some countries in the HFD that do not use standard 3 character ISO codes</span>
-<span class="va">hfdcodes</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">Name</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="va">hfdcodes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">Name</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 8 x 2
 ##   ccode   Name 
 ##   &lt;chr&gt;   &lt;chr&gt;
@@ -122,11 +122,11 @@ Topics: Human Fertility Database (age-specific rates and summary indicators); Gi
 ## 6 GBRTENW &lt;NA&gt; 
 ## 7 GBR_SCO &lt;NA&gt; 
 ## 8 GBR_NIR &lt;NA&gt;</code></pre>
-<div class="sourceCode" id="cb414"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># update those</span>
-<span class="va">hfdcodes</span> <span class="op">%&lt;&gt;%</span> 
-    <span class="fu">mutate</span><span class="op">(</span>Name <span class="op">=</span> 
-        <span class="fu">case_when</span><span class="op">(</span><span class="va">ccode</span> <span class="op">==</span> <span class="st">"FRATNP"</span> <span class="op">~</span>  <span class="st">"France"</span>,
+<span class="va">hfdcodes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Name <span class="op">=</span> 
+        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">ccode</span> <span class="op">==</span> <span class="st">"FRATNP"</span> <span class="op">~</span>  <span class="st">"France"</span>,
                   <span class="va">ccode</span> <span class="op">==</span> <span class="st">"DEUTNP"</span> <span class="op">~</span>  <span class="st">"Germany"</span>,
                   <span class="va">ccode</span> <span class="op">==</span> <span class="st">"DEUTE"</span> <span class="op">~</span>   <span class="st">"East Germany"</span>,
                   <span class="va">ccode</span> <span class="op">==</span> <span class="st">"DEUTW"</span> <span class="op">~</span>   <span class="st">"West Germany"</span>,
@@ -137,10 +137,10 @@ Topics: Human Fertility Database (age-specific rates and summary indicators); Gi
                   <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">Name</span><span class="op">)</span>
     <span class="op">)</span></code></pre></div>
 <p><em>Table 1: HFD countries: codes and names</em></p>
-<div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">hfdcodes</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span>
+<div class="sourceCode" id="cb425"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">hfdcodes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>bootstrap_options <span class="op">=</span>
                       <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, 
                   font_size <span class="op">=</span> <span class="fl">12</span>,
                   full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></code></pre></div>
@@ -460,7 +460,7 @@ United States
 <p>To download data using <code><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHFDweb.html">HMDHFDplus::readHFDweb()</a></code>, it is necessary to specify the item name. For example at thee HFD page <a href="https://www.humanfertility.org/cgi-bin/country.php?country=USA&amp;tab=si">Unites States of America</a>, the first item listed is total number of live births for all birth orders combined between 1933 and 2019; the URL is <strong>www.humanfertility.org/cgi-bin/getfile.plx?f=USA\20210422<span class="und">totbirthsRR</span>.txt</strong> (where the item name is underlined).</p>
 <p>Using Ben’s HFD code as a template, we can download the same item for several countries.</p>
 <p>First, we create a generic function to download HFD data for a country and an item:</p>
-<div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb426"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># a function to read HFD for one country and one item</span>
 <span class="va">read_hfd_country</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">CNTRY</span>, <span class="va">item</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu">HMDHFDplus</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHFDweb.html">readHFDweb</a></span><span class="op">(</span>
@@ -478,41 +478,41 @@ United States
   <span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>We then create a function to download an item for a set of countries</p>
-<div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb427"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Download a data set iteratively for all named countries using purrr::map()</span>
 <span class="va">read_hfd_countries_item</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">countries</span>, <span class="va">item</span><span class="op">)</span><span class="op">{</span>
-    <span class="va">countries</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+    <span class="va">countries</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
         <span class="co"># Returns a list of data.frames, adding a column for country code to each</span>
         <span class="co"># the map() function performs a run of Ben's read_hmd_country() </span>
         <span class="co">#   function for each listed country</span>
         <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">ccode</span><span class="op">)</span> <span class="op">{</span>
             <span class="co"># the item to read is 1 x 1 death rates</span>
-            <span class="fu">read_hfd_country</span><span class="op">(</span><span class="va">ccode</span>, <span class="va">item</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+            <span class="fu">read_hfd_country</span><span class="op">(</span><span class="va">ccode</span>, <span class="va">item</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
                 <span class="co"># this adds the column "country" storing the country ISO code</span>
                 <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>ccode <span class="op">=</span> <span class="va">ccode</span><span class="op">)</span>
-        <span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span>
+        <span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
         <span class="co"># Phil added this to make it a tibble</span>
-        <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
+        <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
         <span class="co"># and add country name</span>
-        <span class="fu">left_join</span><span class="op">(</span><span class="va">hfdcodes</span>, by <span class="op">=</span> <span class="st">"ccode"</span><span class="op">)</span>
+        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">hfdcodes</span>, by <span class="op">=</span> <span class="st">"ccode"</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>Finally, run the function to download one item for a set of countries:</p>
-<div class="sourceCode" id="cb418"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">CNTRIES</span> <span class="op">&lt;-</span> <span class="va">hfdcodes</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"United States"</span>, <span class="st">"Lithuania"</span>, <span class="st">"Japan"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">pull</span><span class="op">(</span><span class="va">ccode</span><span class="op">)</span>
+<div class="sourceCode" id="cb428"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">CNTRIES</span> <span class="op">&lt;-</span> <span class="va">hfdcodes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"United States"</span>, <span class="st">"Lithuania"</span>, <span class="st">"Japan"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">ccode</span><span class="op">)</span>
 
 <span class="va">totbirthsRR_USA_LTU_JPN</span> <span class="op">&lt;-</span> <span class="fu">read_hfd_countries_item</span><span class="op">(</span>countries <span class="op">=</span> <span class="va">CNTRIES</span>, item <span class="op">=</span> <span class="st">"totbirthsRR"</span><span class="op">)</span></code></pre></div>
 <p>Let’s make a graph from that (Figure 1).</p>
-<div class="sourceCode" id="cb419"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">totbirthsRR_USA_LTU_JPN</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">mutate</span><span class="op">(</span>TotalM <span class="op">=</span> <span class="va">Total</span> <span class="op">/</span> <span class="fl">1000000</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/RVerbalExpressions/man/pipe.html">%&gt;%</a></span> 
-    <span class="fu">ggplot</span><span class="op">(</span> 
-       mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span>, y <span class="op">=</span> <span class="va">TotalM</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">Name</span>, ncol <span class="op">=</span> <span class="fl">1</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu">ylab</span><span class="op">(</span><span class="st">"live births"</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu">xlab</span><span class="op">(</span><span class="st">"year"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb429"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">totbirthsRR_USA_LTU_JPN</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>TotalM <span class="op">=</span> <span class="va">Total</span> <span class="op">/</span> <span class="fl">1000000</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span> 
+       mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span>, y <span class="op">=</span> <span class="va">TotalM</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">Name</span>, ncol <span class="op">=</span> <span class="fl">1</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"live births"</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"year"</span><span class="op">)</span></code></pre></div>
 <p><img src="05-week05_files/figure-html/unnamed-chunk-7-1.png" width="672">
  <br><em>Figure 1: Live births x 1 million: Japan, Lithuania, USA (note non-standardized Y scale)</em></p>
 </div>
@@ -547,7 +547,7 @@ United States
 <li>supports complex work flows with branching, merging, etc., allowing multiple collaborators to work on the same set of files at the same time</li>
 <li>does not require a centralized server (version control can be managed completely within a single computer)
 <ul>
-<li>it is possible to use online repositories, such as github.com</li>
+<li>it is possible to use online repositories, such as Github.com</li>
 </ul>
 </li>
 <li>can be used within RStudio</li>
@@ -586,11 +586,11 @@ United States
 <h4>
 <span class="header-section-number">5.2.4.2</span> Creating a repository<a class="anchor" aria-label="anchor" href="#creating-a-repository"><i class="fas fa-link"></i></a>
 </h4>
-<p>Using the web browser, go to <a href="http://github.com">github.com</a> and create a repository named <code>git_r</code>.</p>
+<p>Using the web browser, go to <a href="http://github.com">Github.com</a> and create a repository named <code>git_r</code>.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_21_21_47.png"></div>
 <p>Make the repository public and add a README file.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_21_37_13.png"></div>
-<p>Switch back to RStudio and select <code>File &gt; New Project</code> and in the choice of project types, select <code>Version Control</code>. This will streamline the process of linking the RStudio project with github.</p>
+<p>Switch back to RStudio and select <code>File &gt; New Project</code> and in the choice of project types, select <code>Version Control</code>. This will streamline the process of linking the RStudio project with Github.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_21_39_10.png"></div>
 <p>Choose <code>Git</code> as the type of version control.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_21_39_46.png"></div>
@@ -624,17 +624,17 @@ United States
 <div class="inline-figure"><img src="images/week05/2021-02-04_22_17_41.png"></div>
 <p>Next, click the <code>Push</code> icon to upload any changed files.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_22_17_58.png"></div>
-<p>At some point in the process of establishing the connection to github, you may get some popups asking you to sign in. If this happens, proceed with the authorization.</p>
+<p>At some point in the process of establishing the connection to Github, you may get some popups asking you to sign in. If this happens, proceed with the authorization.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_22_19_18.png"></div>
 <div class="inline-figure"><img src="images/week05/2021-02-04_22_19_59.png"></div>
 <div class="inline-figure"><img src="images/week05/2021-02-04_22_20_08.png"></div>
-<p>When the authorization is completed, the push will proceed. Your screen will look different, but the last line of text here shows a truncated version of the unique hash (identifier) of the push transaction. This has will allow you to download previous versions of the file in case you made commits and pushes that caused unintended consequences.</p>
+<p>When the authorization is completed, the push will proceed. Your screen will look different, but the last line of text here shows a truncated version of the unique hash (identifier) of the push transaction. This unique hash will allow you to download previous versions of the file in case you made commits and pushes that caused unintended consequences.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_22_20_32.png"></div>
-<p>If you refresh the page for your repository, you should see the updates you made to the README.md file. This is the basic process for updating files, committing changes, and pushing to github.</p>
+<p>If you refresh the page for your repository, you should see the updates you made to the README.md file. This is the basic process for updating files, committing changes, and pushing to Github.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_22_21_18.png"></div>
-<p>Perform the same steps (click <code>Staged</code> then <code>Commit</code> for week_01.Rmd). Because this is a new file that was not in the github repository, when it is committed, it will show in all green since all of the text has been added.</p>
+<p>Perform the same steps (click <code>Staged</code> then <code>Commit</code> for week_01.Rmd). Because this is a new file that was not in the Github repository, when it is committed, it will show in all green since all of the text has been added.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_22_46_24.png"></div>
-<p>Repeat the pull/push cycle and then refresh your browser to show that the file was added to the online github repository.</p>
+<p>Repeat the pull/push cycle and then refresh your browser to show that the file was added to the online Github repository.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_22_48_45.png"></div>
 <p>If you click the file name you will see the contents.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_22_49_07.png"></div>
@@ -689,9 +689,9 @@ m</code></pre>
 <p>Add the line <code>*.Rproj</code> to the <code>.gitignore</code> file–this file should not be necessary in the repository.</p>
 <p>Likewise, if you refresh the Git tab in RStudio, the HTML file is no longer listed.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_23_43_13.png"></div>
-<p>We will perform a few more tasks with the shell. Enter <code>add .gitignore</code> and <code>add week_01.Rmd</code>. This is the equivalent of clicking the <code>Staged</code> check box</p>
+<p>We will perform a few more tasks with the shell. Enter <code>add .gitignore</code> and <code>add week_01.Rmd</code>. This is the equivalent of clicking the <code>Staged</code> check box in RStudio.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_23_45_14.png"></div>
-<p>Refreshing the Git tab will show that these two files are staged.</p>
+<p>Refreshing the Git tab in RStudio will show that these two files are staged. This demonstrates that the RStudio Git environment is up to date with any changes made using the Git shell, and vice versa.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-04_23_45_37.png"></div>
 </div>
 <div id="exploring-file-change-history" class="section level4" number="5.2.4.6">
@@ -712,17 +712,17 @@ m</code></pre>
 <div class="inline-figure"><img src="images/week05/2021-02-04_23_53_10.png"></div>
 <p>Perform another pull/push cycle and then refresh your web browser. Click on the commit comment.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-05_00_10_46.png"></div>
-<p>You will see the changes to the two files in the last commit/push. The <code>.gitignore</code> file has all of its lines in green, indicating they are all new with respect to the repository. The file <code>week_01.Rmd</code> shows the same changes on github as we saw in the local view before pushing the commit to the server.</p>
+<p>You will see the changes to the two files in the last commit/push. The <code>.gitignore</code> file has all of its lines in green, indicating they are all new with respect to the repository. The file <code>week_01.Rmd</code> shows the same changes on Github as we saw in the local view before pushing the commit to the server.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-05_00_12_20.png"></div>
 </div>
 <div id="restoring-a-previous-version" class="section level4" number="5.2.4.7">
 <h4>
 <span class="header-section-number">5.2.4.7</span> Restoring a previous version<a class="anchor" aria-label="anchor" href="#restoring-a-previous-version"><i class="fas fa-link"></i></a>
 </h4>
-<p>What good are all of these tracked changes if we cannot revert to a previous version of a file? Here we will make some intentional bad edits to a file, commit and push, but then retrieve a previous version of the file. Any version can be recovered. Note that this does not mean you can recover any and all edits to a file. It only means you can recover what changed between commits. For example, if I made a commit/push at noon, then made a lot of changes and saved the file multiple times before 5 PM and then made a commit/push, there would only be two versions of the file available. For this reason it is worth making commit/push cycles every time you thing you might want to revert to a previous version.</p>
+<p>What good are all of these tracked changes if we cannot revert to a previous version of a file? Here we will make some intentional bad edits to a file, commit and push, but then retrieve a previous version of the file. Any version can be recovered. Note that this does not mean you can recover any and all edits to a file. It only means you can recover what changed between commits. For example, if I made a commit/push at noon, then made a lot of changes and saved the file multiple times before 5 PM and then made a commit/push, there would only be two versions of the file available in Git, the one committed at noon, and the one committed at 5 PM. For this reason it is worth making commit/push cycles every time you thing you might want to revert to a previous version.</p>
 <p>The intentional bad change to <code>week_01.Rmd</code> is the complete removal of the code that produces the Leaflet map. See the following image.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-05_00_13_13.png"></div>
-<p>Perform the standard cycle: stage, commit (with comment), pull, push.</p>
+<p>Perform the standard cycle: stage, commit (with a snarky comment), pull, and push.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-05_00_14_07.png"></div>
 <div class="inline-figure"><img src="images/week05/2021-02-05_00_14_24.png"></div>
 <div class="inline-figure"><img src="images/week05/2021-02-05_00_16_23.png"></div>
@@ -730,21 +730,23 @@ m</code></pre>
 <p>You should see the large swath of deleted lines</p>
 <div class="inline-figure"><img src="images/week05/2021-02-05_00_21_01.png"></div>
 <div class="inline-figure"><img src="images/week05/2021-02-05_00_22_10.png"></div>
-<p>Back in the github, find and click the file name.</p>
+<p>Back in the Github, find and click the file name.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-05_00_24_21.png"></div>
 <p>The file contents will show the most recent saved version (missing the Leaflet map lines). Click on the <code>History</code> link, which will show all of the commits.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-05_00_25_05.png"></div>
-<p>Click the commit where you followed the questionable advice from your adviser.</p>
+<p>Click the commit where you followed the questionable advice from your advisor.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-05_00_25_23.png"></div>
 <p>The missing lines are evident. What we would like to do is to go back to the version before the large deletion of lines.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-05_00_25_40.png"></div>
 <p>Identify the previous commit and click the clipboard icon to the left of the first characters of the commit hash. This will copy the hash, which is necessary for restoring that version.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-05_00_39_46.png"></div>
 <p>Back in the shell, enter</p>
+<pre><code>git show *****</code></pre>
+<p>where ***** is the hash. This will display encoded instructions for changes made to the file. Now enter</p>
 <pre><code>git show *****:week_01.Rmd</code></pre>
 <p>where <code>*****</code> is the hash.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-05_00_40_36.png"></div>
-<p>You will see the text that was present at that commit, which includes the deleted Leaflet map.</p>
+<p>This applies the changes to the file for the commit represented by the hash. You will see the text that was present at that commit, which includes the deleted Leaflet map.</p>
 <div class="inline-figure"><img src="images/week05/2021-02-05_00_40_59.png"></div>
 <p>To restore this previous version to a new file, enter</p>
 <pre><code>git show *****:week_01.Rmd &gt; week_01_someadditionaldescription.Rmd</code></pre>
@@ -757,16 +759,121 @@ m</code></pre>
 <h4>
 <span class="header-section-number">5.2.4.8</span> Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"><i class="fas fa-link"></i></a>
 </h4>
-<p>This was a brief introduction to the main functionality of Git with RStudio and github. If you expect to perform even a modest amount of coding, you could benefit from Git as a way to keep track of your work, collaborate with others, and avoid programming disasters due to inadvertent deletion of overwriting of files.</p>
+<p>This was a brief introduction to the main functionality of Git with RStudio and Github. If you expect to perform even a modest amount of coding, you could benefit from Git as a way to keep track of your work, collaborate with others, and avoid programming disasters due to inadvertent deletion of overwriting of files.</p>
 <hr>
-<p>Rendered at <tt>2022-02-03 01:44:31</tt></p>
-<h4>
-Source code for this document
-<a class="anchor" aria-label="anchor" href="#conclusion"><i class="fas fa-link"></i></a>
-</h4>
-<p><a href="05-week05.Rmd">05-week05.Rmd</a></p>
-<div class="sourceCode" id="cb425"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"05-week05.Rmd"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">'\n'</span><span class="op">)</span></code></pre></div>
+<p>Rendered at <tt>2022-02-11 00:25:38</tt></p>
+<hr>
+<p>Rendered at <tt>2022-02-11 00:25:38</tt></p>
+</div>
+</div>
+</div>
+<div id="source-code-4" class="section level2" number="5.3">
+<h2>
+<span class="header-section-number">5.3</span> Source code<a class="anchor" aria-label="anchor" href="#source-code-4"><i class="fas fa-link"></i></a>
+</h2>
+<p>File is at H:/csde502-winter-2022-main/05-week05.Rmd.</p>
+<div id="source-code-for-this-document-4" class="section level3" number="5.3.1">
+<h3>
+<span class="header-section-number">5.3.1</span> Source code for this document<a class="anchor" aria-label="anchor" href="#source-code-for-this-document-4"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb436"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">ISOcodes</span>, <span class="va">tidyverse</span>, <span class="va">magrittr</span>, <span class="va">knitr</span>, <span class="va">kableExtra</span>, <span class="va">readstata13</span>, <span class="va">HMDHFDplus</span>, <span class="va">captioner</span><span class="op">)</span>
+
+<span class="va">figure_nums</span> <span class="op">&lt;-</span> <span class="fu">captioner</span><span class="op">(</span>prefix <span class="op">=</span> <span class="st">"Figure"</span><span class="op">)</span>
+<span class="va">table_nums</span> <span class="op">&lt;-</span> <span class="fu">captioner</span><span class="op">(</span>prefix <span class="op">=</span> <span class="st">"Table"</span><span class="op">)</span>
+
+<span class="co"># path to this file name</span>
+<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">fnamepath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/current_input.html">current_input</a></span><span class="op">(</span>dir <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ISOcodes</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/timriffe/TR1">HMDHFDplus</a></span><span class="op">)</span>
+
+<span class="co"># HFD country codes</span>
+<span class="va">hfdcodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/getHFDcountries.html">getHFDcountries</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>ccode <span class="op">=</span> <span class="va">.</span><span class="op">)</span>
+
+<span class="co"># ISO country codes</span>
+<span class="va">isocodes</span> <span class="op">&lt;-</span> <span class="va">ISO_3166_1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>ccode <span class="op">=</span> <span class="va">Alpha_3</span>, <span class="va">Name</span><span class="op">)</span>
+
+<span class="co"># join ISO codes with country names</span>
+<span class="va">hfdcodes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">isocodes</span>, by <span class="op">=</span> <span class="st">"ccode"</span><span class="op">)</span>
+
+<span class="co"># there are some countries in the HFD that do not use standard 3 character ISO codes</span>
+<span class="va">hfdcodes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">Name</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># update those</span>
+<span class="va">hfdcodes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Name <span class="op">=</span> 
+        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">ccode</span> <span class="op">==</span> <span class="st">"FRATNP"</span> <span class="op">~</span>  <span class="st">"France"</span>,
+                  <span class="va">ccode</span> <span class="op">==</span> <span class="st">"DEUTNP"</span> <span class="op">~</span>  <span class="st">"Germany"</span>,
+                  <span class="va">ccode</span> <span class="op">==</span> <span class="st">"DEUTE"</span> <span class="op">~</span>   <span class="st">"East Germany"</span>,
+                  <span class="va">ccode</span> <span class="op">==</span> <span class="st">"DEUTW"</span> <span class="op">~</span>   <span class="st">"West Germany"</span>,
+                  <span class="va">ccode</span> <span class="op">==</span> <span class="st">"GBR_NP"</span> <span class="op">~</span>  <span class="st">"United Kingdom"</span>, 
+                  <span class="va">ccode</span> <span class="op">==</span> <span class="st">"GBRTENW"</span> <span class="op">~</span> <span class="st">"England and Wales"</span>,
+                  <span class="va">ccode</span> <span class="op">==</span> <span class="st">"GBR_SCO"</span> <span class="op">~</span> <span class="st">"Scotland"</span>,
+                  <span class="va">ccode</span> <span class="op">==</span> <span class="st">"GBR_NIR"</span> <span class="op">~</span> <span class="st">"Northern Ireland"</span>,
+                  <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">Name</span><span class="op">)</span>
+    <span class="op">)</span>
+<span class="va">hfdcodes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>bootstrap_options <span class="op">=</span>
+                      <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, 
+                  font_size <span class="op">=</span> <span class="fl">12</span>,
+                  full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span>
+<span class="co"># a function to read HFD for one country and one item</span>
+<span class="va">read_hfd_country</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">CNTRY</span>, <span class="va">item</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">HMDHFDplus</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHFDweb.html">readHFDweb</a></span><span class="op">(</span>
+    <span class="co"># the country from the function call</span>
+    CNTRY <span class="op">=</span> <span class="va">CNTRY</span>,
+    <span class="co"># the item to download</span>
+    item <span class="op">=</span> <span class="va">item</span>,
+    <span class="co"># the username from this key's record</span>
+    username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span><span class="op">$</span><span class="va">username</span>,
+    <span class="co"># the password for this key's record</span>
+    password <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_get</a></span><span class="op">(</span>
+      service <span class="op">=</span> <span class="st">"human-mortality-database"</span>,
+      username <span class="op">=</span> <span class="fu">keyring</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_list</a></span><span class="op">(</span><span class="st">"human-mortality-database"</span><span class="op">)</span><span class="op">$</span><span class="va">username</span>
+    <span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span>
+<span class="co"># Download a data set iteratively for all named countries using purrr::map()</span>
+<span class="va">read_hfd_countries_item</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">countries</span>, <span class="va">item</span><span class="op">)</span><span class="op">{</span>
+    <span class="va">countries</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+        <span class="co"># Returns a list of data.frames, adding a column for country code to each</span>
+        <span class="co"># the map() function performs a run of Ben's read_hmd_country() </span>
+        <span class="co">#   function for each listed country</span>
+        <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">ccode</span><span class="op">)</span> <span class="op">{</span>
+            <span class="co"># the item to read is 1 x 1 death rates</span>
+            <span class="fu">read_hfd_country</span><span class="op">(</span><span class="va">ccode</span>, <span class="va">item</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+                <span class="co"># this adds the column "country" storing the country ISO code</span>
+                <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>ccode <span class="op">=</span> <span class="va">ccode</span><span class="op">)</span>
+        <span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+        <span class="co"># Phil added this to make it a tibble</span>
+        <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+        <span class="co"># and add country name</span>
+        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">hfdcodes</span>, by <span class="op">=</span> <span class="st">"ccode"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="va">CNTRIES</span> <span class="op">&lt;-</span> <span class="va">hfdcodes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"United States"</span>, <span class="st">"Lithuania"</span>, <span class="st">"Japan"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">ccode</span><span class="op">)</span>
+
+<span class="va">totbirthsRR_USA_LTU_JPN</span> <span class="op">&lt;-</span> <span class="fu">read_hfd_countries_item</span><span class="op">(</span>countries <span class="op">=</span> <span class="va">CNTRIES</span>, item <span class="op">=</span> <span class="st">"totbirthsRR"</span><span class="op">)</span>
+<span class="va">totbirthsRR_USA_LTU_JPN</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>TotalM <span class="op">=</span> <span class="va">Total</span> <span class="op">/</span> <span class="fl">1000000</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span> 
+       mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span>, y <span class="op">=</span> <span class="va">TotalM</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">Name</span>, ncol <span class="op">=</span> <span class="fl">1</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"live births"</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"year"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">fnamepath</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">'\n'</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="complete-rmd-code-4" class="section level3" number="5.3.2">
+<h3>
+<span class="header-section-number">5.3.2</span> Complete Rmd code<a class="anchor" aria-label="anchor" href="#complete-rmd-code-4"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb437"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">fnamepath</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">'\n'</span><span class="op">)</span></code></pre></div>
 <pre><code># Week 5 {#week5}
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
@@ -774,6 +881,11 @@ pacman::p_load(ISOcodes, tidyverse, magrittr, knitr, kableExtra, readstata13, HM
 
 figure_nums &lt;- captioner(prefix = "Figure")
 table_nums &lt;- captioner(prefix = "Table")
+
+# path to this file name
+if (!interactive()) {
+    fnamepath &lt;- current_input(dir = TRUE)
+}
 ```
 
 &lt;style&gt;
@@ -938,7 +1050,7 @@ Git has multiple advantages:
 * free
 * supports complex work flows with branching, merging, etc., allowing multiple collaborators to work on the same set of files at the same time
 * does not require a centralized server (version control can be managed completely within a single computer)
-    * it is possible to use online repositories, such as github.com
+    * it is possible to use online repositories, such as Github.com
 * can be used within RStudio
 * has a large community of users (i.e., free advice)
 
@@ -960,7 +1072,7 @@ We will be working on CSDE Terminal Server 4 (see [Getting started on Terminal S
 Start RStudio and open a web browser.
 
 #### Creating a repository
-Using the web browser, go to [github.com](http://github.com) and create a repository named `git_r`.
+Using the web browser, go to [Github.com](http://github.com) and create a repository named `git_r`.
 
 ![](images/week05/2021-02-04_21_21_47.png)
 
@@ -968,7 +1080,7 @@ Make the repository public and add a README file.
 
 ![](images/week05/2021-02-04_21_37_13.png)
 
-Switch back to RStudio and select `File &gt; New Project` and in the choice of project types, select `Version Control`. This will streamline the process of linking the RStudio project with github.
+Switch back to RStudio and select `File &gt; New Project` and in the choice of project types, select `Version Control`. This will streamline the process of linking the RStudio project with Github.
 
 ![](images/week05/2021-02-04_21_39_10.png)
 
@@ -1028,7 +1140,7 @@ Next, click the `Push` icon to upload any changed files.
 
 ![](images/week05/2021-02-04_22_17_58.png)
 
-At some point in the process of establishing the connection to github, you may get some popups asking you to sign in. If this happens, proceed with the authorization.
+At some point in the process of establishing the connection to Github, you may get some popups asking you to sign in. If this happens, proceed with the authorization.
 
 ![](images/week05/2021-02-04_22_19_18.png)
 
@@ -1036,20 +1148,20 @@ At some point in the process of establishing the connection to github, you may g
 
 ![](images/week05/2021-02-04_22_20_08.png)
 
-When the authorization is completed, the push will proceed. Your screen will look different, but the last line of text here shows a truncated version of the unique hash (identifier) of the push transaction. This has will allow you to download previous versions of the file in case you made commits and pushes that caused unintended consequences.
+When the authorization is completed, the push will proceed. Your screen will look different, but the last line of text here shows a truncated version of the unique hash (identifier) of the push transaction. This unique hash will allow you to download previous versions of the file in case you made commits and pushes that caused unintended consequences.
 
 ![](images/week05/2021-02-04_22_20_32.png)
 
-If you refresh the page for your repository, you should see the updates you made to the README.md file. This is the basic process for updating files, committing changes, and pushing to github.
+If you refresh the page for your repository, you should see the updates you made to the README.md file. This is the basic process for updating files, committing changes, and pushing to Github.
 
 ![](images/week05/2021-02-04_22_21_18.png)
 
 
-Perform the same steps (click `Staged` then `Commit` for week_01.Rmd). Because this is a new file that was not in the github repository, when it is committed, it will show in all green since all of the text has been added. 
+Perform the same steps (click `Staged` then `Commit` for week_01.Rmd). Because this is a new file that was not in the Github repository, when it is committed, it will show in all green since all of the text has been added. 
 
 ![](images/week05/2021-02-04_22_46_24.png)
 
-Repeat the pull/push cycle and then refresh your browser to show that the file was added to the online github repository.
+Repeat the pull/push cycle and then refresh your browser to show that the file was added to the online Github repository.
 
 ![](images/week05/2021-02-04_22_48_45.png)
 
@@ -1129,11 +1241,11 @@ Likewise, if you refresh the Git tab in RStudio, the HTML file is no longer list
 
 ![](images/week05/2021-02-04_23_43_13.png)
 
-We will perform a few more tasks with the shell. Enter `add .gitignore` and `add week_01.Rmd`. This is the equivalent of clicking the `Staged` check box 
+We will perform a few more tasks with the shell. Enter `add .gitignore` and `add week_01.Rmd`. This is the equivalent of clicking the `Staged` check box in RStudio.
 
 ![](images/week05/2021-02-04_23_45_14.png)
 
-Refreshing the Git tab will show that these two files are staged.
+Refreshing the Git tab in RStudio will show that these two files are staged. This demonstrates that the RStudio Git environment is up to date with any changes made using the Git shell, and vice versa.
 
 ![](images/week05/2021-02-04_23_45_37.png)
 
@@ -1172,19 +1284,19 @@ Perform another pull/push cycle and then refresh your web browser. Click on the 
 
 ![](images/week05/2021-02-05_00_10_46.png)
 
-You will see the changes to the two files in the last commit/push. The `.gitignore` file has all of its lines in green, indicating they are all new with respect to the repository. The file `week_01.Rmd` shows the same changes on github as we saw in the local view before pushing the commit to the server.
+You will see the changes to the two files in the last commit/push. The `.gitignore` file has all of its lines in green, indicating they are all new with respect to the repository. The file `week_01.Rmd` shows the same changes on Github as we saw in the local view before pushing the commit to the server.
 
 
 ![](images/week05/2021-02-05_00_12_20.png)
 
 #### Restoring a previous version
-What good are all of these tracked changes if we cannot revert to a previous version of a file? Here we will make some intentional bad edits to a file, commit and push, but then retrieve a previous version of the file. Any version can be recovered. Note that this does not mean you can recover any and all edits to a file. It only means you can recover what changed between commits. For example, if I made a commit/push at noon, then made a lot of changes and saved the file multiple times before 5 PM and then made a commit/push, there would only be two versions of the file available. For this reason it is worth making commit/push cycles every time you thing you might want to revert to a previous version.
+What good are all of these tracked changes if we cannot revert to a previous version of a file? Here we will make some intentional bad edits to a file, commit and push, but then retrieve a previous version of the file. Any version can be recovered. Note that this does not mean you can recover any and all edits to a file. It only means you can recover what changed between commits. For example, if I made a commit/push at noon, then made a lot of changes and saved the file multiple times before 5 PM and then made a commit/push, there would only be two versions of the file available in Git, the one committed at noon, and the one committed at 5 PM. For this reason it is worth making commit/push cycles every time you thing you might want to revert to a previous version.
 
 The intentional bad change to `week_01.Rmd` is the complete removal of the code that produces the Leaflet map. See the following image.
 
 ![](images/week05/2021-02-05_00_13_13.png)
 
-Perform the standard cycle: stage, commit (with comment), pull, push.
+Perform the standard cycle: stage, commit (with a snarky comment), pull, and push.
 
 ![](images/week05/2021-02-05_00_14_07.png)
 
@@ -1201,7 +1313,7 @@ You should see the large swath of deleted lines
 
 ![](images/week05/2021-02-05_00_22_10.png)
 
-Back in the github, find and click the file name.
+Back in the Github, find and click the file name.
 
 ![](images/week05/2021-02-05_00_24_21.png)
 
@@ -1209,7 +1321,7 @@ The file contents will show the most recent saved version (missing the Leaflet m
 
 ![](images/week05/2021-02-05_00_25_05.png)
 
-Click the commit where you followed the questionable advice from your adviser.
+Click the commit where you followed the questionable advice from your advisor.
 
 ![](images/week05/2021-02-05_00_25_23.png)
 
@@ -1224,6 +1336,12 @@ Identify the previous commit and click the clipboard icon to the left of the fir
 Back in the shell, enter
 
 ```
+git show *****
+```
+
+where ***** is the hash. This will display encoded instructions for changes made to the file. Now enter
+
+```
 git show *****:week_01.Rmd
 ```
 
@@ -1231,7 +1349,7 @@ where `*****` is the hash.
 
 ![](images/week05/2021-02-05_00_40_36.png)
 
-You will see the text that was present at that commit, which includes the deleted Leaflet map.
+This applies the changes to the file for the commit represented by the hash. You will see the text that was present at that commit, which includes the deleted Leaflet map.
 
 ![](images/week05/2021-02-05_00_40_59.png)
 
@@ -1250,19 +1368,28 @@ If you open that file, you will see the restored text.
 ![](images/week05/2021-02-05_00_46_04.png)
 
 #### Conclusion
-This was a brief introduction to the main functionality of Git with RStudio and github. If you expect to perform even a modest amount of coding, you could benefit from Git as a way to keep track of your work, collaborate with others, and avoid programming disasters due to inadvertent deletion of overwriting of files.
+This was a brief introduction to the main functionality of Git with RStudio and Github. If you expect to perform even a modest amount of coding, you could benefit from Git as a way to keep track of your work, collaborate with others, and avoid programming disasters due to inadvertent deletion of overwriting of files.
 
 &lt;hr&gt;
 Rendered at &lt;tt&gt;`r Sys.time()`&lt;/tt&gt;
 
-&lt;h4&gt;Source code for this document&lt;/h4&gt;
-[05-week05.Rmd](05-week05.Rmd)
+&lt;hr&gt;
+Rendered at &lt;tt&gt;`r Sys.time()`&lt;/tt&gt;
+
+## Source code
+File is at `r fnamepath`.
+
+### Source code for this document
+
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+```
+
+### Complete Rmd code
 
 ```{r comment=''}
-cat(readLines("05-week05.Rmd"), sep = '\n')
+cat(readLines(fnamepath), sep = '\n')
 ```</code></pre>
 
-</div>
 </div>
 </div>
 </div>
@@ -1290,6 +1417,12 @@ Topics: Human Fertility Database (age-specific rates and summary indicators); Gi
 <li><a class="nav-link" href="#a-brief-git-tutorial"><span class="header-section-number">5.2.4</span> A brief Git tutorial</a></li>
 </ul>
 </li>
+<li>
+<a class="nav-link" href="#source-code-4"><span class="header-section-number">5.3</span> Source code</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#source-code-for-this-document-4"><span class="header-section-number">5.3.1</span> Source code for this document</a></li>
+<li><a class="nav-link" href="#complete-rmd-code-4"><span class="header-section-number">5.3.2</span> Complete Rmd code</a></li>
+</ul>
+</li>
 </ul>
 
       <div class="book-extra">
@@ -1307,7 +1440,7 @@ Topics: Human Fertility Database (age-specific rates and summary indicators); Gi
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-02-03 01:42.</p>
+    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-02-11 00:23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
