@@ -452,18 +452,26 @@ Start by installing a version of `pdfgrep`. These are three implementations, one
 
 [pdfgrep for native Windows](https://soft.rubypdf.com/software/pdfgrep-windows-version)
 
-[pdfgrep for Cygwin under Windows](https://cygwin.com/cgi-bin2/package-cat.cgi?file=x86%2Fpdfgrep%2Fpdfgrep-1.4.1-1&grep=pdfgrep)
+[pdfgrep for Cygwin under Windows](https://cygwin.com/cgi-bin2/package-cat.cgi?file=x86%2Fpdfgrep%2Fpdfgrep-1.4.1-1&grep=pdfgrep); Cygwin is highly recommended for Windows users--it creates a UNIX-like environment that offers many data processing tools.
 
 [pdfgrep for Mac](http://macappstore.org/pdfgrep/)
+
+:::{.rmdnote}
+If you are on Terminal Server 4 or 5 let's try using Cygwin. Download [cygwin64.zip](http://gismo.gis.washington.edu/phurvitz/csde502_winter_2022/cygwin64.zip) and unzip it at the root level of your H: drive. You should see something like this:
+
+![](images/week06/2022-02-11_08_39_49-cygwin64.png)
+Double-click the shortcut to `mintty.exe` to open a Cygwin terminal. If you see a security warning, click `Run`.
+:::
 
 A zipped file containing the metadata files for the public use Add Health data is available as [add_health_wave1_metadata.zip](data/add_health_wave1_metadata.zip). Download the file and unzip it in an appropriate location.
 
 ###### A few use examples
 _[Note: the images below may be hard to read; clicking them will open them in full-size; click with the middle mouse button to open in a new tab.]_
 
-Here we will search through the entire set of PDF files for the regular expression `black`. First, let's list the PDF files using
+Here we will search through the entire set of PDF files for the regular expression `black`. First, in your Cygwin terminal (or your regular terminal if you are on a Mac), let's list the PDF files using
 
 `
+cd /H/csde502_winter_2022/Wave1_InHome_Codebooks
 ls *.pdf
 `
 
@@ -477,6 +485,8 @@ pdfgrep black *.pdf
 `
 
 [![](images/week06/2021-02-11_21_45_41-_cygdrive_L.png)](images/week06/2021-02-11_21_45_41-_cygdrive_L.png)
+
+*This appears to run very slowly on TS4 and TS5 ... run the command and we will come back to the terminal in a few minutes.*
 
 This prints the file name and the matching text of each PDF containing the regular expression `black`. Suppose we wanted to search for `black` or `Black` or `BLACK`? Use the flag `-i` which is short for case $\underline{i}$nsensitive.
 
