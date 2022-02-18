@@ -14,7 +14,8 @@ urlhome <- ""
 ```
 
 <h2>Topic: Odds and ends</h2>
-This week's lesson will cover a additional R odds and ends.
+
+This week's lesson will cover some additional R odds and ends.
 
 ## R Markdown to Microsoft Word
 Microsoft Word ("Word"), is used widely to document research. Because of its advanced word processing and "track changes" capabilities, it is commonly used for preparation of manuscripts. Using R to generate output for Word is often a tedious process (e.g., create CSV files $\rightarrow$ paste the contents $\rightarrow$ convert to table; export R graphics with `png()` or `ggsave()` $\rightarrow$ insert the file).  

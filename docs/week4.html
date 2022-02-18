@@ -145,7 +145,7 @@ Topics: Functions and sampling
 <span class="va">v3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">v.len</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>
 
 <span class="co"># create the list</span>
-<span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">v1</span>, <span class="va">v2</span>, <span class="va">v3</span><span class="op">)</span>
+<span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gsubfn/man/list.html">list</a></span><span class="op">(</span><span class="va">v1</span>, <span class="va">v2</span>, <span class="va">v3</span><span class="op">)</span>
 
 <span class="co"># get the first value from each vector in the list</span>
 <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">L</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">}</span><span class="op">)</span></code></pre></div>
@@ -210,7 +210,7 @@ Topics: Functions and sampling
 <pre><code>## [1] "2022-02-18"</code></pre>
 <div class="sourceCode" id="cb280"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "2022-02-18 14:23:31 PST"</code></pre>
+<pre><code>## [1] "2022-02-18 15:32:19 PST"</code></pre>
 <p>… and if we try to use an argument we get an error:</p>
 <pre><code>Sys.Date(1)</code></pre>
 <p><font color="red"></font></p>
@@ -635,7 +635,7 @@ Topics: Functions and sampling
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>
 
 <span class="co"># create a list</span>
-<span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+<span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gsubfn/man/list.html">list</a></span><span class="op">(</span>
     v1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
     v2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span>, lambda <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,
     v3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">25</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
@@ -737,10 +737,10 @@ Topics: Functions and sampling
 
 <span class="co"># export to GPKG</span>
 <span class="va">myTmpDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu">st_write</span><span class="op">(</span>obj <span class="op">=</span> <span class="va">all_counties</span>, dsn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myTmpDir</span>, <span class="st">"counties.gpkg"</span><span class="op">)</span>, layer <span class="op">=</span> <span class="st">"us_counties_2019"</span>, delete_dsn <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code>## Deleting source `C:\Temp\13\Rtmpe0ZcbY/counties.gpkg' failed
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_write.html">st_write</a></span><span class="op">(</span>obj <span class="op">=</span> <span class="va">all_counties</span>, dsn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myTmpDir</span>, <span class="st">"counties.gpkg"</span><span class="op">)</span>, layer <span class="op">=</span> <span class="st">"us_counties_2019"</span>, delete_dsn <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<pre><code>## Deleting source `C:\Temp\13\RtmpqQWLEC/counties.gpkg' failed
 ## Writing layer `us_counties_2019' to data source 
-##   `C:\Temp\13\Rtmpe0ZcbY/counties.gpkg' using driver `GPKG'
+##   `C:\Temp\13\RtmpqQWLEC/counties.gpkg' using driver `GPKG'
 ## Writing 3141 features with 17 fields and geometry type Multi Polygon.</code></pre>
 <p>In Figure 1 we show the counties displayed in QGIS.</p>
 <p><img src="images/week04/2022-01-26%2023_42_02-Window.png">
@@ -853,7 +853,7 @@ Topics: Functions and sampling
 <span class="va">ci_95</span> <span class="op">&lt;-</span> <span class="fu">Rmisc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Rmisc/man/CI.html">CI</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">F</span>, ci <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span>
 
 <span class="co"># plot with 95 % CI</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="cn">F</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="cn">F</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">ci_95</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="04-week04_files/figure-html/unnamed-chunk-42-1.png" width="672">
  <br><em>Figure 3: Density plot from bootstrapping</em></p>
@@ -2718,7 +2718,7 @@ life expectancy at age x</li>
 <div class="sourceCode" id="cb401"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb401-1"><a href="week4.html#cb401-1" aria-hidden="true" tabindex="-1"></a>france.lt &lt;- lifetable(fr.mort)</span>
 <span id="cb401-2"><a href="week4.html#cb401-2" aria-hidden="true" tabindex="-1"></a>plot(france.lt)</span>
 <span id="cb401-3"><a href="week4.html#cb401-3" aria-hidden="true" tabindex="-1"></a>lt1990 &lt;- print(lifetable(fr.mort,year=1990))</span></code></pre></div>
-<p>The first step is creating the life table using the <code>lifetable()</code> function. The function requires data of a specific format, which can be provided in the package’s <code>fr.mort</code> data set. What is in the <code>fr.mort</code> data set? Let’s see:</p>
+<p>The first step is creating the life table using the <code><a href="https://rdrr.io/pkg/demCore/man/lifetable.html">lifetable()</a></code> function. The function requires data of a specific format, which can be provided in the package’s <code>fr.mort</code> data set. What is in the <code>fr.mort</code> data set? Let’s see:</p>
 <div class="sourceCode" id="cb402"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fr.mort</span></code></pre></div>
 <pre><code>## Mortality data for FRATNP
@@ -2774,20 +2774,20 @@ life expectancy at age x</li>
 ## 3 686823.1 683758.6 707277.3 712488.9 692287.6
 ## 4 674202.5 660565.5 669365.5 683663.9 687342.6</code></pre>
 <p>This shows for example in 1816 there were estimated to be 834354.6 persons less than one year of age.</p>
-<p>Output from running the <code>lifetable()</code> function can be plotted. `r figure_nums(name = “france_ltplot,” display = “cite”) shows curves for each year using a rainbow palette. It is interesting to note that the earliest years in the time series had more positive life expectancies than some of the intermediate years particularly for persons below the age of 40.</p>
+<p>Output from running the <code><a href="https://rdrr.io/pkg/demCore/man/lifetable.html">lifetable()</a></code> function can be plotted. `r figure_nums(name = “france_ltplot,” display = “cite”) shows curves for each year using a rainbow palette. It is interesting to note that the earliest years in the time series had more positive life expectancies than some of the intermediate years particularly for persons below the age of 40.</p>
 <div class="sourceCode" id="cb414"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># min and max years</span>
 <span class="va">y0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">fr.mort</span><span class="op">$</span><span class="va">year</span><span class="op">)</span>
 <span class="va">y1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">fr.mort</span><span class="op">$</span><span class="va">year</span><span class="op">)</span>
 
 <span class="co"># make the life table and plot life expectancy graph</span>
-<span class="va">france.lt</span> <span class="op">&lt;-</span> <span class="fu">lifetable</span><span class="op">(</span><span class="va">fr.mort</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">france.lt</span><span class="op">)</span></code></pre></div>
+<span class="va">france.lt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/demCore/man/lifetable.html">lifetable</a></span><span class="op">(</span><span class="va">fr.mort</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">france.lt</span><span class="op">)</span></code></pre></div>
 <p><img src="04-week04_files/figure-html/unnamed-chunk-54-1.png" width="672"><em>Figure 5: Life expectancy in France from 1816 to 2006</em></p>
 <p>Finally, let’s look at the life table from 2005.</p>
 <div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create the life table</span>
-<span class="va">lt_france_2005</span> <span class="op">&lt;-</span> <span class="fu">lifetable</span><span class="op">(</span><span class="va">fr.mort</span>,year<span class="op">=</span><span class="fl">2005</span><span class="op">)</span>
+<span class="va">lt_france_2005</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/demCore/man/lifetable.html">lifetable</a></span><span class="op">(</span><span class="va">fr.mort</span>,year<span class="op">=</span><span class="fl">2005</span><span class="op">)</span>
 
 <span class="co"># print using the native interface</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">lt_france_2005</span><span class="op">)</span></code></pre></div>
@@ -5877,7 +5877,7 @@ rx
 </tbody>
 </table></div>
 <hr>
-<p>Rendered at <tt>2022-02-18 14:24:06</tt></p>
+<p>Rendered at <tt>2022-02-18 15:32:53</tt></p>
 </div>
 </div>
 <div id="source-code-3" class="section level2" number="4.5">
@@ -5919,7 +5919,7 @@ rx
 <span class="va">v3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">v.len</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>
 
 <span class="co"># create the list</span>
-<span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">v1</span>, <span class="va">v2</span>, <span class="va">v3</span><span class="op">)</span>
+<span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gsubfn/man/list.html">list</a></span><span class="op">(</span><span class="va">v1</span>, <span class="va">v2</span>, <span class="va">v3</span><span class="op">)</span>
 
 <span class="co"># get the first value from each vector in the list</span>
 <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">L</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">}</span><span class="op">)</span>
@@ -6123,7 +6123,7 @@ rx
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>
 
 <span class="co"># create a list</span>
-<span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+<span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gsubfn/man/list.html">list</a></span><span class="op">(</span>
     v1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
     v2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span>, lambda <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,
     v3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">25</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
@@ -6176,7 +6176,7 @@ rx
 
 <span class="co"># export to GPKG</span>
 <span class="va">myTmpDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu">st_write</span><span class="op">(</span>obj <span class="op">=</span> <span class="va">all_counties</span>, dsn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myTmpDir</span>, <span class="st">"counties.gpkg"</span><span class="op">)</span>, layer <span class="op">=</span> <span class="st">"us_counties_2019"</span>, delete_dsn <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_write.html">st_write</a></span><span class="op">(</span>obj <span class="op">=</span> <span class="va">all_counties</span>, dsn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myTmpDir</span>, <span class="st">"counties.gpkg"</span><span class="op">)</span>, layer <span class="op">=</span> <span class="st">"us_counties_2019"</span>, delete_dsn <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co"># Help function to list the available countries</span>
 <span class="co"># this generates a vector of all country abbreviations</span>
 <span class="va">countries</span> <span class="op">&lt;-</span> <span class="fu">HMDHFDplus</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/getHMDcountries.html">getHMDcountries</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>
@@ -6254,7 +6254,7 @@ rx
 <span class="va">ci_95</span> <span class="op">&lt;-</span> <span class="fu">Rmisc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Rmisc/man/CI.html">CI</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">F</span>, ci <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span>
 
 <span class="co"># plot with 95 % CI</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="cn">F</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="cn">F</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">ci_95</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 <span class="co"># set.seed makes it so that random processes can be repeated with the same outputs</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>
@@ -6306,9 +6306,9 @@ rx
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"probability of surviving to age on X axis"</span><span class="op">)</span>
-<span class="va">france.lt</span> <span class="op">&lt;-</span> <span class="fu">lifetable</span><span class="op">(</span><span class="va">fr.mort</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">france.lt</span><span class="op">)</span>
-<span class="va">lt1990</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu">lifetable</span><span class="op">(</span><span class="va">fr.mort</span>,year<span class="op">=</span><span class="fl">1990</span><span class="op">)</span><span class="op">)</span>
+<span class="va">france.lt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/demCore/man/lifetable.html">lifetable</a></span><span class="op">(</span><span class="va">fr.mort</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">france.lt</span><span class="op">)</span>
+<span class="va">lt1990</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/demCore/man/lifetable.html">lifetable</a></span><span class="op">(</span><span class="va">fr.mort</span>,year<span class="op">=</span><span class="fl">1990</span><span class="op">)</span><span class="op">)</span>
 <span class="va">fr.mort</span>
 <span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">fr.mort</span><span class="op">)</span>
 <span class="va">fr.mort</span><span class="op">$</span><span class="va">age</span>
@@ -6320,10 +6320,10 @@ rx
 <span class="va">y1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">fr.mort</span><span class="op">$</span><span class="va">year</span><span class="op">)</span>
 
 <span class="co"># make the life table and plot life expectancy graph</span>
-<span class="va">france.lt</span> <span class="op">&lt;-</span> <span class="fu">lifetable</span><span class="op">(</span><span class="va">fr.mort</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">france.lt</span><span class="op">)</span>
+<span class="va">france.lt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/demCore/man/lifetable.html">lifetable</a></span><span class="op">(</span><span class="va">fr.mort</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">france.lt</span><span class="op">)</span>
 <span class="co"># create the life table</span>
-<span class="va">lt_france_2005</span> <span class="op">&lt;-</span> <span class="fu">lifetable</span><span class="op">(</span><span class="va">fr.mort</span>,year<span class="op">=</span><span class="fl">2005</span><span class="op">)</span>
+<span class="va">lt_france_2005</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/demCore/man/lifetable.html">lifetable</a></span><span class="op">(</span><span class="va">fr.mort</span>,year<span class="op">=</span><span class="fl">2005</span><span class="op">)</span>
 
 <span class="co"># print using the native interface</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">lt_france_2005</span><span class="op">)</span>
@@ -7459,7 +7459,7 @@ Topics: Functions and sampling
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-02-18 14:22.</p>
+    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-02-18 15:31.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

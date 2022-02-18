@@ -1,7 +1,7 @@
 --- 
 title: "UW CSDE 502 A Course Notes"
 author: "Phil Hurvitz"
-date: '2022-02-18 14:22'
+date: '2022-02-18 15:31'
 site: bookdown::bookdown_site
 description: "These are the course notes for Proseminar Winter 2022 (CSDE 502 A) at the University of Washington."
 
@@ -30,7 +30,7 @@ Links to the course listing page and official course syllabus are below:
 * The course syllabus is available as a PDF: [files/csde502_syllabus_2022.pdf](files/csde502_syllabus_2022.pdf) or DOCX: [files/csde502_syllabus_2022.docx](files/csde502_syllabus_2022.docx)
 :::
 
-This is a required course for students wishing to obtain a [Demographic Methods Graduate Certificate from CSDE] (https://csde.washington.edu/training/demographic-certificate/). However, it is open to all interested students.
+This is a required course for students wishing to obtain a [Demographic Methods Graduate Certificate from CSDE](https://csde.washington.edu/training/demographic-certificate/). However, it is open to all interested students.
 
 **Scope:** This course is meant to fill a perceived curriculum gap between methods courses that emphasize study design and statistics courses that teach statistical analysis. It focuses on applied methods for data preparation and will introduce the following topics: data management and documentation, data cleaning and variable creation, summarizing variables, working with demographic data, and reproducibility. In short, this course teaches introductory “data wrangling” focused primarily on demographic analysis applications. 
 
@@ -247,7 +247,7 @@ This web site was built in R using Rmarkdown and [bookdown](https://cran.r-proje
 <h4>Source code for this document</h4>
 Each of the pages in this book will have a section at the bottom including a link to the source file and the printed source code for the page.
 
-Rendered: 2022-02-18 14:22:08
+Rendered: 2022-02-18 15:31:13
 
 Source code: [index.Rmd](index.Rmd)
 
@@ -274,7 +274,7 @@ library(magrittr)
 library(scales)
 library(tibble)
 
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE)
 
 year <- Sys.Date() %>% format("%Y")
 syllabus <- paste0("files/csde502_syllabus_", year, ".pdf")
@@ -298,7 +298,7 @@ Links to the course listing page and official course syllabus are below:
 * The course syllabus is available as a PDF: [`r syllabus`](`r syllabus`) or DOCX: [`r syllabusdocx`](`r syllabusdocx`)
 :::
 
-This is a required course for students wishing to obtain a [Demographic Methods Graduate Certificate from CSDE] (https://csde.washington.edu/training/demographic-certificate/). However, it is open to all interested students.
+This is a required course for students wishing to obtain a [Demographic Methods Graduate Certificate from CSDE](https://csde.washington.edu/training/demographic-certificate/). However, it is open to all interested students.
 
 **Scope:** This course is meant to fill a perceived curriculum gap between methods courses that emphasize study design and statistics courses that teach statistical analysis. It focuses on applied methods for data preparation and will introduce the following topics: data management and documentation, data cleaning and variable creation, summarizing variables, working with demographic data, and reproducibility. In short, this course teaches introductory â€œdata wranglingâ€ focused primarily on demographic analysis applications. 
 
