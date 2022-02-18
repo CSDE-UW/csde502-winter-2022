@@ -764,7 +764,8 @@ bmi_race <- htwt %>%
 ggplot(data = bmi_race, mapping = aes(x = bmiclass, y = `%`)) +
     geom_bar(stat = "identity") +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
-    facet_grid(~obsrace)
+    facet_grid(~obsrace) +
+    xlab("BMI class")
 ```
 
 \    
@@ -777,7 +778,9 @@ Or as a stacked bar graph (`r figure_nums(name = "bmibarstack", display = "cite"
 ggplot(data = bmi_race, mapping = aes(x = obsrace, y = `%`, fill = bmiclass)) +
     geom_bar(stat = "identity") +
     coord_flip() +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+    scale_fill_discrete(name = "BMI class") +
+    xlab("observed race")
+    #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 ```
 
 \    
