@@ -13,7 +13,7 @@ library(ggplot2)
 urlhome <- ""
 ```
 
-<h2>Topic:Odds and ends</h2>
+<h2>Topic: Odds and ends</h2>
 This week's lesson will cover a additional R odds and ends.
 
 ## R Markdown to Microsoft Word

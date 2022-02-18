@@ -23,6 +23,7 @@ if (!interactive()) {
     fnamepath <- current_input(dir = TRUE)
 }
 ```
+<h2>Topics: Cohort Component Method of Population Projection; Add Health Study data (exploring variables and data documentation)</h2>
 
 This week we will be covering two topics:
 

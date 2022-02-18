@@ -333,13 +333,14 @@ y <- read.csv(file.path(mytempdir, "foo.csv"))
 str(y$health)
 ```
 
-Additional work would be needed to re-establish it as a factor. Fortunately, the alphanumeric sorting order of the character strings is also the logical order (i.e., `(1)` comes before `(2)` in alphanumeric order..
+Additional work would be needed to re-establish it as a factor. Fortunately, the alphanumeric sorting order of the character strings is also the logical order (i.e., `(1)` comes before `(2)` in alphanumeric order).
 
 ```{r}
 y$health <- factor(y$health,
     labels = y$health %>% unique() %>% sort(),
     ordered = TRUE
-)
+) %>% fct_rev()
+
 head(y$health)
 ```
 
