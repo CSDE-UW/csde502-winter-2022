@@ -1,26 +1,43 @@
 # Week 7 {#week7}
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-library(tidyverse)
-library(magrittr)
-library(knitr)
-library(kableExtra)
-library(readstata13)
-library(haven)
-library(pdftools)
-library(curl)
-library(ggplot2)
+pacman::p_load(
+    tidyverse,
+    magrittr,
+    knitr,
+    kableExtra,
+    readstata13,
+    haven,
+    pdftools,
+    curl,
+    ggplot2,
+    captioner
+)
+
+table_nums <- captioner(prefix = "Table")
+figure_nums <- captioner(prefix = "Figure")
+
+# path to this file name
+if (!interactive()) {
+    fnamepath <- current_input(dir = TRUE)
+}
 ```
 
 <h2>Topic: Add Health data: variable creation and tabulation</h2>
 This week's lesson will provide more background on variable creation and tabulation of variables.
 
+First, download the [template Rmd file](files/template.Rmd) and save it in your course working folder as `week_07.Rmd`. Make changes to the title and author as you see fit.
+
 ## Creating value labels
 "Labeled" data are important for documentation of data sets. The labels can apply to different objects, e.g., columns (as we saw in the column labels used to "decode" the data set in `AHwave1_v1.dta`, Section \@ref(tidyverse)), or to individual values of variables, e.g., the attribute `labels` of the variable `h1gi1m`:
 
 ```{r}
-AHwave1_v1_haven <- haven::read_dta("http://staff.washington.edu/phurvitz/csde502_winter_2021/data/AHwave1_v1.dta")
-attributes(AHwave1_v1_haven$h1gi1m)$labels
+if (!exists("AHwave1_v1_haven")) {
+    AHwave1_v1_haven <- haven::read_dta("http://staff.washington.edu/phurvitz/csde502_winter_2021/data/AHwave1_v1.dta")
+}
+attributes(AHwave1_v1_haven$h1gi1m)$labels %>%
+    t() %>%
+    t()
 ```
 
 Consider the difference between different file formats. Here we will save the data set, once as a CSV file and once an RDS file:
@@ -33,7 +50,9 @@ write.csv(x = AHwave1_v1_haven, file = file.path(mytempdir, "AHwave1_v1_haven.cs
 saveRDS(object = AHwave1_v1_haven, file = file.path(mytempdir, "AHwave1_v1_haven.RDS"))
 ```
 
-Then we will read them back in and investigate their structure. Here we are using a temporary folder, specified using the `tmpdir()` function. Each time an R session is started, a unique temporary folder is used. For this session the temporary dir is `r mytempdir`. First, read the CSV format:
+Then we will read them back in and investigate their structure. Here we are using a temporary folder, specified using the `tmpdir()` function. Each time an R session is started, a unique temporary folder is used. For the session used to create this document, the temporary dir is `r mytempdir`. 
+
+First, read the CSV format:
 
 ```{r}
 AHwave1_v1_haven_csv <- read.csv(file = file.path(mytempdir, "AHwave1_v1_haven.csv"))
@@ -45,11 +64,11 @@ What kind of object is this?
 is(AHwave1_v1_haven_csv)
 ```
 
-It is a simple data frame. What attributes does this data set have? Here we list the attributes and enumerate the first 6 elements of each attribute
+It is a simple data frame. What attributes does this data set have? Here we list the attributes and enumerate the first 6 elements of each attribute:
 
 ```{r}
-AHwave1_v1_haven_csv %>% 
-    attributes() %>% 
+AHwave1_v1_haven_csv %>%
+    attributes() %>%
     map(~ head(.))
 ```
 
@@ -58,8 +77,8 @@ There are three attributes, `names`, which are the individual column names; `cla
 Do the columns have any attributes?
 
 ```{r}
-AHwave1_v1_haven_csv$h1gi1m %>% 
-    attributes() 
+AHwave1_v1_haven_csv$h1gi1m %>%
+    attributes()
 ```
 
 No, the columns have no attributes.
@@ -76,31 +95,31 @@ What kind of object is this?
 is(AHwave1_v1_haven_rds)
 ```
 
-It is a data frame--but an example of the `tidyr` subclass `tibble`; see the [documentation](https://www.rdocumentation.org/packages/tibble) 
+It is a data frame--but an example of the `tidyr` subclass `tibble`; see the [documentation](https://www.rdocumentation.org/packages/tibble).
 
 What attributes does this data set have?
 
 ```{r}
-AHwave1_v1_haven_rds %>% 
-    attributes() %>% 
+AHwave1_v1_haven_rds %>%
+    attributes() %>%
     map(~ head(.))
 ```
 
-The overall attributes are similar to the basic data frame, but there is an overall data set label, ``r AHwave1_v1_haven_rds %>% attributes() %>% extract("label")`` (_sic_).
+The overall attributes are similar to the basic data frame, but there is an overall data set label, ``r AHwave1_v1_haven_rds %>% attributes() %>% extract("label")`` (*sic*).
 
-We can also look at the attributes of specific columns:
+We can also look at the attributes of specific columns, here for `h1gi1m`:
 
 ```{r}
-AHwave1_v1_haven_rds$h1gi1m %>% 
+AHwave1_v1_haven_rds$h1gi1m %>%
     attributes()
 ```
 
 Here we see that all of the original column attributes were preserved when the data set was saved in RDS format.
 
-__Importantly__, saving a data set in CSV format loses any built-in metadata, whereas saving in RDS format maintains the built-in metadata. For other plain text formats, metadata will not be maintained; for other formats, it is worth determining whether such metadata are maintained. If metadata are not maintained in the file structure of the data set, it will be important to maintain the metadata in an external format (e.g., text, PDF).
+**Importantly**, saving a data set in CSV format loses any built-in metadata, whereas saving in RDS format maintains the built-in metadata. For other plain text formats, metadata will not be maintained; for other formats, it is worth determining whether such metadata are maintained. If metadata are not maintained in the file structure of the data set, it will be important to maintain the metadata in an external format (e.g., text, PDF). Note that the CSV format is the *lingua franca* of data transfer, and should be readable by any software, whereas the RDS format may not be readable by software other than R.
 
 ### Creating factor variables
-Factor variables are used in R to store categorical variables. These categorical variables can be nominal, in which each value is distinct and not ordered, such as race, classified as 
+Factor variables are used in R to store categorical variables. These categorical variables can be nominal, in which each value is distinct and *not* ordered, such as race, classified as 
 
 * White
 * Black/African American
@@ -123,7 +142,7 @@ Structurally, factor variables are stored as integers that can be linked to text
 Factor variables are created using the `factor()` or `as_factor()` functions. Here we will convert the self-reported general health variable (`h1gh1`) to a factor. First, let's look at the variable:
 
 ```{r}
-AHwave1_v1_haven$h1gh1 %>% 
+AHwave1_v1_haven$h1gh1 %>%
     attributes()
 ```
 
@@ -151,15 +170,16 @@ Although the levels are in numerical order, there are no meaningful labels. We u
 
 ```{r}
 # extract the labels from the column attribute
-health_levels <- AHwave1_v1_haven$h1gh1 %>% 
-    attributes() %>% 
-    extract2("labels") %>% 
+health_levels <- AHwave1_v1_haven$h1gh1 %>%
+    attributes() %>%
+    extract2("labels") %>%
     names()
 
-# create the factor variable
-AHwave1_v1_haven$health <- factor(AHwave1_v1_haven$h1gh1, 
-                                  labels = health_levels, 
-                                  ordered = TRUE) %>% 
+# create the factor variable and re-level it in reverse order
+AHwave1_v1_haven$health <- factor(AHwave1_v1_haven$h1gh1,
+    labels = health_levels,
+    ordered = TRUE
+) %>%
     fct_relevel(rev)
 ```
 
@@ -169,9 +189,9 @@ Let's compare the two variables through simple tabulation. Here is the "raw" var
 
 ```{r}
 # "raw" variable
-(tab_h1gh1 <- AHwave1_v1_haven %>% 
-     group_by(h1gh1) %>% 
-     summarise(n = n()))
+(tab_h1gh1 <- AHwave1_v1_haven %>%
+    group_by(h1gh1) %>%
+    summarise(n = n()))
 ```
 
 The "raw" variable shows that it is a labeled, double precision variable (`<dbl+lbl>`). 
@@ -180,69 +200,83 @@ Now the factor variable:
 
 ```{r}
 # factor variable
-(tab_health <- AHwave1_v1_haven %>% 
-     group_by(health) %>% 
-     summarise(n = n()))
+(tab_health <- AHwave1_v1_haven %>%
+    group_by(health) %>%
+    summarise(n = n()))
 ```
 
-The counts are the same, but for the factor variable, the `<ord>` additionally indicates the ordering of health levels. Note that the order is different because `(1) Excellent` should have the highest numerical value.
+The counts are the same, but for the factor variable, the `<ord>` additionally indicates the ordering of health levels. Note that the order is different because `(1) Excellent` should have the highest numerical value--that is, in a statistical model, "Excellent" should have a greater value than "Poor".
 
-Bar plots also show the difference between the raw and factor variables. Here is a bar plot from the raw variable. 
+Bar plots also show the difference between the raw and factor variables. `r figure_nums(name = "barplotraw", display = "cite")` presents a bar plot from the raw variable. 
 
 ```{r, warning=FALSE, message=FALSE}
 ggplot(data = tab_h1gh1, aes(x = h1gh1, y = n)) +
-    geom_bar(stat = "identity") + 
+    geom_bar(stat = "identity") +
     coord_flip()
 ```
 
-Because the numerical values have no special meaning, the bar plot uses its default method of displaying the axes. Here is the bar plot created with the factor variable, which shows informative labels at the correct position on the axes.
+*`r figure_nums(name = "barplotraw", caption = "Bar plot from raw h1gh1 values")`*
+
+Because the numerical values have no special meaning, the bar plot uses its default method of displaying the axes. `r figure_nums(name = "barplotfac", display = "cite")` shows the bar plot created with the factor variable, with informative labels at the correct position on the axes.
 
 ```{r}
 ggplot(data = tab_health, mapping = aes(x = health, y = n)) +
-    geom_bar(stat = "identity") + 
+    geom_bar(stat = "identity") +
     coord_flip()
 ```
 
-One of the potential down sides to using factor variables is that using the text values requires additional code. For example, to select (`filter()`) a subset of records, there are two methods. The first method uses the label. In this case because the factor is ordered, it is possible to use an ordinal comparison.
+*`r figure_nums(name = "barplotfac", caption = "Bar plot from h1gh1 values as factors")`*
+
+
+One of the potential down sides to using factor variables is that using the text values requires additional code. For example, to select (`filter()`) a subset of records, there are two methods. The first method uses the label. In this case because the factor is ordered, it is possible to use an ordinal comparison. Any records with self-reported health less than or equal to "Very good" are selected. The tabulation shows that no "Excellent" records were selected.
 
 
 ```{r}
 # filter for Excellent or Very good
-y <- AHwave1_v1_haven %>% 
-    filter (health <= "(2) Very good")
+y <- AHwave1_v1_haven %>%
+    filter(health <= "(2) Very good")
 
 # tabulate
-table(y$health)
+y %>%
+    group_by(health) %>%
+    summarise(n = n())
 ```
 
-The other method is to use `as_numeric()` to specify the underlying numerical values. In this case, because the value of 2 indicated `Very good`, we can filter for `health %>% as.numeric() <= 2`.  
+The other method is to use `as_numeric()` to specify the underlying numerical values. In this case, because the value of 6 indicated `Very good`, we can filter for `health %>% as.numeric() <= 6`.  However, it is critically important that the factor levels and values are known; in the original variable `h1gh1`, "Very good" had a value of 2, but in the re-ordered factor variable, "Very good" has a value of 6.
 
 ```{r}
-x <- AHwave1_v1_haven %>% 
-    filter(health %>% as.numeric() <= 2)
+x <- AHwave1_v1_haven %>%
+    filter(health %>% as.numeric() <= 6)
+
+# tabulate
+x %>%
+    group_by(health) %>%
+    summarise(n = n())
 ```
 
-Using unordered factor variables shows that more coding is involved in specifying values in `filter()` statements. For example, let's create a factor variable for the interviewer's observed single race variable:
+Using unordered factor variables shows that more coding is generally involved in specifying values in `filter()` statements. For example, let's create a factor variable for the interviewer's observed single race variable:
 
 ```{r}
 # number of labels
 nlabs <- length(unique(AHwave1_v1_haven$h1gi9))
+
 # get the values, "as.numeric()"
-obsrace_values <- AHwave1_v1_haven$h1gi9 %>% 
-    attributes() %>% 
-    extract2("labels") %>% 
+obsrace_values <- AHwave1_v1_haven$h1gi9 %>%
+    attributes() %>%
+    extract2("labels") %>%
     as.numeric()
 
 # get the labels, names()
-obsrace_labels <- AHwave1_v1_haven$h1gi9 %>% 
-    attributes() %>% 
-    extract2("labels") %>% 
-    names() 
+obsrace_labels <- AHwave1_v1_haven$h1gi9 %>%
+    attributes() %>%
+    extract2("labels") %>%
+    names()
 
 # create the factor
-AHwave1_v1_haven$obsrace <- factor(AHwave1_v1_haven$h1gi9, 
-                                   levels = obsrace_values, 
-                                   labels = obsrace_labels)
+AHwave1_v1_haven$obsrace <- factor(AHwave1_v1_haven$h1gi9,
+    levels = obsrace_values,
+    labels = obsrace_labels
+)
 ```
 
 Suppose we wanted to make a subset of only White and Black records, there are a few syntax methods:
@@ -250,37 +284,43 @@ Suppose we wanted to make a subset of only White and Black records, there are a 
 Here, each value is explicitly named, using the `|` "or" operator 
 
 ```{r}
-dat_wb1 <- AHwave1_v1_haven %>% 
+dat_wb1 <- AHwave1_v1_haven %>%
     filter(obsrace == "(1) White" |
-           obsrace == "(2) Black/African American")
+        obsrace == "(2) Black/African American")
 
-table(dat_wb1$obsrace)
+dat_wb1 %>%
+    group_by(obsrace) %>%
+    summarise(n = n())
 ```
 
 A different approach uses `str_detect()` with a regular expression to match any values of `obsrace` that contain the strings `white` or `black` in any upper/lower case combination.
 
 ```{r}
-dat_wb2 <- AHwave1_v1_haven %>% 
+dat_wb2 <- AHwave1_v1_haven %>%
     filter(str_detect(obsrace, regex("white|black", ignore_case = TRUE)))
 
-table(dat_wb2$obsrace)
+dat_wb2 %>%
+    group_by(obsrace) %>%
+    summarise(n = n())
 ```
 
-Finally, if we know the numeric values representing the factors, we can use those directly:
+Finally, if we know the numeric values representing the factors, we can use those directly, using requisite care in identifying the numeric values proxying for the factor levels:
 
 ```{r}
-dat_wb3 <- AHwave1_v1_haven %>% 
+dat_wb3 <- AHwave1_v1_haven %>%
     filter(obsrace %>% as.numeric() %in% c(1, 2))
 
-table(dat_wb3$obsrace)
+dat_wb3 %>%
+    group_by(obsrace) %>%
+    summarise(n = n())
 ```
 
-The first method is the most verbose, requires the most code, and is probably the easiest to read. The other two methods may be easier to code (i.e., fewer keystrokes), but seem to be more difficult to interpret.
+The first method is the most verbose, requires the most code, and is probably the easiest to read. The other two methods may be easier to code (i.e., fewer keystrokes), but seem to be more difficult to read. There is often a trade-off between writing code that is quickly written and less easy to read versus code that is more methodically written but easier to read. 
 
-As above, care needs to be taken in saving the data set to a file. If the factor has text labels, those will be written to an output CSV file. When they are read back in, they will be treated as character values rather than factors. For example, the `health` variable we created is an ordered factor:
+As above, care needs to be taken in saving the data set to a file. If the factor has text labels, those will be written as text by default to an output CSV file. When they are read back in, they will be treated as character values rather than ordered factors. For example, the `health` variable we created is an ordered factor:
 
 ```{r}
-head(AHwave1_v1_haven$health)
+str(AHwave1_v1_haven$health)
 ```
 
 But when cycled through a write/read CSV cycle, the variable is not maintained as a factor.
@@ -290,19 +330,30 @@ write.csv(x = AHwave1_v1_haven, file = file.path(mytempdir, "foo.csv"), row.name
 
 y <- read.csv(file.path(mytempdir, "foo.csv"))
 
-head(y$health)
+str(y$health)
 ```
 
-Additional work would be needed to re-establish it as a factor. Fortunately, the alphanumeric sorting order of the character strings is the logical order; without the numeric values, the ordering would need to be explicitly set. For example, the vector in desired sorting order `"Excellent", "Very good", "Good", "Fair", "Poor", "Refused", "Don't know"` sorts as ``r c("Excellent", "Very good", "Good", "Fair", "Poor", "Refused", "Don't know") %>% sort()``), which is not the proper sorting order.
+Additional work would be needed to re-establish it as a factor. Fortunately, the alphanumeric sorting order of the character strings is also the logical order (i.e., `(1)` comes before `(2)` in alphanumeric order..
 
 ```{r}
 y$health <- factor(y$health,
-                   labels = y$health %>% unique() %>% sort(),
-                   ordered = TRUE)
+    labels = y$health %>% unique() %>% sort(),
+    ordered = TRUE
+)
 head(y$health)
 ```
 
-If you save the data set as RDS, the factor and other structures are maintained.
+Without the numeric values preceding the text (e.g., `(1)`, `(2)`, ...), the ordering would need to be explicitly set. For example, the vector in desired sorting order 
+
+`"Excellent", "Very good", "Good", "Fair", "Poor", "Refused", "Don't know"` 
+
+sorts as 
+
+``r c("Excellent", "Very good", "Good", "Fair", "Poor", "Refused", "Don't know") %>% sort()``
+
+, which is not the proper order of self-reported health.
+
+If you save the data set as RDS, the factor and other structures are maintained; here we see the factor levels are exactly as we set them earlier.
 
 ```{r}
 write_rds(x = AHwave1_v1_haven, file = file.path(mytempdir, "foo.Rds"))
@@ -320,10 +371,12 @@ Let's start with the CSV file, which we know was stripped of its descriptive att
 ```{r}
 y <- read.csv(file.path(mytempdir, "foo.csv"))
 
-y %>% attributes() %>% map(~ head(.))
+y %>%
+    attributes() %>%
+    map(~ head(.))
 ```
 
-First, an attribute of the data frame itself:
+First, an attribute of the data frame itself (the overall data frame `label` attribute):
 
 ```{r}
 attributes(y)$label <- "National Longitudinal Study of Adolescent to Adult Health (Add Health), 1994-2000 with some variable additions"
@@ -332,31 +385,63 @@ attributes(y)$label <- "National Longitudinal Study of Adolescent to Adult Healt
 ... which we can verify:
 
 ```{r}
-y %>% attributes() %>% extract("label")
+y %>%
+    attributes() %>%
+    extract("label")
 ```
 
-Next, attributes for the `health` and `obsrace` variables, documenting the variables and values:
+Next, attributes for the `health` and `obsrace` variables, documenting the variables and values. Here, for `health` we set this up as a factor using the sorted unique values of `health` from the CSV file. The factor is ordered and then reversed so that "Excellent" health has the highest value.
 
 ```{r}
 # label for health
 attributes(y$health)$label <- "General health from public Add Health Wave 1 Section 3 question 1"
-# values for health
-attributes(y$health)$levels <- c("(1) Excellent", "(2) Very good", "(3) Good", "(4) Fair", "(5) Poor", "(6) Refused", "(8) Don't know")
 
+# labels for health
+healthlevels <- unique(y$health) %>%
+    sort()
+
+# values for health
+attributes(y$health)$levels <- healthlevels
+
+# create the factor "health" with appropriate levels, order it and reverse the levels
+#   so that Excellent is highest
+y %<>% mutate(
+    health =
+        factor(health, levels = healthlevels, ordered = TRUE) %>%
+            fct_rev()
+)
+```
+
+We create the `obsrace` factor but because there is no inherent value hierarchy, we do not make this an ordered factor. We convert it to a factor for use in statistical models.
+
+```{r}
 # label for obsrace
 attributes(y$obsrace)$label <- "Interviewer observation of race from public Add Health Wave 1 Section 1 question 9"
+
+# obsrace levels
+obsracelevels <- unique(y$obsrace) %>%
+    sort()
+
 # values  for obsrace
-attributes(y$obsrace)$levels <- c("(1) White", "(2) Black/African American", "(3) American Indian/Native American", "(4) Asian/Pacific Islander", "(5) Other", "(6) Refused", "(8) Don't know", "(9) Not applicable")
+attributes(y$obsrace)$levels <- obsracelevels
+
+# create a factor
+y %<>% mutate(
+    obsrace = factor(obsrace, levels = obsracelevels)
+)
 ```
 
 Verify these were created:
 
 ```{r}
 y$health %>% attributes()
+head(y$health)
+
 y$obsrace %>% attributes()
+head(y$obsrace)
 ```
 
-The same caveats apply to saving the data frame to files.
+The same caveats apply to saving the data frame to files, with respect to the various attributes and which attributes are saved and restored after a write/read cycle.
 
 ## Tabulation
 We have seen a few examples of tabulation in previous exercises (Sections \@ref(summarizingaggregating-data), \@ref(rmdtables), \@ref(default-values-for-arguments)). This section will give a more complete treatment using the Add Health data as an example.
@@ -369,41 +454,52 @@ First, this code will load the full Add Health data set, which includes addition
 ```{r}
 # download and unzip the larger data set
 myUrl <- "http://staff.washington.edu/phurvitz/csde502_winter_2021/data/21600-0001-Data.dta.zip"
-# zip file in $temp
+
+# zip file in $temp -- basename gets just the file name from the URL and not the URL path;
+#   file.path stitches the tempdir() path to the file name
 zipfile <- file.path(mytempdir, basename(myUrl))
+
 # dta file in $temp
 dtafile <- tools::file_path_sans_ext(zipfile)
+
 # check if the dta file exists
-if(!file.exists(dtafile)){
+if (!file.exists(dtafile)) {
     # if the dta file doesn't exist, check for the zip file
     # check if the zip file exists, download if necessary
-    if(!file.exists(zipfile)){
+    if (!file.exists(zipfile)) {
         curl::curl_download(url = myUrl, destfile = zipfile)
     }
     # unzip the downloaded zip file
-    unzip(zipfile = zipfile, exdir = mytempdir)
+    if (file.exists(zipfile)) {
+        unzip(zipfile = zipfile, exdir = mytempdir)
+    }
 }
 
-# if the data set has not been read, read it in 
-if(!exists("ahcomplete")){
+# if the data set has not been read, read it in
+if (!exists("ahcomplete")) {
     ahcomplete <- haven::read_dta(dtafile)
 }
 # lowercase column names
 colnames(ahcomplete) %<>% str_to_lower()
 ```
 
-Present the metadata (variable names and labels):
+The metadata (variable names and labels) are presented in `r table_nums(name = "ahcompletemeta", display = "cite")`.
+
+*`r table_nums(name = "ahcompletemeta", caption = "Add Health large table variable names and labels")`*
 
 ```{r}
+# create a data frame of the variable names and labels
 ahcomplete_metadata <- bind_cols(
     varname = colnames(ahcomplete),
     varlabel = ahcomplete %>% map(~ attributes(.)$label) %>% unlist()
 )
 
+# print the table with DT::datatable for interactive display
 DT::datatable(ahcomplete_metadata)
 ```
 
 \  
+
 Let's look at body mass index (BMI) data, which uses weight and height values. We find the variables representing weight and height from the metadata above. We need to determine if there are any invalid values:
 
 ```{r}
@@ -416,37 +512,60 @@ First, we need to select the variables representing feet and inches, then filter
 
 ```{r}
 # make the data frame
-htwt <- ahcomplete %>% 
+htwt <- ahcomplete %>%
     # select columns
-    select(feet = h1gh59a,
-           inches = h1gh59b,
-           weight_lb = h1gh60,
-           health = h1gh1,
-           obsrace = h1gi9) %>% 
+    select(
+        feet = h1gh59a,
+        inches = h1gh59b,
+        weight_lb = h1gh60,
+        health = h1gh1,
+        obsrace = h1gi9
+    ) %>%
     # filter for valid values
-    filter(feet < 90 & inches < 90 & weight_lb < 900) %>% 
-    # calculate 
-    mutate(height_m = (feet * 12 + inches) / 39.37008,
-           weight_kg = weight_lb / 2.205,
-           BMI = weight_kg / height_m^2)
+    filter(feet < 90 & inches < 90 & weight_lb < 900) %>%
+    # calculate metric units and BMI
+    mutate(
+        height_m = (feet * 12 + inches) / 39.37008,
+        weight_kg = weight_lb / 2.205,
+        BMI = weight_kg / height_m^2
+    )
 
 # factor: get values and labels
-healthvals <- htwt$health %>% attributes() %>% extract2("labels") %>% as.numeric()
-healthlabs <- htwt$health %>% attributes() %>% extract2("labels") %>% names()
+healthvals <- htwt$health %>%
+    attributes() %>%
+    extract2("labels") %>%
+    as.numeric()
 
-racevals <- htwt$obsrace %>% attributes() %>% extract2("labels") %>% as.numeric()
-racelabs <- htwt$obsrace %>% attributes() %>% extract2("labels") %>% names()
+healthlabs <- htwt$health %>%
+    attributes() %>%
+    extract2("labels") %>%
+    names()
 
-htwt %<>% 
-    mutate(health = factor(health,
-                           levels = healthvals,
-                           labels = healthlabs),
-           obsrace = factor(obsrace,
-                           levels = racevals,
-                           labels = racelabs))
+racevals <- htwt$obsrace %>%
+    attributes() %>%
+    extract2("labels") %>%
+    as.numeric()
+
+racelabs <- htwt$obsrace %>%
+    attributes() %>%
+    extract2("labels") %>%
+    names()
+
+# package the data frame up
+htwt %<>%
+    mutate(
+        health = factor(health,
+            levels = healthvals,
+            labels = healthlabs
+        ),
+        obsrace = factor(obsrace,
+            levels = racevals,
+            labels = racelabs
+        )
+    )
 ```
 
-A histogram shows the distribution of BMI for the respondents with vertical lines at the 5th and 85th percentile. This range is generally considered "normal" or "healthy" according to the CDC, although for a sample with varying age, sex, height, and weight ranges, it is difficult to interpret. Nevertheless the cut points can serve the purpose of demonstration.
+A histogram (`r figure_nums(name = "bmihist", display = "cite")` shows the distribution of BMI for the respondents with vertical lines at the 5th and 85th percentile. This range is generally considered "normal" or "healthy" according to the CDC, although for a sample with varying age, sex, height, and weight ranges, it is difficult to interpret. Nevertheless the cut points can serve the purpose of demonstration.
 
 ```{r}
 # get the 5th & 85th percentile
@@ -456,49 +575,68 @@ ggplot(htwt, aes(x = BMI)) +
     geom_vline(xintercept = bmibreaks)
 ```
 
+\    
+*`r figure_nums(name = "bmihist", caption = "Histogram of BMI for Add Health cohort")`*
+
 We assign the BMI class using these cut points, with `cut()` breaks at the minimum, 5%, 85%, and maximum BMI, and also assign labels and set ordering:
 
 ```{r}
-htwt %<>% 
-    mutate(bmiclass = cut(x = BMI, 
-                          breaks = c(min(BMI), bmibreaks, max(BMI)), 
-                          labels = c("underweight", "normal", "overweight"),
-                          include.lowest = TRUE) %>% 
-               factor(ordered = TRUE))
+htwt %<>%
+    mutate(bmiclass = cut(
+        x = BMI,
+        breaks = c(min(BMI), bmibreaks, max(BMI)),
+        labels = c("underweight", "normal", "overweight"),
+        include.lowest = TRUE
+    ) %>%
+        factor(ordered = TRUE))
 ```
 
-The tabulation of count of respondents by weight class can be generated with the base R function `table()` or `dplyr` functions `group_by()` and `summarise()`.
+The tabulation of count of respondents by weight class can be generated with the base R function `table()` or `dplyr` functions `group_by()` and `summarise()` (`r table_nums(name = "bmiclass", display = "cite")`.
 
 ```{r}
 # base R
 table(htwt$bmiclass, useNA = "ifany")
 ```
 
+*`r table_nums(name = "bmiclass", caption = "Count by BMI class, Add Health cohort")`*
+
 ```{r}
 # tidyR
-htwt %>% 
-    group_by(bmiclass) %>% 
-    summarise(n = n()) %>% 
-    kable() %>% 
-    kable_styling(full_width = FALSE, position = "left")
+htwt %>%
+    group_by(bmiclass) %>%
+    summarise(n = n()) %>%
+    kable() %>%
+    kable_styling(full_width = FALSE, position = "left", 
+                  bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 ```
 
-For variables that are already nominal or ordinal factors, tabulations can be made directly. Because these were converted to factors, the correct labels will show, rather than simple numeric values.
+For variables that are already nominal or ordinal factors, tabulations can be made directly. Because these were converted to factors, the correct labels will show, rather than simple numeric values. The tabulations will also be presented in descending order by label or level. Tabulation of self-reported health is in `r table_nums(name = "healthclass", display = "cite")` and by race observed by interviewer in `r table_nums(name = "obsraceclass", display = "cite")`.
+
+*`r table_nums(name = "healthclass", caption = "Count by self-reported health class, Add Health cohort")`*
 
 ```{r}
-htwt %>% 
-    group_by(health) %>% 
-    summarise(n = n()) %>% 
-    kable() %>% 
-    kable_styling(full_width = FALSE, position = "left")
+htwt %>%
+    group_by(health) %>%
+    summarise(n = n()) %>%
+    kable() %>%
+    kable_styling(
+        full_width = FALSE,
+        position = "left",
+        bootstrap_options = c("striped", "hover", "condensed", "responsive")
+    )
 ```
 
+*`r table_nums(name = "obsraceclass", caption = "Count by interviewer-observed race, Add Health cohort")`*
+
 ```{r}
-htwt %>% 
-    group_by(obsrace) %>% 
-    summarise(n = n()) %>% 
-    kable() %>% 
-    kable_styling(full_width = FALSE, position = "left")
+htwt %>%
+    group_by(obsrace) %>%
+    summarise(n = n()) %>%
+    kable() %>%
+    kable_styling(
+        full_width = FALSE, position = "left",
+        bootstrap_options = c("striped", "hover", "condensed", "responsive")
+    )
 ```
 
 ### Proportions/percentages
@@ -512,76 +650,153 @@ round(prop.table(table(htwt$bmiclass)) * 100, 0)
 
 Not surprisingly, the BMI classes show 5% underweight and 15% overweight, because that is how the stratification was defined.
 
-The `tidyR` version requires a bit more coding but provides a more readable output. Because the percent sign is a special character, we enclose it in back ticks, ``%``. Here we generate a tabulation of observed race.
+The `tidyR` version requires a bit more coding but provides a more readable output. Because the percent sign is a special character, we enclose it in back ticks, ``%``. Here we generate a tabulation of observed race (`r table_nums(name = "obsraceclass", display = "cite")`).
+
+*`r table_nums(name = "obsraceclasspct", caption = "Count by interviewer-observed race, Add Health cohort")`*
 
 ```{r}
-htwt %>% 
-    group_by(obsrace) %>% 
-    summarise(n = n()) %>% 
-    mutate(`%` = n / sum(n) * 100) %>% 
-    mutate(`%` = `%` %>% round(1)) %>% 
-    kable() %>% 
-    kable_styling(full_width = FALSE, position = "left")
+htwt %>%
+    group_by(obsrace) %>%
+    summarise(n = n()) %>%
+    mutate(`%` = n / sum(n) * 100) %>%
+    mutate(`%` = `%` %>% round(1)) %>%
+    kable() %>%
+    kable_styling(
+        full_width = FALSE, position = "left",
+        bootstrap_options = c("striped", "hover", "condensed", "responsive")
+    )
 ```
 
 ### Stratified tabulation
 Tabulations can be generated using multiple variables. Here we will examine BMI and race as well as BMI and health. The percentages sum to 100 based on the order of the grouping.
 
-Here, we see the relative percent of underweight, normal, and overweight within each race class:
+Here, we see the relative percent of underweight, normal, and overweight within each race class (`r table_nums(name = "obsracebmiclass", display = "cite")`).
+
+*`r table_nums(name = "obsracebmiclass", caption = "Count by interviewer-observed race and BMI class, Add Health cohort")`*
 
 ```{r}
-htwt %>% 
-    group_by(obsrace,
-             bmiclass) %>% 
-    summarise(n = n(), .groups = "drop_last") %>% 
-    mutate(`%` = n / sum(n) * 100) %>% 
-    mutate(`%` = `%` %>% round(1)) %>% 
-    kable() %>% 
-    kable_styling(full_width = FALSE, position = "left")
+htwt %>%
+    group_by(
+        obsrace,
+        bmiclass
+    ) %>%
+    summarise(n = n(), .groups = "drop_last") %>%
+    mutate(`%` = n / sum(n) * 100) %>%
+    mutate(`%` = `%` %>% round(1)) %>%
+    kable() %>%
+    kable_styling(
+        full_width = FALSE, position = "left",
+        bootstrap_options = c("striped", "hover", "condensed", "responsive")
+    )
 ```
 
-And here we see the relative percent of different race groups within each BMI class. 
+The table can also be presented with grouped rows. This code generates a named
+vector of the count of observed race by BMI class
 
 ```{r}
-htwt %>% 
-    group_by(bmiclass,
-             obsrace) %>% 
+# create the row groupings
+(obsrace <- htwt %>%
+    group_by(
+        obsrace,
+        bmiclass
+    ) %>%
     summarise(n = n(), .groups = "drop_last") %>% 
-    mutate(`%` = n / sum(n) * 100) %>% 
-    mutate(`%` = `%` %>% round(1)) %>% 
-    kable() %>% 
-    kable_styling(full_width = FALSE, position = "left")
+    group_by(obsrace) %>% 
+    summarise(n = n()) %>% 
+    deframe())
 ```
 
-Even though the `n` values are the same in the two tables (e.g., underweight White n = `r htwt %>% filter(str_detect(obsrace, "White") & str_detect(bmiclass, "under")) %>% nrow()`), the percentages are different due to grouping. That is, the percent of underweight persons among the White race stratum is different from the percent of White persons within the underweight stratum. Proper grouping is critical to answer specific questions about the data.
+The groups are then used in the `pack_rows()` function for grouped rows (`r table_nums(name = "obsracebmiclasspct", display = "cite")`).
 
-Another way to understand the data, preferred by some, would be to make a graph. For example, BMI by race:
+*`r table_nums(name = "obsracebmiclasspct", caption = "Count by interviewer-observed race and BMI class, Add Health cohort, percent by race")`*
 
 ```{r}
-bmi_race <- htwt %>% 
-    group_by(obsrace,
-             bmiclass) %>% 
-    summarise(n = n(), .groups = "drop_last") %>% 
-    mutate(`%` = n / sum(n) * 100) %>% 
+htwt %>%
+    group_by(
+        obsrace,
+        bmiclass
+    ) %>%
+    summarise(n = n(), .groups = "drop_last") %>%
+    mutate(`%` = n / sum(n) * 100) %>%
+    mutate(`%` = `%` %>% round(1)) %>% 
+    kable %>% 
+    kable_styling(
+        full_width = FALSE, position = "left",
+        bootstrap_options = c("striped", "hover", "condensed", "responsive")
+    ) %>% 
+    pack_rows(index = obsrace)    
+```
+
+
+And here we see the relative percent of different race groups within each BMI class (`r table_nums(name = "obsbmiraceclasspct", display = "cite")`. 
+
+*`r table_nums(name = "obsbmiraceclasspct", caption = "Count by interviewer-observed race and BMI class, Add Health cohort, percent by BMI class")`*
+
+```{r}
+htwt %>%
+    group_by(
+        bmiclass,
+        obsrace
+    ) %>%
+    summarise(n = n(), .groups = "drop_last") %>%
+    mutate(`%` = n / sum(n) * 100) %>%
+    mutate(`%` = `%` %>% round(1)) %>%
+    kable() %>%
+    kable_styling(full_width = FALSE, position = "left",
+                          bootstrap_options = c("striped", "hover", "condensed", "responsive")
+)
+```
+
+Even though the `n` values are the same in the two tables (e.g., underweight $\times$ White n = `r htwt %>% filter(str_detect(obsrace, "White") & str_detect(bmiclass, "under")) %>% nrow()`), the percentages are different due to grouping. That is, the percent of underweight persons among the White race stratum is different from the percent of White persons within the underweight stratum. Proper grouping is critical to answer specific questions about the data.
+
+Another way to understand the data, preferred by some, would be to make a graph. For example, BMI by race as a facet grid bar graph (`r `figure_nums(name = "bmibarfacet", display = "cite")`).
+
+```{r}
+bmi_race <- htwt %>%
+    group_by(
+        obsrace,
+        bmiclass
+    ) %>%
+    summarise(n = n(), .groups = "drop_last") %>%
+    mutate(`%` = n / sum(n) * 100) %>%
     filter(!str_detect(obsrace, regex("refused|know", ignore_case = TRUE)))
 
 ggplot(data = bmi_race, mapping = aes(x = bmiclass, y = `%`)) +
     geom_bar(stat = "identity") +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
     facet_grid(~obsrace)
+```
 
+\    
+
+*`r figure_nums(name = "bmibarfacet", caption = "BMI class by race, Add Health cohort")`*
+
+Or as a stacked bar graph (`r figure_nums(name = "bmibarstack", display = "cite")`)
+
+```{r}
 ggplot(data = bmi_race, mapping = aes(x = obsrace, y = `%`, fill = bmiclass)) +
     geom_bar(stat = "identity") +
     coord_flip() +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 ```
+
+\    
+*`r figure_nums(name = "bmibarstack", caption = "BMI class by race, Add Health cohort")`*
+
 
 <hr>
 Rendered at <tt>`r Sys.time()`</tt>
 
-<h4>Source code for this document</h4>
-[07-week07.Rmd](07-week07.Rmd)
+## Source code
+File is at `r fnamepath`.
+
+### Source code for this document
+
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+```
+
+### Complete Rmd code
 
 ```{r comment=''}
-cat(readLines(con = "07-week07.Rmd"), sep = '\n')
+cat(readLines(fnamepath), sep = '\n')
 ```

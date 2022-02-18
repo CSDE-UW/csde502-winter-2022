@@ -42,12 +42,7 @@ urlcolor: blue
 
 ```{r setup, message=FALSE}
 # key setups
-library(sqldf) # to use sql syntax with data frames
-library(knitr) # knitr for kable tables
-library(kableExtra) # pretty tables
-library(sf) # simple features (GIS)
-library(leaflet) # nice maps
-library(tools) # md5sum
+pacman::p_load(tidyverse)
 
 # captions
 library(captioner)
@@ -92,6 +87,8 @@ if (!interactive()) {
 
 # Content
 
+
+<hr>
 
 # Source code
 File is at `r fnamepath`.

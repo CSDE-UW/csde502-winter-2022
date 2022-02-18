@@ -264,7 +264,7 @@ inf_mort <- get_idb(
 
 We then create a simple column graph from the data (\@ref(fig:infmort)).
 
-```{r infmort, fig.cap="INnfant mortality, China and Japan, 2000 and 2021"}
+```{r infmort, fig.cap="Infant mortality, China and Japan, 2000 and 2021"}
 inf_mort %>% 
     pivot_longer(cols = c(female, male), names_to = "sex", values_to = "count") %>% 
     ggplot(aes(x = factor(sex), y = count)) +
@@ -360,11 +360,10 @@ m <- leaflet(height = "500") %>%
         colors = c("red", "black"),
         labels = c("tidyverse generalized", "tigris detailed")
     ) %>%
-    addTiles() %>% 
+    addTiles() %>%
     setView(lng = -122.3603, lat = 47.62231, zoom = 13)
-    
-m
 
+m
 ```
 
 ## Mapping census data from `tidycensus` and `tigris` using `mapview` {#mapview}
@@ -372,7 +371,7 @@ m
 
 NOTE: There is a problem with `mapview` implemented within R Markdown or Bookdown that does not allow the page to render with `mapview` code. Copy and run the code below. Unfortunately the map will not be rendered in these pages.
 
-```
+```{r, eval=FALSE}
 ctdat_mv <- ctdat %>%
     mutate(afram_white = (p_n_aframE / p_n_whiteE) %>% round(2))
 
