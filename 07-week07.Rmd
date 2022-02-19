@@ -26,7 +26,8 @@ if (!interactive()) {
 <h2>Topic: Add Health data: variable creation and tabulation</h2>
 This week's lesson will provide more background on variable creation and tabulation of variables.
 
-First, download the [template file](files/template.txt) and save it in your course working folder as `week_07.Rmd`. Make changes to the title and author as you see fit.
+
+First, download the [template file](https://raw.githubusercontent.com/CSDE-UW/csde502-winter-2022/master/docs/files/template.Rmd) and save it in your course working folder as `week_07.Rmd`. Make changes to the title and author as you see fit.
 
 ## Creating value labels
 "Labeled" data are important for documentation of data sets. The labels can apply to different objects, e.g., columns (as we saw in the column labels used to "decode" the data set in `AHwave1_v1.dta`, Section \@ref(tidyverse)), or to individual values of variables, e.g., the attribute `labels` of the variable `h1gi1m`:
