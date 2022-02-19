@@ -351,9 +351,22 @@ Without the numeric values preceding the text (e.g., `(1)`, `(2)`, ...), the ord
 
 sorts as 
 
-``r c("Excellent", "Very good", "Good", "Fair", "Poor", "Refused", "Don't know") %>% sort()``
+`"Excellent", "Very good", "Good", "Fair", "Poor", "Refused", "Don't know"`
 
-, which is not the proper order of self-reported health.
+which is not the proper order of self-reported health.
+
+To use our own specified labels, we need to include those in the desired order. Here we create a vector with specified labels in descending order matching the numeric values (i.e., 1 = "Excellent", 2 = "Very good", etc.), and then specify that vector in the `labels` argument:
+
+```{r}
+health2labels <- c("Excellent", "Very good", "Good", "Fair", "Poor", "Refused", "Don't know")
+
+y$health2 <- factor(y$h1gh1,
+    labels = health2labels, 
+    ordered = TRUE
+) %>% fct_rev()
+
+head(y$health2)
+```
 
 If you save the data set as RDS, the factor and other structures are maintained; here we see the factor levels are exactly as we set them earlier.
 
