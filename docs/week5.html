@@ -96,7 +96,7 @@ Topics: Human Fertility Database (age-specific rates and summary indicators); Gi
 </h3>
 <p>In order to download data using <code><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHFDweb.html">HMDHFDplus::readHFDweb()</a></code> two key pieces of information are needed, the country abbreviation and the coded item name.</p>
 <p>First, we should be able to deal with country abbreviations. The <code>HMDHFDplus</code> package has the function <code><a href="https://rdrr.io/pkg/HMDHFDplus/man/getHFDcountries.html">getHFDcountries()</a></code> that returns the abbreviations shown at <a href="https://www.fertilitydata.org/cgi-bin/country_codes.php">Human Fertility Collection Country / area codes</a>. However, some of the country codes are not ISO standards. This next block of code will generate a tibble with the country abbreviations and country names used in the HFD (Table 1). This will help with formulating the download function.</p>
-<div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb420"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ISOcodes</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/timriffe/TR1">HMDHFDplus</a></span><span class="op">)</span>
 
@@ -122,7 +122,7 @@ Topics: Human Fertility Database (age-specific rates and summary indicators); Gi
 ## 6 GBRTENW &lt;NA&gt; 
 ## 7 GBR_SCO &lt;NA&gt; 
 ## 8 GBR_NIR &lt;NA&gt;</code></pre>
-<div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># update those</span>
 <span class="va">hfdcodes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span> 
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Name <span class="op">=</span> 
@@ -137,7 +137,7 @@ Topics: Human Fertility Database (age-specific rates and summary indicators); Gi
                   <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">Name</span><span class="op">)</span>
     <span class="op">)</span></code></pre></div>
 <p><em>Table 1: HFD countries: codes and names</em></p>
-<div class="sourceCode" id="cb425"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb423"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">hfdcodes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>bootstrap_options <span class="op">=</span>
@@ -460,7 +460,7 @@ United States
 <p>To download data using <code><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHFDweb.html">HMDHFDplus::readHFDweb()</a></code>, it is necessary to specify the item name. For example at thee HFD page <a href="https://www.humanfertility.org/cgi-bin/country.php?country=USA&amp;tab=si">Unites States of America</a>, the first item listed is total number of live births for all birth orders combined between 1933 and 2019; the URL is <strong>www.humanfertility.org/cgi-bin/getfile.plx?f=USA\20210422<span class="und">totbirthsRR</span>.txt</strong> (where the item name is underlined).</p>
 <p>Using Ben’s HFD code as a template, we can download the same item for several countries.</p>
 <p>First, we create a generic function to download HFD data for a country and an item:</p>
-<div class="sourceCode" id="cb426"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># a function to read HFD for one country and one item</span>
 <span class="va">read_hfd_country</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">CNTRY</span>, <span class="va">item</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu">HMDHFDplus</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/readHFDweb.html">readHFDweb</a></span><span class="op">(</span>
@@ -478,7 +478,7 @@ United States
   <span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>We then create a function to download an item for a set of countries</p>
-<div class="sourceCode" id="cb427"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb425"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Download a data set iteratively for all named countries using purrr::map()</span>
 <span class="va">read_hfd_countries_item</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">countries</span>, <span class="va">item</span><span class="op">)</span><span class="op">{</span>
     <span class="va">countries</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
@@ -497,14 +497,14 @@ United States
         <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">hfdcodes</span>, by <span class="op">=</span> <span class="st">"ccode"</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>Finally, run the function to download one item for a set of countries:</p>
-<div class="sourceCode" id="cb428"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb426"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">CNTRIES</span> <span class="op">&lt;-</span> <span class="va">hfdcodes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"United States"</span>, <span class="st">"Lithuania"</span>, <span class="st">"Japan"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">ccode</span><span class="op">)</span>
 
 <span class="va">totbirthsRR_USA_LTU_JPN</span> <span class="op">&lt;-</span> <span class="fu">read_hfd_countries_item</span><span class="op">(</span>countries <span class="op">=</span> <span class="va">CNTRIES</span>, item <span class="op">=</span> <span class="st">"totbirthsRR"</span><span class="op">)</span></code></pre></div>
 <p>Let’s make a graph from that (Figure 1).</p>
-<div class="sourceCode" id="cb429"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb427"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">totbirthsRR_USA_LTU_JPN</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>TotalM <span class="op">=</span> <span class="va">Total</span> <span class="op">/</span> <span class="fl">1000000</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span> 
@@ -761,9 +761,7 @@ m</code></pre>
 </h4>
 <p>This was a brief introduction to the main functionality of Git with RStudio and Github. If you expect to perform even a modest amount of coding, you could benefit from Git as a way to keep track of your work, collaborate with others, and avoid programming disasters due to inadvertent deletion of overwriting of files.</p>
 <hr>
-<p>Rendered at <tt>2022-02-19 10:11:41</tt></p>
-<hr>
-<p>Rendered at <tt>2022-02-19 10:11:41</tt></p>
+<p>Rendered at <tt>2022-02-24 23:26:20</tt></p>
 </div>
 </div>
 </div>
@@ -772,11 +770,11 @@ m</code></pre>
 <span class="header-section-number">5.3</span> Source code<a class="anchor" aria-label="anchor" href="#source-code-4"><i class="fas fa-link"></i></a>
 </h2>
 <p>File is at H:/csde502-winter-2022-main/05-week05.Rmd.</p>
-<div id="source-code-for-this-document-4" class="section level3" number="5.3.1">
+<div id="r-code-used-in-this-document-4" class="section level3" number="5.3.1">
 <h3>
-<span class="header-section-number">5.3.1</span> Source code for this document<a class="anchor" aria-label="anchor" href="#source-code-for-this-document-4"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3.1</span> R code used in this document<a class="anchor" aria-label="anchor" href="#r-code-used-in-this-document-4"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb436"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb434"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">ISOcodes</span>, <span class="va">tidyverse</span>, <span class="va">magrittr</span>, <span class="va">knitr</span>, <span class="va">kableExtra</span>, <span class="va">readstata13</span>, <span class="va">HMDHFDplus</span>, <span class="va">captioner</span><span class="op">)</span>
 
 <span class="va">figure_nums</span> <span class="op">&lt;-</span> <span class="fu">captioner</span><span class="op">(</span>prefix <span class="op">=</span> <span class="st">"Figure"</span><span class="op">)</span>
@@ -872,7 +870,7 @@ m</code></pre>
 <h3>
 <span class="header-section-number">5.3.2</span> Complete Rmd code<a class="anchor" aria-label="anchor" href="#complete-rmd-code-4"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb437"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb435"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">fnamepath</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">'\n'</span><span class="op">)</span></code></pre></div>
 <pre><code># Week 5 {#week5}
 
@@ -1373,19 +1371,14 @@ This was a brief introduction to the main functionality of Git with RStudio and 
 &lt;hr&gt;
 Rendered at &lt;tt&gt;`r Sys.time()`&lt;/tt&gt;
 
-&lt;hr&gt;
-Rendered at &lt;tt&gt;`r Sys.time()`&lt;/tt&gt;
-
 ## Source code
 File is at `r fnamepath`.
 
-### Source code for this document
-
+### R code used in this document
 ```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
 ```
 
 ### Complete Rmd code
-
 ```{r comment=''}
 cat(readLines(fnamepath), sep = '\n')
 ```</code></pre>
@@ -1419,7 +1412,7 @@ Topics: Human Fertility Database (age-specific rates and summary indicators); Gi
 </li>
 <li>
 <a class="nav-link" href="#source-code-4"><span class="header-section-number">5.3</span> Source code</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#source-code-for-this-document-4"><span class="header-section-number">5.3.1</span> Source code for this document</a></li>
+<li><a class="nav-link" href="#r-code-used-in-this-document-4"><span class="header-section-number">5.3.1</span> R code used in this document</a></li>
 <li><a class="nav-link" href="#complete-rmd-code-4"><span class="header-section-number">5.3.2</span> Complete Rmd code</a></li>
 </ul>
 </li>
@@ -1440,7 +1433,7 @@ Topics: Human Fertility Database (age-specific rates and summary indicators); Gi
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-02-19 10:09.</p>
+    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-02-24 23:24.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

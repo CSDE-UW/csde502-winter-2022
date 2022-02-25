@@ -942,13 +942,12 @@ Rendered at <tt>`r Sys.time()`</tt>
 ## Source code
 File is at `r fnamepath`.
 
-### Source code for this document
-
+### R code used in this document
 ```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
 ```
 
 ### Complete Rmd code
-
 ```{r comment=''}
 cat(readLines(fnamepath), sep = '\n')
 ```
+

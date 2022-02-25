@@ -1,23 +1,54 @@
 # Week 8 {#week8}
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-library(tidyverse)
-library(magrittr)
-library(knitr)
-library(kableExtra)
-library(haven)
-library(pdftools)
-library(curl)
-library(ggplot2)
+pacman::p_load(
+    tidyverse,
+    magrittr,
+    knitr,
+    kableExtra,
+    haven,
+    pdftools,
+    curl,
+    ggplot2,
+    captioner
+)
+
+table_nums <- captioner(prefix = "Table")
+figure_nums <- captioner(prefix = "Figure")
+
+# path to this file name
+if (!interactive()) {
+    fnamepath <- current_input(dir = TRUE)
+} else {
+    fnamepath <- ""
+}
 ```
 
 <h2>Topic: Add Health data: variable creation and scale scoring</h2>
 This week's lesson will provide more background on variable creation and scale scoring. The scale scoring exercise will be used to create a single variable that represents how well respondents did overall on a subset of questions.
 
-## Scale scoring
-We will be using data from the Knowledge Quiz. Download or open [21600-0001-Codebook_Questionnaire.pdf](http://staff.washington.edu/phurvitz/csde502_winter_2021/data/metadata/Wave1_Comprehensive_Codebook/21600-0001-Codebook_Questionnaire.pdf) in a new window or tab and go to page 203, or search for the string `H1KQ1A`.
+First, download the [template file](https://raw.githubusercontent.com/CSDE-UW/csde502-winter-2022/master/docs/files/template.Rmd) and save it in your course working folder as `week_08.Rmd`. Make changes to the title and author as you see fit. Also load the following packages:
 
-We will be using the file `AHwave1_v1.dta`, which is downloaded and read in the following code chunk, along with presentation of the column names, labels, and values.
+```
+pacman::p_load(
+    tidyverse,
+    magrittr,
+    knitr,
+    kableExtra,
+    haven,
+    pdftools,
+    curl,
+    ggplot2,
+    captioner
+)
+```
+
+## Scale scoring
+We will be using data from the Knowledge Quiz. Download or open [21600-0001-Codebook_Questionnaire.pdf](http://staff.washington.edu/phurvitz/csde502_winter_2021/data/metadata/Wave1_Comprehensive_Codebook/21600-0001-Codebook_Questionnaire.pdf) in a new window or tab and go to page 203, or search for the string `Section 19: Knowledge Quiz`.
+
+We will be using the file `AHwave1_v1.dta`, which is downloaded and read in the following code chunk, along with presentation of the column names, labels, and values in `r table_nums(name = "metadata", display = "cite")`.
+
+*`r table_nums(name = "metadata", caption = "Metadata for AHwave1_v1.dta")`*
 
 ```{r}
 dat <- haven::read_dta("http://staff.washington.edu/phurvitz/csde502_winter_2021/data/AHwave1_v1.dta")
@@ -44,7 +75,15 @@ DT::datatable(metadata)
 Questions `H1KQ1A`, `H1KQ2A`, ..., `H1KQ10A` are factual questions about contraception that are administered to participants $\ge$ age 15. We will be creating a single score that sums up all the correct answers across these questions for each participant $\ge$ age 15. Because the set of questions is paired, with question "a" being the factual portion and "b" being the level of confidence, we want only those questions with column names ending with "a".
 
 ### Selecting specific columns
-There are several ways of selecting the desired columns into a new data frame. Here is brute force approach:
+There are several ways of selecting the desired columns into a new data frame. There are two immediate objectives: filter for only those greater than 15 years of age, and select the desired columns.
+
+The age cutoff can be seen in the value labels, which show that responses to `H1KQ1a` of value `7` represent those who are less than 15 years old.
+
+```{r}
+attributes(dat$h1kq1a)$labels
+```
+
+Here is brute force approach to the filter and select:
 
 ```{r}
 # create a data frame of some columns and age >= 15
@@ -90,17 +129,20 @@ identical(mydat_bruteforce, mydat)
 
 Now that we have a data frame limited to the participants in the correct age range and only the questions we want, we need to set up tests for whether the questions were answered correctly or not. From the metadata we can see that for some questions, the correct answer was `(1) true` and for some, the correct answer was `(2) false`.
 
-We can scan through the questions in the metadata to create a vector of correct answers:
+We need to look at questions in the metadata to create a vector of correct answers. For example, in the PDF see that the correct answer for `H1KQ1A` was `(2) false`. 
 
 ```{r}
-# the correct answers
+# the correct answers from viewing the metadata
 correct <- c(2, 1, 2, 2, 2, 2, 2, 1, 2, 2) 
+
 # make a named vector of the answers using the selected column names
 names(correct) <- str_subset(string = names(mydat),
                              pattern = "h1kq.*a")
+
+print(correct)
 ```
 
-What we now need to do is compare this vector to a vector constructed of the answers in `mydat`. There are a few approaches that could be taken. A brute force approach could use a loop to iterate over each record in the answers, and for each record to iterate over each answer:
+What we now need to do is compare this vector to a vector constructed of the answers in `mydat`. There are a few approaches that could be taken. A brute force approach could use a loop to iterate over each record in the answers, and for each record to iterate over each answer. This would need to iterate over `nrow mydat` rows and `ncol(mydat)` - 1 columns.
 
 ```{r}
 # time this
@@ -153,6 +195,9 @@ ans_adply <- mydat %>%
     plyr::adply(.margins = 1, 
                 function(x) x == correct)
 
+# add the aid column
+ans_adply <- data.frame(aid = mydat$aid, ans_adply)
+
 t1 <- Sys.time()
 runtime_adply <- difftime(t1, t0, units = "secs") %>% as.numeric() %>% round(1)
 ```
@@ -161,7 +206,9 @@ The `adply()` version takes far less coding, but still took `r runtime_adply` s 
 
 Yet another different approach compares the data frame of participant answers to the vector of correct answers. The correct answers vector will get recycled until all values have been processed. The problem with this method is that the comparison runs down columns rather than across rows. 
 
-This demonstrates the problem. Table \@ref(tab:pat1vector) shows a pattern of "correct" values, and Table \@ref(tab:d1dataframe) shows a table of responses
+The following hypothetical data set demonstrates the problem. `r table_nums(name = "pat1vector", display = "cite")` shows a pattern of "correct" values, and `r table_nums(name = "d1dataframe", display = "cite")` shows a table of responses.
+
+*`r table_nums(name = "pat1vector", caption = 'A pattern of "correct" values')`*
 
 ```{r pat1vector}
 # make a pattern to match against
@@ -175,6 +222,7 @@ pat1 %>%
     kable_styling(full_width = FALSE, position = "left")
 ```
 
+*`r table_nums(name = "d1dataframe", caption = "A table of responses")`*
 ```{r d1dataframe}
 # make a data frame to process
 d1 <- cbind(rep(1, 3), rep(2, 3), rep(3,3), rep(4, 3)) %>% 
@@ -186,24 +234,27 @@ d1 %>%
     kable_styling(full_width = FALSE, position = "left")
 ```
 
-The pattern matches the first row of data (Table \@ref(tab:patmatchonerow))
+We can test whether the pattern of correct answers (`pat1`) matches the first row of data (`d1[1,]`). The first row of data seems to match: `r table_nums(name = "patmatchonerow", display = "cite")`. 
 
+*`r table_nums(name = "patmatchonerow", caption = "Matches for the first row")`*
 ```{r patmatchonerow}
 (pat1 == d1[1,]) %>% 
     kable(caption = "Matches for the first row") %>% 
     kable_styling(full_width = FALSE, position = "left")    
 ```
 
-The patterns do not match the overall table as might be expected (\@ref(tab:patmatchdfbad)). 
+Next we test whether the pattern matches the entire table (`d1 == pat1`). The patterns do not match the overall table as might be expected (`r table_nums(name = "patmatchdfbad", display = "cite")`). 
 
+*`r table_nums(name = "patmatchdfbad", caption = "Unexpected pattern matches")`*
 ```{r patmatchdfbad}
 (d1 == pat1) %>% 
     kable(caption = "Unexpected pattern matches") %>% 
     kable_styling(full_width = FALSE, position = "left")
 ```
 
-In order to match the pattern to each row, a transpose is required. The following code performs the transpose, pattern match, and re-transpose, with results in \@ref(tab:patmatchdfgood)
+In order to match the pattern to each row, a transpose is required. The following code performs the transpose, pattern match, and re-transpose, with results in `r table_nums(name = "patmatchdfgood", display = "cite")`.
 
+*`r table_nums(name = "patmatchdfgood", caption = "Expected pattern matches")`*
 ```{r patmatchdfgood}
 # transpose, check for matching and transpose back
 (d1 %>% t() == pat1) %>% 
@@ -231,6 +282,11 @@ ans_unlist %<>%
 # column names
 colnames(ans_unlist) <- names(correct)
 
+# aid
+ans_unlist %<>% 
+    mutate(aid = mydat$aid) %>% 
+    select(aid, everything())
+
 t1 <- Sys.time()
 runtime_unlist <- difftime(t1, t0, units = "secs") %>% as.numeric() %>% round(2)
 ```
@@ -250,7 +306,9 @@ z <- mydat %>%
 # compare, transpose, and make a data frame
 ans_tranpose <- (z == correct) %>% 
     t(.) %>% 
-    data.frame()
+    data.frame() %>% 
+    mutate(aid = mydat$aid) %>% 
+    select(aid, everything())    
 
 t1 <- Sys.time()
 runtime_transpose <- difftime(t1, t0, units = "secs") %>% as.numeric() %>% round(2)
@@ -258,7 +316,42 @@ runtime_transpose <- difftime(t1, t0, units = "secs") %>% as.numeric() %>% round
 
 This method took `r runtime_transpose` s to complete.
 
-The final and most direct method uses `base::sweep()`, which can be used to compare a vector against all rows or columns in a data frame. In order to use this function, the data frame needs to have the same number of rows (or columns) as the comparison vector. So any additional rows or columns need to be stripped. Because we may have additional columns (e.g., `aid`), those must be removed before running `sweep()`, then added back in again. Additionally, the result of `sweep()` is a matrix, so it needs to be converted to a data frame for greater functionality.
+Finally, we will use a `tidyverse` approach, using `pmap()` from `purrr`. The commands will be shown as a series where each step is demonstrated separately. First we use `pmap(~c(...))` which effectively creates a list where each element is a the vector of answers from a single row, i.e., each list element is the responses from a single participant. Here we drop the `aid` column because it is not present in the correct answers. Also a `head()` will run on only the first 6 rows.
+
+```{r}
+mydat %>% 
+    select(-aid) %>% 
+    head() %>% 
+    pmap(~c(...))
+```
+
+We then use `pmap(~c(...)==correct)` to compare each participant's answers against the `correct` answers, resulting in a list where each element is whether the participant's answers were correct (also running on only the first 6 records).
+
+```{r}
+mydat %>% 
+    select(-aid) %>% 
+    head() %>% 
+    pmap(~c(...)==correct)
+```
+
+To wrap things up, we run on the entire data set, converting the output to a matrix.
+
+```{r}
+t0 <- Sys.time()
+ans_pmap <- mydat %>% 
+    select(-aid) %>% 
+    pmap(~c(...)==correct) %>% 
+    do.call("rbind", .) %>% 
+    data.frame()
+# column names from mydat without the "aid" column
+names(ans_pmap) <- names(mydat)[2:ncol(mydat)]
+t1 <- Sys.time()
+runtime_pmap <- difftime(t1, t0, units = "secs") %>% as.numeric() %>% round(3)
+```
+
+The `pmap()` method took `r runtime_pmap` seconds to run, not much better that the other methods.
+
+Finally, we will use the `base::sweep()` method, which can be used to compare a vector against all rows or columns in a data frame. In order to use this function, the data frame needs to have the same number of rows (or columns) as the comparison vector. So any additional rows or columns need to be stripped. Because we may have additional columns (e.g., `aid`), those must be removed before running `sweep()`, then added back in again. Additionally, the result of `sweep()` is a matrix, so it needs to be converted to a data frame for greater functionality.
 
 ```{r}
 t0 <- Sys.time()
@@ -275,10 +368,27 @@ runtime_sweep <- difftime(t1, t0, units = "secs") %>% as.numeric() %>% round(3)
 
 The `sweep()` method took `r runtime_sweep` s.
 
-We should check that the methods all gave identical answers.
+We should check that the methods all gave identical answers. This compares `ans_loop` with each of the outputs of the other methods (`r table_nums(name = "runtimes", display = "cite")`). The exercise is intended to show that there are frequently many different ways to achieve the same end goal, and some methods are more efficient than others. One can always take a subset of data and test different methods for the fastest run times before running a time-consuming process on a complete data set.
+
+*`r table_nums(name = "runtimes", caption = "Run times of row-matching to correct answers")`*
 
 ```{r}
-Vectorize(identical, 'x')(list(ans_loop, ans_adply, ans_tranpose, ans_unlist), ans_loop)
+# make a data frame summarizing the results of each method
+# methods
+method <- c("loop", "adply", "transpose", "unlist", "pmap")
+# run times
+run_time <- c(runtime_loop, runtime_adply, runtime_transpose, runtime_unlist, runtime_pmap) %>% round(2)
+# comparisons
+match <- Vectorize(identical, 'x')(list(ans_loop, ans_adply, ans_tranpose, ans_unlist, ans_pmap), ans_loop)
+
+# a single data frame
+comparisons <- data.frame(method, run_time, match) %>% 
+    arrange(run_time)
+
+# print
+comparisons %>% 
+    kable() %>% 
+    kable_styling(full_width = FALSE, position = "left") 
 ```
 
 ### Scoring across columns{#scoring-across-columns}
@@ -299,7 +409,7 @@ ans_loop %<>%
 To show differences in total score by sex, we can join the main data back using the `aid` identifier and create a simple graph. Figure \@ref(fig:hist) shows that more females than males had overall higher counts of correct scores on the Knowledge Quiz. 
 
 
-```{r hist, fig.cap="Histogram of count of correct answers on Knowledge Quiz stratified by sex of respondent"}
+```{r hist, fig.cap="Histogram of count of correct answers on Knowledge Quiz stratified by sex of respondent", warning=FALSE}
 ans_loop %<>% 
     left_join(dat, by = "aid") %>% 
     mutate(
@@ -310,11 +420,12 @@ ans_loop %<>%
     )
 
 ggplot(data = ans_loop, mapping = aes(x = h1kqNa_sum))+
-    geom_histogram(stat = "count") +
+    geom_bar() +
     facet_grid(sex ~ .) + 
     xlab("correct answers on Knowledge Quiz") +
     scale_x_continuous(breaks=0:10)
 ```
+
 
 
 ## Reordering values
@@ -324,9 +435,9 @@ Sometimes variables are provided in the reverse order of what you might want. Fo
 attributes(dat$h1kq1b)$labels %>% t() %>% t() %>% data.frame()
 ```
 
-To come up with a scale score for these, it would be better to have `Very` valued as a `4` and `Not at all` as a `1` so that row-wise sums would yield higher values for those who were more confident in many answers. One could use the existing values, but then the interpretation of an overall confidence score might be difficult, with the most confidence for the lowest overall score.
+To come up with a scale score for these, it would be better to have `Very` valued as a `4` and `Not at all` as a `1` so that row-wise sums would yield higher values for those who were more confident in many answers (ignoring answers that cannot be scaled, i.e., refused, skipped, don't know, not applicable). One could use the existing values, but then the interpretation of an overall confidence score might be difficult, with the most confidence for the lowest overall score.
 
-Changing these values is quite straightforward. The `case_when()` function can be used:
+Changing these values is quite straightforward. The `case_when()` function can be used. `case_when()` uses the structure `var == input_value ~ output_value`, where `var` is the column name, `input_value` is the selected value, and `output_value` is the reassigned value. Any additional cases that were not addressed specifically can be handled with `TRUE ~ output_value`.
 
 ```{r}
 # for comparison, make a backup data frame
@@ -346,54 +457,73 @@ dat %<>%
                )
 ```
 
-It is a bit more awkward to deal with multiple columns. One might be tempted to use a brute force method by copy/paste/edit but using the `mutate_at()` function can help through the use of regular expression pattern matching for column names. The same function will be performed on multiple columns. Here we use a similar regular expression to find the columns representing confidence in answers to the Knowledge Quiz (`h1kq.*b`). The use of the dot (`.`) is shorthand for "the current object" which in this case is the specified column.
+Let's see what these values look like now. The first records before reordering:
+
+```{r}
+head(datbak$h1kq1b)
+```
+
+... and the first few records after reordering:
+
+```{r}
+head(dat$h1kq1b)
+```
+
+It is a bit more awkward to perform this kind of reordering operation on multiple columns. One might be tempted to use a brute force method by copy/paste/edit to have a large set of `case_when()` functions for each column, but this would be tedious and error-prone. 
+
+Using the `mutate_at()` function can help through the use of regular expression pattern matching for column names. The same function will be performed on multiple columns. Here we use a similar regular expression to find the columns representing confidence in answers to the Knowledge Quiz (`h1kq.*b` = "starts with `h1kq`, then has any numbner of characters, then has a `b`") to perform the operation on any columns with names matching the regular expression pattern. The use of the dot (`.`) is shorthand for "the current object" which in this case is the specified column in a virtual loop over columns matching in name with the pattern. 
 
 ```{r, warning=FALSE}
 dat2 %<>% 
     mutate_at(.vars = vars(matches("h1kq.*b")),
-              funs(
-                  case_when(
+             list(
+                  ~case_when(
                       . == 4 ~ 1,
                       . == 3 ~ 2,
                       . == 2 ~ 3,
                       . == 1 ~ 4,
                       TRUE ~ as.numeric(.)
                   )
-              )
+             )   
     )
 ```
 
-For the sake of comparison to show that the single bit of code acted on multiple columns:
+For the sake of comparison to show that the single bit of code acted on multiple columns. Two variables are shown in `r table_nums(name = "reordering", display = "cite")`, with the frequencies of the original confidence values (`orig`) and the reordered confidence values (`modified`).
 
 ```{r}
 orig1 <- table(datbak$h1kq1b) %>% data.frame()
 
-mod1 <- table(dat2$h1kq1b) %>% data.frame()
+mod1 <- table(dat$h1kq1b) %>% data.frame()
 
 orig2 <- table(datbak$h1kq2b) %>% data.frame()
 
-mod2 <- table(dat2$h1kq2b) %>% data.frame()
+mod2 <- table(dat$h1kq2b) %>% data.frame()
+```
 
-cbind(orig1, mod1, orig2, mod2) %>% 
+*`r table_nums(name = "reordering", caption = "Confidence in correctness of answer")`*
+```{r}
+reordered <- cbind(orig1, mod1, orig2, mod2)
+
+reordered %>% 
     kable() %>% 
     kable_styling(full_width = FALSE, position = "left") %>% 
     add_header_above(rep(c("original" = 2, "modified" = 2), 2)) %>% 
     add_header_above(c("h1kq1b" = 4, "h1kq2b" = 4))
-
-# too many unique combinations!
-# dat2 %>% 
-#     group_by_at(vars(matches("h1kq.*b"))) %>% 
-#     dplyr::summarise(n = n())
 ```
 
-Now that the values are reordered, they can be used in multiple-column scale scoring as demonstrated above.
+For example, the original value of `1` had a count of `r reordered[1,2]` but the transformed value is `4` with the same count. Now that the values are reordered, they can be used in multiple-column scale scoring as demonstrated above.
 
 <hr>
 Rendered at <tt>`r Sys.time()`</tt>
 
-<h4>Source code for this document</h4>
-[08-week08.Rmd](08-week08.Rmd)
+## Source code
+File is at `r fnamepath`.
 
+### R code used in this document
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+```
+
+### Complete Rmd code
 ```{r comment=''}
-cat(readLines(con = "08-week08.Rmd"), sep = '\n')
+cat(readLines(fnamepath), sep = '\n')
 ```
