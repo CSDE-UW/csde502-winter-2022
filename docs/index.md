@@ -1,7 +1,7 @@
 --- 
 title: "UW CSDE 502 A Course Notes"
 author: "Phil Hurvitz"
-date: '2022-02-24 23:24'
+date: '2022-03-04 00:41'
 site: bookdown::bookdown_site
 description: "These are the course notes for Proseminar Winter 2022 (CSDE 502 A) at the University of Washington."
 
@@ -247,10 +247,37 @@ This web site was built in R using Rmarkdown and [bookdown](https://cran.r-proje
 <h4>Source code for this document</h4>
 Each of the pages in this book will have a section at the bottom including a link to the source file and the printed source code for the page.
 
-Rendered: 2022-02-24 23:24:04
 
-Source code: [index.Rmd](index.Rmd)
+<hr>
+Rendered at <tt>2022-03-04 00:41:57</tt>
 
+## Source code
+File is at H:/csde502-winter-2022-main/index.Rmd.
+
+### R code used in this document
+
+```r
+library(dplyr)
+library(emo)
+library(knitr)
+library(magrittr)
+library(scales)
+library(tibble)
+
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE)
+
+year <- Sys.Date() %>% format("%Y")
+syllabus <- paste0("files/csde502_syllabus_", year, ".pdf")
+syllabusdocx <- paste0("files/csde502_syllabus_", year, ".docx")
+
+# path to this file name
+if (!interactive()) {
+    fnamepath <- current_input(dir = TRUE)
+}
+cat(readLines(fnamepath), sep = '\n')
+```
+
+### Complete Rmd code
 
 ````
 --- 
@@ -279,6 +306,11 @@ knitr::opts_chunk$set(echo = FALSE, cache = TRUE)
 year <- Sys.Date() %>% format("%Y")
 syllabus <- paste0("files/csde502_syllabus_", year, ".pdf")
 syllabusdocx <- paste0("files/csde502_syllabus_", year, ".docx")
+
+# path to this file name
+if (!interactive()) {
+    fnamepath <- current_input(dir = TRUE)
+}
 ```
 
 
@@ -515,11 +547,20 @@ This web site was built in R using Rmarkdown and [bookdown](https://cran.r-proje
 <h4>Source code for this document</h4>
 Each of the pages in this book will have a section at the bottom including a link to the source file and the printed source code for the page.
 
-Rendered: `r Sys.time()`
 
-Source code: [index.Rmd](index.Rmd)
+<hr>
+Rendered at <tt>`r Sys.time()`</tt>
 
-```{r sourcecode_intro, comment='', echo=FALSE}
-cat(readLines("index.Rmd"), sep = "\n")
+## Source code
+File is at `r fnamepath`.
+
+### R code used in this document
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+```
+
+### Complete Rmd code
+```{r comment=''}
+cat(readLines(fnamepath), sep = '\n')
 ```
 ````
+

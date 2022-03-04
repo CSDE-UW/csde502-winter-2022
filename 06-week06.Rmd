@@ -561,7 +561,10 @@ f_pdf_str_match <- function(x, pat, ignore.case = TRUE){
 }
 
 # a list of my PDFs
-mypdfs <- list.files(path = "data/metadata/Wave1_InHome_Codebooks", pattern = "*.pdf$", full.names = TRUE)
+mypdfs <- list.files(path = "data/metadata/Wave1_InHome_Codebooks", 
+                     pattern = "*.pdf$", 
+                     ignore.case = TRUE,
+                     full.names = TRUE)
 
 # an empty data frame
 x <- NULL
