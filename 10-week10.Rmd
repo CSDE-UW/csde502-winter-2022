@@ -156,7 +156,7 @@ if(is_html_output()){
 }
 ```
 
-And to include a leaflet map"
+And to include a leaflet map:
 
 ```{md}
 if(is_html_output()){

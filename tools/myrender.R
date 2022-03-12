@@ -1,3 +1,6 @@
+t0 <- Sys.time()
 setwd("R:/Project/CSDE502/2022/csde502-winter-2022-main/")
 bookdown::render_book(input = "index.Rmd", clean = TRUE)
-
+t1 <- Sys.time()
+elapsed <- round(difftime(t1, t0, units = "mins"),2)
+message(paste(elapsed, "minutes to render"))
