@@ -224,9 +224,12 @@ running-system-commands
 code-styling
 session-information
 commenting-out-rmdhtml-code
+<<<<<<< HEAD
 source-code-9
 r-code-used-in-this-document-9
 complete-rmd-code-9
+=======
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8
 week10
 r-markdown-to-microsoft-word
 r-markdown-output
@@ -241,6 +244,12 @@ complete-rmd-code-10
 assignment_files
 r-markdown-template
 assignment-1
+<<<<<<< HEAD
 source-code-11
 source-code-for-this-document
 complete-rmd-code-11
+=======
+source-code-9
+source-code-for-this-document
+complete-rmd-code-9
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8

@@ -14,7 +14,11 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 1 Week 1 | UW CSDE 502 A Course Notes">
 <meta name="twitter:description" content="Topics:  Getting started on terminal server 4 Introduction to R/RStudio/R Markdown R data types R data structures File systems Data manipulation in the tidyverse Data sets: Employee turnover data...">
+<<<<<<< HEAD
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.13/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+=======
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.12/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
@@ -222,7 +226,11 @@ Topics:
 <p>You will encounter other data types, such as <code>Date</code> or <code>POSIXct</code> if you are working with dates or time stamps. These other data types are extensions of the fundamental data types.</p>
 <p>To determine what data type an object is, use <code>is(obj)</code>, <code>str(obj)</code>, or <code>class(obj)</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<<<<<<< HEAD
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/methods/is.html">is</a></span><span class="op">(</span><span class="st">"a"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+=======
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu">is</span><span class="op">(</span><span class="st">"a"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8
 <pre><code>## [1] "character"           "vector"              "data.frameRowLabels"
 ## [4] "SuperClassMethod"</code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -498,7 +506,11 @@ Topics:
 <p>R lists are ordered collections of objects that do not need to be of the same data type. Those objects can be single-value vectors, multiple-value vectors, matrices, data frames, other lists, etc. Because of this, lists are a very flexible data type. But because they can have as little or as much structure as you want, can become difficult to manage and analyze.</p>
 <p>Here is an example of a list comprised of single value vectors of different data type. Compare this with the attempt to make a vector comprised of elements of different data type:</p>
 <div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<<<<<<< HEAD
 <code class="sourceCode R"><span class="op">(</span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gsubfn/man/list.html">list</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="fl">1</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+=======
+<code class="sourceCode R"><span class="op">(</span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="fl">1</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8
 <pre><code>## [[1]]
 ## [1] "a"
 ## 
@@ -509,7 +521,11 @@ Topics:
 ## [1] TRUE</code></pre>
 <p>Let’s modify that list a bit:</p>
 <div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<<<<<<< HEAD
 <code class="sourceCode R"><span class="op">(</span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gsubfn/man/list.html">list</a></span><span class="op">(</span><span class="st">"a"</span>, 
+=======
+<code class="sourceCode R"><span class="op">(</span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"a"</span>, 
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8
            <span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, 
            <span class="fu"><a href="https://rdrr.io/r/base/logical.html">as.logical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [[1]]
@@ -763,7 +779,11 @@ Optimally when you look at your file names, you will be able to know something a
 <pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># character test (actually a factor)</span>
+<<<<<<< HEAD
 <span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">imonth</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span>collapse <span class="op">=</span> <span class="st">", "</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+=======
+<span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">imonth</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">str_c</span><span class="op">(</span>collapse <span class="op">=</span> <span class="st">", "</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8
 <pre><code>## [1] "(6) June, (5) May, (6) June, (7) July, (7) July, (6) June"</code></pre>
 <div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">imonth</span> <span class="op">==</span> <span class="st">"(6) June"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -833,7 +853,11 @@ Optimally when you look at your file names, you will be able to know something a
 <div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># first 20 records, fist 10 columns</span>
 <span class="va">dat_sub</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
+<<<<<<< HEAD
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">dat_sub</span>, format <span class="op">=</span> <span class="st">"html"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></code></pre></div>
+=======
+<span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">dat_sub</span>, format <span class="op">=</span> <span class="st">"html"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></code></pre></div>
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8
 <div class="inline-table"><table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; ">
 <thead><tr>
 <th style="text-align:left;">
@@ -1936,7 +1960,11 @@ h1gi5b
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>birth_1st_half <span class="op">=</span> <span class="op">(</span><span class="va">birth_month</span> <span class="op">&lt;</span> <span class="st">"(7) July"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+<<<<<<< HEAD
     <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></code></pre></div>
+=======
+    <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></code></pre></div>
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8
 <div class="inline-table"><table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; ">
 <thead><tr>
 <th style="text-align:left;">
@@ -2429,7 +2457,11 @@ FALSE
     
 <span class="co"># print</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">dat_1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+<<<<<<< HEAD
     <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></code></pre></div>
+=======
+    <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></code></pre></div>
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8
 <div class="inline-table"><table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; ">
 <thead><tr>
 <th style="text-align:left;">
@@ -2843,7 +2875,11 @@ last
 
 <span class="co"># print</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">dat_1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+<<<<<<< HEAD
     <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></code></pre></div>
+=======
+    <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></code></pre></div>
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8
 <div class="inline-table"><table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; ">
 <thead><tr>
 <th style="text-align:left;">
@@ -3365,9 +3401,15 @@ last
 <p>A simple summary will tabulate the count of respondents and the mean age. The filter <code>! str_detect(h1gi1y, "Refused")</code> drops records from respondents who refused to give their birth year.</p>
 <div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+<<<<<<< HEAD
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">h1gi1y</span>, <span class="st">"Refused"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>yeari <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">iyear</span>, <span class="st">".* "</span>, <span class="st">""</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span>,
            yearb <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">h1gi1y</span>, <span class="st">".* "</span>, <span class="st">""</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+=======
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span> <span class="fu">str_detect</span><span class="op">(</span><span class="va">h1gi1y</span>, <span class="st">"Refused"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>yeari <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">iyear</span>, <span class="st">".* "</span>, <span class="st">""</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span>,
+           yearb <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">h1gi1y</span>, <span class="st">".* "</span>, <span class="st">""</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,
               mean_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">yeari</span> <span class="op">-</span> <span class="va">yearb</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>##      n mean_age
@@ -3375,9 +3417,15 @@ last
 <p>Here we will summarize age by sex using the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> function, and also piping to <code>prop_table()</code> to get the percentage:</p>
 <div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+<<<<<<< HEAD
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">h1gi1y</span>, <span class="st">"Refused"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>yeari <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">iyear</span>, <span class="st">".* "</span>, <span class="st">""</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span>,
            yearb <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">h1gi1y</span>, <span class="st">".* "</span>, <span class="st">""</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+=======
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span> <span class="fu">str_detect</span><span class="op">(</span><span class="va">h1gi1y</span>, <span class="st">"Refused"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>yeari <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">iyear</span>, <span class="st">".* "</span>, <span class="st">""</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span>,
+           yearb <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">h1gi1y</span>, <span class="st">".* "</span>, <span class="st">""</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">bio_sex</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">yeari</span> <span class="op">-</span> <span class="va">yearb</span><span class="op">)</span>,
               sd_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">yeari</span> <span class="op">-</span> <span class="va">yearb</span><span class="op">)</span>,
@@ -3442,7 +3490,11 @@ last
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">gender</span>, <span class="va">mean_tenure_months</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
     <span class="co"># print it nicely</span>
     <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+<<<<<<< HEAD
     <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+=======
+    <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8
 <div class="inline-table"><table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
@@ -3602,14 +3654,22 @@ m
 </tbody>
 </table></div>
 <hr>
+<<<<<<< HEAD
 <p>Rendered at <tt>2022-03-11 16:02:58</tt></p>
+=======
+<p>Rendered at <tt>2022-03-04 00:42:04</tt></p>
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8
 </div>
 </div>
 <div id="source-code-1" class="section level2" number="1.8">
 <h2>
 <span class="header-section-number">1.8</span> Source code<a class="anchor" aria-label="anchor" href="#source-code-1"><i class="fas fa-link"></i></a>
 </h2>
+<<<<<<< HEAD
 <p>File is at CSDE-TS1: R:/Project/CSDE502/2022/csde502-winter-2022-main/01-week01.Rmd.</p>
+=======
+<p>File is at H:/csde502-winter-2022-main/01-week01.Rmd.</p>
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8
 <div id="r-code-used-in-this-document-1" class="section level3" number="1.8.1">
 <h3>
 <span class="header-section-number">1.8.1</span> R code used in this document<a class="anchor" aria-label="anchor" href="#r-code-used-in-this-document-1"><i class="fas fa-link"></i></a>
@@ -4925,7 +4985,11 @@ Topics:
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
+<<<<<<< HEAD
     <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-03-11 16:02.</p>
+=======
+    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-03-04 00:41.</p>
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8
   </div>
 
   <div class="col-12 col-md-6 mt-3">

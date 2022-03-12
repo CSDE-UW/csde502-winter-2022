@@ -209,6 +209,8 @@ A text-based progress bar can be shown using the `txtProgressBar()`. Here we run
 
 It is generally not recommended to put a progress bar in an R Markdown document since the output is usually read as a static file. However, progress bars may be helpful in `shiny` R Markdown documents if a process will take longer than a few seconds.
 
+It is generally not recommended to put a progress bar in an R Markdown document since the output is usually read as a static file. However, progress bars may be helpful in `shiny` R Markdown documents if a process will take longer than a few seconds.
+
 ```{r}
 n_fnames <- length(fnames)
 # create progress bar
@@ -230,9 +232,15 @@ For other implementations of progress bars, see [progress: Terminal Progress Bar
 
 ## Turning text into code: `eval(parse(text = "some string"))`
 Sometimes you may have variables whose values that you want to use in a command or function. For example, suppose you wanted to write a set of files, one for each ZIP code in a data frame, with a file name including the ZIP code. We would not want to use the column name `zipcode`, but we want the actual values in the column. 
+<<<<<<< HEAD
 
 We can generate a string that represents a command using the same kind of text substitution as above with `sprintf()`. The loop processes each ZIP code record, `pull()`ing the ZIP code value at each iteration. A `write.csv()` command is generated for each iteration, setting the output file name to include the current iteration's ZIP code.
 
+=======
+
+We can generate a string that represents a command using the same kind of text substitution as above with `sprintf()`. The loop processes each ZIP code record, `pull()`ing the ZIP code value at each iteration. A `write.csv()` command is generated for each iteration, setting the output file name to include the current iteration's ZIP code.
+
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8
 Finally, the last step in each iteration is `eval(parse(text = cmd))` which executes the `cmd` string as a command.
 
 ```{r}
@@ -382,6 +390,7 @@ t1 <- Sys.time()
 ```
 
 `difftime()` can also be forced to report the time difference in the units of choice. Here is the `difftime()` from the 5-second delay we created above:
+<<<<<<< HEAD
 
 ```{r}
 (difftime(time1 = t1, time2 = t0, units = "secs") %>% 
@@ -410,6 +419,36 @@ t1 <- Sys.time()
 In order to report intervals as years, use `lubridate::time_length()`:
 
 ```{r}
+=======
+
+```{r}
+(difftime(time1 = t1, time2 = t0, units = "secs") %>% 
+     as.numeric()) %>% round(0)
+(difftime(time1 = t1, time2 = t0, units = "mins") %>% 
+        as.numeric()) %>% round(2)
+(difftime(time1 = t1, time2 = t0, units = "hours") %>% 
+        as.numeric()) %>% round(4)
+(difftime(time1 = t1, time2 = t0, units = "days") %>% 
+        as.numeric()) %>% round(6)
+```
+
+... and the time since the Eagle had landed to now:
+
+```{r}
+(difftime(time1 = t1, time2 = eagle, units = "secs") %>% 
+     as.numeric())
+(difftime(time1 = t1, time2 = eagle, units = "mins") %>% 
+        as.numeric())
+(difftime(time1 = t1, time2 = eagle, units = "hours") %>% 
+        as.numeric())
+(difftime(time1 = t1, time2 = eagle, units = "days") %>% 
+        as.numeric())
+```
+
+In order to report intervals as years, use `lubridate::time_length()`:
+
+```{r}
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8
 (time_length(x = difftime(time1 = t1, time2 = eagle), unit = "years") %>% 
         as.numeric() %>% round(1))
 ```

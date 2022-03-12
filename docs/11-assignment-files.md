@@ -15,7 +15,11 @@ For weekly lessons: [template.Rmd](files/template.Rmd).
 [file_naming.Rmd](files/file_naming.Rmd)
 
 <hr>
+<<<<<<< HEAD
 Rendered at <tt>2022-03-11 16:07:56</tt>
+=======
+Rendered at <tt>2022-03-04 00:46:44</tt>
+>>>>>>> 30102f5ff2370c3a3ecdf20f2626c3c01ac56fe8
 
 ## Source code
 File is at R:/Project/CSDE502/2022/csde502-winter-2022-main/11-assignment-files.Rmd.

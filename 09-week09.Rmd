@@ -209,6 +209,8 @@ A text-based progress bar can be shown using the `txtProgressBar()`. Here we run
 
 It is generally not recommended to put a progress bar in an R Markdown document since the output is usually read as a static file. However, progress bars may be helpful in `shiny` R Markdown documents if a process will take longer than a few seconds.
 
+It is generally not recommended to put a progress bar in an R Markdown document since the output is usually read as a static file. However, progress bars may be helpful in `shiny` R Markdown documents if a process will take longer than a few seconds.
+
 ```{r}
 n_fnames <- length(fnames)
 # create progress bar
