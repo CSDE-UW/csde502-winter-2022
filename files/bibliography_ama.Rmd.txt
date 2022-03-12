@@ -67,6 +67,14 @@ knitr::knit_hooks$set(class = function(before, options, envir) {
 })
 
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+
+# path to this file name
+if (!interactive()) {
+    fnamepath <- current_input(dir = TRUE)
+    fnamestr <- paste0(Sys.getenv("COMPUTERNAME"), ": ", fnamepath)
+} else {
+    fnamepath <- ""
+}
 ```
 
 <!-- for a wide presentation -->
@@ -139,7 +147,18 @@ For this document, because the source code should be printed after the reference
 
 <div id="refs"></div>
 
-<h2>Source code</h2>
-```{r, comment='', echo=FALSE}
-cat(readLines("bibliography_ama.Rmd"), sep = '\n')
+<hr>
+Rendered at <tt>`r Sys.time()`</tt>
+
+# Source code
+File is at `r fnamestr`.
+
+## R code used in this document
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
 ```
+
+## Complete Rmd code
+```{r comment=''}
+cat(readLines(fnamepath), sep = '\n')
+```
+

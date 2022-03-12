@@ -16,6 +16,9 @@ figure_nums <- captioner(prefix = "Figure")
 # path to this file name
 if (!interactive()) {
     fnamepath <- current_input(dir = TRUE)
+    fnamestr <- paste0(Sys.getenv("COMPUTERNAME"), ": ", fnamepath)
+} else {
+    fnamepath <- ""
 }
 ```
 
@@ -540,7 +543,7 @@ _`r figure_nums(name = "tracts_nowater_qgis", caption = "King County census trac
 Rendered at <tt>`r Sys.time()`</tt>
 
 ## Source code
-File is at `r fnamepath`.
+File is at `r fnamestr`.
 
 ### R code used in this document
 ```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}

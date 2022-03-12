@@ -6,19 +6,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 10 Week 10 | UW CSDE 502 A Course Notes</title>
 <meta name="author" content="Phil Hurvitz">
-<meta name="description" content="Topic: Odds and ends  This week’s lesson will cover some additional R odds and ends.  10.1 R Markdown to Microsoft Word Microsoft Word (“Word”), is used widely to document research. Because of its...">
+<meta name="description" content="Topic: Odds and ends  This week’s lesson will cover some additional R odds and ends. Download template.Rmd.txt as a template for this lesson. Save in in your working folder for the course, renamed...">
 <meta name="generator" content="bookdown 0.24.4 with bs4_book()">
 <meta property="og:title" content="Chapter 10 Week 10 | UW CSDE 502 A Course Notes">
 <meta property="og:type" content="book">
-<meta property="og:description" content="Topic: Odds and ends  This week’s lesson will cover some additional R odds and ends.  10.1 R Markdown to Microsoft Word Microsoft Word (“Word”), is used widely to document research. Because of its...">
+<meta property="og:description" content="Topic: Odds and ends  This week’s lesson will cover some additional R odds and ends. Download template.Rmd.txt as a template for this lesson. Save in in your working folder for the course, renamed...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 10 Week 10 | UW CSDE 502 A Course Notes">
-<meta name="twitter:description" content="Topic: Odds and ends  This week’s lesson will cover some additional R odds and ends.  10.1 R Markdown to Microsoft Word Microsoft Word (“Word”), is used widely to document research. Because of its...">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="twitter:description" content="Topic: Odds and ends  This week’s lesson will cover some additional R odds and ends. Download template.Rmd.txt as a template for this lesson. Save in in your working folder for the course, renamed...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.13/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="libs/datatables-binding-0.20/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.21/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
 <script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
@@ -26,7 +26,7 @@
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS -->
+<script src="libs/leaflet-binding-2.1.0/leaflet.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS -->
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -76,6 +76,7 @@ Topic: Odds and ends
 <a class="anchor" aria-label="anchor" href="#week10"><i class="fas fa-link"></i></a>
 </h2>
 <p>This week’s lesson will cover some additional R odds and ends.</p>
+<p>Download <a href="files/template.Rmd.txt">template.Rmd.txt</a> as a template for this lesson. Save in in your working folder for the course, renamed to <code>week_10.Rmd</code> (with no <code>.txt</code> extension). Make any necessary changes to the YAML header.</p>
 <div id="r-markdown-to-microsoft-word" class="section level2" number="10.1">
 <h2>
 <span class="header-section-number">10.1</span> R Markdown to Microsoft Word<a class="anchor" aria-label="anchor" href="#r-markdown-to-microsoft-word"><i class="fas fa-link"></i></a>
@@ -153,7 +154,7 @@ output:
     word_document: default
 ---</code></pre>
 <p>The RStudio interface will present the listed choices in the <code>Knit</code> pick list in the GUI, so the desired output format can be selected interactively:</p>
-<div class="inline-figure"><img src="../images/week03/20210124_010442-C__Users_phurvitz_OneDrive_uw_courses_csde502_csde502_winter_2021_course%20-%20RStud.png" class="border1"></div>
+<div class="inline-figure"><img src="images/week10/2022-03-11%2013_20_25-R__Project_CSDE502_2022_csde502-winter-2022-main%20-%20master%20-%20RStudio.png"></div>
 <p>Other supported outputs can be created, including those that are not listed in the YAML header by specifying the output format in the <code>render()</code> function, e.g. to create a <a href="https://www.w3.org/Talks/Tools/Slidy2/#(1)">Slidy</a> presentation:</p>
 <pre><code>rmarkdown::render(input = "input_filename.Rmd", output_format = "slidy_presentation")</code></pre>
 <p>To render a PDF file, use e.g.,</p>
@@ -170,11 +171,10 @@ output:
 <div class="inline-figure"><img src="images/week03/20210124_191706-output_type_test.pdf%20-%20%5BR%20Markdown%20Output%20Type%20Test%5D%20-%20SumatraPDF.png"></div>
 <p>There appears to be no similar test for MS Word output, so for creating Word documents from Rmd files, it is suggested to create the Rmd from scratch with the intention of creating only Word output.</p>
 </div>
-</div>
-<div id="advantages-and-disadvantages-of-pdf" class="section level2" number="10.3">
-<h2>
-<span class="header-section-number">10.3</span> Advantages and disadvantages of PDF<a class="anchor" aria-label="anchor" href="#advantages-and-disadvantages-of-pdf"><i class="fas fa-link"></i></a>
-</h2>
+<div id="advantages-and-disadvantages-of-pdf" class="section level3" number="10.2.3">
+<h3>
+<span class="header-section-number">10.2.3</span> Advantages and disadvantages of PDF<a class="anchor" aria-label="anchor" href="#advantages-and-disadvantages-of-pdf"><i class="fas fa-link"></i></a>
+</h3>
 <p>Portable document format (PDF) has a number of advantages:</p>
 <ol style="list-style-type: decimal">
 <li>Document formatting is maintained. Font face and positioning of elements is consistent. When some other formats are shared (e.g., MS Word), formatting is inconsistent.</li>
@@ -185,14 +185,17 @@ output:
 <li>Multiple different elements can be included (text, images, tables).</li>
 <li>The format has stood the test of time, having been introduced 1993. The standard was opened in 2008, allowing developers to create PDF outputs. This has led to PDF being the standard for fixed-format documents.</li>
 </ol>
-<p>The disadvantages:
-1. Direct editing of PDF files is not straightforward (usually requires dedicated software), and often results in undesired layout changes. Therefore this is not a good format for collaborative editing.
-1. Copy-and-paste from PDF often results in missing or extra spaces or strange characters.
-1. R functions that produce HTML output cannot be used in PDF outputs.</p>
+<p>The disadvantages:</p>
+<ol style="list-style-type: decimal">
+<li>Direct editing of PDF files is not straightforward (usually requires dedicated software), and often results in undesired layout changes. Therefore this is not a good format for collaborative editing.</li>
+<li>Copy-and-paste from PDF often results in missing or extra spaces or strange characters.</li>
+<li>R functions that produce HTML output cannot be used in PDF outputs.</li>
+</ol>
 </div>
-<div id="bibliography-in-r-markdown" class="section level2" number="10.4">
+</div>
+<div id="bibliography-in-r-markdown" class="section level2" number="10.3">
 <h2>
-<span class="header-section-number">10.4</span> Bibliography in R Markdown<a class="anchor" aria-label="anchor" href="#bibliography-in-r-markdown"><i class="fas fa-link"></i></a>
+<span class="header-section-number">10.3</span> Bibliography in R Markdown<a class="anchor" aria-label="anchor" href="#bibliography-in-r-markdown"><i class="fas fa-link"></i></a>
 </h2>
 <p>The <code>pandoc</code> engine that performs document conversion can generate bibliographies. See <a href="https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html">Bibliographies and Citations</a> for detailed information.</p>
 <p>For this exercise, we will be using <span class="math inline">\({B\kern-0.1emi\kern-0.017emb}\kern-0.15em\TeX\)</span> formatted references.</p>
@@ -208,22 +211,62 @@ csl: biomed-central.csl
 <p>When citations are made to references, the corresponding record will be automatically added to the end of the document.</p>
 <p>For examples of syntax for both APA-like and AMA-like references and bibliographies, see the files</p>
 <ul>
-<li>APA: <a href="files/bibliography.html">HTML</a>; <a href="files/bibliography.Rmd">Rmd</a>
+<li>APA: <a href="files/bibliography.html">HTML</a>; <a href="files/bibliography.Rmd.txt">Rmd</a>
 </li>
-<li>AMA: <a href="files/bibliography_ama.html">HTML</a>; <a href="files/bibliography_ama.Rmd">Rmd</a>
+<li>AMA: <a href="files/bibliography_ama.html">HTML</a>; <a href="files/bibliography_ama.Rmd.txt">Rmd</a>
 </li>
 </ul>
+<div id="notes-for-creating-output-from-the-examples" class="section level3" number="10.3.1">
+<h3>
+<span class="header-section-number">10.3.1</span> Notes for creating output from the examples<a class="anchor" aria-label="anchor" href="#notes-for-creating-output-from-the-examples"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>The Rmd files after downloading should be renamed from <code>....Rmd.txt</code> to <code>....Rmd</code>.</li>
+<li>Download the file <a href="files/pmh.bib">pmh.bib</a> and save it in the same folder where the Rmd files are saved.</li>
+<li>To create the AMA format output, download the <a href="files/biomed-central.csl">Biomed Central citation style language file</a> to the same folder as the other files.</li>
+</ol>
 <hr>
-<p>Rendered at <tt>2022-02-24 23:29:09</tt></p>
-<h4>
-Source code for this document
-<a class="anchor" aria-label="anchor" href="#bibliography-in-r-markdown"><i class="fas fa-link"></i></a>
-</h4>
-<p><a href="10-week10.Rmd">10-week10.Rmd</a></p>
-<div class="sourceCode" id="cb733"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span>con <span class="op">=</span> <span class="st">"10-week10.Rmd"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></code></pre></div>
-<pre><code>Warning in readLines(con = "10-week10.Rmd"): incomplete final line found on '10-
-week10.Rmd'</code></pre>
+<p>Rendered at <tt>2022-03-11 16:07:55</tt></p>
+</div>
+</div>
+<div id="source-code-10" class="section level2" number="10.4">
+<h2>
+<span class="header-section-number">10.4</span> Source code<a class="anchor" aria-label="anchor" href="#source-code-10"><i class="fas fa-link"></i></a>
+</h2>
+<p>File is at CSDE-TS1: R:/Project/CSDE502/2022/csde502-winter-2022-main/10-week10.Rmd.</p>
+<div id="r-code-used-in-this-document-10" class="section level3" number="10.4.1">
+<h3>
+<span class="header-section-number">10.4.1</span> R code used in this document<a class="anchor" aria-label="anchor" href="#r-code-used-in-this-document-10"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb747"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/">kableExtra</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://haven.tidyverse.org">haven</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jeroen/curl">curl</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+
+<span class="co"># URL home</span>
+<span class="va">urlhome</span> <span class="op">&lt;-</span> <span class="st">""</span>
+
+<span class="co"># path to this file name</span>
+<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">fnamepath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/current_input.html">current_input</a></span><span class="op">(</span>dir <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+    <span class="va">fnamestr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"COMPUTERNAME"</span><span class="op">)</span>, <span class="st">": "</span>, <span class="va">fnamepath</span><span class="op">)</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="va">fnamepath</span> <span class="op">&lt;-</span> <span class="st">""</span>
+<span class="op">}</span>
+<span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">fnamepath</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">'\n'</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="complete-rmd-code-10" class="section level3" number="10.4.2">
+<h3>
+<span class="header-section-number">10.4.2</span> Complete Rmd code<a class="anchor" aria-label="anchor" href="#complete-rmd-code-10"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb748"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">fnamepath</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">'\n'</span><span class="op">)</span></code></pre></div>
+<pre><code>Warning in readLines(fnamepath): incomplete final line found on 'R:/Project/
+CSDE502/2022/csde502-winter-2022-main/10-week10.Rmd'</code></pre>
 <pre><code># Week 10 {#week10}
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
@@ -237,11 +280,22 @@ library(ggplot2)
 
 # URL home
 urlhome &lt;- ""
+
+# path to this file name
+if (!interactive()) {
+    fnamepath &lt;- current_input(dir = TRUE)
+    fnamestr &lt;- paste0(Sys.getenv("COMPUTERNAME"), ": ", fnamepath)
+} else {
+    fnamepath &lt;- ""
+}
 ```
 
 &lt;h2&gt;Topic: Odds and ends&lt;/h2&gt;
 
 This week's lesson will cover some additional R odds and ends.
+
+Download [template.Rmd.txt](files/template.Rmd.txt) as a template for this lesson. Save in in your working folder for the course, renamed to `week_10.Rmd` (with no `.txt` extension). Make any necessary changes to the YAML header.
+
 
 ## R Markdown to Microsoft Word
 Microsoft Word ("Word"), is used widely to document research. Because of its advanced word processing and "track changes" capabilities, it is commonly used for preparation of manuscripts. Using R to generate output for Word is often a tedious process (e.g., create CSV files $\rightarrow$ paste the contents $\rightarrow$ convert to table; export R graphics with `png()` or `ggsave()` $\rightarrow$ insert the file).  
@@ -345,7 +399,8 @@ output:
 
 The RStudio interface will present the listed choices in the `Knit` pick list in the GUI, so the desired output format can be selected interactively:
 
-&lt;img src="../images/week03/20210124_010442-C__Users_phurvitz_OneDrive_uw_courses_csde502_csde502_winter_2021_course - RStud.png" class="border1"&gt;
+
+![](images/week10/2022-03-11 13_20_25-R__Project_CSDE502_2022_csde502-winter-2022-main - master - RStudio.png)
 
 Other supported outputs can be created, including those that are not listed in the YAML header by specifying the output format in the `render()` function, e.g. to create a [Slidy](https://www.w3.org/Talks/Tools/Slidy2/#(1)) presentation: 
 
@@ -372,7 +427,7 @@ whereas the [PDF output](files/output_type_test.pdf) is rendered as
 
 There appears to be no similar test for MS Word output, so for creating Word documents from Rmd files, it is suggested to create the Rmd from scratch with the intention of creating only Word output.
 
-## Advantages and disadvantages of PDF
+### Advantages and disadvantages of PDF
 Portable document format (PDF) has a number of advantages:
 
 1. Document formatting is maintained. Font face and positioning of elements is consistent. When some other formats are shared (e.g., MS Word), formatting is inconsistent. 
@@ -384,6 +439,7 @@ Portable document format (PDF) has a number of advantages:
 1. The format has stood the test of time, having been introduced 1993. The standard was opened in 2008, allowing developers to create PDF outputs. This has led to PDF being the standard for fixed-format documents. 
 
 The disadvantages:
+
 1. Direct editing of PDF files is not straightforward (usually requires dedicated software), and often results in undesired layout changes. Therefore this is not a good format for collaborative editing.
 1. Copy-and-paste from PDF often results in missing or extra spaces or strange characters.
 1. R functions that produce HTML output cannot be used in PDF outputs.
@@ -412,19 +468,31 @@ When citations are made to references, the corresponding record will be automati
 
 For examples of syntax for both APA-like and AMA-like references and bibliographies, see the files 
 
-* APA: [HTML](files/bibliography.html); [Rmd](files/bibliography.Rmd)
-* AMA: [HTML](files/bibliography_ama.html); [Rmd](files/bibliography_ama.Rmd)
+* APA: [HTML](files/bibliography.html); [Rmd](files/bibliography.Rmd.txt)
+* AMA: [HTML](files/bibliography_ama.html); [Rmd](files/bibliography_ama.Rmd.txt)
+
+### Notes for creating output from the examples
+
+1. The Rmd files after downloading should be renamed from `....Rmd.txt` to `....Rmd`.
+1. Download the file [pmh.bib](files/pmh.bib) and save it in the same folder where the Rmd files are saved.
+1. To create the AMA format output, download the [Biomed Central citation style language file](files/biomed-central.csl)  to the same folder as the other files.
 
 &lt;hr&gt;
 Rendered at &lt;tt&gt;`r Sys.time()`&lt;/tt&gt;
 
-&lt;h4&gt;Source code for this document&lt;/h4&gt;
-[10-week10.Rmd](10-week10.Rmd)
+## Source code
+File is at `r fnamestr`.
 
+### R code used in this document
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+```
+
+### Complete Rmd code
 ```{r comment=''}
-cat(readLines(con = "10-week10.Rmd"), sep = "\n")
+cat(readLines(fnamepath), sep = '\n')
 ```</code></pre>
 
+</div>
 </div>
 </div>
   <div class="chapter-nav">
@@ -442,10 +510,18 @@ Topic: Odds and ends
 <a class="nav-link" href="#r-markdown-output"><span class="header-section-number">10.2</span> R Markdown output</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#r-markdown-rendering-to-specific-formats"><span class="header-section-number">10.2.1</span> R Markdown rendering to specific formats</a></li>
 <li><a class="nav-link" href="#testing-output_type"><span class="header-section-number">10.2.2</span> Testing output_type()</a></li>
+<li><a class="nav-link" href="#advantages-and-disadvantages-of-pdf"><span class="header-section-number">10.2.3</span> Advantages and disadvantages of PDF</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#advantages-and-disadvantages-of-pdf"><span class="header-section-number">10.3</span> Advantages and disadvantages of PDF</a></li>
-<li><a class="nav-link" href="#bibliography-in-r-markdown"><span class="header-section-number">10.4</span> Bibliography in R Markdown</a></li>
+<li>
+<a class="nav-link" href="#bibliography-in-r-markdown"><span class="header-section-number">10.3</span> Bibliography in R Markdown</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#notes-for-creating-output-from-the-examples"><span class="header-section-number">10.3.1</span> Notes for creating output from the examples</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#source-code-10"><span class="header-section-number">10.4</span> Source code</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-code-used-in-this-document-10"><span class="header-section-number">10.4.1</span> R code used in this document</a></li>
+<li><a class="nav-link" href="#complete-rmd-code-10"><span class="header-section-number">10.4.2</span> Complete Rmd code</a></li>
+</ul>
+</li>
 </ul>
 
       <div class="book-extra">
@@ -463,7 +539,7 @@ Topic: Odds and ends
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-02-24 23:24.</p>
+    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-03-11 16:02.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

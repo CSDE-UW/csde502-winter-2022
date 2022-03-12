@@ -19,6 +19,7 @@ figure_nums <- captioner(prefix = "Figure")
 # path to this file name
 if (!interactive()) {
     fnamepath <- current_input(dir = TRUE)
+    fnamestr <- paste0(Sys.getenv("COMPUTERNAME"), ": ", fnamepath)
 } else {
     fnamepath <- ""
 }
@@ -27,7 +28,9 @@ if (!interactive()) {
 <h2>Topic: Add Health data: variable creation and scale scoring</h2>
 This week's lesson will provide more background on variable creation and scale scoring. The scale scoring exercise will be used to create a single variable that represents how well respondents did overall on a subset of questions.
 
-First, download the [template file](https://raw.githubusercontent.com/CSDE-UW/csde502-winter-2022/master/docs/files/template.Rmd) and save it in your course working folder as `week_08.Rmd`. Make changes to the title and author as you see fit. Also load the following packages:
+Download [template.Rmd.txt](files/template.Rmd.txt) as a template for this lesson. Save in in your working folder for the course, renamed to `week_08.Rmd` (with no `.txt` extension). Make any necessary changes to the YAML header.
+
+Also load the following packages:
 
 ```
 pacman::p_load(
@@ -517,7 +520,7 @@ For example, the original value of `1` had a count of `r reordered[1,2]` but the
 Rendered at <tt>`r Sys.time()`</tt>
 
 ## Source code
-File is at `r fnamepath`.
+File is at `r fnamestr`.
 
 ### R code used in this document
 ```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}

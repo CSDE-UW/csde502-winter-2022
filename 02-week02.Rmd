@@ -16,6 +16,9 @@ table_nums <- captioner(prefix = "Table")
 # path to this file name
 if (!interactive()) {
     fnamepath <- current_input(dir = TRUE)
+    fnamestr <- paste0(Sys.getenv("COMPUTERNAME"), ": ", fnamepath)
+} else {
+    fnamepath <- ""
 }
 ```
 
@@ -852,7 +855,7 @@ For example, for females listed in one-year agre classes over each year, the fil
 Rendered at <tt>`r Sys.time()`</tt>
 
 ## Source code
-File is at `r fnamepath`.
+File is at `r fnamestr`.
 
 ### R code used in this document
 ```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}

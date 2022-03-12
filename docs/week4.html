@@ -14,11 +14,11 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 4 Week 4 | UW CSDE 502 A Course Notes">
 <meta name="twitter:description" content="Topics: Functions and sampling  This week’s topics cover functions and sampling, the latter including a cursory treatment of loops and bootstrapping. We will revisit Ben’s code for reading Human...">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.13/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="libs/datatables-binding-0.20/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.21/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
 <script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
@@ -26,7 +26,7 @@
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS -->
+<script src="libs/leaflet-binding-2.1.0/leaflet.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS -->
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -88,7 +88,7 @@ Topics: Functions and sampling
 </ul>
 </li>
 </ul>
-<p>Download <a href="files/exercise_blank.Rmd">exercise_blank.Rmd</a> as a template for this lesson.</p>
+<p>Download <a href="files/template.Rmd.txt">template.Rmd.txt</a> as a template for this lesson. Save in in your working folder for the course, renamed to <code>week_04.Rmd</code> (with no <code>.txt</code> extension). Make any necessary changes to the YAML header.</p>
 <div id="renviron" class="section level2" number="4.1">
 <h2>
 <span class="header-section-number">4.1</span> Environments<a class="anchor" aria-label="anchor" href="#renviron"><i class="fas fa-link"></i></a>
@@ -122,13 +122,13 @@ Topics: Functions and sampling
     statement(s)
 }</code></pre>
 <p>For example, to square a vector of numerical values:</p>
-<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_square</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
     <span class="va">x</span><span class="op">^</span><span class="fl">2</span>
 <span class="op">}</span></code></pre></div>
 <p>the function name is <code>f_square</code>.</p>
 <p>Some functions are not named, and are referred to as “anonymous” functions. For example, functions can be used within the <code>apply</code> family of functions. Here is an oprationalized example.</p>
-<div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create a list of three vectors of random numbers of different random lengths</span>
 
 <span class="co"># set.seed() makes the random process reproducible.</span>
@@ -145,7 +145,7 @@ Topics: Functions and sampling
 <span class="va">v3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">v.len</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>
 
 <span class="co"># create the list</span>
-<span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">v1</span>, <span class="va">v2</span>, <span class="va">v3</span><span class="op">)</span>
+<span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gsubfn/man/list.html">list</a></span><span class="op">(</span><span class="va">v1</span>, <span class="va">v2</span>, <span class="va">v3</span><span class="op">)</span>
 
 <span class="co"># get the first value from each vector in the list</span>
 <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">L</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">}</span><span class="op">)</span></code></pre></div>
@@ -169,7 +169,7 @@ Topics: Functions and sampling
 <p>Most functions require arguments. Arguments are used to instantiate variables within the function’s environment that can be used later in the body of the function. Each argument is named, and the name is used within the function as a local variable within the function’s environment.</p>
 <p>Following our example from above, <code>f_square</code> takes an argument named “x” that is a numeric vector.</p>
 <p>Here, let’s modify the function to demonstrate that within the environment of the function, <code>x</code> is a variable by using <code>print(x)</code>:</p>
-<div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_square_2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"input:"</span><span class="op">)</span>
     <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
@@ -184,19 +184,19 @@ Topics: Functions and sampling
 <pre><code>## [1] 1 4 9</code></pre>
 <p>We can try running the original function using different (or no) arguments:</p>
 <p>Here, using a vector of a single NA numeric</p>
-<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
 <p>… or a vector that contains a numeric NA (with the first two elements being numeric, the third element <code>NA</code> is automatically cast as a numeric):</p>
-<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1]  1  4 NA</code></pre>
 <p>… or a null:</p>
-<div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square</span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></code></pre></div>
 <pre><code>## numeric(0)</code></pre>
 <p>… or a vector containing a null:</p>
-<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb274"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 1 4</code></pre>
 <p>… or with no argument at all:</p>
@@ -205,12 +205,12 @@ Topics: Functions and sampling
 <pre><code>## Error in f_square() : argument "x" is missing, with no default</code></pre>
 <p></p>
 <p>Some functions do not require arguments, e.g., to get the current date or time:</p>
-<div class="sourceCode" id="cb277"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb278"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "2022-02-24"</code></pre>
-<div class="sourceCode" id="cb279"><pre class="downlit sourceCode r">
+<pre><code>## [1] "2022-03-11"</code></pre>
+<div class="sourceCode" id="cb280"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "2022-02-24 23:25:27 PST"</code></pre>
+<pre><code>## [1] "2022-03-11 16:04:16 PST"</code></pre>
 <p>… and if we try to use an argument we get an error:</p>
 <pre><code>Sys.Date(1)</code></pre>
 <p><font color="red"></font></p>
@@ -222,19 +222,19 @@ Topics: Functions and sampling
 </h5>
 <p>If you want an argument to have a default value, it is specified in the listed arguments in the form <code>argument = value</code>.</p>
 <p>Following our previous <code>f_square_2()</code> function, we can set the default value of <code>x</code> to <code>3</code>:</p>
-<div class="sourceCode" id="cb283"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb284"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_square_3</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">{</span>
     <span class="va">x</span><span class="op">^</span><span class="fl">2</span>
 <span class="op">}</span></code></pre></div>
 <p>Because the default argument is set, the function can be run with no arguments, and the default will be substituted in:</p>
-<div class="sourceCode" id="cb284"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb285"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square_3</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 9</code></pre>
 <p>A more meaningful example demonstrates stratification of counts into intensity bins using accelerometry data. We will be using accelerometry from one day’s data from one subject in a study.</p>
 <p>The cut points for accelerometry were identified at 0, 2690, 6167, and 9642 counts per minute, from Sasaki et al. (2011).</p>
 <p><em>Sasaki JE, John D, Freedson PS. Validation and comparison of ActiGraph activity monitors. J Sci Med Sport. 2011;14(5):411-416. <a href="doi:10.1016/j.jsams.2011.04.003" class="uri">doi:10.1016/j.jsams.2011.04.003</a>“</em></p>
 <p>The variable <code>vm3</code> is the vector magnitude measured with the accelerometer for each minute. Data: <a href="files/accelerometry.csv">accelerometry.csv</a>.</p>
-<div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb287"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># read the accelerometry data</span>
 <span class="va">acc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"files/accelerometry.csv"</span><span class="op">)</span>
 
@@ -248,7 +248,7 @@ Topics: Functions and sampling
 ## 5 2018-09-13 02:55:00-07   0
 ## 6 2018-09-13 02:54:00-07   0</code></pre>
 <p>The following function codes intensity by the aforementioned cut points by default and using default labels:</p>
-<div class="sourceCode" id="cb288"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb289"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_acc_intensity</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,
                             <span class="va">cuts</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
                                 <span class="op">-</span><span class="cn">Inf</span>,
@@ -261,7 +261,7 @@ Topics: Functions and sampling
     <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">acc</span><span class="op">$</span><span class="va">vm3</span>, breaks <span class="op">=</span> <span class="va">cuts</span>, labels <span class="op">=</span> <span class="va">labels</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>… and when run with the defaults to tabulate the minutes spent in different PA levels</p>
-<div class="sourceCode" id="cb289"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb290"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># recode</span>
 <span class="va">acc</span><span class="op">$</span><span class="va">intens_default</span> <span class="op">&lt;-</span> <span class="fu">f_acc_intensity</span><span class="op">(</span><span class="va">acc</span><span class="op">$</span><span class="va">vm3</span><span class="op">)</span>
 
@@ -276,7 +276,7 @@ Topics: Functions and sampling
 ## 2 moderate           4
 ## 3 vigorous           1</code></pre>
 <p>But we could run this with different thresholds and levels, where SPLA = “sedentary/low physical activity” and MVPA = “moderate-to-very vigorous physical activity):</p>
-<div class="sourceCode" id="cb291"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb292"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">acc</span><span class="op">$</span><span class="va">intens_2lev</span> <span class="op">&lt;-</span> <span class="fu">f_acc_intensity</span><span class="op">(</span>x <span class="op">=</span> <span class="va">acc</span><span class="op">$</span><span class="va">vm3</span>,
                                 cuts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">2690</span>, <span class="cn">Inf</span><span class="op">)</span>,
                                 labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"SLPA"</span>, <span class="st">"MVVPA"</span><span class="op">)</span><span class="op">)</span>
@@ -311,7 +311,7 @@ Topics: Functions and sampling
 </h3>
 <p>Sometimes you want to vary what your code does based on some condition. If the condition is met, then execute a block of code. If the condition is not met, or some other condition is met, then execute other code. For a more complete tutorial, see <a href="https://www.learnbyexample.org/r-if-else-elseif-statement/">R if else elseif Statement</a></p>
 <p>Following our previous <code>f_square_2()</code> function, we can modify to print the input based on the logical argument <code>verbose</code>. In this code, if the <code>verbose</code> object is set to <code>TRUE</code>, some text is printed in a message as well as the value that was supplied for <code>x</code>. In either case (<code>verbose = TRUE</code> or <code>verbose = FALSE</code>), the output value of <code>x^2</code> is returned.</p>
-<div class="sourceCode" id="cb294"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb295"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_square_4</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">verbose</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">{</span>
     <span class="co"># only run the next lines if verbose is true</span>
     <span class="kw">if</span><span class="op">(</span><span class="va">verbose</span><span class="op">)</span><span class="op">{</span>
@@ -322,11 +322,11 @@ Topics: Functions and sampling
     <span class="va">x</span><span class="op">^</span><span class="fl">2</span>
 <span class="op">}</span></code></pre></div>
 <p>Here we run with the default option <code>verbose = FALSE</code>; only the final value <code>x^2</code> is in the output:</p>
-<div class="sourceCode" id="cb295"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb296"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square_4</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 1 4 9</code></pre>
 <p>… and with <code>verbose = TRUE</code>, additional text is printed :</p>
-<div class="sourceCode" id="cb297"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb298"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square_4</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>## input:</code></pre>
 <pre><code>## [1] 1 2 3</code></pre>
@@ -368,18 +368,18 @@ Topics: Functions and sampling
 </h3>
 <p>The return value is either the last evaluated expression in the function or an object specified using the <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> function. For functions that are intended to return only one value, by convention that is the last line in the function.</p>
 <p>In our original <code>f_square()</code> function, the return value is <code>x^2</code> since no other <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> value was specified, e.g., for a vector of one element:</p>
-<div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb306"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_square</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
     <span class="va">x</span><span class="op">^</span><span class="fl">2</span>
 <span class="op">}</span>
 <span class="fu">f_square</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 9</code></pre>
 <p>or a vector with multiple elements:</p>
-<div class="sourceCode" id="cb307"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb308"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_square</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 1 4 9</code></pre>
 <p>However, if it is possible that different outputs can be produced by a function based on some logical testing, one can explicitly use <code>return(object)</code> in the code; at that time the object will be output and the function will stop. A simple example of explicitly specifying return values is shown in this numerical comparison function:</p>
-<div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb310"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_compare</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">{</span>
     <span class="co"># either missing?</span>
     <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nargs.html">nargs</a></span><span class="op">(</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">2</span><span class="op">)</span>
@@ -400,17 +400,17 @@ Topics: Functions and sampling
     <span class="op">}</span>
 <span class="op">}</span></code></pre></div>
 <p>Based on criteria such as the number of arguments or the relative value of the arguments <code>x</code> and <code>y</code>, different outputs are generated. Here are a few examples running the function:</p>
-<div class="sourceCode" id="cb310"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb311"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_compare</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "invalid number of arguments"</code></pre>
-<div class="sourceCode" id="cb312"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb313"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_compare</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "1 is less than 2"</code></pre>
-<div class="sourceCode" id="cb314"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f_compare</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "2 is greater than 1"</code></pre>
 <p>If you want to handle an expected error, you can print an informative message and use <code>return(invisible())</code>, which returns nothing at all (whereas <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> results in a <code>NULL</code> object) e.g., here without <code><a href="https://rdrr.io/r/base/invisible.html">invisible()</a></code>:</p>
-<div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_readfile</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">fname</span><span class="op">)</span><span class="op">{</span>
     <span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="va">fname</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
         <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">fname</span>, <span class="st">"does not exist!"</span><span class="op">)</span><span class="op">)</span>
@@ -424,7 +424,7 @@ Topics: Functions and sampling
 <pre><code>## Warning in f_readfile("foobar.txt"): foobar.txt does not exist!</code></pre>
 <pre><code>## NULL</code></pre>
 <p>… and with <code><a href="https://rdrr.io/r/base/invisible.html">invisible()</a></code>:</p>
-<div class="sourceCode" id="cb319"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb320"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f_readfile</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">fname</span><span class="op">)</span><span class="op">{</span>
     <span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="va">fname</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
         <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">fname</span>, <span class="st">"does not exist!"</span><span class="op">)</span><span class="op">)</span>
@@ -442,7 +442,7 @@ Topics: Functions and sampling
 <span class="header-section-number">4.2.4</span> Function environments<a class="anchor" aria-label="anchor" href="#funcenviron"><i class="fas fa-link"></i></a>
 </h3>
 <p>As mentioned before, functions instantiate environments that exist only while the function is being evaluated. This means that functions can include named variables that have the same name as a variable in a different environment. For example here is a function that only lists what objects are in the local and global environments:</p>
-<div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb322"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># declare a few variables</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="st">"hello"</span>
@@ -476,13 +476,13 @@ Topics: Functions and sampling
 ## [1] "objects in the global environment:"
 ##  [1] "acc"             "f"               "f_acc_intensity" "f_compare"      
 ##  [5] "f_readfile"      "f_square"        "f_square_2"      "f_square_3"     
-##  [9] "f_square_4"      "figure_nums"     "fnamepath"       "L"              
-## [13] "table_nums"      "v.len"           "v1"              "v2"             
-## [17] "v3"              "x"               "y"              
+##  [9] "f_square_4"      "figure_nums"     "fnamepath"       "fnamestr"       
+## [13] "L"               "table_nums"      "v.len"           "v1"             
+## [17] "v2"              "v3"              "x"               "y"              
 ## [1] "----------"</code></pre>
 <pre><code>## [1] 3</code></pre>
 <p>Once the function completes, all objects in its local environment are purged. If you are running a complicated function that creates intermediate values that you want to examine for troubleshooting, you can create an environment in the <code>.GlobalEnv</code> (i.e., the overall environment in which R is running), and then assign a variable with a specific value to that environment created specifically for examining the intermediate products of the function:</p>
-<div class="sourceCode" id="cb324"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># a function to show how we can assign</span>
 <span class="va">g</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
     <span class="co"># code for a bunch of complicated operations</span>
@@ -505,16 +505,16 @@ Topics: Functions and sampling
     <span class="co"># ...</span>
 <span class="op">}</span></code></pre></div>
 <p>When the function runs, the objects <code>bar</code> and <code>foobar</code> are placed in the <code>foo</code> environment. We can examine those:</p>
-<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb326"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># run the function</span>
 <span class="fu">g</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## make foo</code></pre>
-<div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb328"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># what is in environment "foo"?</span>
 <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span>envir <span class="op">=</span> <span class="va">foo</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "bar"    "foobar"</code></pre>
 <p>And we can view their values:</p>
-<div class="sourceCode" id="cb329"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb330"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">foo</span><span class="op">$</span><span class="va">bar</span><span class="op">)</span></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
@@ -523,7 +523,7 @@ Topics: Functions and sampling
 ## 4          4.6         3.1          1.5         0.2  setosa
 ## 5          5.0         3.6          1.4         0.2  setosa
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<div class="sourceCode" id="cb331"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb332"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">foo</span><span class="op">$</span><span class="va">foobar</span><span class="op">)</span></code></pre></div>
 <pre><code>##   speed dist
 ## 1     4    2
@@ -533,14 +533,14 @@ Topics: Functions and sampling
 ## 5     8   16
 ## 6     9   10</code></pre>
 <p>But those objects will not appear in the <code>.GloalEnv</code>, even though the environment <code>foo</code> does; you could consider that the objects <code>bar</code> and <code>foobar</code> are “nested” in environment <code>foo</code> which is itself nested in <code>.GlobalEnv</code>.</p>
-<div class="sourceCode" id="cb333"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb334"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span>envir <span class="op">=</span> <span class="va">.GlobalEnv</span><span class="op">)</span></code></pre></div>
 <pre><code>##  [1] "acc"             "f"               "f_acc_intensity" "f_compare"      
 ##  [5] "f_readfile"      "f_square"        "f_square_2"      "f_square_3"     
-##  [9] "f_square_4"      "figure_nums"     "fnamepath"       "foo"            
-## [13] "g"               "L"               "table_nums"      "v.len"          
-## [17] "v1"              "v2"              "v3"              "x"              
-## [21] "y"</code></pre>
+##  [9] "f_square_4"      "figure_nums"     "fnamepath"       "fnamestr"       
+## [13] "foo"             "g"               "L"               "table_nums"     
+## [17] "v.len"           "v1"              "v2"              "v3"             
+## [21] "x"               "y"</code></pre>
 </div>
 <div id="looping" class="section level3" number="4.2.5">
 <h3>
@@ -558,7 +558,7 @@ Topics: Functions and sampling
 <p>where <code>element</code> represents the variable value of the current iteration and <code>set</code> is a group of objects, such as elements in a vector or list</p>
 <p>A few simple examples follow.</p>
 <p>Print each letter in the first 5 letters of the alphabet. In this example, the iterated element is a letter, and the variable <code>i</code> has the value of the letter in each iteration. The built in vector <code>letters</code> is used. So on the first iteration, <code>i = 1</code>, on the second iteration,m <code>i = 2</code> and so on.</p>
-<div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb337"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">letters</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
@@ -568,7 +568,7 @@ Topics: Functions and sampling
 ## [1] "d"
 ## [1] "e"</code></pre>
 <p>In this example, the object <code>i</code> takes on integer values 1 through 10. Within the loop, a message is printed that includes the term <code>i^2</code>, which evaluates to <code>1^2</code>, <code>2^2</code>, <span class="math inline">\(\dots\)</span>, <code>10^2</code>.</p>
-<div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb339"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">i</span>, <span class="st">"squared equals"</span>, <span class="va">i</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
@@ -583,7 +583,7 @@ Topics: Functions and sampling
 <pre><code>## 9 squared equals 81</code></pre>
 <pre><code>## 10 squared equals 100</code></pre>
 <p>Here is a similar approach, but using a numerical index referring to the position within a vector. The vector to be iterated over is <code>1:length(states_5)</code>, which evaluates to <code>1, 2, 3, 4, 5</code>. In each iteration, we print the index of the iterator and the state name.</p>
-<div class="sourceCode" id="cb349"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb350"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># take the first 5 state names</span>
 <span class="va">states_5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">state.name</span>, <span class="fl">5</span><span class="op">)</span>
 
@@ -598,7 +598,7 @@ Topics: Functions and sampling
 <pre><code>## 4: Arkansas</code></pre>
 <pre><code>## 5: California</code></pre>
 <p>In this example, we will use an index that is the position of rows within a data frame.</p>
-<div class="sourceCode" id="cb355"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb356"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># initialize a value to hold a sum</span>
 <span class="va">mySum</span> <span class="op">&lt;-</span> <span class="fl">0</span>
 
@@ -630,12 +630,12 @@ Topics: Functions and sampling
 <pre><code>## iteration: 5</code></pre>
 <pre><code>##   sepal length = 5; cumulative sum = 24.3; mean = 4.86</code></pre>
 <p>Here we will iterate over the elements of a list, also including the system run time by wrapping the loop in a <code><a href="https://rdrr.io/r/base/system.time.html">system.time()</a></code> call.</p>
-<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># make it reproducible</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>
 
 <span class="co"># create a list</span>
-<span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+<span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gsubfn/man/list.html">list</a></span><span class="op">(</span>
     v1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
     v2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span>, lambda <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,
     v3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">25</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
@@ -659,35 +659,35 @@ Topics: Functions and sampling
 </h4>
 <p>There is a family of functions (<code>*apply()</code>) in R that are built to iterate over a matrix, or elements of vectors or lists.</p>
 <p>The <code>apply</code> function performs a function over the rows or columns of a matrix. Here are some simple examples that get the sums of the rows and columns of a matrix:</p>
-<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># a matrix</span>
 <span class="op">(</span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    4    7
 ## [2,]    2    5    8
 ## [3,]    3    6    9</code></pre>
-<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># row sums</span>
 <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"row sums"</span><span class="op">)</span></code></pre></div>
 <pre><code>## row sums</code></pre>
-<div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">rs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">m</span>, MARGIN <span class="op">=</span> <span class="fl">1</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 12 15 18</code></pre>
-<div class="sourceCode" id="cb375"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># column sums</span>
 <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"column sums"</span><span class="op">)</span></code></pre></div>
 <pre><code>## column sums</code></pre>
-<div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">cs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">m</span>, MARGIN <span class="op">=</span> <span class="fl">2</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1]  6 15 24</code></pre>
 <p>The <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> function runs over elements of a list. Here we will run the same analysis as before (mean of the vectors in list <code>L</code>). The output of <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> is a list with the same number of elements as the input; the output elements also have the original list element names.</p>
-<div class="sourceCode" id="cb379"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span>
     <span class="va">Lmean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">L</span>, FUN <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <pre><code>##    user  system elapsed 
 ##       0       0       0</code></pre>
-<div class="sourceCode" id="cb381"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Lmean</span></code></pre></div>
 <pre><code>## $v1
 ## [1] 0.9211485
@@ -712,7 +712,7 @@ Topics: Functions and sampling
 <span class="header-section-number">4.2.5.3.1</span> Efficient download of census data using <code>purrr</code> and <code>tigris</code><a class="anchor" aria-label="anchor" href="#efficient-download-of-census-data-using-purrr-and-tigris"><i class="fas fa-link"></i></a>
 </h5>
 <p>Here, following on the lessons from using the <code>tigirs</code> package for downloading US Census TIGER/Line data, we will download all counties for all states using <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map_dfr()</a></code> and export to a GPKG database.</p>
-<div class="sourceCode" id="cb383"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb384"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># the tigris download function for counties</span>
 <span class="va">f_county</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">state_name</span>, <span class="va">year</span> <span class="op">=</span> <span class="fl">2019</span><span class="op">)</span><span class="op">{</span>
     <span class="co"># this downloads a single county</span>
@@ -733,15 +733,65 @@ Topics: Functions and sampling
 <span class="op">}</span>
 
 <span class="co"># run the function</span>
-<span class="va">all_counties</span> <span class="op">&lt;-</span> <span class="fu">get_counties</span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># export to GPKG</span>
+<span class="va">all_counties</span> <span class="op">&lt;-</span> <span class="fu">get_counties</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020
+## Retrieving data for the year 2020</code></pre>
+<div class="sourceCode" id="cb386"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># export to GPKG</span>
 <span class="va">myTmpDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu">st_write</span><span class="op">(</span>obj <span class="op">=</span> <span class="va">all_counties</span>, dsn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myTmpDir</span>, <span class="st">"counties.gpkg"</span><span class="op">)</span>, layer <span class="op">=</span> <span class="st">"us_counties_2019"</span>, delete_dsn <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code>## Deleting source `C:\Temp\13\RtmpSsFYp1/counties.gpkg' failed
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_write.html">st_write</a></span><span class="op">(</span>obj <span class="op">=</span> <span class="va">all_counties</span>, dsn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myTmpDir</span>, <span class="st">"counties.gpkg"</span><span class="op">)</span>, layer <span class="op">=</span> <span class="st">"us_counties_2019"</span>, delete_dsn <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<pre><code>## Deleting source `C:\Temp\5\RtmpYtyESZ/counties.gpkg' failed
 ## Writing layer `us_counties_2019' to data source 
-##   `C:\Temp\13\RtmpSsFYp1/counties.gpkg' using driver `GPKG'
-## Writing 3141 features with 17 fields and geometry type Multi Polygon.</code></pre>
+##   `C:\Temp\5\RtmpYtyESZ/counties.gpkg' using driver `GPKG'
+## Writing 3142 features with 17 fields and geometry type Multi Polygon.</code></pre>
 <p>In Figure 1 we show the counties displayed in QGIS.</p>
 <p><img src="images/week04/2022-01-26%2023_42_02-Window.png">
  <br><em>Figure 1: Downloaded counties for the US</em></p>
@@ -752,7 +802,7 @@ Topics: Functions and sampling
 <span class="header-section-number">4.2.5.3.2</span> Revisiting Ben’s HMDHFDplus example<a class="anchor" aria-label="anchor" href="#revisiting-bens-hmdhfdplus-example"><i class="fas fa-link"></i></a>
 </h5>
 <p>Let’s revisit Ben’s <a href="#benhmdhfdplus">example using HMDHFDplus</a></p>
-<div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Help function to list the available countries</span>
 <span class="co"># this generates a vector of all country abbreviations</span>
 <span class="va">countries</span> <span class="op">&lt;-</span> <span class="fu">HMDHFDplus</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/getHMDcountries.html">getHMDcountries</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>
@@ -803,7 +853,7 @@ Topics: Functions and sampling
     # the item to read is 1 x 1 death rates
     read_hmd_country(country, "Mx_1x1")</code></pre>
 <p>which constructs a data frame by iterating over <code>countries</code> and applying the function <code>read_hmd_country()</code> to download the variable <code>Mx_1x1</code>. Here we plot mortality data from Australia and Austria over the time series (Figure 2).</p>
-<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tmx</span> <span class="op">&lt;-</span> <span class="va">mx_1x1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">country</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
     <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mortality <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Total</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"keep"</span><span class="op">)</span>
@@ -823,7 +873,7 @@ Topics: Functions and sampling
 <p>Bootstrapping is used to estimate the characteristics of a population by repeating a large number of random samples (with replacement) and then calculating summary statistics on the set of samples. The reason replacement is used is that each sample represents a “snapshot” of the population. As the number of samples increases, the summary continues to approach the true population characteristics.</p>
 <p>We will use a simple example from a hypothetical population. If we had no idea what the male/female split was, we could generate a large number of small-ish samples and the take the mean.</p>
 <p>Back to the bootstrap: we will use 5,000 samples of size 100 from our hypothetical population to estimate the proportion of females.</p>
-<div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create the population</span>
 <span class="co"># 1 indicates female and 0 indicates male</span>
 <span class="va">pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5e4</span> <span class="op">*</span> <span class="fl">3</span> <span class="op">/</span> <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5e4</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">/</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
@@ -844,16 +894,16 @@ Topics: Functions and sampling
 <span class="co"># mean and standard deviation of the bootstrap</span>
 <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="cn">F</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.602186</code></pre>
-<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="cn">F</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.04900736</code></pre>
 <p>Using the bootstrap results, we can estimate the 95% confidence interval around the mean using the <code><a href="https://rdrr.io/pkg/Rmisc/man/CI.html">Rmisc::CI()</a></code> function, and make a density plot showing the mean and the confidence interval (`r figure_nums(name = “bootstrat_plot,” display = “cite”)).</p>
-<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># 95% CI</span>
 <span class="va">ci_95</span> <span class="op">&lt;-</span> <span class="fu">Rmisc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Rmisc/man/CI.html">CI</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">F</span>, ci <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span>
 
 <span class="co"># plot with 95 % CI</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="cn">F</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="cn">F</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">ci_95</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="04-week04_files/figure-html/unnamed-chunk-42-1.png" width="672">
  <br><em>Figure 3: Density plot from bootstrapping</em></p>
@@ -872,7 +922,7 @@ Topics: Functions and sampling
 <span class="header-section-number">4.3.1</span> Sampling with replacement<a class="anchor" aria-label="anchor" href="#sampling-with-replacement"><i class="fas fa-link"></i></a>
 </h3>
 <p>Sampling with replacement is similar to rolling a die. Each roll of the die has a 1/6 probability of coming up with each value. For example we simulate rolling a die 100,00 times:</p>
-<div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb396"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># set.seed makes it so that random processes can be repeated with the same outputs</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>
 
@@ -887,7 +937,7 @@ Topics: Functions and sampling
 <pre><code>## s
 ##     1     2     3     4     5     6 
 ## 16644 16856 16839 16705 16453 16503</code></pre>
-<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb398"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># proportions</span>
 <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="va">tbs</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## s
@@ -942,7 +992,7 @@ enumerated deaths for the United States</li>
 enumerated births for the United States</li>
 </ul>
 <p>The first step is to create the life table itself, which should be run with at least three arguments, <code>x</code> (age at the beginning of the age classes of the life table), <code>nDx</code> (deaths), and <code>nKx</code> (population size). We will create the life table using the three countries’ data and the default Keyfitz and Fleiger (<code>kf</code>) calculation type. Results are in Table 1.</p>
-<div class="sourceCode" id="cb397"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb400"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># load the Goodman data from the demogR package</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">goodman</span><span class="op">)</span>
 
@@ -966,7 +1016,7 @@ enumerated births for the United States</li>
 <span class="co"># combine these</span>
 <span class="va">lt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="va">vlt</span>, <span class="va">ult</span>, <span class="va">mlt</span><span class="op">)</span></code></pre></div>
 <p><em>Table 1: Venezuela life table, Keyfitz and Fleiger method</em></p>
-<div class="sourceCode" id="cb398"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
     <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>bootstrap_options <span class="op">=</span>
                       <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, 
@@ -2698,7 +2748,7 @@ life expectancy at age x</li>
 </ol>
 <p>For example, the life table estimates in Venezuela in 1965, a probability of reaching the age of 35 was 0.9, whereas reaching 80 had a probability of 0.4. In the US in 1967, the respective probabilities were 0.96 and 0.46, and in Madagascar in 1966 the probabilities were 0.52 and 0.07.</p>
 <p>Another way to look at the data is to plot the life expectancy, shown in Figure 4. The difference between Venezuela and the US were less stark than the difference between Madagascar and the other two countries. In 1966, a woman from Madagascar had a less than 50% chance of reaching age 40! One wonders what these life expectancies look like with more recent data.</p>
-<div class="sourceCode" id="cb399"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb402"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
     country <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"VEN"</span>, <span class="fl">19</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"USA"</span>, <span class="fl">19</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"MDG"</span>, <span class="fl">19</span><span class="op">)</span><span class="op">)</span>
 <span class="op">)</span>
@@ -2715,11 +2765,11 @@ life expectancy at age x</li>
 </h3>
 <p>The <a href="https://cran.r-project.org/web/packages/demography/index.html"><code>demography</code></a> also contains a large number of functions for demographic analysis. For other reference, see <a href="https://rpubs.com/Timexpo/487053">An R intro to the demography package</a>.</p>
 <p>We will look at one example from the documentation.</p>
-<div class="sourceCode" id="cb400"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb400-1"><a href="week4.html#cb400-1" aria-hidden="true" tabindex="-1"></a>france.lt &lt;- lifetable(fr.mort)</span>
-<span id="cb400-2"><a href="week4.html#cb400-2" aria-hidden="true" tabindex="-1"></a>plot(france.lt)</span>
-<span id="cb400-3"><a href="week4.html#cb400-3" aria-hidden="true" tabindex="-1"></a>lt1990 &lt;- print(lifetable(fr.mort,year=1990))</span></code></pre></div>
-<p>The first step is creating the life table using the <code>lifetable()</code> function. The function requires data of a specific format, which can be provided in the package’s <code>fr.mort</code> data set. What is in the <code>fr.mort</code> data set? Let’s see:</p>
-<div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb403"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb403-1"><a href="week4.html#cb403-1" aria-hidden="true" tabindex="-1"></a>france.lt &lt;- lifetable(fr.mort)</span>
+<span id="cb403-2"><a href="week4.html#cb403-2" aria-hidden="true" tabindex="-1"></a>plot(france.lt)</span>
+<span id="cb403-3"><a href="week4.html#cb403-3" aria-hidden="true" tabindex="-1"></a>lt1990 &lt;- print(lifetable(fr.mort,year=1990))</span></code></pre></div>
+<p>The first step is creating the life table using the <code><a href="https://rdrr.io/pkg/demCore/man/lifetable.html">lifetable()</a></code> function. The function requires data of a specific format, which can be provided in the package’s <code>fr.mort</code> data set. What is in the <code>fr.mort</code> data set? Let’s see:</p>
+<div class="sourceCode" id="cb404"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fr.mort</span></code></pre></div>
 <pre><code>## Mortality data for FRATNP
 ##     Series: total female male
@@ -2727,7 +2777,7 @@ life expectancy at age x</li>
 ##     Ages:  0 - 110</code></pre>
 <p>This tells us there were time series for females, males, and all persons, spanning years 1816 to 2006 and covering ages 0 to 110.</p>
 <p>We can delve deeper:</p>
-<div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">fr.mort</span><span class="op">)</span></code></pre></div>
 <pre><code>## $names
 ## [1] "type"   "label"  "lambda" "year"   "age"    "rate"   "pop"   
@@ -2735,7 +2785,7 @@ life expectancy at age x</li>
 ## $class
 ## [1] "demogdata"</code></pre>
 <p>Here we see there are specific objects within the data set. Let’s look at some of them. <code>age</code>:</p>
-<div class="sourceCode" id="cb405"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb408"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fr.mort</span><span class="op">$</span><span class="va">age</span></code></pre></div>
 <pre><code>##   [1]   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17
 ##  [19]  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35
@@ -2745,7 +2795,7 @@ life expectancy at age x</li>
 ##  [91]  90  91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 106 107
 ## [109] 108 109 110</code></pre>
 <p><code>year</code>:</p>
-<div class="sourceCode" id="cb407"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb410"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fr.mort</span><span class="op">$</span><span class="va">year</span></code></pre></div>
 <pre><code>##   [1] 1816 1817 1818 1819 1820 1821 1822 1823 1824 1825 1826 1827 1828 1829 1830
 ##  [16] 1831 1832 1833 1834 1835 1836 1837 1838 1839 1840 1841 1842 1843 1844 1845
@@ -2761,11 +2811,11 @@ life expectancy at age x</li>
 ## [166] 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990 1991 1992 1993 1994 1995
 ## [181] 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006</code></pre>
 <p>The population data are stored in the <code>pop</code> object, which is composed of three matrices representing all persons, females, and males:</p>
-<div class="sourceCode" id="cb409"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb412"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fr.mort</span><span class="op">$</span><span class="va">pop</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "total"  "female" "male"</code></pre>
 <p>Each of these matrices has the same number of rows and columns, corresponding to the ages (0-110, 111 rows) and years (1816-2006, columns). Here let’s look at a sample of the total, the first 5 rows and columns:</p>
-<div class="sourceCode" id="cb411"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb414"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fr.mort</span><span class="op">$</span><span class="va">pop</span><span class="op">$</span><span class="va">total</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
 <pre><code>##       1816     1817     1818     1819     1820
 ## 0 834354.6 853197.1 831620.7 845830.8 905102.5
@@ -2774,20 +2824,20 @@ life expectancy at age x</li>
 ## 3 686823.1 683758.6 707277.3 712488.9 692287.6
 ## 4 674202.5 660565.5 669365.5 683663.9 687342.6</code></pre>
 <p>This shows for example in 1816 there were estimated to be 834354.6 persons less than one year of age.</p>
-<p>Output from running the <code>lifetable()</code> function can be plotted. `r figure_nums(name = “france_ltplot,” display = “cite”) shows curves for each year using a rainbow palette. It is interesting to note that the earliest years in the time series had more positive life expectancies than some of the intermediate years particularly for persons below the age of 40.</p>
-<div class="sourceCode" id="cb413"><pre class="downlit sourceCode r">
+<p>Output from running the <code><a href="https://rdrr.io/pkg/demCore/man/lifetable.html">lifetable()</a></code> function can be plotted. `r figure_nums(name = “france_ltplot,” display = “cite”) shows curves for each year using a rainbow palette. It is interesting to note that the earliest years in the time series had more positive life expectancies than some of the intermediate years particularly for persons below the age of 40.</p>
+<div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># min and max years</span>
 <span class="va">y0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">fr.mort</span><span class="op">$</span><span class="va">year</span><span class="op">)</span>
 <span class="va">y1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">fr.mort</span><span class="op">$</span><span class="va">year</span><span class="op">)</span>
 
 <span class="co"># make the life table and plot life expectancy graph</span>
-<span class="va">france.lt</span> <span class="op">&lt;-</span> <span class="fu">lifetable</span><span class="op">(</span><span class="va">fr.mort</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">france.lt</span><span class="op">)</span></code></pre></div>
+<span class="va">france.lt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/demCore/man/lifetable.html">lifetable</a></span><span class="op">(</span><span class="va">fr.mort</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">france.lt</span><span class="op">)</span></code></pre></div>
 <p><img src="04-week04_files/figure-html/unnamed-chunk-54-1.png" width="672"><em>Figure 5: Life expectancy in France from 1816 to 2006</em></p>
 <p>Finally, let’s look at the life table from 2005.</p>
-<div class="sourceCode" id="cb414"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create the life table</span>
-<span class="va">lt_france_2005</span> <span class="op">&lt;-</span> <span class="fu">lifetable</span><span class="op">(</span><span class="va">fr.mort</span>,year<span class="op">=</span><span class="fl">2005</span><span class="op">)</span>
+<span class="va">lt_france_2005</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/demCore/man/lifetable.html">lifetable</a></span><span class="op">(</span><span class="va">fr.mort</span>,year<span class="op">=</span><span class="fl">2005</span><span class="op">)</span>
 
 <span class="co"># print using the native interface</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">lt_france_2005</span><span class="op">)</span></code></pre></div>
@@ -2897,7 +2947,7 @@ life expectancy at age x</li>
 ## 99  0.3612 0.3059 0.0304 0.0093 0.0258  0.0740  2.4308
 ## 100 0.4383 1.0000 0.0211 0.0211 0.0482  0.0482  2.2818</code></pre>
 <p>The output of <code>lifetable</code> prints in a tabular format but is not a data frame and so the various methods of making nice looking tables do not work out of the box. This also means standard exporting functions such as <code><a href="https://rdrr.io/r/utils/write.table.html">write.csv()</a></code> will not work. However, with some work the specific objects returned from the function, we can construct a decent looking table.</p>
-<div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb419"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># I looked at the individual vectors output from the lifetable function. These are the ones we want:</span>
 <span class="va">positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>
 
@@ -5877,19 +5927,19 @@ rx
 </tbody>
 </table></div>
 <hr>
-<p>Rendered at <tt>2022-02-24 23:26:03</tt></p>
+<p>Rendered at <tt>2022-03-11 16:04:56</tt></p>
 </div>
 </div>
-<div id="source-code-3" class="section level2" number="4.5">
+<div id="source-code-4" class="section level2" number="4.5">
 <h2>
-<span class="header-section-number">4.5</span> Source code<a class="anchor" aria-label="anchor" href="#source-code-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5</span> Source code<a class="anchor" aria-label="anchor" href="#source-code-4"><i class="fas fa-link"></i></a>
 </h2>
-<p>File is at H:/csde502-winter-2022-main/04-week04.Rmd.</p>
-<div id="r-code-used-in-this-document-3" class="section level3" number="4.5.1">
+<p>File is at CSDE-TS1: R:/Project/CSDE502/2022/csde502-winter-2022-main/04-week04.Rmd.</p>
+<div id="r-code-used-in-this-document-4" class="section level3" number="4.5.1">
 <h3>
-<span class="header-section-number">4.5.1</span> R code used in this document<a class="anchor" aria-label="anchor" href="#r-code-used-in-this-document-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.1</span> R code used in this document<a class="anchor" aria-label="anchor" href="#r-code-used-in-this-document-4"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb420"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>tigris_use_cache <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">demogR</span>, <span class="va">demography</span>, <span class="va">magrittr</span>, <span class="va">knitr</span>, <span class="va">kableExtra</span>, <span class="va">readstata13</span>, <span class="va">captioner</span>,<span class="va">tigris</span>, <span class="va">sf</span>, <span class="va">tidyverse</span><span class="op">)</span>
 
@@ -5899,6 +5949,9 @@ rx
 <span class="co"># path to this file name</span>
 <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">fnamepath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/current_input.html">current_input</a></span><span class="op">(</span>dir <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+    <span class="va">fnamestr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"COMPUTERNAME"</span><span class="op">)</span>, <span class="st">": "</span>, <span class="va">fnamepath</span><span class="op">)</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="va">fnamepath</span> <span class="op">&lt;-</span> <span class="st">""</span>
 <span class="op">}</span>
 <span class="va">f_square</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
     <span class="va">x</span><span class="op">^</span><span class="fl">2</span>
@@ -5919,7 +5972,7 @@ rx
 <span class="va">v3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">v.len</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>
 
 <span class="co"># create the list</span>
-<span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">v1</span>, <span class="va">v2</span>, <span class="va">v3</span><span class="op">)</span>
+<span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gsubfn/man/list.html">list</a></span><span class="op">(</span><span class="va">v1</span>, <span class="va">v2</span>, <span class="va">v3</span><span class="op">)</span>
 
 <span class="co"># get the first value from each vector in the list</span>
 <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">L</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">}</span><span class="op">)</span>
@@ -6123,7 +6176,7 @@ rx
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>
 
 <span class="co"># create a list</span>
-<span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+<span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gsubfn/man/list.html">list</a></span><span class="op">(</span>
     v1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
     v2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span>, lambda <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,
     v3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">25</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
@@ -6176,7 +6229,7 @@ rx
 
 <span class="co"># export to GPKG</span>
 <span class="va">myTmpDir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu">st_write</span><span class="op">(</span>obj <span class="op">=</span> <span class="va">all_counties</span>, dsn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myTmpDir</span>, <span class="st">"counties.gpkg"</span><span class="op">)</span>, layer <span class="op">=</span> <span class="st">"us_counties_2019"</span>, delete_dsn <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_write.html">st_write</a></span><span class="op">(</span>obj <span class="op">=</span> <span class="va">all_counties</span>, dsn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">myTmpDir</span>, <span class="st">"counties.gpkg"</span><span class="op">)</span>, layer <span class="op">=</span> <span class="st">"us_counties_2019"</span>, delete_dsn <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co"># Help function to list the available countries</span>
 <span class="co"># this generates a vector of all country abbreviations</span>
 <span class="va">countries</span> <span class="op">&lt;-</span> <span class="fu">HMDHFDplus</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/HMDHFDplus/man/getHMDcountries.html">getHMDcountries</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>
@@ -6254,7 +6307,7 @@ rx
 <span class="va">ci_95</span> <span class="op">&lt;-</span> <span class="fu">Rmisc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Rmisc/man/CI.html">CI</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">F</span>, ci <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span>
 
 <span class="co"># plot with 95 % CI</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="cn">F</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="cn">F</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">ci_95</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 <span class="co"># set.seed makes it so that random processes can be repeated with the same outputs</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>
@@ -6306,9 +6359,9 @@ rx
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"probability of surviving to age on X axis"</span><span class="op">)</span>
-<span class="va">france.lt</span> <span class="op">&lt;-</span> <span class="fu">lifetable</span><span class="op">(</span><span class="va">fr.mort</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">france.lt</span><span class="op">)</span>
-<span class="va">lt1990</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu">lifetable</span><span class="op">(</span><span class="va">fr.mort</span>,year<span class="op">=</span><span class="fl">1990</span><span class="op">)</span><span class="op">)</span>
+<span class="va">france.lt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/demCore/man/lifetable.html">lifetable</a></span><span class="op">(</span><span class="va">fr.mort</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">france.lt</span><span class="op">)</span>
+<span class="va">lt1990</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/demCore/man/lifetable.html">lifetable</a></span><span class="op">(</span><span class="va">fr.mort</span>,year<span class="op">=</span><span class="fl">1990</span><span class="op">)</span><span class="op">)</span>
 <span class="va">fr.mort</span>
 <span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">fr.mort</span><span class="op">)</span>
 <span class="va">fr.mort</span><span class="op">$</span><span class="va">age</span>
@@ -6320,10 +6373,10 @@ rx
 <span class="va">y1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">fr.mort</span><span class="op">$</span><span class="va">year</span><span class="op">)</span>
 
 <span class="co"># make the life table and plot life expectancy graph</span>
-<span class="va">france.lt</span> <span class="op">&lt;-</span> <span class="fu">lifetable</span><span class="op">(</span><span class="va">fr.mort</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">france.lt</span><span class="op">)</span>
+<span class="va">france.lt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/demCore/man/lifetable.html">lifetable</a></span><span class="op">(</span><span class="va">fr.mort</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">france.lt</span><span class="op">)</span>
 <span class="co"># create the life table</span>
-<span class="va">lt_france_2005</span> <span class="op">&lt;-</span> <span class="fu">lifetable</span><span class="op">(</span><span class="va">fr.mort</span>,year<span class="op">=</span><span class="fl">2005</span><span class="op">)</span>
+<span class="va">lt_france_2005</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/demCore/man/lifetable.html">lifetable</a></span><span class="op">(</span><span class="va">fr.mort</span>,year<span class="op">=</span><span class="fl">2005</span><span class="op">)</span>
 
 <span class="co"># print using the native interface</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">lt_france_2005</span><span class="op">)</span>
@@ -6345,11 +6398,11 @@ rx
     <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span><span class="op">)</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"left"</span>, font_size <span class="op">=</span> <span class="fl">12</span>, <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">fnamepath</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">'\n'</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="complete-rmd-code-3" class="section level3" number="4.5.2">
+<div id="complete-rmd-code-4" class="section level3" number="4.5.2">
 <h3>
-<span class="header-section-number">4.5.2</span> Complete Rmd code<a class="anchor" aria-label="anchor" href="#complete-rmd-code-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.2</span> Complete Rmd code<a class="anchor" aria-label="anchor" href="#complete-rmd-code-4"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb418"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb421"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">fnamepath</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">'\n'</span><span class="op">)</span></code></pre></div>
 <pre><code># Week 4 {#week4}
 
@@ -6363,6 +6416,9 @@ table_nums &lt;- captioner(prefix = "Table")
 # path to this file name
 if (!interactive()) {
     fnamepath &lt;- current_input(dir = TRUE)
+    fnamestr &lt;- paste0(Sys.getenv("COMPUTERNAME"), ": ", fnamepath)
+} else {
+    fnamepath &lt;- ""
 }
 ```
 
@@ -6376,7 +6432,8 @@ This week's topics cover functions and sampling, the latter including a cursory 
     * [`demogR`](#demogR)
     * [`demography`](#demography)
     
-Download [exercise_blank.Rmd](files/exercise_blank.Rmd) as a template for this lesson.
+Download [template.Rmd.txt](files/template.Rmd.txt) as a template for this lesson. Save in in your working folder for the course, renamed to `week_04.Rmd` (with no `.txt` extension). Make any necessary changes to the YAML header.
+
 
 ## Environments {#renviron}
 Functions exist in `environments`, which are "frames" or collections containing objects including variables, functions, etc. There is a global environment (`.GlobalEnv`) that contains all of the data, functions, in the current R session. Those objects can be enumerated with the `ls()` function. 
@@ -7386,7 +7443,7 @@ lt_france_2005_df %&gt;% kable() %&gt;%
 Rendered at &lt;tt&gt;`r Sys.time()`&lt;/tt&gt;
 
 ## Source code
-File is at `r fnamepath`.
+File is at `r fnamestr`.
 
 ### R code used in this document
 ```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
@@ -7433,9 +7490,9 @@ Topics: Functions and sampling
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#source-code-3"><span class="header-section-number">4.5</span> Source code</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#r-code-used-in-this-document-3"><span class="header-section-number">4.5.1</span> R code used in this document</a></li>
-<li><a class="nav-link" href="#complete-rmd-code-3"><span class="header-section-number">4.5.2</span> Complete Rmd code</a></li>
+<a class="nav-link" href="#source-code-4"><span class="header-section-number">4.5</span> Source code</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-code-used-in-this-document-4"><span class="header-section-number">4.5.1</span> R code used in this document</a></li>
+<li><a class="nav-link" href="#complete-rmd-code-4"><span class="header-section-number">4.5.2</span> Complete Rmd code</a></li>
 </ul>
 </li>
 </ul>
@@ -7455,7 +7512,7 @@ Topics: Functions and sampling
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-02-24 23:24.</p>
+    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-03-11 16:02.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
