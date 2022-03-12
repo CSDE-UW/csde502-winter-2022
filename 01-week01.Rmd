@@ -92,7 +92,7 @@ Start RStudio by either dbl-clicking the desktop shortcut or navigating to the a
 ![](images/week01/2021-01-07_23_05_49-Window.png)
 
 :::{.rmdnote}
-A brief aside: install R packages.
+***A brief aside: install R packages.***
 
 To get started, because it usually takes some time to install, open a second RStudio session and at the console, to install `tidyverse`, the other packages for CSDE 502 and 533, and for this lesson, download the file [`packages.R`](tools/packages.R).
 

@@ -165,7 +165,24 @@ output:
 <h3>
 <span class="header-section-number">10.2.2</span> Testing <code>output_type()</code><a class="anchor" aria-label="anchor" href="#testing-output_type"><i class="fas fa-link"></i></a>
 </h3>
-<p>Because different output formats support (or do not support) different features, a test can be made for the output format to determine which code to run, using <code><a href="https://rdrr.io/pkg/knitr/man/output_type.html">is_html_output()</a></code> and <code><a href="https://rdrr.io/pkg/knitr/man/output_type.html">is_latex_output()</a></code>. Any R code within the Rmd file can be run or not run based on these tests. For a working example, download and render the file <a href="files/output_type_test.Rmd">output_type_test</a>. Using a single source, the <a href="files/output_type_test.html">output rendered as HTML</a> appears as</p>
+<p>Because different output formats support (or do not support) different features, a test can be made for the output format to determine which code to run, using <code><a href="https://rdrr.io/pkg/knitr/man/output_type.html">is_html_output()</a></code> and <code><a href="https://rdrr.io/pkg/knitr/man/output_type.html">is_latex_output()</a></code>. Any R Markdown code within the Rmd file can be run or not run based on these tests. For example, to include a section header this could be used:</p>
+<div class="sourceCode" id="cb746"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb746-1"><a href="week10.html#cb746-1" aria-hidden="true" tabindex="-1"></a>if(is_html_output()){</span>
+<span id="cb746-2"><a href="week10.html#cb746-2" aria-hidden="true" tabindex="-1"></a>    cat("## A Leaflet Map\n")</span>
+<span id="cb746-3"><a href="week10.html#cb746-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>And to include a leaflet map”</p>
+<div class="sourceCode" id="cb747"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb747-1"><a href="week10.html#cb747-1" aria-hidden="true" tabindex="-1"></a>if(is_html_output()){</span>
+<span id="cb747-2"><a href="week10.html#cb747-2" aria-hidden="true" tabindex="-1"></a>    # the Space Needle XY coordinates as a data frame</span>
+<span id="cb747-3"><a href="week10.html#cb747-3" aria-hidden="true" tabindex="-1"></a>    snxy &lt;- data.frame(name = "Space Needle", x = -122.3493, y = 47.6205)</span>
+<span id="cb747-4"><a href="week10.html#cb747-4" aria-hidden="true" tabindex="-1"></a>    # convert to a spatial tibble</span>
+<span id="cb747-5"><a href="week10.html#cb747-5" aria-hidden="true" tabindex="-1"></a>    space_needle &lt;- st_as_sf(snxy, coords = c("x", "y"), crs = 4326)</span>
+<span id="cb747-6"><a href="week10.html#cb747-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb747-7"><a href="week10.html#cb747-7" aria-hidden="true" tabindex="-1"></a><span class="in">    # a leaflet map</span></span>
+<span id="cb747-8"><a href="week10.html#cb747-8" aria-hidden="true" tabindex="-1"></a><span class="in">    m &lt;- leaflet() %&gt;% </span></span>
+<span id="cb747-9"><a href="week10.html#cb747-9" aria-hidden="true" tabindex="-1"></a><span class="in">        addTiles() %&gt;% </span></span>
+<span id="cb747-10"><a href="week10.html#cb747-10" aria-hidden="true" tabindex="-1"></a><span class="in">        addCircleMarkers(data = space_needle)</span></span>
+<span id="cb747-11"><a href="week10.html#cb747-11" aria-hidden="true" tabindex="-1"></a><span class="in">    m</span></span>
+<span id="cb747-12"><a href="week10.html#cb747-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>For a working example, download the file <a href="files/output_type_test.Rmd.txt">output_type_test.Rmd.txt</a> and rename the downloaded copy to <code>output_type_test.Rmd</code>. Using a single source, the <a href="files/output_type_test.html">output rendered as HTML</a> appears as</p>
 <div class="inline-figure"><img src="images/week03/20210124_190945-R%20Markdown%20Output%20Type%20Test%20-%20Work%20-%20MicrosoftEdge.png"></div>
 <p>whereas the <a href="files/output_type_test.pdf">PDF output</a> is rendered as</p>
 <div class="inline-figure"><img src="images/week03/20210124_191706-output_type_test.pdf%20-%20%5BR%20Markdown%20Output%20Type%20Test%5D%20-%20SumatraPDF.png"></div>
@@ -211,7 +228,7 @@ csl: biomed-central.csl
 <p>When citations are made to references, the corresponding record will be automatically added to the end of the document.</p>
 <p>For examples of syntax for both APA-like and AMA-like references and bibliographies, see the files</p>
 <ul>
-<li>APA: <a href="files/bibliography.html">HTML</a>; <a href="files/bibliography.Rmd.txt">Rmd</a>
+<li>APA: <a href="files/bibliography_apa.html">HTML</a>; <a href="files/bibliography_apa.Rmd.txt">Rmd</a>
 </li>
 <li>AMA: <a href="files/bibliography_ama.html">HTML</a>; <a href="files/bibliography_ama.Rmd.txt">Rmd</a>
 </li>
@@ -226,7 +243,7 @@ csl: biomed-central.csl
 <li>To create the AMA format output, download the <a href="files/biomed-central.csl">Biomed Central citation style language file</a> to the same folder as the other files.</li>
 </ol>
 <hr>
-<p>Rendered at <tt>2022-03-11 18:06:04</tt></p>
+<p>Rendered at <tt>2022-03-12 09:41:18</tt></p>
 </div>
 </div>
 <div id="source-code-10" class="section level2" number="10.4">
@@ -238,7 +255,7 @@ csl: biomed-central.csl
 <h3>
 <span class="header-section-number">10.4.1</span> R code used in this document<a class="anchor" aria-label="anchor" href="#r-code-used-in-this-document-10"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb747"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb749"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span>
@@ -257,13 +274,28 @@ csl: biomed-central.csl
 <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
     <span class="va">fnamepath</span> <span class="op">&lt;-</span> <span class="st">""</span>
 <span class="op">}</span>
+<span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/output_type.html">is_html_output</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"## A Leaflet Map\n"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/output_type.html">is_html_output</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
+    <span class="co"># the Space Needle XY coordinates as a data frame</span>
+    <span class="va">snxy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Space Needle"</span>, x <span class="op">=</span> <span class="op">-</span><span class="fl">122.3493</span>, y <span class="op">=</span> <span class="fl">47.6205</span><span class="op">)</span>
+    <span class="co"># convert to a spatial tibble</span>
+    <span class="va">space_needle</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="va">snxy</span>, coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>, crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span>
+    
+    <span class="co"># a leaflet map</span>
+    <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leaflet</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+        <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addTiles</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+        <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addCircleMarkers</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">space_needle</span><span class="op">)</span>
+    <span class="va">m</span>
+<span class="op">}</span>
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">fnamepath</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">'\n'</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="complete-rmd-code-10" class="section level3" number="10.4.2">
 <h3>
 <span class="header-section-number">10.4.2</span> Complete Rmd code<a class="anchor" aria-label="anchor" href="#complete-rmd-code-10"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb748"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb750"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">fnamepath</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">'\n'</span><span class="op">)</span></code></pre></div>
 <pre><code>Warning in readLines(fnamepath): incomplete final line found on 'R:/Project/
 CSDE502/2022/csde502-winter-2022-main/10-week10.Rmd'</code></pre>
@@ -417,7 +449,32 @@ rmarkdown::render(input = "input_filename.Rmd", output_format = "pdf_document")
 Using code rather than the RStudio GUI allows more flexible automation; you could have an R script that runs the `render()` function as part of a multi-step workflow. For example, if you had a continuous data collection process, the work flow could be coded and run with [cron](https://www.rdocumentation.org/packages/cronR) to generate a new PDF (or other file type) file on a daily basis.
 
 ### Testing `output_type()`
-Because different output formats support (or do not support) different features, a test can be made for the output format to determine which code to run, using `is_html_output()` and `is_latex_output()`. Any R code within the Rmd file can be run or not run based on these tests. For a working example, download and render the file [output_type_test](files/output_type_test.Rmd). Using a single source, the [output rendered as HTML](files/output_type_test.html) appears as
+Because different output formats support (or do not support) different features, a test can be made for the output format to determine which code to run, using `is_html_output()` and `is_latex_output()`. Any R Markdown code within the Rmd file can be run or not run based on these tests. For example, to include a section header this could be used:
+
+```{md}
+if(is_html_output()){
+    cat("## A Leaflet Map\n")
+}
+```
+
+And to include a leaflet map"
+
+```{md}
+if(is_html_output()){
+    # the Space Needle XY coordinates as a data frame
+    snxy &lt;- data.frame(name = "Space Needle", x = -122.3493, y = 47.6205)
+    # convert to a spatial tibble
+    space_needle &lt;- st_as_sf(snxy, coords = c("x", "y"), crs = 4326)
+    
+    # a leaflet map
+    m &lt;- leaflet() %&gt;% 
+        addTiles() %&gt;% 
+        addCircleMarkers(data = space_needle)
+    m
+}
+```
+
+For a working example, download the file [output_type_test.Rmd.txt](files/output_type_test.Rmd.txt) and rename the downloaded copy to `output_type_test.Rmd`. Using a single source, the [output rendered as HTML](files/output_type_test.html) appears as
 
 ![](images/week03/20210124_190945-R Markdown Output Type Test - Work - MicrosoftEdge.png)
 
@@ -468,7 +525,7 @@ When citations are made to references, the corresponding record will be automati
 
 For examples of syntax for both APA-like and AMA-like references and bibliographies, see the files 
 
-* APA: [HTML](files/bibliography.html); [Rmd](files/bibliography.Rmd.txt)
+* APA: [HTML](files/bibliography_apa.html); [Rmd](files/bibliography_apa.Rmd.txt)
 * AMA: [HTML](files/bibliography_ama.html); [Rmd](files/bibliography_ama.Rmd.txt)
 
 ### Notes for creating output from the examples
@@ -539,7 +596,7 @@ Topic: Odds and ends
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-03-11 18:01.</p>
+    <p>"<strong>UW CSDE 502 A Course Notes</strong>" was written by Phil Hurvitz. It was last built on 2022-03-12 09:37.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
