@@ -208,11 +208,6 @@ for (i in subjects) {
 A text-based progress bar can be shown using the `txtProgressBar()`. Here we run the same loop for reading the text files, but rather than printing the loop iteration and file names, we show the progress bar and the file contents. If no text is printed to the console (unlike what is demonstrated below with `cat()`), the progress bar will not print on several lines.
 
 It is generally not recommended to put a progress bar in an R Markdown document since the output is usually read as a static file. However, progress bars may be helpful in `shiny` R Markdown documents if a process will take longer than a few seconds.
-<<<<<<< HEAD
-=======
-
-It is generally not recommended to put a progress bar in an R Markdown document since the output is usually read as a static file. However, progress bars may be helpful in `shiny` R Markdown documents if a process will take longer than a few seconds.
->>>>>>> bb05171a00180a3992d6af04b0b6a5e400e9e5d2
 
 ```{r}
 n_fnames <- length(fnames)
