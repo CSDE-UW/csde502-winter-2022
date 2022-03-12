@@ -21,7 +21,7 @@ output:
         keep_tex: yes
 urlcolor: blue  
 bibliography: pmh.bib
-biblio-style: "apalike"
+csl: biomed-central.csl
 link-citations: true
 ---
 
@@ -67,6 +67,14 @@ knitr::knit_hooks$set(class = function(before, options, envir) {
 })
 
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+
+# path to this file name
+if (!interactive()) {
+    fnamepath <- current_input(dir = TRUE)
+    fnamestr <- paste0(Sys.getenv("COMPUTERNAME"), ": ", fnamepath)
+} else {
+    fnamepath <- ""
+}
 ```
 
 <!-- for a wide presentation -->
@@ -88,7 +96,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 </style>
 
 # Introduction
-This example file uses the APA-like bibliography style. For an example of AMA-like bibliography, see [bibliography_ama.html](bibliography_ama.html) and its source code [bibliography_ama.Rmd](bibliography_ama.Rmd).
+This example file uses the AMA-like bibliography style. For an example of APA-like bibliography, see [bibliography.html](bibliography.html) and its source code [bibliography.Rmd](bibliography.Rmd).
 
 See the source code at the end of this document to see exactly how the references were placed in the text.
 
@@ -100,7 +108,7 @@ Typical citations are formatted with square brackets:
 [@Duncan2008]
 ```
 
-__Some fascinating stuff was brought to light [@Duncan2008]!__
+__Some fascinating stuff was brought to light! [@Duncan2008]__
 
 Multiple citations should be put in one set of square brackets, separated by semicolons:
 
@@ -110,7 +118,7 @@ Multiple citations should be put in one set of square brackets, separated by sem
 
 __Two studies were completely unrelated [@Duncan2008; @Saelens2014].__
 
-Page numbers can be included, and author can be suppressed by including a hyphen `-` before the `@` symbol:
+Page numbers can be included, and author can be suppressed by including a hyphen `-` before the `@` symbol (although page numbers are ignored in AMA-likce citations):
 
 ```
 [-@Kang2013 pp. 1422]
@@ -124,7 +132,7 @@ In-text citations can also be used as
 text ... @Kang2013 ... more text
 ```
 
-__@Kang2013 ignored PA bouts with mean accelerometry counts $\ge$ 2863 per 30 s epoch.__
+__Kang et al. @Kang2013 ignored PA bouts with mean accelerometry counts $\ge$ 2863 per 30 s epoch.__
 
 # Position of bibliography
 The list of cited references is automatically placed at the end of the document.
@@ -139,7 +147,18 @@ For this document, because the source code should be printed after the reference
 
 <div id="refs"></div>
 
-<h2>Source code</h2>
-```{r, comment='', echo=FALSE}
-cat(readLines("bibliography.Rmd"), sep = '\n')
+<hr>
+Rendered at <tt>`r Sys.time()`</tt>
+
+# Source code
+File is at `r fnamestr`.
+
+## R code used in this document
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
 ```
+
+## Complete Rmd code
+```{r comment=''}
+cat(readLines(fnamepath), sep = '\n')
+```
+

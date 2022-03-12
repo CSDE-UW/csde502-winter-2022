@@ -11,12 +11,22 @@ library(ggplot2)
 
 # URL home
 urlhome <- ""
+
+# path to this file name
+if (!interactive()) {
+    fnamepath <- current_input(dir = TRUE)
+    fnamestr <- paste0(Sys.getenv("COMPUTERNAME"), ": ", fnamepath)
+} else {
+    fnamepath <- ""
+}
 ```
 
 <h2>Topic: Miscellaneous data processing </h2>
-This week's lesson will cover a set of miscellaneous data processing topics.
+This week's lesson will cover a set of miscellaneous data processing topics that can be useful in different situations.
 
-Mostly this is a set of coded examples with explanations
+Mostly this is a set of coded examples with explanations.
+
+Download [template.Rmd.txt](files/template.Rmd.txt) as a template for this lesson. Save in in your working folder for the course, renamed to `week_09.Rmd` (with no `.txt` extension). Make any necessary changes to the YAML header.
 
 ## Substituting text
 
@@ -36,9 +46,10 @@ whereas `paste0` does not add spaces:
 paste0(LETTERS[1], letters[1])
 ```
 
-The code below uses the function `tempdir()` to specify a folder that is automatically generated per R session; for this rendering of the book, the location was `r tempdir()` but will almost certainly be different for your session. The code downloads and unzips the file [quickfox](files/quickfox.zip) to the `tempdir()` location. The zip file contains a separate file for each word in the phrase "the quick brown fox jumps over the lazy dog". The code then uses a loop and `paste()` to show the contents of each separate file along with its file name.
+The code below uses the function `tempdir()` to specify a folder that is automatically generated per R session; for this rendering of the book, the location was ``r tempdir()`` but will almost certainly be different for your session. The code downloads and unzips the file [quickfox](files/quickfox.zip) to the `tempdir()` location. The zip file contains a separate file for each word in the phrase "the quick brown fox jumps over the lazy dog". The code then uses a loop and `paste0()` to show the contents of each separate file along with its file name.
 
 ```{r}
+library(curl)
 # zip file
 zipfile <- file.path(tempdir(), "quickfox.zip")
 
@@ -61,8 +72,8 @@ for (i in seq_len(length(fnames))) {
     mytext <- scan(file = fname, what = "character", quiet = TRUE)
 
     # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-    # make a string using `paste()`
-    mystr <- paste(mytext, "    ", i, "of", length(fnames), fname)
+    # make a string using `paste()` and a tab
+    mystr <- paste0(mytext, "\t", i, " of ", length(fnames), "; file = ", fname)
     # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     # print the message
@@ -77,9 +88,9 @@ for (i in seq_len(length(fnames))) {
 #### Formatting numerical values
 <u>Leading zeros</u>
 
-Numeric values can be formatted with a specific number of decimal places or leading zeros. For example, ZIP codes imported from CSV files often are converted to integers. The following code chunk converts some numerical ZIP code-like values to text values with the correct format.
+Numeric values can be formatted as character strings with a specific number of decimal places or leading zeros. For example, ZIP codes imported from CSV files often are converted to integers. The following code chunk converts some numerical ZIP code-like values to text values with the correct format.
 
-Bad ZIP codes:
+Bad ZIP codes; the 5-digit numerical values are read in as double-precision numbers, so the leading zeros are dropped:
 ```{r}
 # some numerical ZIP codes
 (zip_bad <- data.frame(id = 1:3, zipcode = c(90201, 02134, 00501)))
@@ -88,10 +99,13 @@ Bad ZIP codes:
 Good ZIP codes:
 ```{r}
 # fix them up
-(zip_good <- zip_bad %>% mutate(
-    zipcode = sprintf("%05d", zipcode)
-))
+(zip_good <- zip_bad %>%
+    mutate(
+        zipcode = sprintf("%05d", zipcode)
+    ))
 ```
+
+The `sprintf()` format `%05d` indicates that if the input string is less than 5 characters in length, then make the output string 5 characters and pad on the left with zeros.
 
 <u>Decimal places</u>
 
@@ -112,6 +126,41 @@ Note that this is distinct from `round()`, which results in a numeric vector:
 v %>% round(., 4)
 ```
 
+<u>Commas or spaces for large numbers</u>
+Particularly in the narrative, including formatted numbers is important for readability based on the audience. For this, `prettyNum()` can be used. Here are a few examples:
+
+```{r}
+# a big number
+bignum <- pi * 1e+08 
+
+# commas
+(us_format <- bignum %>% 
+        prettyNum(big.mark = ",", digits = 15)) %>% 
+    paste("US:", .)
+
+# spaces, common Euro format
+(euro_format1 <- bignum %>% 
+        prettyNum(big.mark = " ", digits = 15, decimal.mark = ",")) %>% 
+    paste("some Europe:", .)
+
+# other Euro format
+(euro_format2 <- bignum %>% prettyNum(big.mark = "'", digits = 15, decimal.mark = ",")) %>% 
+    paste("other Europe:", .)
+
+```
+
+This literal text:
+
+```
+For example, used in inline code: 
+"$\pi$ multiplied by `r format(1e+8, scientific = FALSE)` 
+equals approximately `r us_format`."
+```
+appears as:
+
+For example, used in inline code: "$\pi$ multiplied by `r `format(1e+8, scientific = FALSE)` equals approximately `r us_format`."
+
+
 #### String substitutions
 `sprintf()` can also be used to achieve the same substitution in the file reading loop above. Each `%s` is substituted in order of the position of the arguments following the string. Also note that `\t` inserts a `TAB` character.
 
@@ -125,7 +174,7 @@ for (i in seq_len(length(fnames))) {
 
     # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
     # make a string using `paste()`
-    mystr <- sprintf("%s\t%s of %s:\t%s", mytext, i, length(fnames), fname)
+    mystr <- sprintf("%s\t%s of %s:\t%s\n", mytext, i, length(fnames), fname)
     # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     # print the message
@@ -141,11 +190,12 @@ subjects <- c("a1", "b2", "c3")
 
 f <- function(id) {
     # create an output file name by substituting in the subject ID
-    outfname <- file.path(tempdir(), "xIDx.csv") %>% str_replace(pattern = "xIDx", id)
+    outfname <- file.path(tempdir(), "xIDx.csv") %>% 
+        str_replace(pattern = "xIDx", id)
     # ... do a bunch of stuff, for example
     val <- rnorm(1)
     # write the file
-    message(paste0("writing"))
+    message(paste0("writing subject ", id, "'s data to ", outfname))
     write.csv(x = val, file = outfname)
 }
 
@@ -155,7 +205,9 @@ for (i in subjects) {
 ```
 
 ## Showing progress
-A text-based progress bar can be shown using `txtProgressBar()`. Here we run the same loop for reading the text files, but rather than printing the loop iteration and file names, we show the progress bar and the file contents. If no text is printed to the console (unlike what is demonstrated below with `cat()`), the progress bar will not print on several lines.
+A text-based progress bar can be shown using the `txtProgressBar()`. Here we run the same loop for reading the text files, but rather than printing the loop iteration and file names, we show the progress bar and the file contents. If no text is printed to the console (unlike what is demonstrated below with `cat()`), the progress bar will not print on several lines.
+
+It is generally not recommended to put a progress bar in an R Markdown document since the output is usually read as a static file. However, progress bars may be helpful in `shiny` R Markdown documents if a process will take longer than a few seconds.
 
 ```{r}
 n_fnames <- length(fnames)
@@ -173,18 +225,29 @@ for (i in 1:n_fnames) {
 close(pb)
 ```
 
-## Turning text into code: `eval(parse(text = "some string"))`
-Sometimes you may have variables whose values that you want to use in a command or function. For example, suppose you wanted to write a set of files, one for each ZIP code in a data frame, with a file name including the ZIP code. We would not want to use the column name `zipcode`, but we want the actual value. 
+For other implementations of progress bars, see [progress: Terminal Progress Bars
+](https://cran.r-project.org/web/packages/progress).
 
-We can generate a command using some kind of text substitution as above with `sprintf()`
+## Turning text into code: `eval(parse(text = "some string"))`
+Sometimes you may have variables whose values that you want to use in a command or function. For example, suppose you wanted to write a set of files, one for each ZIP code in a data frame, with a file name including the ZIP code. We would not want to use the column name `zipcode`, but we want the actual values in the column. 
+
+We can generate a string that represents a command using the same kind of text substitution as above with `sprintf()`. The loop processes each ZIP code record, `pull()`ing the ZIP code value at each iteration. A `write.csv()` command is generated for each iteration, setting the output file name to include the current iteration's ZIP code.
+
+Finally, the last step in each iteration is `eval(parse(text = cmd))` which executes the `cmd` string as a command.
 
 ```{r}
+verbose = TRUE
 for (i in zip_good %>% pull(zipcode)) {
     # do some stuff
     vals <- rnorm(n = 3)
     y <- bind_cols(zipcode = i, v = vals)
     # a writing command using sprintf() to substitute %s = ZIP code
     cmd <- sprintf("write.csv(x = y, file = file.path(tempdir(), '%s.csv'), row.names = FALSE)", i)
+    
+    # show what the command is
+    if(verbose){
+        cat(cmd, "\n")
+    }
 
     # this runs the command
     eval(parse(text = cmd))
@@ -194,17 +257,19 @@ for (i in zip_good %>% pull(zipcode)) {
 ## SQL in R with `RSQLite` and `sqldf`
 Sometimes R's syntax for processing data can be difficult and confusing. For programmers who are familiar with structured query language (SQL), it is possible to run SQL statements within R using a supported database back end (by default SQLite) and the `sqldf()` function.
 
-For example, the mean sepal length by species from the built-in `iris` data set can be obtained, presented in Table \@ref(tab:iris)
+For example, the mean sepal length by species from the built-in `iris` data set can be obtained, presented in Tables \@ref(tab:iris) and \@ref(tab:iris2).
 
-```{r iris}
+```{r iris, message=FALSE}
 library(sqldf)
+library(kableExtra)
 
-sqlc <- 'select
+sqlc <- '
+select
     "Species" as species
     , avg("Sepal.Length") as mean_sepal_length
+    , avg("Sepal.Width") as mean_sepal_width
 from iris
-group by "Species";
-'
+group by "Species";'
 
 iris_summary <- sqldf(x = sqlc)
 
@@ -213,11 +278,25 @@ iris_summary %>%
     kable_styling(full_width = FALSE, position = "left")
 ```
 
+This would be equivalent in `tidyverse` as 
+
+```{r iris2, message=FALSE}
+iris_summary2 <- iris %>% 
+    group_by(Species) %>% 
+    summarise(
+        mean_sepal_length = mean(Sepal.Length),
+        mean_sepal_width = mean(Sepal.Width)) %>% 
+    select(species = Species, everything())
+
+iris_summary2 %>%
+    kable(caption = "Mean sepal length from the iris data set (tidyverse approach)") %>%
+    kable_styling(full_width = FALSE, position = "left")
+```
 
 
 
 ## Downloading files from password-protected web sites
-Some web sites are protected by simple username/password protection. For example, try opening [http://staff.washington.edu/phurvitz/csde502_winter_2021/password_protected] (http://staff.washington.edu/phurvitz/csde502_winter_2021/password_protected). The username/password pair is csde/502, which will allow you to see the contents of the web folder.
+Some web sites are protected by simple username/password protection. For example, try opening http://staff.washington.edu/phurvitz/csde502_winter_2021/password_protected/foo.csv. The username/password pair is csde/502, which will allow you to see the contents of the web folder.
 
 If you try downloading the file through R, you will get an error because no password is supplied.
 
@@ -227,7 +306,7 @@ try(
 )
 ```
 
-However, the username and password can be supplied as part of the URL, as below. When the username and password are supplied, they will be cached for that site for the duration of the R session.
+However, the username and password can be supplied as part of the URL, as below. When the username and password are supplied, they will be cached for that site for the duration of the R session (so if you try running this again, you will succeed without a password).
 
 ```{r}
 try(
@@ -256,11 +335,12 @@ Formats can be specified using specific codes, see `strptime()`.
 
 The `lubridate` package has a large number of functions for handling date and time stamps. For example, if you want to convert a time stamp in the current time zone to a different time zone, first we get the current time
 
-```{r}
+```{r, message=FALSE}
 library(lubridate)
 # set the option for fractional seconds
 options(digits.secs = 3)
-(now <- Sys.time() %>% strptime("%Y-%m-%d %H:%M:%OS"))
+(now <- Sys.time() %>% 
+        strptime("%Y-%m-%d %H:%M:%OS"))
 ```
 
 And convert to UTC:
@@ -274,7 +354,8 @@ or show in a different format:
 
 ```{r}
 # in different format
-now %>% format("%A, %B %d, %Y %l:%m %p %Z")
+now %>% 
+    format("%A, %B %d, %Y %l:%m %p %Z")
 ```
 
 ```{r, echo=FALSE}
@@ -288,7 +369,9 @@ It is easy to determine how long a process takes by using sequential `Sys.time()
 ```{r}
 # mark time and run a process
 t0 <- Sys.time()
+# delay 5 seconds
 Sys.sleep(5)
+# mark the time now that the 5 second delay has run
 t1 <- Sys.time()
 
 # difftime() unqualified will make its best decision about what to print
@@ -298,13 +381,37 @@ t1 <- Sys.time()
 (difftime(time1 = t0, time2 = eagle))
 ```
 
-`difftime()` can also be forced to report the time difference in the units of choice:
+`difftime()` can also be forced to report the time difference in the units of choice. Here is the `difftime()` from the 5-second delay we created above:
 
 ```{r}
-(difftime(time1 = t1, time2 = t0, units = "secs") %>% as.numeric()) %>% round(0)
-(difftime(time1 = t1, time2 = t0, units = "mins") %>% as.numeric()) %>% round(2)
-(difftime(time1 = t1, time2 = t0, units = "hours") %>% as.numeric()) %>% round(4)
-(difftime(time1 = t1, time2 = t0, units = "days") %>% as.numeric()) %>% round(6)
+(difftime(time1 = t1, time2 = t0, units = "secs") %>% 
+     as.numeric()) %>% round(0)
+(difftime(time1 = t1, time2 = t0, units = "mins") %>% 
+        as.numeric()) %>% round(2)
+(difftime(time1 = t1, time2 = t0, units = "hours") %>% 
+        as.numeric()) %>% round(4)
+(difftime(time1 = t1, time2 = t0, units = "days") %>% 
+        as.numeric()) %>% round(6)
+```
+
+... and the time since the Eagle had landed to now:
+
+```{r}
+(difftime(time1 = t1, time2 = eagle, units = "secs") %>% 
+     as.numeric())
+(difftime(time1 = t1, time2 = eagle, units = "mins") %>% 
+        as.numeric())
+(difftime(time1 = t1, time2 = eagle, units = "hours") %>% 
+        as.numeric())
+(difftime(time1 = t1, time2 = eagle, units = "days") %>% 
+        as.numeric())
+```
+
+In order to report intervals as years, use `lubridate::time_length()`:
+
+```{r}
+(time_length(x = difftime(time1 = t1, time2 = eagle), unit = "years") %>% 
+        as.numeric() %>% round(1))
 ```
 
 ## Faster files with `fst()`
@@ -312,6 +419,8 @@ The `fst` package is great for rapid reading and writing of data frames. The for
 
 ```{r}
 library(fst)
+library(haven)
+
 myUrl <- "http://staff.washington.edu/phurvitz/csde502_winter_2021/data/21600-0001-Data.dta.zip"
 # zip file in $temp
 zipfile <- file.path(tempdir(), basename(myUrl))
@@ -364,9 +473,12 @@ fstwrite_time <- difftime(time1 = t1, time2 = t0, units = "secs") %>%
 
 It took `r csvwrite_time` s to write `r csvsize` bytes as CSV, and `r fstwrite_time` s to write `r fstsize` bytes as a FST file (with the default compression amount of 50). Reading speeds are comparable.
 
-___It should be noted___ that some file attributes will not be saved in FST format and therefore it should be used with caution if you have a highly attributed data set (e.g., a Stata DTA file with extensive labeling). You will lose those attributes! But for data sets with a simple structure, including factors, the FST format is a good option.
+___It should be noted___ that some file attributes will not be saved in FST format and therefore it should be used with caution if you have a highly attributed data set (e.g., a Stata DTA file with extensive labeling, or a data frame with a lot of customized attribute labels). You will lose those attributes! But for data sets with a simple structure, including factors, the FST format is a good option. With a little work, the attributes of a data frame could be saved as a list (e.g., as an `.RData` file along with the `.fst` file) and then applied after the `.fst` file is loaded.
 
 ## Load US Census Boundary and Attribute Data as 'tidyverse' and 'sf'-Ready Data Frames: `tigris`, `tidycensus`
+
+*[This has been covered previously, but is included here as a quick recap; skip to [RVerbalExpressions](#rverbalexpressions).]*
+
 Dealing with US Census data can be overwhelming, particularly if using the raw text-based data. The Census Bureau has an API that allows more streamlined downloads of variables (as data frames) and geographies (as simple format shapes). It is necessary to get an API key, available for free. See [tidycensus](https://walker-data.com/tidycensus/) and  [tidycensus basic usage](https://walker-data.com/tidycensus/articles/basic-usage.html).
 
 `tidycensus` uses [`tigris`](https://www.rdocumentation.org/packages/tigris/versions/1.0), which downloads the geographic data portion of the census files.
@@ -392,7 +504,7 @@ The labels from the census API are:
 "Estimate!!Total!!Asian alone" 
 ```
 
-```{r, warning=FALSE}
+```{r, warning=FALSE, message=FALSE}
 library(tidycensus)
 # the census variables
 census_vars <- c(
@@ -413,7 +525,8 @@ ctdat <- get_acs(
     state = "WA",
     county = "King",
     geometry = TRUE,
-    survey = "acs5"
+    survey = "acs5",
+    progress_bar = FALSE
 )
 ```
 
@@ -493,17 +606,15 @@ m %>% addTiles()
 ```
 
 ### Creating population pyramids from census data
-See [Estimates of population characteristics](https://walker-data.com/tidycensus/articles/other-datasets.html#estimates-of-population-characteristics-1)
+See [Estimates of population characteristics](https://walker-data.com/tidycensus/articles/other-datasets.html#estimates-of-population-characteristics-1).
 
-Refer back to 533 Week 2 age structure; Week 7 interpreting age structure
+Refer also back to CSDE 533 Week 2 age structure; Week 7 interpreting age structure.
 
+## Easier regular expressions with `RVerbalExpressions` {#rverbalexpressions}
 
-
-
-## Easier regular expressions with `RVerbalExpressions`
 Regular expressions are powerful but take some time and trial-and-error to master. The `RVerbalExpresions` package can be used to more easily generate regular expressions. See the help for `rx()` and associated functions.
 
-These examples show two constructions of regular expressions for matching two similar but different URLs.
+These examples show two constructions of regular expressions for matching two similar but different URLs. First we build a regex using easy-to-understand controls:
 
 ```{r}
 library(RVerbalExpressions)
@@ -518,15 +629,22 @@ x <- rx_start_of_line() %>%
 
 # print the expression
 (x)
+```
 
+That regex is then used to try matching against two URLs:
+
+```{r}
 # search for a pattern in some URLs
 urls <- c(
     "http://www.google.com",
     "http://staff.washington.edu/phurvitz/csde502_winter_2021/"
 )
 grepl(pattern = x, x = urls)
+```
 
+We can try a slightly different regex pattern. The former pattern used the less strict `rx_maybe("www.")`, whereas the following pattern uses the more strict `rx_find("www.")`.
 
+```{r}
 # a different pattern
 y <- rx_start_of_line() %>%
     rx_find("http") %>%
@@ -546,11 +664,11 @@ grepl(pattern = y, x = urls)
 ## Quick copy from Excel (Windows only)
 Under Windows, it is possible to copy selected cells from an Excel worksheet directly to R. This is not an endorsement for using Excel, but there are some cases in which Excel may be able to produce some quick data that you don't want to develop in other ways.
 
-As a demonstration, you can use [analysis.xlsx](files/words_analysis.xlsx). Download and open the file. Here is shown a selection of cells that was copied. 
+As a demonstration, you can use [analysis.xlsx](files/words_analysis.xlsx). Download and open the file. Select and copy a block of cells. Here is shown a selection of cells that was copied for this example. 
 
 ![](images/week09/excel.png)
 
-The code below shows how the data can be copied.
+The code below shows how the data can be copied. The Windows clipboard can be used as a "file" in the `read.table()` tab-delimited function.
 
 ```{r, echo=FALSE}
 xlsclip <- fst::read.fst("files/xlsclip.fst")
@@ -580,16 +698,17 @@ xlsclip %>%
 R can run arbitrary system commands that you would normally run in a terminal or command window. The `system()` function is used to run commands, optionally with the results returned as a character vector. Under Mac and Linux, the usage is quite straightforward, for example, to list files in a specific directory:
 
 ```
-tempdirfiles <- system("ls `r tempdir()`", intern = TRUE)
+tempdirfiles <- system("ls $TEMP", intern = TRUE)
 ```
 
 Under Windows, it takes a bit of extra code. To do the same requires the prefix `cmd /c` in the `system()` call before the command itself. Also any backslashes in path names need to be specified as double-backslashes for R.
 
 ```{r}
+library(magrittr)
 # R prefers and automatically generates forward slashes
 tmpdir <- dirname(tempdir())
 
-# OS
+# what is the OS
 os <- .Platform$OS.type
 
 # construct a system command
@@ -597,7 +716,9 @@ os <- .Platform$OS.type
 if (os == "windows") {
     # under Windows, path delimiters are backslashes so need to be rendered in R as double backslashes
     tmpdir %<>% str_replace_all("/", "\\\\")
+    # formulate the command
     cmd <- sprintf("cmd /c dir %s", tmpdir)
+    # run the command
     tempdirfiles <- system(command = cmd, intern = TRUE)
 }
 
@@ -608,7 +729,7 @@ if (os == "unix") {
 }
 ```
 
-If you are running other programs or utilities that are executed in a terminal or command window, this can be very helpful.
+If you are running other programs or utilities that are executed in a terminal or command window, this can be very helpful. Use `intern = TRUE` to return the results of the command as an object in the R environment.
 
 ## Code styling
 Good code should meet at least the two functional requirements of getting the job done and being able able to read. Code that gets the job done but that is not easy to read will cause problems later when you try to figure out how or why you did something.
@@ -626,15 +747,101 @@ It may be helpful in troubleshooting or complete documentation to report the com
 sessionInfo()
 ```
 
-## Comment out Rmd/HTML code
-To comment out entire parts of your Rmd so they do not appear in your rendered HTML, use HTML comments, which are specified with the delimiters `<!--` and `-->`.
+## Commenting out Rmd/HTML code
+To comment out entire parts of your Rmd so they do not appear in your rendered HTML, use HTML comments, which are specified with the delimiters `<!--` and `-->`. For example, you will not see anything between these two blocks of angle brackets in the HTML output, but if you look at the complete code for the Rmd file that generated this document (below), you will get a treat.
+
+<!--
+from https://www.gnu.org/fun/jokes/error-haiku.txt:
+
+IMAGINE IF INSTEAD OF CRYPTIC TEXT STRINGS,
+YOUR COMPUTER PRODUCED ERROR MESSAGES IN HAIKU...
+
+ A file that big?
+ It might be very useful.
+ But now it is gone.
+  - - - - - - - - - - - -
+ Yesterday it worked
+ Today it is not working
+ Windows is like that
+  - - - - - - - - - - - -
+ Stay the patient course
+ Of little worth is your ire
+ The network is down
+  - - - - - - - - - - - -
+ Three things are certain:
+ Death, taxes, and lost data.
+ Guess which has occurred.
+  - - - - - - - - - - - -
+ You step in the stream,
+ but the water has moved on.
+ This page is not here.
+  - - - - - - - - - - - -
+ Out of memory.
+ We wish to hold the whole sky,
+ But we never will.
+  - - - - - - - - - - - -
+ Having been erased,
+ The document you're seeking
+ Must now be retyped.
+  - - - - - - - - - - - -
+ Rather than a beep
+ Or a rude error message,
+ These words: "File not found."
+  - - - - - - - - - - - -
+ Serious error.
+ All shortcuts have disappeared.
+ Screen. Mind. Both are blank.
+  - - - - - - - - - - - -
+ The Web site you seek
+ cannot be located but
+ endless more exist.
+  - - - - - - - - - - - -
+ Chaos reigns within.
+ Reflect, repent, and reboot.
+ Order shall return.
+  - - - - - - - - - - - -
+ ABORTED effort:
+ Close all that you have.
+ You ask way too much.
+  - - - - - - - - - - - -
+ First snow, then silence.
+ This thousand dollar screen dies
+ so beautifully.
+  - - - - - - - - - - - -
+ With searching comes loss
+ and the presence of absence:
+ "My Novel" not found.
+  - - - - - - - - - - - -
+ The Tao that is seen
+ Is not the true Tao, until
+ You bring fresh toner.
+  - - - - - - - - - - - -
+ Windows NT crashed.
+ I am the Blue Screen of Death.
+ No one hears your screams.
+  - - - - - - - - - - - -
+ A crash reduces
+ your expensive computer
+ to a simple stone.
+  - - - - - - - - - - - -
+ Error messages
+ cannot completely convey.
+ We now know shared loss.
+
+             -- Anonymous Author
+-->
 
 <hr>
 Rendered at <tt>`r Sys.time()`</tt>
 
-<h4>Source code for this document</h4>
-[09-week09.Rmd](09-week09.Rmd)
+## Source code
+File is at `r fnamestr`.
 
+### R code used in this document
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+```
+
+### Complete Rmd code
 ```{r comment=''}
-cat(readLines(con = "09-week09.Rmd"), sep = "\n")
+cat(readLines(fnamepath), sep = '\n')
 ```

@@ -9,6 +9,9 @@ table_nums <- captioner(prefix = "Table")
 # path to this file name
 if (!interactive()) {
     fnamepath <- current_input(dir = TRUE)
+    fnamestr <- paste0(Sys.getenv("COMPUTERNAME"), ": ", fnamepath)
+} else {
+    fnamepath <- ""
 }
 ```
 
@@ -24,6 +27,8 @@ This week we will be covering two topics:
 
 * [Human Fertility Database (age-specific rates and summary indicators)](#hmdrevisit)
 * [Git](#git)
+
+Download [template.Rmd.txt](files/template.Rmd.txt) as a template for this lesson. Save in in your working folder for the course, renamed to `week_05.Rmd` (with no `.txt` extension). Make any necessary changes to the YAML header.
 
 ## Human Fertility Database (age-specific rates and summary indicators) {#hmdrevisit}
 CSDE 533 will be looking more at the Human Fertility Database (HFD). This brief section will cover the HFD in a bit more detail than in [Week 2](#datasets002)
@@ -498,7 +503,7 @@ This was a brief introduction to the main functionality of Git with RStudio and 
 Rendered at <tt>`r Sys.time()`</tt>
 
 ## Source code
-File is at `r fnamepath`.
+File is at `r fnamestr`.
 
 ### R code used in this document
 ```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}

@@ -11,11 +11,22 @@ library(ggplot2)
 
 # URL home
 urlhome <- ""
+
+# path to this file name
+if (!interactive()) {
+    fnamepath <- current_input(dir = TRUE)
+    fnamestr <- paste0(Sys.getenv("COMPUTERNAME"), ": ", fnamepath)
+} else {
+    fnamepath <- ""
+}
 ```
 
 <h2>Topic: Odds and ends</h2>
 
 This week's lesson will cover some additional R odds and ends.
+
+Download [template.Rmd.txt](files/template.Rmd.txt) as a template for this lesson. Save in in your working folder for the course, renamed to `week_10.Rmd` (with no `.txt` extension). Make any necessary changes to the YAML header.
+
 
 ## R Markdown to Microsoft Word
 Microsoft Word ("Word"), is used widely to document research. Because of its advanced word processing and "track changes" capabilities, it is commonly used for preparation of manuscripts. Using R to generate output for Word is often a tedious process (e.g., create CSV files $\rightarrow$ paste the contents $\rightarrow$ convert to table; export R graphics with `png()` or `ggsave()` $\rightarrow$ insert the file).  
@@ -119,7 +130,8 @@ output:
 
 The RStudio interface will present the listed choices in the `Knit` pick list in the GUI, so the desired output format can be selected interactively:
 
-<img src="../images/week03/20210124_010442-C__Users_phurvitz_OneDrive_uw_courses_csde502_csde502_winter_2021_course - RStud.png" class="border1">
+
+![](images/week10/2022-03-11 13_20_25-R__Project_CSDE502_2022_csde502-winter-2022-main - master - RStudio.png)
 
 Other supported outputs can be created, including those that are not listed in the YAML header by specifying the output format in the `render()` function, e.g. to create a [Slidy](https://www.w3.org/Talks/Tools/Slidy2/#(1)) presentation: 
 
@@ -146,7 +158,7 @@ whereas the [PDF output](files/output_type_test.pdf) is rendered as
 
 There appears to be no similar test for MS Word output, so for creating Word documents from Rmd files, it is suggested to create the Rmd from scratch with the intention of creating only Word output.
 
-## Advantages and disadvantages of PDF
+### Advantages and disadvantages of PDF
 Portable document format (PDF) has a number of advantages:
 
 1. Document formatting is maintained. Font face and positioning of elements is consistent. When some other formats are shared (e.g., MS Word), formatting is inconsistent. 
@@ -158,6 +170,7 @@ Portable document format (PDF) has a number of advantages:
 1. The format has stood the test of time, having been introduced 1993. The standard was opened in 2008, allowing developers to create PDF outputs. This has led to PDF being the standard for fixed-format documents. 
 
 The disadvantages:
+
 1. Direct editing of PDF files is not straightforward (usually requires dedicated software), and often results in undesired layout changes. Therefore this is not a good format for collaborative editing.
 1. Copy-and-paste from PDF often results in missing or extra spaces or strange characters.
 1. R functions that produce HTML output cannot be used in PDF outputs.
@@ -186,8 +199,14 @@ When citations are made to references, the corresponding record will be automati
 
 For examples of syntax for both APA-like and AMA-like references and bibliographies, see the files 
 
-* APA: [HTML](files/bibliography.html); [Rmd](files/bibliography.Rmd)
-* AMA: [HTML](files/bibliography_ama.html); [Rmd](files/bibliography_ama.Rmd)
+* APA: [HTML](files/bibliography.html); [Rmd](files/bibliography.Rmd.txt)
+* AMA: [HTML](files/bibliography_ama.html); [Rmd](files/bibliography_ama.Rmd.txt)
+
+### Notes for creating output from the examples
+
+1. The Rmd files after downloading should be renamed from `....Rmd.txt` to `....Rmd`.
+1. Download the file [pmh.bib](files/pmh.bib) and save it in the same folder where the Rmd files are saved.
+1. To create the AMA format output, download the [Biomed Central citation style language file](files/biomed-central.csl)  to the same folder as the other files.
 
 <hr>
 Rendered at <tt>`r Sys.time()`</tt>

@@ -20,13 +20,18 @@ figure_nums <- captioner(prefix = "Figure")
 # path to this file name
 if (!interactive()) {
     fnamepath <- current_input(dir = TRUE)
+    fnamestr <- paste0(Sys.getenv("COMPUTERNAME"), ": ", fnamepath)
+} else {
+    fnamepath <- ""
 }
 ```
 
 <h2>Topic: Add Health data: variable creation and tabulation</h2>
 This week's lesson will provide more background on variable creation and tabulation of variables.
 
-First, download the [template file](https://raw.githubusercontent.com/CSDE-UW/csde502-winter-2022/master/docs/files/template.Rmd) and save it in your course working folder as `week_07.Rmd`. Make changes to the title and author as you see fit. Also make sure these packages are loaded:
+Download [template.Rmd.txt](files/template.Rmd.txt) as a template for this lesson. Save in in your working folder for the course, renamed to `week_07.Rmd` (with no `.txt` extension). Make any necessary changes to the YAML header.
+
+Also make sure these packages are loaded:
 
 ```
 pacman::p_load(
@@ -820,7 +825,7 @@ ggplot(data = bmi_race, mapping = aes(x = obsrace, y = `%`, fill = bmiclass)) +
 Rendered at <tt>`r Sys.time()`</tt>
 
 ## Source code
-File is at `r fnamepath`.
+File is at `r fnamestr`.
 
 ### R code used in this document
 ```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}

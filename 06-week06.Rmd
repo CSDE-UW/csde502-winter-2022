@@ -2,7 +2,6 @@
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 pacman::p_load(
-    tidyverse,
     magrittr,
     knitr,
     kableExtra,
@@ -12,7 +11,8 @@ pacman::p_load(
     captioner,
     dplyr, 
     magrittr,
-    scales
+    scales,
+    tidyverse
 )
 
 figure_nums <- captioner(prefix = "Figure")
@@ -21,6 +21,9 @@ table_nums <- captioner(prefix = "Table")
 # path to this file name
 if (!interactive()) {
     fnamepath <- current_input(dir = TRUE)
+    fnamestr <- paste0(Sys.getenv("COMPUTERNAME"), ": ", fnamepath)
+} else {
+    fnamepath <- ""
 }
 ```
 <h2>Topics: Cohort Component Method of Population Projection; Add Health Study data (exploring variables and data documentation)</h2>
@@ -30,8 +33,7 @@ This week we will be covering two topics:
 * [Cohort Component Method of Population Projection (CCMPP)](#ccmpp)
 * [Add Health Study data: exploring variables and data documentation](#addhealthmetadata)
 
-First, download the [template Rmd file](files/template.Rmd) and save it in your course working folder as `week_06.Rmd`. Make changes to the title and author as you see fit.
-
+Download [template.Rmd.txt](files/template.Rmd.txt) as a template for this lesson. Save in in your working folder for the course, renamed to `week_06.Rmd` (with no `.txt` extension). Make any necessary changes to the YAML header.
 
 ### Cohort Component Method of Population Projection (CCMPP) {#ccmpp}
 The `ccmpp` package implements the cohort component method of population projection (CCMPP) described in this section. We will follow the first half of the excellent [CCMPP vignette](https://ihmeuw-demographics.github.io/demCore/articles/ccmpp.html) for this package, which gives a worked example of projection Thailand population from 1960 through 2000 using a baseline population for the year 1960.
@@ -332,7 +334,7 @@ head(x = AHwave1_v1_rs13$imonth, n = 6)
 ```{r}
 AHwave1_v1_rs13 %>% 
     head(10) %>% 
-    filter(imonth == "(6) June") %>% 
+    dplyr::filter(imonth == "(6) June") %>% 
     select(aid, imonth, iday)
 ```
 
@@ -561,7 +563,10 @@ f_pdf_str_match <- function(x, pat, ignore.case = TRUE){
 }
 
 # a list of my PDFs
-mypdfs <- list.files(path = "data/metadata/Wave1_InHome_Codebooks", pattern = "*.pdf$", full.names = TRUE)
+mypdfs <- list.files(path = "data/metadata/Wave1_InHome_Codebooks", 
+                     pattern = "*.pdf$", 
+                     full.names = TRUE,
+                     ignore.case = TRUE)
 
 # an empty data frame
 x <- NULL
@@ -572,7 +577,8 @@ for(i in mypdfs){
 }
 
 # ignore NAs
-x %>% filter(!is.na(page_num))
+x %>% 
+    dplyr::filter(!is.na(page_num))
 
 ```
 
@@ -583,7 +589,7 @@ We will use these data sets and metadata for the next several lessons. The metho
 Rendered at <tt>`r Sys.time()`</tt>
 
 ## Source code
-File is at `r fnamepath`.
+File is at `r fnamestr`.
 
 ### R code used in this document
 ```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
